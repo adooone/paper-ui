@@ -1,0 +1,47 @@
+@use '../../styles/tokens' as *;
+
+.page {
+  position: relative;
+  background-color: $color-bg-base;
+  min-height: 100%;
+  padding: $space-8;
+  font-size: $font-size-base;
+  line-height: $line-height-grid;
+  max-width: 80rem;
+  margin: 0 auto;
+  border-radius: $radius-md;
+  box-shadow: $shadow-paper-md;
+
+  > * + * {
+    margin-top: $space-8;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    line-height: $line-height-grid;
+  }
+}
+
+.withAccent {
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    top: -80px;
+    right: -80px;
+    filter: blur($watercolor-blur-lg);
+    mix-blend-mode: multiply;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.08;
+  }
+}
+
+.accentBlue::before { background: radial-gradient(circle, $color-accent-blue-light 0%, transparent 70%); }
+.accentGreen::before { background: radial-gradient(circle, $color-accent-green-light 0%, transparent 70%); }
+.accentAmber::before { background: radial-gradient(circle, $color-accent-amber-light 0%, transparent 70%); }
+.accentRose::before { background: radial-gradient(circle, $color-accent-rose-light 0%, transparent 70%); }
+.accentSlate::before { background: radial-gradient(circle, $color-accent-slate-light 0%, transparent 70%); }

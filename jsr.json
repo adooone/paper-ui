@@ -1,0 +1,29 @@
+{
+  "name": "@croco-dendy/paper-ui",
+  "version": "0.1.0",
+  "exports": {
+    ".": "./src/index.ts",
+    "./tailwind": "./tailwind.ts",
+    "./styles": "./src/styles/index.ts"
+  },
+  "publish": {
+    "include": [
+      "src",
+      "tailwind.ts",
+      "tailwind.config.js",
+      "postcss.config.js",
+      "CHANGELOG.md",
+      "LICENSE",
+      "README.md"
+    ],
+    "exclude": [
+      "**/*.test.ts",
+      "**/*.test.tsx",
+      "**/*.spec.ts",
+      "**/*.spec.tsx",
+      "node_modules",
+      "dist",
+      ".turbo"
+    ]
+  }
+}

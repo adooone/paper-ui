@@ -1,0 +1,19 @@
+@use '../../styles/tokens' as *;
+
+.tabs {
+  display: flex;
+  flex-direction: column;
+}
+
+.tabBar {
+  display: flex;
+  gap: $space-1;
+}
+
+.tabButton {
+  flex: 0 0 auto;
+}
+
+.content {
+  margin-top: $space-2;
+}

@@ -1,0 +1,179 @@
+@use '../../styles/tokens' as *;
+
+.cell {
+  position: relative;
+}
+
+/* ─── Toggle ─── */
+
+.toggle {
+  font-family: $font-family-mono;
+  font-size: $font-size-2xs;
+  padding: 2px 10px;
+  border-radius: 4px;
+  border: 1px solid $color-border-medium;
+  background: $color-surface-tint;
+  color: $color-text-tertiary;
+  cursor: pointer;
+  transition: background 150ms ease, color 150ms ease, border-color 150ms ease;
+
+  &:hover {
+    background: $color-border-subtle;
+  }
+}
+
+.toggleActive {
+  background: $color-toggle-active-bg;
+  border-color: $ghost-active-hover;
+  color: $color-chalkboard-toggle-active;
+}
+
+.chalkToggle {
+  font-size: $font-size-xs-alt;
+  border-color: $chalkboard-border-15;
+  background: $chalkboard-border-06;
+  color: $color-chalkboard-muted;
+}
+
+.chalkToggleActive {
+  background: rgba($color-chalkboard-chalk, 0.12);
+  border-color: rgba($color-chalkboard-chalk, 0.25);
+  color: $color-chalkboard-chalk;
+}
+
+/* ─── Input ─── */
+
+.input {
+  font-family: $font-family-mono;
+  font-size: $font-size-2xs;
+  padding: 2px 8px;
+  border-radius: 4px;
+  border: 1px solid $color-border-medium;
+  background: rgba($color-bg-surface, 0.6);
+  color: $color-text-primary;
+  width: 100%;
+  max-width: 180px;
+  outline: none;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+
+  &::placeholder {
+    color: $color-text-tertiary;
+  }
+
+  &:focus {
+    border-color: $color-input-focus-border;
+    box-shadow: 0 0 0 2px $color-input-focus-shadow;
+  }
+
+  &[type='number'] {
+    max-width: 100px;
+  }
+}
+
+.chalkInput {
+  font-size: $font-size-xs-alt;
+  border-color: $color-chalkboard-border;
+  background: rgba($color-chalkboard-bg, 0.6);
+  color: $color-chalkboard-chalk;
+
+  &::placeholder {
+    color: $color-chalkboard-muted;
+  }
+
+  &:focus {
+    border-color: rgba($color-chalkboard-chalk, 0.4);
+    box-shadow: 0 0 0 2px rgba($color-chalkboard-chalk, 0.1);
+  }
+}
+
+/* ─── Dropdown ─── */
+
+.dropdownToggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: $font-family-mono;
+  font-size: $font-size-xs-alt;
+  color: $color-canvas-700;
+  background: rgba($color-canvas-700, 0.08);
+  border: 1px solid rgba($color-canvas-700, 0.2);
+  border-radius: 4px;
+  padding: 2px 8px 2px 10px;
+  cursor: pointer;
+  transition: background 150ms ease, border-color 150ms ease;
+
+  &:hover {
+    background: rgba($color-canvas-700, 0.14);
+    border-color: rgba($color-canvas-700, 0.35);
+  }
+}
+
+.chevron {
+  flex-shrink: 0;
+  stroke: currentColor;
+  transition: transform 150ms ease;
+}
+
+.chevronOpen {
+  transform: rotate(180deg);
+}
+
+.dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  min-width: 100%;
+  background: $color-bg-surface;
+  border: 1px solid $color-border-default;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px $color-border-default;
+  z-index: 20;
+  padding: 4px 0;
+  animation: fadeIn 120ms ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.dropdownItem {
+  font-family: $font-family-mono;
+  font-size: $font-size-xs-alt;
+  color: $color-text-secondary;
+  padding: 6px 12px;
+  cursor: default;
+
+  &:hover {
+    background: $ghost-hover-fill;
+    color: $color-text-primary;
+  }
+}
+
+.chalkDropdownToggle {
+  font-size: $font-size-xs-alt;
+  color: $color-chalkboard-chalk;
+  background: $chalkboard-border-08;
+  border-color: $chalkboard-border-15;
+
+  &:hover {
+    background: $chalkboard-border-15;
+    border-color: $chalkboard-border-25;
+  }
+}
+
+.chalkDropdown {
+  background-color: $color-chalkboard-surface;
+  border-color: $color-chalkboard-border;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.chalkDropdownItem {
+  font-size: $font-size-xs-alt;
+  color: $color-chalkboard-text;
+
+  &:hover {
+    background: $chalkboard-border-12;
+    color: $color-chalkboard-chalk;
+  }
+}

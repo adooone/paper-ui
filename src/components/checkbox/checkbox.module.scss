@@ -1,0 +1,157 @@
+@use '../../styles/tokens' as *;
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  gap: $space-4;
+  cursor: pointer;
+  user-select: none;
+
+  &:hover .blobFill {
+    fill: rgba($color-accent-blue, 0.18);
+  }
+
+  &:hover .input:checked ~ .blobBg .blobFill {
+    fill: $color-primary-hover;
+  }
+}
+
+.labelLeft {
+  flex-direction: row-reverse;
+}
+
+.input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+
+  &:focus-visible ~ .box {
+    outline: 2px dotted $color-text-tertiary;
+    outline-offset: 2px;
+  }
+
+  &:checked ~ .box {
+    border-color: $color-text-primary;
+
+    .checkmark {
+      stroke-dashoffset: 0;
+    }
+
+    .indeterminateLine {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  &:checked ~ .blobBg .blobFill {
+    fill: $color-canvas-base;
+  }
+
+  &:disabled ~ .box {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+}
+
+.boxWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+}
+
+.blobBg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.blobFill {
+  transition: fill 250ms ease;
+  fill: transparent;
+}
+
+.box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background-color: transparent;
+  border: 2px solid $color-text-secondary;
+  border-radius: 5px 4px 6px 5px;
+  transition: all 200ms ease-out;
+  position: relative;
+  z-index: 1;
+
+  &:hover {
+    border-color: $color-text-primary;
+    box-shadow: $shadow-ink-sm;
+  }
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+  color: $color-text-primary;
+}
+
+.checkmark {
+  stroke-dasharray: 36;
+  stroke-dashoffset: 36;
+  transition: stroke-dashoffset 200ms ease-out;
+}
+
+.indeterminateLine {
+  stroke-dasharray: 20;
+  stroke-dashoffset: 20;
+  transition: stroke-dashoffset 200ms ease-out;
+}
+
+.labelText {
+  font-family: $font-family-serif;
+  font-size: $font-size-base;
+  font-weight: 400;
+  color: $color-text-secondary;
+  line-height: $line-height-normal;
+}
+
+.chalkboard {
+  .labelText {
+    color: $color-chalkboard-muted;
+  }
+
+  .box {
+    border-color: rgba(200, 210, 195, 0.3);
+
+    &:hover {
+      border-color: $color-chalkboard-chalk;
+    }
+  }
+
+  .icon {
+    color: $color-chalkboard-chalk;
+  }
+
+  .blobFill {
+    display: none;
+  }
+
+  .input:focus-visible ~ .box {
+    outline-color: $color-chalkboard-chalk;
+  }
+
+  .input:checked ~ .box {
+    border-color: $color-chalkboard-chalk;
+  }
+}

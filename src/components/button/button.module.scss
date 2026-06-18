@@ -1,0 +1,216 @@
+@use '../../styles/tokens' as *;
+
+.button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-2;
+  border: none;
+  cursor: pointer;
+  font-family: var(--paper-button-font, $font-family-serif);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  line-height: 1.2;
+  color: $color-text-primary;
+  transition: color 250ms ease, filter 250ms ease;
+  overflow: visible;
+  background: transparent;
+
+  &:focus-visible {
+    outline: 2px solid $color-accent-slate;
+    outline-offset: 3px;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    filter: none;
+  }
+}
+
+.blobBg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.blobFill {
+  transition: fill 250ms ease;
+}
+
+.blobRing {
+  fill: none;
+  stroke: $button-ring-stroke;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0;
+  transition: opacity 350ms ease 50ms;
+}
+
+.button:hover .blobRing {
+  opacity: 1;
+}
+
+.button:active .blobRing {
+  stroke: $button-ring-stroke-active;
+}
+
+.isActive .blobRing {
+  opacity: 1;
+}
+
+.primary .blobFill {
+  fill: $color-canvas-base;
+}
+
+.primary:hover .blobFill {
+  fill: $color-primary-hover;
+}
+
+.primary:active .blobFill {
+  fill: $color-primary-active;
+}
+
+.isActive.primary .blobFill {
+  fill: $color-primary-hover;
+}
+
+.isActive.primary:hover .blobFill {
+  fill: $color-primary-active;
+}
+
+.secondary .blobFill {
+  fill: $color-bg-surface;
+}
+
+.secondary:hover .blobFill {
+  fill: $color-secondary-hover;
+}
+
+.secondary:active .blobFill {
+  fill: $color-secondary-active;
+}
+
+.isActive.secondary .blobFill {
+  fill: $color-secondary-hover;
+}
+
+.isActive.secondary:hover .blobFill {
+  fill: $color-secondary-active;
+}
+
+.ghost {
+  color: $color-text-secondary;
+}
+
+.ghost .blobFill {
+  fill: transparent;
+}
+
+.ghost:hover .blobFill {
+  fill: $ghost-hover-fill;
+}
+
+.ghost:active .blobFill {
+  fill: $ghost-active-fill;
+}
+
+.ghost .blobRing {
+  stroke: $ghost-border;
+}
+
+.isActive.ghost .blobFill {
+  fill: $ghost-active-strong;
+}
+
+.isActive.ghost:hover .blobFill {
+  fill: $ghost-active-hover;
+}
+
+.danger {
+  color: $color-accent-rose-dark;
+}
+
+.danger .blobFill {
+  fill: $color-canvas-base;
+}
+
+.danger:hover .blobFill {
+  fill: $color-danger-hover;
+}
+
+.danger:active .blobFill {
+  fill: $color-danger-active;
+}
+
+.isActive.danger .blobFill {
+  fill: $color-danger-hover;
+}
+
+.isActive.danger:hover .blobFill {
+  fill: $color-danger-active;
+}
+
+.chalkboard {
+  color: $color-chalkboard-chalk;
+
+  .blobFill {
+    display: none;
+  }
+
+  .blobRing {
+    stroke: $chalkboard-ring-stroke;
+    stroke-width: 2.2;
+  }
+
+  &:active .blobRing {
+    stroke: $chalkboard-ring-stroke-active;
+  }
+
+  &.ghost .blobRing {
+    stroke: $chalkboard-ring-ghost;
+  }
+
+  &.danger {
+    color: $color-chalkboard-rose;
+  }
+}
+
+.small {
+  padding: $space-2 $space-4;
+  font-size: $font-size-base;
+}
+
+.medium {
+  padding: $space-3 $space-6;
+  font-size: $font-size-lg;
+}
+
+.large {
+  padding: $space-4 $space-8;
+  font-size: $font-size-xl;
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+.iconLeft,
+.iconRight {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.label {
+  position: relative;
+  z-index: 1;
+}

@@ -1,0 +1,210 @@
+@use '../../styles/tokens' as *;
+@use '../../styles/mixins' as *;
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  height: 100%;
+  width: 100%;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 48px;
+  padding: 0 $space-6;
+  background-color: $color-bg-surface;
+  background-image: url($speckle-texture-data-uri);
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  border-bottom: 1px solid $color-border-default;
+  box-shadow: $shadow-paper-sm;
+  flex-shrink: 0;
+  position: relative;
+  z-index: $z-sticky;
+}
+
+.headerLeft {
+  display: flex;
+  align-items: baseline;
+  gap: $space-3;
+}
+
+.headerTitles {
+  display: flex;
+  align-items: baseline;
+  gap: $space-3;
+}
+
+.headerTitle {
+  font-family: $font-family-serif;
+  font-size: $font-size-md;
+  font-weight: $font-weight-semibold;
+  color: $color-text-primary;
+  margin: 0;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.headerSubtitle {
+  font-family: $font-family-serif;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-normal;
+  color: $color-text-tertiary;
+  margin: 0;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+}
+
+.mobileToggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: $radius-md;
+  background: transparent;
+  border: none;
+  color: $color-text-secondary;
+  cursor: pointer;
+  transition: all $transition-fast;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+    color: $color-text-primary;
+  }
+
+  @media (min-width: 768px) {
+    display: none;
+  }
+}
+
+.body {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  position: relative;
+}
+
+.mobileOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(26, 25, 23, 0.4);
+  backdrop-filter: blur(4px);
+  z-index: $z-overlay;
+}
+
+.sidebar {
+  width: 240px;
+  flex-shrink: 0;
+  padding: 32px;
+  position: sticky;
+  top: 0;
+  align-self: stretch;
+  height: 100%;
+  overflow-y: auto;
+
+  @media (max-width: 767px) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 280px;
+    height: 100vh;
+    padding: 32px;
+    background-color: $color-bg-base;
+    background-image: url($paper-texture-data-uri);
+    background-repeat: repeat;
+    background-size: 200px 200px;
+    box-shadow: $shadow-paper-lg;
+    transform: translateX(-100%);
+    transition: transform 300ms ease-out;
+    z-index: $z-fixed;
+  }
+}
+
+.sidebarOpen {
+  transform: translateX(0);
+}
+
+.sidebarInner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.logoArea {
+  height: 32px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.logoText {
+  font-family: $font-family-serif;
+  font-size: 1.25rem;
+  font-weight: $font-weight-bold;
+  color: $color-text-primary;
+  letter-spacing: 0.02em;
+  line-height: 32px;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  flex: 1;
+  margin-top: 32px;
+}
+
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.navigationIslandWrapper {
+  padding: 24px 32px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.content {
+  flex: 1;
+  padding: 32px;
+  overflow-y: auto;
+  line-height: 32px;
+}
+
+.contentWithPage {
+  flex: 1;
+  padding: 24px 32px;
+  overflow-y: auto;
+  line-height: 32px;
+}
+
+.footer {
+  padding: 20px 32px;
+  background-color: $color-bg-surface;
+  background-image: url($paper-texture-data-uri);
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  border-top: 1px solid $color-border-default;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.footerText {
+  font-family: $font-family-serif;
+  color: $color-text-tertiary;
+  margin: 0;
+}

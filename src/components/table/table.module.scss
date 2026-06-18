@@ -1,0 +1,189 @@
+@use '../../styles/tokens' as *;
+@use '../../styles/mixins' as *;
+
+/* ─── Wrapper ─── */
+
+.tableWrapper {
+  position: relative;
+  border-radius: $radius-md;
+  border: 2px solid $color-border-default;
+  overflow: hidden;
+  box-shadow: $shadow-paper-lg;
+}
+
+/* ─── Toolbar ─── */
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-4;
+  height: 64px;
+  padding: 0 $space-8;
+  background-color: $color-bg-base;
+  background-image: url($paper-texture-data-uri);
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  border-bottom: 1px solid $color-border-subtle;
+  box-sizing: border-box;
+}
+
+.search {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 1;
+  max-width: 280px;
+}
+
+.searchIcon {
+  position: absolute;
+  left: $space-3;
+  color: $color-text-tertiary;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.searchInput {
+  appearance: none;
+  width: 100%;
+  padding: $space-2 $space-3 $space-2 $space-8;
+  color: $color-text-primary;
+  font-family: $font-family-serif;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  line-height: $line-height-tight;
+
+  @include pencil-border(
+    $fill: $color-bg-input,
+    $radius-base: $radius-sm,
+    $radius-variance: 2px
+  );
+
+  &::placeholder {
+    color: $color-text-tertiary;
+    font-weight: $font-weight-normal;
+    font-family: $font-family-handwritten;
+    font-size: $font-size-base;
+  }
+
+  &:focus {
+    @include ink-focus();
+    --pui-wash: rgba($color-accent-slate, 0.06);
+    --pui-dark: rgba($color-accent-slate, 0.45);
+    --pui-light: rgba($color-accent-slate, 0.18);
+  }
+}
+
+.toolbarActions {
+  display: flex;
+  align-items: center;
+  gap: $space-2;
+}
+
+/* ─── Table ─── */
+
+.tableScroll {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  font-family: $font-family-serif;
+  font-size: $font-size-sm;
+  color: $color-text-primary;
+}
+
+/* ─── Base cells ─── */
+
+.th {
+  text-align: left;
+  font-weight: $font-weight-bold;
+  color: $color-text-primary;
+  letter-spacing: $letter-spacing-wide;
+  white-space: nowrap;
+  padding: 0 $space-8;
+  height: 64px;
+  box-sizing: border-box;
+  vertical-align: middle;
+  line-height: $line-height-grid;
+  background-color: $color-bg-elevated;
+  background-image: url($paper-texture-data-uri);
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  border-bottom: 1px solid $color-border-default;
+}
+
+.td {
+  font-family: $font-family-serif;
+  color: $color-text-secondary;
+  padding: 0 $space-8;
+  height: 64px;
+  box-sizing: border-box;
+  vertical-align: middle;
+  line-height: $line-height-grid;
+  border-bottom: 1px solid $color-border-subtle;
+}
+
+.tr:last-child .td {
+  border-bottom: none;
+}
+
+/* ─── Chalkboard variant ─── */
+
+.chalkboardWrapper {
+  border-color: $color-chalkboard-border;
+
+  .toolbar {
+    background-color: $color-chalkboard-surface;
+    background-image: url($chalkboard-texture-data-uri);
+    border-bottom-color: $color-chalkboard-border;
+  }
+
+  .searchIcon {
+    color: $color-chalkboard-muted;
+  }
+
+  .searchInput {
+    color: $color-chalkboard-chalk;
+    font-family: $font-family-mono;
+    font-size: $font-size-xs;
+    background-color: rgba($color-chalkboard-bg, 0.4);
+    background-image: none;
+    border: 1px solid $color-chalkboard-border;
+    border-radius: $radius-sm;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.15);
+
+    &::placeholder {
+      color: $color-chalkboard-muted;
+      font-family: $font-family-handwritten;
+    }
+
+    &:focus {
+      @include ink-focus($color: $color-chalkboard-chalk);
+    }
+  }
+}
+
+.chalkboard {
+  color: $color-chalkboard-text;
+
+  .th {
+    font-family: $font-family-handwritten;
+    font-weight: $font-weight-semibold;
+    font-size: $font-size-base;
+    text-transform: uppercase;
+    letter-spacing: $letter-spacing-wider;
+    color: $color-chalkboard-chalk;
+    background-color: $color-chalkboard-surface;
+    background-image: url($chalkboard-texture-data-uri);
+    border-bottom-color: $color-chalkboard-border;
+  }
+
+  .td {
+    color: $color-chalkboard-text;
+    border-bottom-color: $color-chalkboard-border;
+  }
+}

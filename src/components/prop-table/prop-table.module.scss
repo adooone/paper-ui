@@ -1,0 +1,36 @@
+@use '../../styles/tokens' as *;
+
+.wrapper.wrapper {
+  overflow: visible;
+}
+
+.codeName {
+  font-family: $font-family-mono;
+  font-size: $font-size-xs;
+  color: $color-accent-blue-dark;
+}
+
+.required {
+  color: $color-accent-rose-dark;
+  margin-left: 2px;
+}
+
+.desc {
+  font-family: $font-family-serif;
+  color: $color-text-secondary;
+  font-size: $font-size-sm;
+  line-height: $line-height-normal;
+  display: block;
+}
+
+.chalkCodeName {
+  color: $color-chalkboard-chalk;
+}
+
+.chalkRequired {
+  color: $color-chalkboard-rose;
+}
+
+.chalkDesc {
+  color: $color-chalkboard-text;
+}

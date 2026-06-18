@@ -1,0 +1,67 @@
+@use '../../styles/tokens' as *;
+
+.codeBlock {
+  border-radius: 0.75rem;
+  overflow: hidden;
+  border: 1px solid $color-border-default;
+  width: 100%;
+}
+
+.header {
+  padding: 0.625rem 1.25rem;
+  font-size: $font-size-2xs;
+  font-family: $font-family-mono;
+  border-bottom: 1px solid $color-border-default;
+  background-color: $color-bg-elevated;
+  color: $color-text-secondary;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.relative {
+  position: relative;
+}
+
+.copyOverlay {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  z-index: 10;
+}
+
+.pre {
+  padding: 1.25rem;
+  font-size: $font-size-xs;
+  line-height: 1.625;
+  overflow-x: auto;
+  background-color: $color-code-bg;
+  color: $color-bg-surface;
+  font-family: $font-family-mono;
+  white-space: pre;
+  word-wrap: normal;
+}
+
+.chalkboard {
+  border-color: $color-chalkboard-border;
+  border-radius: 0.5rem;
+}
+
+.chalkboardHeader {
+  background-color: $color-chalkboard-bg;
+  border-bottom-color: $color-chalkboard-border;
+  color: $color-chalkboard-muted-dim;
+  font-family: 'Courier Prime', monospace;
+  font-size: $font-size-sm-alt;
+  letter-spacing: 0.04em;
+}
+
+.chalkboardPre {
+  background-color: $color-chalkboard-bg;
+  color: $color-chalkboard-chalk;
+  font-family: 'Courier Prime', monospace;
+  font-size: $font-size-base-alt;
+  line-height: $line-height-relaxed;
+  padding: 1.25rem 1.5rem;
+  opacity: 0.92;
+}

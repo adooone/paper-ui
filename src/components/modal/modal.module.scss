@@ -1,0 +1,107 @@
+@use '../../styles/tokens' as *;
+@use '../../styles/mixins' as *;
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $space-6;
+  background-color: rgba(26, 25, 23, 0.22);
+  background-image: url($paper-texture-data-uri);
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  z-index: $z-modal-backdrop;
+  animation: fadeIn 200ms ease-out;
+}
+
+.modal {
+  position: relative;
+  background-color: $color-bg-surface;
+  @include organic-radius($radius-lg, 4px);
+  border: 1px solid $color-border-default;
+  box-shadow: $shadow-paper-lg;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: slideUp 250ms ease-out;
+  z-index: $z-modal;
+}
+
+.small { width: 100%; max-width: 360px; }
+.medium { width: 100%; max-width: 480px; }
+.large { width: 100%; max-width: 640px; }
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-4;
+  padding: $space-6 $space-6 0;
+  position: relative;
+  z-index: 1;
+}
+
+.title {
+  font-family: $font-family-serif;
+  font-size: $font-size-xl;
+  font-weight: $font-weight-bold;
+  color: $color-text-primary;
+  line-height: $line-height-tight;
+  margin: 0;
+}
+
+.close {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $space-2;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  @include organic-radius($radius-sm, 1px);
+  color: $color-text-tertiary;
+  transition: color $transition-fast, background $transition-fast;
+  flex-shrink: 0;
+
+  &:hover {
+    color: $color-text-primary;
+    background: rgba(0, 0, 0, 0.04);
+  }
+}
+
+.body {
+  padding: $space-4 $space-6 $space-6;
+  position: relative;
+  z-index: 1;
+}
+
+.chalkboard {
+  background-color: $color-chalkboard-surface;
+  border-color: $color-chalkboard-border;
+
+  .title {
+    color: $color-chalkboard-chalk;
+  }
+
+  .close {
+    color: $color-chalkboard-muted;
+
+    &:hover {
+      color: $color-chalkboard-chalk;
+      background: rgba(200, 210, 195, 0.08);
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}

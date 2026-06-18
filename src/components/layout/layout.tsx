@@ -1,0 +1,214 @@
+import { useState } from 'react';
+import type { ReactNode } from 'react';
+import { Button } from '../button';
+import { Page } from '../page';
+import { cn, buttonSizeCompact } from '../../utils/style-helpers';
+import {
+  getTextureStyles,
+  type TextureConfig,
+  type PaperTextureKey,
+  type RuledType,
+  type RuledColorKey,
+} from '../../utils/textures';
+import styles from './layout.module.scss';
+
+export interface NavigationItem {
+  id: string;
+  label: string;
+  path: string;
+  icon?: ReactNode;
+}
+
+export type LayoutBackground =
+  | 'plain'
+  | PaperTextureKey
+  | { image: string }
+  | {
+      texture: PaperTextureKey;
+      ruledType?: RuledType;
+      ruledColor?: RuledColorKey;
+    };
+
+export interface LayoutProps {
+  children: ReactNode;
+  showHeader?: boolean;
+  showFooter?: boolean;
+  showSidebar?: boolean;
+  showPage?: boolean;
+  background?: LayoutBackground;
+  title?: string;
+  subtitle?: string;
+  headerActions?: ReactNode;
+  navigationItems?: NavigationItem[];
+  activeItemId?: string;
+  onNavigate?: (item: NavigationItem) => void;
+  logo?: ReactNode;
+  footerContent?: ReactNode;
+  navigationIsland?: ReactNode;
+  style?: React.CSSProperties;
+}
+
+function getBackgroundStyles(bg: LayoutBackground | undefined): React.CSSProperties {
+  if (!bg || bg === 'plain') {
+    return { backgroundColor: 'var(--pui-bg-base)' };
+  }
+
+  if (typeof bg === 'object' && 'image' in bg) {
+    return {
+      backgroundImage: `url(${bg.image})`,
+      backgroundRepeat: 'repeat',
+      backgroundSize: '200px 200px',
+    };
+  }
+
+  if (typeof bg === 'object' && 'texture' in bg) {
+    return getTextureStyles({
+      texture: bg.texture,
+      ruledType: bg.ruledType,
+      ruledColor: bg.ruledColor,
+    });
+  }
+
+  return getTextureStyles({ texture: bg });
+}
+
+export function Layout({
+  children,
+  showHeader = true,
+  showFooter = false,
+  showSidebar = true,
+  showPage = true,
+  background = 'paper',
+  title,
+  subtitle,
+  headerActions,
+  navigationItems = [],
+  activeItemId,
+  onNavigate,
+  logo,
+  footerContent,
+  navigationIsland,
+  style,
+}: LayoutProps) {
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  const bgStyles = getBackgroundStyles(background);
+  const hasSidebar = showSidebar && navigationItems.length > 0;
+
+  return (
+    <div className={styles.layout} style={{ ...bgStyles, ...style }}>
+      {showHeader && (
+        <header className={styles.header}>
+          <div className={styles.headerLeft}>
+            {hasSidebar && (
+              <button
+                type="button"
+                className={styles.mobileToggle}
+                onClick={() => setMobileOpen(true)}
+                aria-label="Open navigation"
+              >
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
+                  <path
+                    d="M3 5h14M3 10h14M3 15h14"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </button>
+            )}
+
+            <div className={styles.headerTitles}>
+              {title && <h1 className={styles.headerTitle}>{title}</h1>}
+              {subtitle && <span className={styles.headerSubtitle}>{subtitle}</span>}
+            </div>
+          </div>
+
+          {headerActions && (
+            <div className={styles.headerActions}>{headerActions}</div>
+          )}
+        </header>
+      )}
+
+      <div className={styles.body}>
+        {mobileOpen && (
+          <div
+            className={styles.mobileOverlay}
+            onClick={() => setMobileOpen(false)}
+            aria-hidden="true"
+          />
+        )}
+
+        {hasSidebar && (
+          <aside
+            className={cn(styles.sidebar, mobileOpen && styles.sidebarOpen)}
+            role="navigation"
+            aria-label="Main navigation"
+          >
+            <div className={styles.sidebarInner}>
+              <div className={styles.logoArea}>
+                {logo || <span className={styles.logoText}>Paper UI</span>}
+              </div>
+
+              <nav className={styles.nav}>
+                {navigationItems.map((item) => {
+                  const isActive = item.id === activeItemId;
+                  return (
+                    <Button
+                      key={item.id}
+                      variant="ghost"
+                      size="small"
+                      isActive={isActive}
+                      onClick={() => {
+                        onNavigate?.(item);
+                        setMobileOpen(false);
+                      }}
+                      aria-current={isActive ? 'page' : undefined}
+                      icon={item.icon}
+                      style={buttonSizeCompact}
+                    >
+                      {item.label}
+                    </Button>
+                  );
+                })}
+              </nav>
+            </div>
+          </aside>
+        )}
+
+        <div className={styles.main}>
+          {navigationIsland && (
+            <div className={styles.navigationIslandWrapper}>
+              {navigationIsland}
+            </div>
+          )}
+
+          <main className={showPage ? styles.contentWithPage : styles.content}>
+            {showPage ? (
+              <Page withTexture>
+                {children}
+              </Page>
+            ) : (
+              children
+            )}
+          </main>
+        </div>
+      </div>
+
+      {showFooter && (
+        <footer className={styles.footer}>
+          {footerContent || (
+            <p className={styles.footerText}>
+              Paper UI — Natural Materials Component Library
+            </p>
+          )}
+        </footer>
+      )}
+    </div>
+  );
+}

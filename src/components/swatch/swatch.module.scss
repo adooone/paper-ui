@@ -1,0 +1,32 @@
+@use '../../styles/tokens' as *;
+
+.swatch {
+  border-radius: 0.75rem;
+  border: 2px solid rgba(61, 53, 43, 0.12);
+  transition: all 200ms ease;
+  flex-shrink: 0;
+  cursor: pointer;
+  background: transparent;
+  padding: 0;
+}
+
+.active {
+  border-color: $color-accent-blue;
+  box-shadow: 0 4px 6px $color-border-subtle;
+  transform: scale(1.1);
+}
+
+.disabled {
+  opacity: 0.35;
+  filter: grayscale(100%);
+  cursor: not-allowed;
+}
+
+.chalkboard {
+  border-color: $color-chalkboard-border;
+
+  &.active {
+    border-color: $color-chalkboard-chalk;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25);
+  }
+}

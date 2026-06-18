@@ -1,0 +1,31 @@
+@use '../../styles/tokens' as *;
+
+.island {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 50;
+  display: inline-flex;
+  align-items: center;
+  gap: $space-4;
+  padding: $space-3 $space-5;
+  border-radius: $radius-xl;
+  background-color: $color-canvas-300;
+  background-image: url($kraft-texture-data-uri);
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  border: 1px solid $color-border-default;
+  box-shadow:
+    0 10px 15px rgba(61, 53, 43, 0.1),
+    0 4px 6px rgba(61, 53, 43, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.chalkboard {
+  border-color: $color-chalkboard-border;
+  box-shadow:
+    0 10px 15px rgba(0, 0, 0, 0.25),
+    0 4px 6px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(200, 210, 195, 0.1);
+}
