@@ -119,7 +119,7 @@
 }
 
 .labelText {
-  font-family: $font-family-serif;
+  font-family: var(--paper-font-default, $font-family-serif);
   font-size: $font-size-base;
   font-weight: 400;
   color: $color-text-secondary;

@@ -1,0 +1,56 @@
+@use '../../styles/tokens' as *;
+
+.icon {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: visible;
+}
+
+.blobBg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.blobFill {
+  fill: $color-canvas-base;
+}
+
+.blobRing {
+  fill: none;
+  stroke: $button-ring-stroke;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.5;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $color-text-primary;
+}
+
+.small {
+  width: 36px;
+  height: 36px;
+}
+
+.medium {
+  width: 44px;
+  height: 44px;
+}
+
+.large {
+  width: 52px;
+  height: 52px;
+}

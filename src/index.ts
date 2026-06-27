@@ -55,4 +55,33 @@ export { Modal } from './components/modal';
 export type { ModalProps } from './components/modal';
 
 export { Table } from './components/table';
-export type { TableProps, TableColumn, TableToolbar } from './components/table';
+export type {
+  TableProps,
+  TableColumn,
+  TableToolbar,
+  TableBoardColumn,
+  TableAccentColor,
+  TableVariant,
+} from './components/table';
+
+export { Textarea } from './components/textarea';
+export type { TextareaProps } from './components/textarea';
+
+export { Progress } from './components/progress';
+export type { ProgressProps } from './components/progress';
+
+export { ListItem } from './components/list-item';
+export type { ListItemProps } from './components/list-item';
+
+export { Accordion } from './components/accordion';
+export type { AccordionProps } from './components/accordion';
+
+export { Icon } from './components/icon';
+export type { IconProps } from './components/icon';
+
+export { CloseIcon, LightbulbIcon, CheckIcon, CopyIcon, PlusIcon, FolderIcon } from './utils/icons';
+
+export { space } from './tokens';
+export { layoutConfig } from './layout';
+
+

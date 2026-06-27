@@ -43,7 +43,7 @@
 }
 
 .title {
-  font-family: $font-family-serif;
+  font-family: var(--paper-font-default, $font-family-serif);
   font-size: $font-size-xl;
   font-weight: $font-weight-bold;
   color: $color-text-primary;

@@ -12,6 +12,7 @@ export interface PageProps {
   texture?: TextureConfig;
   withAccent?: boolean;
   accentColor?: 'blue' | 'green' | 'amber' | 'rose' | 'slate';
+  rounded?: 'all' | 'top' | 'none';
 }
 
 const accentClassMap = createAccentClassMap(styles);
@@ -24,6 +25,7 @@ export function Page({
   texture,
   withAccent = false,
   accentColor = 'blue',
+  rounded = 'all',
 }: PageProps) {
   const textureStyles = texture
     ? getTextureStyles(texture)
@@ -37,6 +39,7 @@ export function Page({
         styles.page,
         withAccent && styles.withAccent,
         withAccent && accentClassMap[accentColor],
+        rounded === 'top' && styles.roundedTop,
         className,
       )}
       style={{ ...textureStyles, ...style }}

@@ -15,14 +15,16 @@
   letter-spacing: $letter-spacing-wide;
 }
 
-.input {
+.textarea {
   position: relative;
   appearance: none;
   width: 100%;
+  min-height: 4rem;
+  resize: vertical;
   color: $color-text-primary;
   font-family: var(--paper-font-default, $font-family-serif);
   font-weight: $font-weight-medium;
-  line-height: $line-height-tight;
+  line-height: $line-height-normal;
 
   @include pencil-border(
     $fill: $color-bg-input,
@@ -105,7 +107,7 @@
     color: $color-chalkboard-muted;
   }
 
-  .input {
+  .textarea {
     color: $color-chalkboard-chalk;
     background-image: none;
     background-color: $color-chalkboard-surface;

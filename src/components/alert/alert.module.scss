@@ -51,7 +51,7 @@
 }
 
 .title {
-  font-family: $font-family-serif;
+  font-family: var(--paper-font-default, $font-family-serif);
   font-size: $font-size-md;
   font-weight: $font-weight-bold;
   line-height: $line-height-tight;

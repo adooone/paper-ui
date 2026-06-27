@@ -3,14 +3,19 @@
 .page {
   position: relative;
   background-color: $color-bg-base;
-  min-height: 100%;
+  height: 100%;
+  overflow-y: auto;
   padding: $space-8;
   font-size: $font-size-base;
   line-height: $line-height-grid;
-  max-width: 80rem;
+  max-width: 800px;
   margin: 0 auto;
   border-radius: $radius-md;
   box-shadow: $shadow-paper-md;
+
+  &.roundedTop {
+    border-radius: $radius-md $radius-md 0 0;
+  }
 
   > * + * {
     margin-top: $space-8;

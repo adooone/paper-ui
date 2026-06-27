@@ -181,6 +181,7 @@ export const LayoutPage: FC = () => {
                   background={layoutBackground}
                   title="Dashboard"
                   subtitle="Overview"
+                  style={{ height: '100%' }}
                   navigationItems={navItems}
                   activeItemId={activeNav}
                   onNavigate={(item) => setActiveNav(item.id)}
@@ -215,7 +216,7 @@ export const LayoutPage: FC = () => {
                       {pageContent}
                     </Page>
                   ) : (
-                    <div style={{ lineHeight: '32px' }}>
+                    <div style={{ lineHeight: '32px', padding: '32px', overflowY: 'auto' }}>
                       {pageContent}
                     </div>
                   )}

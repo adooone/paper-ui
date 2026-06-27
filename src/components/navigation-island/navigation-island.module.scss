@@ -28,7 +28,7 @@
   border: none;
   cursor: pointer;
   transition: all $transition-base;
-  font-family: $font-family-serif;
+  font-family: var(--paper-font-default, $font-family-serif);
   font-size: $font-size-base;
   font-weight: $font-weight-medium;
   line-height: $line-height-tight;

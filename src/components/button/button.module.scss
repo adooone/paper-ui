@@ -8,7 +8,7 @@
   gap: $space-2;
   border: none;
   cursor: pointer;
-  font-family: var(--paper-button-font, $font-family-serif);
+  font-family: var(--paper-button-font, var(--paper-font-default, $font-family-serif));
   font-weight: 600;
   letter-spacing: 0.01em;
   line-height: 1.2;

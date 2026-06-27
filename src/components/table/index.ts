@@ -1,5 +1,13 @@
 export { Table } from './table';
-export type { TableProps, TableColumn, TableToolbar } from './table';
+export type {
+  TableProps,
+  TableColumn,
+  TableToolbar,
+  TableExpandableConfig,
+  TableBoardColumn,
+  TableAccentColor,
+  TableVariant,
+} from './table';
 
 export { TableCellToggle } from './table-cell-toggle';
 export type { TableCellToggleProps } from './table-cell-toggle';

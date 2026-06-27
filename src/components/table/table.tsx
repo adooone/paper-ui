@@ -1,10 +1,13 @@
 import type { ReactNode } from 'react';
+import { Fragment, useState } from 'react';
 import { cn } from '../../utils/style-helpers';
+import { createAccentClassMap } from '../../utils/accent-class-map';
 import { getVariantTexture } from '../../utils/get-variant-texture';
 import type { TextureConfig } from '../../utils/textures';
 import styles from './table.module.scss';
 
 export type TableVariant = 'paper' | 'chalkboard';
+export type TableAccentColor = 'blue' | 'green' | 'amber' | 'rose' | 'slate';
 
 export interface TableColumn<T = unknown> {
   key: string;
@@ -22,26 +25,69 @@ export interface TableToolbar {
   actions?: ReactNode | ((variant: TableVariant) => ReactNode);
 }
 
+export interface TableExpandableConfig<T = unknown> {
+  render: (row: T, index: number, variant: TableVariant) => ReactNode;
+}
+
+// A board column is a lane of cards (e.g. a status), rendered side by side
+// instead of the row-per-record layout `columns`/`data` produce.
+export interface TableBoardColumn<T = unknown> {
+  key: string;
+  label: ReactNode;
+  accent?: TableAccentColor;
+  items: T[];
+  getKey?: (item: T, index: number) => string | number;
+  renderItem: (item: T, index: number, variant: TableVariant) => ReactNode;
+  emptyLabel?: ReactNode;
+}
+
 export interface TableProps<T = unknown> {
-  data: T[];
-  columns: TableColumn<T>[];
+  data?: T[];
+  columns?: TableColumn<T>[];
+  // When set, renders lanes of cards instead of the rows layout; `data`/`columns`/
+  // `expandable` are ignored.
+  board?: TableBoardColumn<T>[];
   variant?: 'paper' | 'chalkboard';
   texture?: TextureConfig;
   toolbar?: TableToolbar;
+  expandable?: TableExpandableConfig<T>;
+  showExpandColumn?: boolean;
+  rowClassName?: (row: T, index: number) => string | undefined;
   className?: string;
 }
 
+const accentClassMap = createAccentClassMap(styles);
+
 export function Table<T = unknown>({
-  data,
-  columns,
+  data = [],
+  columns = [],
+  board,
   variant = 'paper',
   texture,
   toolbar,
+  expandable,
+  showExpandColumn = true,
+  rowClassName,
   className,
 }: TableProps<T>) {
   const textureStyles = getVariantTexture(variant, texture);
-
   const hasToolbar = !!toolbar;
+  const [expandedRows, setExpandedRows] = useState<Set<number>>(new Set());
+
+  const toggleRow = (index: number) => {
+    setExpandedRows((prev) => {
+      const next = new Set(prev);
+      if (next.has(index)) {
+        next.delete(index);
+      } else {
+        next.add(index);
+      }
+      return next;
+    });
+  };
+
+  const hasExpandColumn = !!(expandable && showExpandColumn);
+  const totalColumns = hasExpandColumn ? columns.length + 1 : columns.length;
 
   return (
     <div
@@ -70,38 +116,105 @@ export function Table<T = unknown>({
         </div>
       )}
 
-      <div className={styles.tableScroll}>
-        <table className={cn(styles.table, variant === 'chalkboard' && styles.chalkboard)}>
-          <colgroup>
-            {columns.map((col) => (
-              <col
-                key={col.key}
-                style={col.width ? { width: `${col.width * 32}px` } : undefined}
-              />
+      {board ? (
+        <div className={styles.boardScroll}>
+          <div className={styles.board}>
+            {board.map((col) => (
+              <div key={col.key} className={styles.boardColumn}>
+                <div
+                  className={cn(
+                    styles.boardColumnHeader,
+                    variant === 'chalkboard' && styles.chalkboard,
+                    col.accent && accentClassMap[col.accent],
+                  )}
+                >
+                  <span className={styles.boardColumnLabel}>{col.label}</span>
+                  <span className={styles.boardColumnCount}>{col.items.length}</span>
+                </div>
+                <div className={styles.boardColumnBody}>
+                  {col.items.length === 0 ? (
+                    <div className={styles.boardEmpty}>{col.emptyLabel ?? 'empty'}</div>
+                  ) : (
+                    col.items.map((item, itemIndex) => (
+                      <div
+                        key={col.getKey ? col.getKey(item, itemIndex) : itemIndex}
+                        className={cn(styles.boardRow, variant === 'chalkboard' && styles.chalkboard)}
+                      >
+                        {col.renderItem(item, itemIndex, variant)}
+                      </div>
+                    ))
+                  )}
+                </div>
+              </div>
             ))}
-          </colgroup>
-          <thead>
-            <tr>
+          </div>
+        </div>
+      ) : (
+        <div className={styles.tableScroll}>
+          <table className={cn(styles.table, variant === 'chalkboard' && styles.chalkboard)}>
+            <colgroup>
+              {hasExpandColumn && <col style={{ width: '48px' }} />}
               {columns.map((col) => (
-                <th key={col.key} className={styles.th}>
-                  {col.header}
-                </th>
+                <col
+                  key={col.key}
+                  style={col.width ? { width: `${col.width * 32}px` } : undefined}
+                />
               ))}
-            </tr>
-          </thead>
-          <tbody>
-            {data.map((row, rowIndex) => (
-              <tr key={rowIndex} className={styles.tr}>
+            </colgroup>
+            <thead>
+              <tr>
+                {hasExpandColumn && <th className={cn(styles.th, styles.expandTh)} aria-label="Expand" />}
                 {columns.map((col) => (
-                  <td key={col.key} className={styles.td}>
-                    {col.cell(row, rowIndex, variant)}
-                  </td>
+                  <th key={col.key} className={styles.th}>
+                    {col.header}
+                  </th>
                 ))}
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              {data.map((row, rowIndex) => {
+                const expansionContent = expandable?.render(row, rowIndex, variant);
+                const canExpand = !!expansionContent;
+                const isExpanded = canExpand && expandedRows.has(rowIndex);
+                return (
+                  <Fragment key={rowIndex}>
+                    <tr
+                      className={cn(
+                        styles.tr,
+                        canExpand && styles.expandable,
+                        rowClassName?.(row, rowIndex),
+                      )}
+                      onClick={() => canExpand && toggleRow(rowIndex)}
+                    >
+                      {hasExpandColumn && (
+                        <td className={cn(styles.td, styles.expandTd)}>
+                          {canExpand && (
+                            <span className={styles.expandIcon} aria-hidden="true">
+                              {isExpanded ? '▼' : '▶'}
+                            </span>
+                          )}
+                        </td>
+                      )}
+                      {columns.map((col) => (
+                        <td key={col.key} className={styles.td}>
+                          {col.cell(row, rowIndex, variant)}
+                        </td>
+                      ))}
+                    </tr>
+                    {isExpanded && (
+                      <tr className={styles.expandedRow}>
+                        <td colSpan={totalColumns} className={styles.expandedCell}>
+                          {expansionContent}
+                        </td>
+                      </tr>
+                    )}
+                  </Fragment>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
   );
 }

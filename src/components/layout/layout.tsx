@@ -1,8 +1,11 @@
 import { useState } from 'react';
 import type { ReactNode } from 'react';
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { Button } from '../button';
 import { Page } from '../page';
 import { cn, buttonSizeCompact } from '../../utils/style-helpers';
+import { layoutConfig } from '../../layout';
+import { space } from '../../tokens';
 import {
   getTextureStyles,
   type TextureConfig,
@@ -46,6 +49,9 @@ export interface LayoutProps {
   footerContent?: ReactNode;
   navigationIsland?: ReactNode;
   style?: React.CSSProperties;
+  bleedBottom?: boolean;
+  routeKey?: string;
+  stackOpen?: boolean;
 }
 
 function getBackgroundStyles(bg: LayoutBackground | undefined): React.CSSProperties {
@@ -89,8 +95,12 @@ export function Layout({
   footerContent,
   navigationIsland,
   style,
+  bleedBottom = true,
+  routeKey,
+  stackOpen,
 }: LayoutProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
 
   const bgStyles = getBackgroundStyles(background);
   const hasSidebar = showSidebar && navigationItems.length > 0;
@@ -182,23 +192,55 @@ export function Layout({
         )}
 
         <div className={styles.main}>
-          {navigationIsland && (
-            <div className={styles.navigationIslandWrapper}>
-              {navigationIsland}
-            </div>
-          )}
-
-          <main className={showPage ? styles.contentWithPage : styles.content}>
-            {showPage ? (
-              <Page withTexture>
-                {children}
-              </Page>
-            ) : (
-              children
-            )}
+          <main className={showPage ? styles.contentWithPage : styles.content} style={bleedBottom ? { paddingBottom: 0 } : undefined}>
+            {(() => {
+              const content = routeKey !== undefined ? (
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={routeKey}
+                    initial={shouldReduceMotion ? undefined : { opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={shouldReduceMotion ? undefined : { opacity: 0, y: -8 }}
+                    transition={{ duration: 0.2, ease: 'easeOut' }}
+                    style={{ height: '100%' }}
+                  >
+                    {children}
+                  </motion.div>
+                </AnimatePresence>
+              ) : (
+                children
+              );
+              return showPage ? (
+                <Page withTexture rounded={bleedBottom ? 'top' : 'all'} style={bleedBottom && navigationIsland ? { paddingBottom: `calc(${layoutConfig.navIslandBottom} + ${layoutConfig.navIslandHeight} + ${space[4]})` } : undefined}>
+                  {content}
+                </Page>
+              ) : (
+                content
+              );
+            })()}
           </main>
         </div>
       </div>
+
+      {navigationIsland && (
+        <div className={styles.navIslandFixed}>
+          {stackOpen !== undefined ? (
+            <motion.div
+              animate={{
+                x: stackOpen ? `-${layoutConfig.stackPanelWidth / 2}px` : 0,
+              }}
+              transition={{
+                duration: shouldReduceMotion ? 0 : 0.3,
+                ease: [0.4, 0, 0.2, 1],
+              }}
+            >
+              {navigationIsland}
+            </motion.div>
+          ) : (
+            navigationIsland
+          )}
+        </div>
+      )}
 
       {showFooter && (
         <footer className={styles.footer}>

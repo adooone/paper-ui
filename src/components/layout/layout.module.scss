@@ -4,9 +4,9 @@
 .layout {
   display: flex;
   flex-direction: column;
-  min-height: 100%;
-  height: 100%;
+  height: 100vh;
   width: 100%;
+  overflow: hidden;
 }
 
 .header {
@@ -39,7 +39,7 @@
 }
 
 .headerTitle {
-  font-family: $font-family-serif;
+  font-family: var(--paper-font-default, $font-family-serif);
   font-size: $font-size-md;
   font-weight: $font-weight-semibold;
   color: $color-text-primary;
@@ -49,7 +49,7 @@
 }
 
 .headerSubtitle {
-  font-family: $font-family-serif;
+  font-family: var(--paper-font-default, $font-family-serif);
   font-size: $font-size-sm;
   font-weight: $font-weight-normal;
   color: $color-text-tertiary;
@@ -92,6 +92,7 @@
   flex: 1;
   min-width: 0;
   position: relative;
+  overflow: hidden;
 }
 
 .mobileOverlay {
@@ -149,7 +150,7 @@
 }
 
 .logoText {
-  font-family: $font-family-serif;
+  font-family: var(--paper-font-default, $font-family-serif);
   font-size: 1.25rem;
   font-weight: $font-weight-bold;
   color: $color-text-primary;
@@ -170,25 +171,35 @@
   display: flex;
   flex-direction: column;
   min-width: 0;
+  overflow: hidden;
 }
 
-.navigationIslandWrapper {
-  padding: 24px 32px 0;
-  display: flex;
-  justify-content: center;
+.navIslandFixed {
+  position: fixed;
+  bottom: $space-6;
+  left: 50%;
+  z-index: 100;
+  transform: translateX(-50%);
+  pointer-events: none;
+
+  > * {
+    pointer-events: auto;
+  }
 }
 
 .content {
   flex: 1;
+  min-height: 0;
+  overflow: hidden;
   padding: 32px;
-  overflow-y: auto;
   line-height: 32px;
 }
 
 .contentWithPage {
   flex: 1;
+  min-height: 0;
+  overflow: hidden;
   padding: 24px 32px;
-  overflow-y: auto;
   line-height: 32px;
 }
 
@@ -204,7 +215,7 @@
 }
 
 .footerText {
-  font-family: $font-family-serif;
+  font-family: var(--paper-font-default, $font-family-serif);
   color: $color-text-tertiary;
   margin: 0;
 }

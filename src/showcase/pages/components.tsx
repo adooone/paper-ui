@@ -8,12 +8,15 @@ import { Checkbox } from '../../components/checkbox';
 import { IconButton } from '../../components/icon-button';
 import { Input } from '../../components/input';
 import { Island } from '../../components/island';
+import { ListItem } from '../../components/list-item';
 import { Modal } from '../../components/modal';
 import { Layout } from '../../components/layout';
 import { Page } from '../../components/page';
+import { Progress } from '../../components/progress';
 import { Select } from '../../components/select';
 import { Table } from '../../components/table';
 import { Tabs } from '../../components/tabs';
+import { Textarea } from '../../components/textarea';
 import type { PropDef } from '../../components/prop-table';
 import { ComponentSection } from '../components/component-section';
 import {
@@ -465,6 +468,12 @@ const sectionDetails: SectionDetail[] = [
         description: 'Visual elevation style',
       },
       {
+        name: 'size',
+        type: "'default' | 'small'",
+        default: "'default'",
+        description: 'Card size — small reduces padding and font size',
+      },
+      {
         name: 'texture',
         type: "PaperTextureKey ('white' | 'paper' | 'parchment' | 'kraft' | 'speckle' | 'canvas')",
         default: "'parchment'",
@@ -637,6 +646,124 @@ const sectionDetails: SectionDetail[] = [
     ],
   },
   {
+    id: 'list-item',
+    title: 'ListItem',
+    codeExample: `import { ListItem } from '@dendelion/paper-ui';
+
+<ListItem onClick={handleClick} icon={<Icon />}>
+  Dashboard
+</ListItem>
+<ListItem active icon={<Dot />} action={<Stamp>3</Stamp>}>
+  Notifications
+</ListItem>`,
+    props: [
+      {
+        name: 'active',
+        type: 'boolean',
+        default: 'false',
+        description: 'Highlight active state',
+      },
+      {
+        name: 'icon',
+        type: 'ReactNode',
+        description: 'Left icon element',
+      },
+      {
+        name: 'action',
+        type: 'ReactNode',
+        description: 'Right-side action element',
+      },
+      sizeProp,
+      {
+        name: 'onClick',
+        type: '() => void',
+        description: 'Makes the item clickable with hover/active states',
+      },
+      {
+        name: 'wobble',
+        type: 'number (0-1)',
+        default: '0.5',
+        description: 'Blob shape wobble intensity',
+      },
+    ],
+  },
+  {
+    id: 'textarea',
+    title: 'Textarea',
+    codeExample: `import { Textarea } from '@dendelion/paper-ui';
+
+<Textarea
+  label="Notes"
+  placeholder="Write your notes..."
+  value={value}
+  onChange={(e) => setValue(e.target.value)}
+/>
+<Textarea label="Error" error helperText="This field is required" />`,
+    props: [
+      {
+        name: 'label',
+        type: 'string',
+        description: 'Field label',
+      },
+      {
+        name: 'placeholder',
+        type: 'string',
+        description: 'Placeholder text',
+      },
+      {
+        name: 'helperText',
+        type: 'string',
+        description: 'Helper or error message',
+      },
+      {
+        name: 'error',
+        type: 'boolean',
+        default: 'false',
+        description: 'Show error state',
+      },
+      sizeProp,
+      {
+        name: 'variant',
+        type: "'default' | 'chalkboard'",
+        default: "'default'",
+        description: 'Visual style variant',
+      },
+    ],
+  },
+  {
+    id: 'progress',
+    title: 'Progress',
+    codeExample: `import { Progress } from '@dendelion/paper-ui';
+
+<Progress value={65} />
+<Progress value={42} color="#D4A373" height={8} />`,
+    props: [
+      {
+        name: 'value',
+        type: 'number',
+        required: true,
+        description: 'Current progress value',
+      },
+      {
+        name: 'max',
+        type: 'number',
+        default: '100',
+        description: 'Maximum value',
+      },
+      {
+        name: 'color',
+        type: 'string',
+        description: 'Fill color (defaults to accent green)',
+      },
+      {
+        name: 'height',
+        type: 'number',
+        default: '6',
+        description: 'Track height in pixels',
+      },
+    ],
+  },
+  {
     id: 'modal',
     title: 'Modal',
     codeExample: `import { Modal } from '@dendelion/paper-ui';
@@ -718,6 +845,8 @@ export const ComponentsPage: FC<{ onOpenDetail: (data: { title: string; codeExam
   const [buttonWobble, setButtonWobble] = useState(0.5);
   const [inputValue, setInputValue] = useState('');
   const [selectValue, setSelectValue] = useState('');
+  const [textareaValue, setTextareaValue] = useState('');
+  const [listItemActive, setListItemActive] = useState('plans');
   const [activeTab, setActiveTab] = useState('design');
   const [modalOpen, setModalOpen] = useState(false);
   const [tableSearch, setTableSearch] = useState('');
@@ -913,6 +1042,62 @@ export const ComponentsPage: FC<{ onOpenDetail: (data: { title: string; codeExam
           </ComponentSection>
 
           <ComponentSection
+            id="list-item"
+            title="ListItem"
+            description="Versatile row component with rectangular blob background, active state, icon, and action slots. Use it for navigation, lists, or any clickable row."
+            category="basic"
+            onViewDetails={() => handleViewDetails('list-item')}
+          >
+            <div className="w-full max-w-sm space-y-1">
+              <ListItem
+                active={listItemActive === 'plans'}
+                onClick={() => setListItemActive('plans')}
+                icon={
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                    <polyline points="14 2 14 8 20 8" />
+                    <line x1="16" y1="13" x2="8" y2="13" />
+                    <line x1="16" y1="17" x2="8" y2="17" />
+                  </svg>
+                }
+              >
+                Plans
+              </ListItem>
+              <ListItem
+                active={listItemActive === 'focus'}
+                onClick={() => setListItemActive('focus')}
+                icon={
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="12" r="10" />
+                    <circle cx="12" cy="12" r="3" />
+                  </svg>
+                }
+              >
+                Focus
+              </ListItem>
+              <ListItem
+                active={listItemActive === 'settings'}
+                onClick={() => setListItemActive('settings')}
+                size="small"
+                icon={
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="12" r="3" />
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
+                  </svg>
+                }
+                action={
+                  <Stamp size="small" fillColor="rgba(143,185,150,0.25)" textColor="#3D5A42">New</Stamp>
+                }
+              >
+                Settings
+              </ListItem>
+              <ListItem>
+                <span className="flex-1">Non-interactive item</span>
+              </ListItem>
+            </div>
+          </ComponentSection>
+
+          <ComponentSection
             id="checkbox"
             title="Checkbox"
             description="Hand-drawn checkbox with wobbly blob background, SVG stroke-dasharray animation, and ink checkmark."
@@ -1028,6 +1213,38 @@ export const ComponentsPage: FC<{ onOpenDetail: (data: { title: string; codeExam
                 disabled
                 options={[{ value: 'none', label: 'Not available' }]}
                 placeholder="Cannot select"
+              />
+            </div>
+          </ComponentSection>
+
+          <ComponentSection
+            id="textarea"
+            title="Textarea"
+            description="Multi-line text input with paper texture background and ink underline on focus."
+            category="form"
+            chalkboard={chalkboardTheme}
+            onViewDetails={() => handleViewDetails('textarea')}
+          >
+            <div className="space-y-5 max-w-sm w-full">
+              <Textarea
+                label="Notes"
+                placeholder="Write your notes..."
+                value={textareaValue}
+                variant={chalkboardTheme ? 'chalkboard' : 'default'}
+                onChange={(e) => setTextareaValue(e.target.value)}
+              />
+              <Textarea
+                label="Error"
+                error
+                helperText="This field is required"
+                variant={chalkboardTheme ? 'chalkboard' : 'default'}
+                placeholder="example"
+              />
+              <Textarea
+                label="Disabled"
+                disabled
+                variant={chalkboardTheme ? 'chalkboard' : 'default'}
+                placeholder="Cannot edit"
               />
             </div>
           </ComponentSection>
@@ -1457,6 +1674,38 @@ export const ComponentsPage: FC<{ onOpenDetail: (data: { title: string; codeExam
                   </Alert>
                 </>
               )}
+            </div>
+          </ComponentSection>
+
+          <ComponentSection
+            id="progress"
+            title="Progress"
+            description="Minimal progress bar with configurable color and height."
+            category="feedback"
+            onViewDetails={() => handleViewDetails('progress')}
+          >
+            <div className="w-full max-w-sm space-y-5">
+              <div className="space-y-2">
+                <div className="flex justify-between text-sm" style={{ fontFamily: "'Luminari', serif", color: '#68635C' }}>
+                  <span>Progress</span>
+                  <span>65%</span>
+                </div>
+                <Progress value={65} color={undefined} height={6} />
+              </div>
+              <div className="space-y-2">
+                <div className="flex justify-between text-sm" style={{ fontFamily: "'Luminari', serif", color: '#68635C' }}>
+                  <span>Custom color</span>
+                  <span>42%</span>
+                </div>
+                <Progress value={42} color="#D4A373" height={8} />
+              </div>
+              <div className="space-y-2">
+                <div className="flex justify-between text-sm" style={{ fontFamily: "'Luminari', serif", color: '#68635C' }}>
+                  <span>Small</span>
+                  <span>80%</span>
+                </div>
+                <Progress value={80} color="#C98B8B" height={4} />
+              </div>
             </div>
           </ComponentSection>
 

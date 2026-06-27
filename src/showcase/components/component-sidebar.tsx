@@ -24,6 +24,7 @@ const componentGroups: ComponentGroup[] = [
       { id: 'button', title: 'Button' },
       { id: 'icon-button', title: 'IconButton' },
       { id: 'stamp', title: 'Stamp' },
+      { id: 'list-item', title: 'ListItem' },
     ],
   },
   {
@@ -32,6 +33,7 @@ const componentGroups: ComponentGroup[] = [
       { id: 'checkbox', title: 'Checkbox' },
       { id: 'input', title: 'Input' },
       { id: 'select', title: 'Select' },
+      { id: 'textarea', title: 'Textarea' },
     ],
   },
   {
@@ -52,7 +54,10 @@ const componentGroups: ComponentGroup[] = [
   },
   {
     category: 'Feedback',
-    items: [{ id: 'alert', title: 'Alert' }],
+    items: [
+      { id: 'alert', title: 'Alert' },
+      { id: 'progress', title: 'Progress' },
+    ],
   },
   {
     category: 'Overlay',

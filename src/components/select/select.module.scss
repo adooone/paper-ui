@@ -9,7 +9,7 @@
 }
 
 .label {
-  font-family: $font-family-serif;
+  font-family: var(--paper-font-default, $font-family-serif);
   font-size: $font-size-sm;
   font-weight: $font-weight-semibold;
   color: $color-text-primary;
@@ -37,7 +37,7 @@
   justify-content: space-between;
   width: 100%;
   text-align: left;
-  font-family: $font-family-serif;
+  font-family: var(--paper-font-default, $font-family-serif);
   font-weight: $font-weight-medium;
   line-height: $line-height-tight;
   color: $color-text-primary;
@@ -140,7 +140,7 @@
   width: 100%;
   z-index: $z-dropdown;
   padding: $space-3 $space-4;
-  max-height: 260px;
+  max-height: 320px;
   overflow-y: auto;
 
   @include pencil-border(
@@ -168,7 +168,7 @@
 
 .option {
   padding: $space-2 $space-3;
-  font-family: $font-family-serif;
+  font-family: var(--paper-font-default, $font-family-serif);
   font-size: $font-size-sm;
   color: $color-text-primary;
   cursor: pointer;

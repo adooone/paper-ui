@@ -1,4 +1,5 @@
 import { useId, useRef, useState, useCallback, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import type { ReactNode, KeyboardEvent, MouseEvent, CSSProperties } from 'react';
 import { cn } from '../../utils/style-helpers';
 import { getTextureStyles, type TextureConfig } from '../../utils/textures';
@@ -49,6 +50,7 @@ export function Select({
   const [isOpen, setIsOpen] = useState(false);
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
   const [internalValue, setInternalValue] = useState(defaultValue ?? '');
+  const [triggerRect, setTriggerRect] = useState<DOMRect | null>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
   const isControlled = value !== undefined;
@@ -179,6 +181,26 @@ export function Select({
     optionEl?.scrollIntoView({ block: 'nearest' });
   }, [isOpen, highlightedIndex]);
 
+  // Track trigger position for portal rendering
+  useEffect(() => {
+    if (!isOpen) {
+      setTriggerRect(null);
+      return;
+    }
+    const updateRect = () => {
+      if (triggerRef.current) {
+        setTriggerRect(triggerRef.current.getBoundingClientRect());
+      }
+    };
+    updateRect();
+    document.addEventListener('scroll', updateRect, { capture: true, passive: true });
+    window.addEventListener('resize', updateRect, { passive: true });
+    return () => {
+      document.removeEventListener('scroll', updateRect, { capture: true });
+      window.removeEventListener('resize', updateRect);
+    };
+  }, [isOpen]);
+
   const textureStyles = texture
     ? getTextureStyles(texture)
     : withTexture
@@ -250,13 +272,20 @@ export function Select({
         <ChevronIcon className={cn(styles.chevron, isOpen && styles.chevronOpen)} />
       </button>
 
-      {isOpen && (
+      {isOpen && triggerRect && createPortal(
         <div
           ref={listRef}
           id={`${selectId}-listbox`}
           role="listbox"
           className={styles.dropdown}
-          style={dropdownStyle}
+          style={{
+            ...dropdownStyle,
+            position: 'fixed',
+            top: triggerRect.bottom + 6,
+            left: triggerRect.left,
+            width: triggerRect.width,
+            zIndex: 1000,
+          }}
           onKeyDown={(e) => {
             if (e.key === 'Escape') {
               e.preventDefault();
@@ -287,7 +316,8 @@ export function Select({
               {opt.label}
             </div>
           ))}
-        </div>
+        </div>,
+        document.body,
       )}
 
       {helperText && (
