@@ -2,21 +2,12 @@ import { resolve } from 'node:path';
 import react from '@vitejs/plugin-react-swc';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
+import { sharedCssConfig } from './vite.shared';
 
 export default defineConfig(({ command }) => {
   const baseConfig = {
     plugins: [react()],
-    css: {
-      modules: {
-        localsConvention: 'camelCaseOnly',
-        generateScopedName: '[name]__[local]___[hash:base64:5]',
-      },
-      preprocessorOptions: {
-        scss: {
-          api: 'modern-compiler',
-        },
-      },
-    },
+    css: sharedCssConfig,
   };
 
   if (command === 'serve') {

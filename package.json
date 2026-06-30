@@ -38,6 +38,7 @@
   ],
   "scripts": {
     "build": "vite build",
+    "build:showcase": "vite build --config vite.app.config.ts",
     "dev": "vite",
     "test": "echo 'No tests yet'",
     "check-types": "tsc --noEmit",
