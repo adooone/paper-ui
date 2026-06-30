@@ -1427,6 +1427,66 @@ export const ComponentsPage: FC<{
           </ComponentSection>
 
           <ComponentSection
+            id="radio"
+            title="Radio"
+            description="Single-select control mirroring Checkbox — circular box with an ink dot and watercolor blob."
+            category="form"
+            chalkboard={chalkboardTheme}
+            onViewDetails={() => handleViewDetails('radio')}
+          >
+            <RadioGroup
+              value={radioValue}
+              onChange={setRadioValue}
+              surface={chalkboardTheme ? 'chalkboard' : 'paper'}
+              options={[
+                { value: 'paper', label: 'Paper' },
+                { value: 'kraft', label: 'Kraft' },
+                { value: 'canvas', label: 'Canvas' },
+                { value: 'marble', label: 'Marble (disabled)', disabled: true },
+              ]}
+            />
+          </ComponentSection>
+
+          <ComponentSection
+            id="switch"
+            title="Switch"
+            description="Toggle control with a sliding ink thumb and watercolor track when on."
+            category="form"
+            chalkboard={chalkboardTheme}
+            onViewDetails={() => handleViewDetails('switch')}
+          >
+            <div className="flex flex-col gap-4">
+              <Switch
+                label="Notifications"
+                checked={switchOn}
+                surface={chalkboardTheme ? 'chalkboard' : 'paper'}
+                onChange={(e) => setSwitchOn(e.target.checked)}
+              />
+              <div className="flex items-center gap-5">
+                <Switch
+                  size="small"
+                  checked={switchOn}
+                  surface={chalkboardTheme ? 'chalkboard' : 'paper'}
+                  onChange={(e) => setSwitchOn(e.target.checked)}
+                />
+                <Switch
+                  size="large"
+                  checked={switchOn}
+                  surface={chalkboardTheme ? 'chalkboard' : 'paper'}
+                  onChange={(e) => setSwitchOn(e.target.checked)}
+                />
+                <Switch
+                  label="Disabled"
+                  disabled
+                  checked={false}
+                  surface={chalkboardTheme ? 'chalkboard' : 'paper'}
+                  onChange={() => {}}
+                />
+              </div>
+            </div>
+          </ComponentSection>
+
+          <ComponentSection
             id="input"
             title="Input"
             description="Hand-drawn text field with paper texture background, ink underline on focus, and organic border radius."
@@ -1541,66 +1601,6 @@ export const ComponentsPage: FC<{
                 surface={chalkboardTheme ? 'chalkboard' : 'paper'}
                 placeholder="Cannot edit"
               />
-            </div>
-          </ComponentSection>
-
-          <ComponentSection
-            id="radio"
-            title="Radio"
-            description="Single-select control mirroring Checkbox — circular box with an ink dot and watercolor blob."
-            category="form"
-            chalkboard={chalkboardTheme}
-            onViewDetails={() => handleViewDetails('radio')}
-          >
-            <RadioGroup
-              value={radioValue}
-              onChange={setRadioValue}
-              surface={chalkboardTheme ? 'chalkboard' : 'paper'}
-              options={[
-                { value: 'paper', label: 'Paper' },
-                { value: 'kraft', label: 'Kraft' },
-                { value: 'canvas', label: 'Canvas' },
-                { value: 'marble', label: 'Marble (disabled)', disabled: true },
-              ]}
-            />
-          </ComponentSection>
-
-          <ComponentSection
-            id="switch"
-            title="Switch"
-            description="Toggle control with a sliding ink thumb and watercolor track when on."
-            category="form"
-            chalkboard={chalkboardTheme}
-            onViewDetails={() => handleViewDetails('switch')}
-          >
-            <div className="flex flex-col gap-4">
-              <Switch
-                label="Notifications"
-                checked={switchOn}
-                surface={chalkboardTheme ? 'chalkboard' : 'paper'}
-                onChange={(e) => setSwitchOn(e.target.checked)}
-              />
-              <div className="flex items-center gap-5">
-                <Switch
-                  size="small"
-                  checked={switchOn}
-                  surface={chalkboardTheme ? 'chalkboard' : 'paper'}
-                  onChange={(e) => setSwitchOn(e.target.checked)}
-                />
-                <Switch
-                  size="large"
-                  checked={switchOn}
-                  surface={chalkboardTheme ? 'chalkboard' : 'paper'}
-                  onChange={(e) => setSwitchOn(e.target.checked)}
-                />
-                <Switch
-                  label="Disabled"
-                  disabled
-                  checked={false}
-                  surface={chalkboardTheme ? 'chalkboard' : 'paper'}
-                  onChange={() => {}}
-                />
-              </div>
             </div>
           </ComponentSection>
 
