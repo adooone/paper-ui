@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.4.0](https://github.com/adooone/paper-ui/compare/v0.3.0...v0.4.0) (2026-06-30)
+
+
+### Features
+
+* **showcase:** add static build and Vercel config for deployment ([751d770](https://github.com/adooone/paper-ui/commit/751d7705854b7ae439403388edf9143c5866ce92))
+
+
+### Code Refactoring
+
+* **build:** extract shared CSS config for both Vite builds ([b029abc](https://github.com/adooone/paper-ui/commit/b029abc470b806321d98f80950614371b52ada95))
+
 ## [0.3.0](https://github.com/adooone/paper-ui/compare/v0.2.0...v0.3.0) (2026-06-30)
 
 
