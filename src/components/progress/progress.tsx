@@ -10,7 +10,7 @@ export interface ProgressProps {
 }
 
 export function Progress({ value, max = 100, color, height = 6, className }: ProgressProps) {
-  const pct = Math.max(0, Math.min(100, Math.round((value / max) * 100)));
+  const pct = max > 0 ? Math.max(0, Math.min(100, Math.round((value / max) * 100))) : 0;
 
   return (
     <div className={cn(styles.track, className)} style={{ height, borderRadius: height / 2 }}>

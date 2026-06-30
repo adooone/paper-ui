@@ -39,6 +39,7 @@ export function NavigationIsland({
           <Button
             key={item.id}
             variant="ghost"
+            surface={surface}
             size="small"
             isActive={isActive}
             onClick={() => onSelect?.(item.id)}

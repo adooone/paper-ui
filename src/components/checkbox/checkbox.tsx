@@ -21,9 +21,11 @@ export function Checkbox({
   className,
   checked,
   onChange,
+  id: idProp,
   ...props
 }: CheckboxProps) {
-  const id = useId();
+  const generatedId = useId();
+  const id = idProp ?? generatedId;
   const paths = useBlobPaths(wobble);
 
   return (
