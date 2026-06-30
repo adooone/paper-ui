@@ -2,9 +2,10 @@
 
 ## Quick Reference
 
-- **Tech stack:** React 19 + TypeScript + Vite + Tailwind CSS + SCSS Modules
+- **Tech stack:** React 18 + TypeScript + Vite + Tailwind CSS + SCSS Modules
 - **Dev server:** `pnpm dev` → http://localhost:3020
 - **Check types:** `pnpm run check-types`
+- **Lint / format:** `pnpm run lint` (Biome) · `pnpm run lint:fix` to autofix
 - **Build library:** `pnpm run build`
 - **Component planning:** See `paperplan/` directory
 

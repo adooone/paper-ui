@@ -16,7 +16,7 @@
 ## Features
 
 - **Natural Materials** — Textured paper backgrounds, ink borders, canvas weaves, watercolor washes
-- **6 MVP Components** — Layout, Page, Button, Checkbox, IconButton, NavigationIsland
+- **24 Components** — Layout primitives, form controls, data display, and feedback (see [Components](#components))
 - **Tailwind CSS Preset** — `paperPreset` with warm color tokens (paper, ink, canvas, watercolor)
 - **6 Paper Textures** — SVG-generated grain: paper, parchment, kraft, marble, speckle, canvas
 - **Ruled Overlays** — Notebook lines and grid patterns in blue, brown, or black
@@ -89,6 +89,18 @@ function App() {
 ```
 
 ## Components
+
+The library exports 24 components. The core layout and form primitives are documented below; the full set is:
+
+| Category | Components |
+|----------|-----------|
+| **Layout** | `Layout`, `Page`, `Island`, `NavigationIsland`, `Card` |
+| **Forms** | `Button`, `IconButton`, `Checkbox`, `Input`, `Textarea`, `Select`, `Tabs` |
+| **Data display** | `Table`, `ListItem`, `Accordion`, `PropTable`, `Swatch`, `Stamp`, `Icon` |
+| **Feedback** | `Alert`, `Modal`, `Progress` |
+| **Code** | `CodeBlock`, `CopyButton` |
+
+All components are named exports with a matching `{Component}Props` type.
 
 ### Layout
 
@@ -208,6 +220,10 @@ pnpm run build
 
 # Type check
 pnpm run check-types
+
+# Lint and format (Biome)
+pnpm run lint
+pnpm run lint:fix
 ```
 
 ## License

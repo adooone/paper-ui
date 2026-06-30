@@ -49,8 +49,8 @@ export function IconButton({ ... }) { ... }  // ❌ wrong
 | Rule | Example |
 |------|---------|
 | File name = kebab-case of component name | `icon-button.tsx` for `IconButton` |
-| Default export for the component | `export default Button;` at bottom |
-| Named export also present | `export { Button };` for tree-shaking |
+| Named export only (no default export) | `export function Button(...) { ... }` |
+| Re-export via the directory `index.ts` barrel | `export { Button } from './button';` |
 | Props interface = `{ComponentName}Props` | `ButtonProps`, `PageProps` |
 
 ---
