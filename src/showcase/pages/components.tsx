@@ -1,9 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
 import type { FC } from 'react';
 import { Alert } from '../../components/alert';
+import { Badge } from '../../components/badge';
 import { Button } from '../../components/button';
 import { Card } from '../../components/card';
 import { Checkbox } from '../../components/checkbox';
+import { Divider } from '../../components/divider';
 import { IconButton } from '../../components/icon-button';
 import { Input } from '../../components/input';
 import { Island } from '../../components/island';
@@ -955,6 +957,69 @@ const sectionDetails: SectionDetail[] = [
       },
     ],
   },
+  {
+    id: 'badge',
+    title: 'Badge',
+    codeExample: `import { Badge } from '@dendelion/paper-ui';
+
+<Badge variant="success" dot>Active</Badge>
+<Badge variant="warning">Pending</Badge>
+<Badge variant="error">Failed</Badge>`,
+    props: [
+      {
+        name: 'variant',
+        type: "'neutral' | 'info' | 'success' | 'warning' | 'error'",
+        default: "'neutral'",
+        description: 'Semantic status color',
+      },
+      {
+        name: 'size',
+        type: "'small' | 'medium'",
+        default: "'medium'",
+        description: 'Badge size',
+      },
+      {
+        name: 'dot',
+        type: 'boolean',
+        default: 'false',
+        description: 'Show a leading status dot',
+      },
+      {
+        name: 'surface',
+        type: "'paper' | 'chalkboard'",
+        default: "'paper'",
+        description: 'Surface style',
+      },
+    ],
+  },
+  {
+    id: 'divider',
+    title: 'Divider',
+    codeExample: `import { Divider } from '@dendelion/paper-ui';
+
+<Divider />
+<Divider label="or" />
+<Divider orientation="vertical" />`,
+    props: [
+      {
+        name: 'orientation',
+        type: "'horizontal' | 'vertical'",
+        default: "'horizontal'",
+        description: 'Line direction',
+      },
+      {
+        name: 'label',
+        type: 'ReactNode',
+        description: 'Optional centered label (horizontal only)',
+      },
+      {
+        name: 'surface',
+        type: "'paper' | 'chalkboard'",
+        default: "'paper'",
+        description: 'Surface style',
+      },
+    ],
+  },
 ];
 
 const detailMap = new Map(sectionDetails.map((d) => [d.id, d]));
@@ -1205,6 +1270,40 @@ export const ComponentsPage: FC<{
                   </Stamp>
                 </>
               )}
+            </div>
+          </ComponentSection>
+
+          <ComponentSection
+            id="badge"
+            title="Badge"
+            description="Compact semantic status pill with a watercolor wash, organic ink border, and paper grain."
+            category="basic"
+            chalkboard={chalkboardTheme}
+            onViewDetails={() => handleViewDetails('badge')}
+          >
+            <div className="flex flex-wrap items-center gap-3">
+              <Badge variant="neutral" surface={chalkboardTheme ? 'chalkboard' : 'paper'}>
+                Neutral
+              </Badge>
+              <Badge variant="info" dot surface={chalkboardTheme ? 'chalkboard' : 'paper'}>
+                Info
+              </Badge>
+              <Badge variant="success" dot surface={chalkboardTheme ? 'chalkboard' : 'paper'}>
+                Active
+              </Badge>
+              <Badge variant="warning" surface={chalkboardTheme ? 'chalkboard' : 'paper'}>
+                Pending
+              </Badge>
+              <Badge variant="error" surface={chalkboardTheme ? 'chalkboard' : 'paper'}>
+                Failed
+              </Badge>
+              <Badge
+                variant="success"
+                size="small"
+                surface={chalkboardTheme ? 'chalkboard' : 'paper'}
+              >
+                small
+              </Badge>
             </div>
           </ComponentSection>
 
@@ -1700,6 +1799,30 @@ export const ComponentsPage: FC<{
                   </Card>
                 </>
               )}
+            </div>
+          </ComponentSection>
+
+          <ComponentSection
+            id="divider"
+            title="Divider"
+            description="Separator drawn as an ink stroke that fades at the ends, with an optional handwritten label."
+            category="layout"
+            chalkboard={chalkboardTheme}
+            onViewDetails={() => handleViewDetails('divider')}
+          >
+            <div className="flex flex-col gap-6 w-full max-w-md">
+              <Divider surface={chalkboardTheme ? 'chalkboard' : 'paper'} />
+              <Divider label="or" surface={chalkboardTheme ? 'chalkboard' : 'paper'} />
+              <div className="flex items-center gap-4 h-8">
+                <span style={{ color: chalkboardTheme ? '#a8c4a0' : colorInkSecondary }}>Left</span>
+                <Divider
+                  orientation="vertical"
+                  surface={chalkboardTheme ? 'chalkboard' : 'paper'}
+                />
+                <span style={{ color: chalkboardTheme ? '#a8c4a0' : colorInkSecondary }}>
+                  Right
+                </span>
+              </div>
             </div>
           </ComponentSection>
 
