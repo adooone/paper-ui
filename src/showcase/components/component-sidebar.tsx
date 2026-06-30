@@ -31,6 +31,8 @@ const componentGroups: ComponentGroup[] = [
     category: 'Form',
     items: [
       { id: 'checkbox', title: 'Checkbox' },
+      { id: 'radio', title: 'Radio' },
+      { id: 'switch', title: 'Switch' },
       { id: 'input', title: 'Input' },
       { id: 'select', title: 'Select' },
       { id: 'textarea', title: 'Textarea' },
@@ -57,6 +59,8 @@ const componentGroups: ComponentGroup[] = [
     items: [
       { id: 'alert', title: 'Alert' },
       { id: 'progress', title: 'Progress' },
+      { id: 'spinner', title: 'Spinner' },
+      { id: 'skeleton', title: 'Skeleton' },
     ],
   },
   {

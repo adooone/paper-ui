@@ -13,8 +13,12 @@ import { Modal } from '../../components/modal';
 import { Page } from '../../components/page';
 import { Progress } from '../../components/progress';
 import type { PropDef } from '../../components/prop-table';
+import { Radio, RadioGroup } from '../../components/radio';
 import { Select } from '../../components/select';
+import { Skeleton } from '../../components/skeleton';
+import { Spinner } from '../../components/spinner';
 import { Stamp } from '../../components/stamp';
+import { Switch } from '../../components/switch';
 import { Table } from '../../components/table';
 import { Tabs } from '../../components/tabs';
 import { Textarea } from '../../components/textarea';
@@ -826,6 +830,131 @@ const sectionDetails: SectionDetail[] = [
       },
     ],
   },
+  {
+    id: 'radio',
+    title: 'Radio',
+    codeExample: `import { RadioGroup } from '@dendelion/paper-ui';
+
+<RadioGroup
+  value={value}
+  onChange={setValue}
+  options={[
+    { value: 'paper', label: 'Paper' },
+    { value: 'kraft', label: 'Kraft' },
+    { value: 'canvas', label: 'Canvas' },
+  ]}
+/>`,
+    props: [
+      {
+        name: 'options',
+        type: 'RadioOption[]',
+        required: true,
+        description: 'Radio choices ({ value, label, disabled? })',
+      },
+      {
+        name: 'value',
+        type: 'string',
+        description: 'Selected value (controlled)',
+      },
+      {
+        name: 'onChange',
+        type: '(value: string) => void',
+        description: 'Selection handler',
+      },
+      {
+        name: 'orientation',
+        type: "'vertical' | 'horizontal'",
+        default: "'vertical'",
+        description: 'Layout direction',
+      },
+      {
+        name: 'surface',
+        type: "'paper' | 'chalkboard'",
+        default: "'paper'",
+        description: 'Surface style',
+      },
+    ],
+  },
+  {
+    id: 'switch',
+    title: 'Switch',
+    codeExample: `import { Switch } from '@dendelion/paper-ui';
+
+<Switch label="Notifications" checked={on} onChange={(e) => setOn(e.target.checked)} />`,
+    props: [
+      {
+        name: 'checked',
+        type: 'boolean',
+        description: 'On/off state',
+      },
+      {
+        name: 'onChange',
+        type: '(e: ChangeEvent) => void',
+        description: 'Change handler',
+      },
+      {
+        name: 'label',
+        type: 'string',
+        description: 'Switch label',
+      },
+      sizeProp,
+      {
+        name: 'surface',
+        type: "'paper' | 'chalkboard'",
+        default: "'paper'",
+        description: 'Surface style',
+      },
+      disabledProp,
+    ],
+  },
+  {
+    id: 'spinner',
+    title: 'Spinner',
+    codeExample: `import { Spinner } from '@dendelion/paper-ui';
+
+<Spinner size="medium" />`,
+    props: [
+      sizeProp,
+      {
+        name: 'color',
+        type: 'string',
+        description: 'Stroke color override',
+      },
+      {
+        name: 'label',
+        type: 'string',
+        default: "'Loading'",
+        description: 'Accessible status label',
+      },
+    ],
+  },
+  {
+    id: 'skeleton',
+    title: 'Skeleton',
+    codeExample: `import { Skeleton } from '@dendelion/paper-ui';
+
+<Skeleton variant="text" />
+<Skeleton variant="circle" width={48} height={48} />
+<Skeleton variant="rect" height={120} />`,
+    props: [
+      {
+        name: 'variant',
+        type: "'text' | 'rect' | 'circle'",
+        default: "'text'",
+        description: 'Placeholder shape',
+      },
+      {
+        name: 'width',
+        type: 'number | string',
+        description: 'Explicit width',
+      },
+      {
+        name: 'height',
+        type: 'number | string',
+        description: 'Explicit height',
+      },
+    ],
+  },
 ];
 
 const detailMap = new Map(sectionDetails.map((d) => [d.id, d]));
@@ -851,6 +980,8 @@ export const ComponentsPage: FC<{
   const [modalOpen, setModalOpen] = useState(false);
   const [tableSearch, setTableSearch] = useState('');
   const [chalkboardTheme, setChalkboardTheme] = useState(false);
+  const [radioValue, setRadioValue] = useState('paper');
+  const [switchOn, setSwitchOn] = useState(true);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -1311,6 +1442,66 @@ export const ComponentsPage: FC<{
                 surface={chalkboardTheme ? 'chalkboard' : 'paper'}
                 placeholder="Cannot edit"
               />
+            </div>
+          </ComponentSection>
+
+          <ComponentSection
+            id="radio"
+            title="Radio"
+            description="Single-select control mirroring Checkbox — circular box with an ink dot and watercolor blob."
+            category="form"
+            chalkboard={chalkboardTheme}
+            onViewDetails={() => handleViewDetails('radio')}
+          >
+            <RadioGroup
+              value={radioValue}
+              onChange={setRadioValue}
+              surface={chalkboardTheme ? 'chalkboard' : 'paper'}
+              options={[
+                { value: 'paper', label: 'Paper' },
+                { value: 'kraft', label: 'Kraft' },
+                { value: 'canvas', label: 'Canvas' },
+                { value: 'marble', label: 'Marble (disabled)', disabled: true },
+              ]}
+            />
+          </ComponentSection>
+
+          <ComponentSection
+            id="switch"
+            title="Switch"
+            description="Toggle control with a sliding ink thumb and watercolor track when on."
+            category="form"
+            chalkboard={chalkboardTheme}
+            onViewDetails={() => handleViewDetails('switch')}
+          >
+            <div className="flex flex-col gap-4">
+              <Switch
+                label="Notifications"
+                checked={switchOn}
+                surface={chalkboardTheme ? 'chalkboard' : 'paper'}
+                onChange={(e) => setSwitchOn(e.target.checked)}
+              />
+              <div className="flex items-center gap-5">
+                <Switch
+                  size="small"
+                  checked={switchOn}
+                  surface={chalkboardTheme ? 'chalkboard' : 'paper'}
+                  onChange={(e) => setSwitchOn(e.target.checked)}
+                />
+                <Switch
+                  size="large"
+                  checked={switchOn}
+                  surface={chalkboardTheme ? 'chalkboard' : 'paper'}
+                  onChange={(e) => setSwitchOn(e.target.checked)}
+                />
+                <Switch
+                  label="Disabled"
+                  disabled
+                  checked={false}
+                  surface={chalkboardTheme ? 'chalkboard' : 'paper'}
+                  onChange={() => {}}
+                />
+              </div>
             </div>
           </ComponentSection>
 
@@ -1800,6 +1991,39 @@ export const ComponentsPage: FC<{
                   <span>80%</span>
                 </div>
                 <Progress value={80} color="#C98B8B" height={4} />
+              </div>
+            </div>
+          </ComponentSection>
+
+          <ComponentSection
+            id="spinner"
+            title="Spinner"
+            description="Indeterminate loading indicator — a rotating ink arc that respects reduced-motion."
+            category="feedback"
+            chalkboard={chalkboardTheme}
+            onViewDetails={() => handleViewDetails('spinner')}
+          >
+            <div className="flex items-center gap-8">
+              <Spinner size="small" color={chalkboardTheme ? '#d4e8cb' : undefined} />
+              <Spinner size="medium" color={chalkboardTheme ? '#d4e8cb' : undefined} />
+              <Spinner size="large" color={chalkboardTheme ? '#d4e8cb' : undefined} />
+            </div>
+          </ComponentSection>
+
+          <ComponentSection
+            id="skeleton"
+            title="Skeleton"
+            description="Loading placeholder in text, rectangle, and circle variants with a paper-grain pulse."
+            category="feedback"
+            chalkboard={chalkboardTheme}
+            onViewDetails={() => handleViewDetails('skeleton')}
+          >
+            <div className="flex items-center gap-5 w-full max-w-md">
+              <Skeleton variant="circle" width={48} height={48} />
+              <div className="flex-1 space-y-2">
+                <Skeleton variant="text" width="60%" />
+                <Skeleton variant="text" />
+                <Skeleton variant="text" width="80%" />
               </div>
             </div>
           </ComponentSection>
