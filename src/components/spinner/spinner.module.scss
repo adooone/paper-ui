@@ -1,0 +1,33 @@
+@use '../../styles/tokens' as *;
+
+.spinner {
+  display: inline-flex;
+  color: $color-text-secondary;
+}
+
+.svg {
+  animation: spin 0.8s linear infinite;
+}
+
+.track {
+  stroke: currentColor;
+  opacity: 0.15;
+}
+
+.head {
+  stroke: currentColor;
+  stroke-dasharray: 25 75;
+  transition: stroke-dasharray 200ms ease;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .svg {
+    animation-duration: 2s;
+  }
+}
