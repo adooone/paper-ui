@@ -15,8 +15,8 @@
 }
 
 .head {
-  stroke: currentColor;
-  stroke-dasharray: 25 75;
+  // stroke is set inline to the brush-stroke gradient (so `color` still tints it)
+  stroke-dasharray: 30 70;
   transition: stroke-dasharray 200ms ease;
 }
 
