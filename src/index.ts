@@ -92,6 +92,12 @@ export type { SpinnerProps } from './components/spinner';
 export { Skeleton } from './components/skeleton';
 export type { SkeletonProps } from './components/skeleton';
 
+export { Badge } from './components/badge';
+export type { BadgeProps } from './components/badge';
+
+export { Divider } from './components/divider';
+export type { DividerProps } from './components/divider';
+
 export { CloseIcon, LightbulbIcon, CheckIcon, CopyIcon, PlusIcon, FolderIcon } from './utils/icons';
 
 export { getTextureStyles, resolveTexture } from './utils/textures';

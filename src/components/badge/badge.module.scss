@@ -1,0 +1,74 @@
+@use '../../styles/tokens' as *;
+@use '../../styles/mixins' as *;
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-2;
+  font-family: var(--paper-font-default, $font-family-serif);
+  font-weight: $font-weight-semibold;
+  letter-spacing: $letter-spacing-wide;
+  line-height: 1.2;
+  white-space: nowrap;
+  border: 1px solid transparent;
+  @include organic-radius($radius-sm, 1.5px);
+  // paper grain over the watercolor wash
+  background-image: url($paper-texture-data-uri);
+  background-repeat: repeat;
+  background-size: 200px 200px;
+}
+
+.small {
+  padding: 1px $space-2;
+  font-size: $font-size-xs;
+}
+
+.medium {
+  padding: 2px $space-3;
+  font-size: $font-size-sm;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  flex-shrink: 0;
+}
+
+.neutral {
+  background-color: rgba($color-accent-slate, 0.14);
+  border-color: rgba($color-accent-slate-dark, 0.3);
+  color: $color-accent-slate-dark;
+}
+
+.info {
+  background-color: rgba($color-accent-blue, 0.14);
+  border-color: rgba($color-accent-blue-dark, 0.3);
+  color: $color-accent-blue-dark;
+}
+
+.success {
+  background-color: rgba($color-accent-green, 0.16);
+  border-color: rgba($color-accent-green-dark, 0.3);
+  color: $color-accent-green-dark;
+}
+
+.warning {
+  background-color: rgba($color-accent-amber, 0.16);
+  border-color: rgba($color-accent-amber-dark, 0.35);
+  color: $color-accent-amber-dark;
+}
+
+.error {
+  background-color: rgba($color-accent-rose, 0.16);
+  border-color: rgba($color-accent-rose-dark, 0.3);
+  color: $color-accent-rose-dark;
+}
+
+.chalkboard {
+  background-image: none;
+  background-color: rgba($color-chalkboard-chalk, 0.1);
+  border-color: $color-chalkboard-border;
+  color: $color-chalkboard-chalk;
+}

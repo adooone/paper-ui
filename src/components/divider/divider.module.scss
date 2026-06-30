@@ -1,0 +1,71 @@
+@use '../../styles/tokens' as *;
+
+.horizontal {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  width: 100%;
+}
+
+// Ink stroke that fades at both ends, like a pen lifting off the paper.
+.line {
+  flex: 1;
+  height: 2px;
+  border-radius: $radius-full;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba($color-text-primary, 0.18) 12%,
+    rgba($color-text-primary, 0.18) 88%,
+    transparent
+  );
+}
+
+.label {
+  flex-shrink: 0;
+  font-family: $font-family-handwritten;
+  font-size: $font-size-md;
+  color: $color-text-tertiary;
+  line-height: 1;
+}
+
+.vertical {
+  display: inline-block;
+  align-self: stretch;
+  width: 2px;
+  min-height: 1em;
+  border-radius: $radius-full;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    rgba($color-text-primary, 0.18) 12%,
+    rgba($color-text-primary, 0.18) 88%,
+    transparent
+  );
+}
+
+.chalkboard {
+  .line {
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba($color-chalkboard-chalk, 0.25) 12%,
+      rgba($color-chalkboard-chalk, 0.25) 88%,
+      transparent
+    );
+  }
+
+  .label {
+    color: $color-chalkboard-muted;
+  }
+
+  &.vertical {
+    background: linear-gradient(
+      180deg,
+      transparent,
+      rgba($color-chalkboard-chalk, 0.25) 12%,
+      rgba($color-chalkboard-chalk, 0.25) 88%,
+      transparent
+    );
+  }
+}
