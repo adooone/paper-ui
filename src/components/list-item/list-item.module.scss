@@ -1,4 +1,5 @@
 @use '../../styles/tokens' as *;
+@use '../../styles/mixins' as *;
 
 .listItem {
   position: relative;
@@ -15,8 +16,7 @@
   outline: none;
 
   &:focus-visible {
-    outline: 2px solid $color-focus-ring;
-    outline-offset: 2px;
+    @include focus-ring;
   }
 }
 

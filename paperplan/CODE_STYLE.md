@@ -133,7 +133,10 @@ className={`${styles.button} ${styles[size]} ${isActive ? styles.active : ''}`}
 - All interactive elements must be `<button>` with `type="button"`
 - Include `aria-label` or `title` on icon-only buttons
 - Never use `role="button"` with incomplete keyboard handlers
-- Focus states must be visible (`focus-visible`)
+- Focus states must be visible (`focus-visible`), applied via a mixin:
+  - **Buttons / clickable surfaces** → `@include focus-ring` (solid slate)
+  - **Text fields / form controls** → `@include ink-focus` (dotted ink)
+- Every interactive element needs a `:hover` state too
 
 ---
 

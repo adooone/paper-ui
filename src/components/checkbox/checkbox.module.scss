@@ -1,4 +1,5 @@
 @use '../../styles/tokens' as *;
+@use '../../styles/mixins' as *;
 
 .wrapper {
   display: flex;
@@ -32,8 +33,7 @@
   border: 0;
 
   &:focus-visible ~ .box {
-    outline: 2px dotted $color-text-tertiary;
-    outline-offset: 2px;
+    @include ink-focus();
   }
 
   &:checked ~ .box {

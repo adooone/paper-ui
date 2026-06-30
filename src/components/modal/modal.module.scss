@@ -85,8 +85,7 @@
   }
 
   &:focus-visible {
-    outline: 2px solid $color-accent-slate;
-    outline-offset: 2px;
+    @include focus-ring;
   }
 }
 
