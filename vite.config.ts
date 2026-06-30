@@ -47,7 +47,14 @@ export default defineConfig(({ command }) => {
         formats: ['es', 'cjs'],
       },
       rollupOptions: {
-        external: ['react', 'react-dom', 'clsx', 'tailwind-merge'],
+        external: [
+          'react',
+          'react-dom',
+          'react/jsx-runtime',
+          'clsx',
+          'tailwind-merge',
+          'framer-motion',
+        ],
         output: {
           globals: {
             react: 'React',
