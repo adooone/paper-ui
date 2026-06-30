@@ -1,9 +1,8 @@
 import { useCallback } from 'react';
-import { cn } from '../../utils/style-helpers';
 import { getDefaultValue } from '../../utils/prop-helpers';
-import { Table } from '../table/table';
-import type { TableColumn } from '../table/table';
-import { TableCellToggle, TableCellInput, TableCellDropdown } from '../table/cells';
+import { cn } from '../../utils/style-helpers';
+import { Table, TableCellDropdown, TableCellInput, TableCellToggle } from '../table';
+import type { TableColumn } from '../table';
 import styles from './prop-table.module.scss';
 
 export interface PropDef {
@@ -60,7 +59,7 @@ function PropValue({
   }
 
   if (editable) {
-    const val = typeof selectedValue === 'string' ? selectedValue : prop.default ?? '';
+    const val = typeof selectedValue === 'string' ? selectedValue : (prop.default ?? '');
     return (
       <TableCellInput
         kind={editable}
@@ -84,13 +83,25 @@ function PropValue({
     );
   }
 
-  return <span className={cn(styles.codeName, variant === 'chalkboard' && styles.chalkCodeName)}>{prop.type}</span>;
+  return (
+    <span className={cn(styles.codeName, variant === 'chalkboard' && styles.chalkCodeName)}>
+      {prop.type}
+    </span>
+  );
 }
 
-export function PropTable({ props, variant = 'default', selectedValues, onValueChange }: PropTableProps) {
-  const handleChange = useCallback((propName: string, value: string | boolean) => {
-    onValueChange?.(propName, value);
-  }, [onValueChange]);
+export function PropTable({
+  props,
+  variant = 'default',
+  selectedValues,
+  onValueChange,
+}: PropTableProps) {
+  const handleChange = useCallback(
+    (propName: string, value: string | boolean) => {
+      onValueChange?.(propName, value);
+    },
+    [onValueChange],
+  );
 
   const tableVariant = variant === 'chalkboard' ? 'chalkboard' : 'paper';
   const cellVariant = variant === 'chalkboard' ? 'chalkboard' : 'default';
@@ -103,7 +114,9 @@ export function PropTable({ props, variant = 'default', selectedValues, onValueC
         <code className={cn(styles.codeName, variant === 'chalkboard' && styles.chalkCodeName)}>
           {prop.name}
           {prop.required && (
-            <span className={cn(styles.required, variant === 'chalkboard' && styles.chalkRequired)}>*</span>
+            <span className={cn(styles.required, variant === 'chalkboard' && styles.chalkRequired)}>
+              *
+            </span>
           )}
         </code>
       ),

@@ -1,9 +1,9 @@
 import type { FC, ReactNode } from 'react';
 import { Button } from '../../components/button';
 import {
+  colorAccentGreen,
   colorInkPrimary,
   colorInkSecondary,
-  colorAccentGreen,
   fontFamilyDisplay,
 } from '../lib/styles';
 
@@ -79,10 +79,7 @@ function ActiveDot(): ReactNode {
   );
 }
 
-export const ComponentSidebar: FC<ComponentSidebarProps> = ({
-  activeSection,
-  onNavigate,
-}) => {
+export const ComponentSidebar: FC<ComponentSidebarProps> = ({ activeSection, onNavigate }) => {
   return (
     <aside className="hidden lg:block w-72 shrink-0">
       <div
@@ -114,9 +111,7 @@ export const ComponentSidebar: FC<ComponentSidebarProps> = ({
                       size="small"
                       isActive={activeSection === item.id}
                       onClick={() => onNavigate(item.id)}
-                      icon={
-                        activeSection === item.id ? <ActiveDot /> : undefined
-                      }
+                      icon={activeSection === item.id ? <ActiveDot /> : undefined}
                     >
                       {item.title}
                     </Button>
@@ -131,8 +126,6 @@ export const ComponentSidebar: FC<ComponentSidebarProps> = ({
   );
 };
 
-export const componentIds = componentGroups.flatMap((g) =>
-  g.items.map((i) => i.id),
-);
+export const componentIds = componentGroups.flatMap((g) => g.items.map((i) => i.id));
 
 export default ComponentSidebar;

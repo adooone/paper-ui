@@ -8,18 +8,13 @@ export interface IslandProps {
   className?: string;
 }
 
-export function Island({
-  children,
-  variant = 'default',
-  className,
-}: IslandProps) {
+export function Island({ children, variant = 'default', className }: IslandProps) {
   return (
-    <div
+    <section
       className={cn(styles.island, variant === 'chalkboard' && styles.chalkboard, className)}
-      role="region"
       aria-label="Controls"
     >
       {children}
-    </div>
+    </section>
   );
 }

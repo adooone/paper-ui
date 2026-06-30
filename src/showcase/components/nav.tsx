@@ -1,9 +1,6 @@
 import type { FC } from 'react';
 import { Button } from '../../components/button';
-import {
-  colorInkPrimary,
-  fontFamilyDisplay,
-} from '../lib/styles';
+import { colorInkPrimary, fontFamilyDisplay } from '../lib/styles';
 
 export type Page = 'welcome' | 'gallery' | 'layout' | 'tokens' | 'docs';
 
@@ -33,11 +30,7 @@ export const ShowcaseNav: FC<NavProps> = ({ currentPage, onPageChange }) => {
             onClick={() => onPageChange('welcome')}
             className="flex items-center gap-3 hover:opacity-80 transition-opacity"
           >
-            <img
-              src="/img/logo.svg"
-              alt="Paper UI logo"
-              className="w-10 h-10"
-            />
+            <img src="/img/logo.svg" alt="Paper UI logo" className="w-10 h-10" />
             <span
               className="text-xl tracking-wide"
               style={{

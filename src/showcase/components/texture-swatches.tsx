@@ -3,15 +3,15 @@ import type { FC } from 'react';
 import { CopyButton } from '../../components/copy-button';
 import { Swatch } from '../../components/swatch';
 import {
-  textures,
-  ruledColors,
-  getTextureByKey,
-  getRuledColorByKey,
-  buildTextureStyles,
-  type TextureConfig,
-  type RuledType,
   type PaperTextureKey,
   type RuledColorKey,
+  type RuledType,
+  type TextureConfig,
+  buildTextureStyles,
+  getRuledColorByKey,
+  getTextureByKey,
+  ruledColors,
+  textures,
 } from '../lib/textures';
 
 export interface TextureSwatchesProps {
@@ -27,8 +27,10 @@ export const TextureSwatches: FC<TextureSwatchesProps> = ({
   compact = false,
   showPreview = false,
 }) => {
-  const currentTexture = (value.texture ? getTextureByKey(value.texture) : undefined) ?? textures[0];
-  const currentRuledColor = (value.ruledColor ? getRuledColorByKey(value.ruledColor) : undefined) ?? ruledColors[0];
+  const currentTexture =
+    (value.texture ? getTextureByKey(value.texture) : undefined) ?? textures[0];
+  const currentRuledColor =
+    (value.ruledColor ? getRuledColorByKey(value.ruledColor) : undefined) ?? ruledColors[0];
 
   const setTexture = useCallback(
     (texture: PaperTextureKey) => onChange({ ...value, texture }),
@@ -69,8 +71,7 @@ export const TextureSwatches: FC<TextureSwatchesProps> = ({
             ...previewStyles,
             height: compact ? 160 : 240,
             border: '2px solid rgba(61, 53, 43, 0.15)',
-            boxShadow:
-              '0 10px 15px rgba(61, 53, 43, 0.1), 0 4px 6px rgba(61, 53, 43, 0.08)',
+            boxShadow: '0 10px 15px rgba(61, 53, 43, 0.1), 0 4px 6px rgba(61, 53, 43, 0.08)',
           }}
         >
           <div
@@ -93,21 +94,23 @@ export const TextureSwatches: FC<TextureSwatchesProps> = ({
       )}
 
       <div className={`flex flex-wrap ${gap}`}>
-        {textures.filter((t) => t.key !== 'chalkboard').map((texture) => (
-          <Swatch
-            key={texture.key}
-            active={value.texture === texture.key}
-            className={swatchSize}
-            title={texture.name}
-            onClick={() => setTexture(texture.key)}
-            style={{
-              backgroundColor: texture.color,
-              backgroundImage: texture.bg,
-              backgroundRepeat: 'repeat',
-              backgroundSize: '100px 100px',
-            }}
-          />
-        ))}
+        {textures
+          .filter((t) => t.key !== 'chalkboard')
+          .map((texture) => (
+            <Swatch
+              key={texture.key}
+              active={value.texture === texture.key}
+              className={swatchSize}
+              title={texture.name}
+              onClick={() => setTexture(texture.key)}
+              style={{
+                backgroundColor: texture.color,
+                backgroundImage: texture.bg,
+                backgroundRepeat: 'repeat',
+                backgroundSize: '100px 100px',
+              }}
+            />
+          ))}
       </div>
 
       <div className="space-y-2">

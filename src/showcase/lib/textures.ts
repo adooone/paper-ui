@@ -1,11 +1,11 @@
 import {
-  textureMap,
-  textureColorMap,
-  ruledColorMap,
   type PaperTextureKey,
   type RuledColorKey,
   type RuledType,
   type TextureConfig,
+  ruledColorMap,
+  textureColorMap,
+  textureMap,
 } from '../../utils/textures';
 
 export type { PaperTextureKey, RuledColorKey, RuledType, TextureConfig };
@@ -48,13 +48,13 @@ const ruledColorNames: Record<RuledColorKey, string> = {
   black: 'Black',
 };
 
-export const ruledColors: RuledColor[] = (
-  Object.keys(ruledColorMap) as RuledColorKey[]
-).map((key) => ({
-  key,
-  name: ruledColorNames[key],
-  value: ruledColorMap[key],
-}));
+export const ruledColors: RuledColor[] = (Object.keys(ruledColorMap) as RuledColorKey[]).map(
+  (key) => ({
+    key,
+    name: ruledColorNames[key],
+    value: ruledColorMap[key],
+  }),
+);
 
 export function getTextureByKey(key: string): PaperTexture | undefined {
   return textures.find((t) => t.key === key);

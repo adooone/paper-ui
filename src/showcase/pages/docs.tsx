@@ -1,23 +1,23 @@
 import type { FC } from 'react';
 import { Button } from '../../components/button';
 import { CodeBlock } from '../../components/code-block';
-import { Footer } from '../components/footer';
 import type { PropDef } from '../../components/prop-table';
 import { PropTable } from '../../components/prop-table';
 import { Stamp } from '../../components/stamp';
+import { Footer } from '../components/footer';
+import { categoryColors } from '../lib/category-colors';
 import {
+  colorAccentGreen,
+  colorAccentGreenDark,
+  colorAccentRose,
   colorInkPrimary,
   colorInkSecondary,
-  colorAccentGreen,
-  colorAccentRose,
   colorPaperSurface,
   fontFamilyDisplay,
-  fontFamilySerif,
   fontFamilyMono,
+  fontFamilySerif,
   paperCardStyle,
-  colorAccentGreenDark,
 } from '../lib/styles';
-import { categoryColors } from '../lib/category-colors';
 
 const quickStartCode = `// 1. Install the package
 pnpm add @dendelion/paper-ui
@@ -226,7 +226,6 @@ const componentList: Array<{
 
 const categories = ['Basic', 'Form', 'Layout'];
 
-
 export const DocsPage: FC = () => {
   return (
     <div className="max-w-6xl mx-auto px-6 sm:px-10 py-16">
@@ -249,8 +248,8 @@ export const DocsPage: FC = () => {
             fontSize: '1.35rem',
           }}
         >
-          Complete API reference for all Paper UI components including props,
-          usage examples, and installation instructions.
+          Complete API reference for all Paper UI components including props, usage examples, and
+          installation instructions.
         </p>
       </div>
 
@@ -316,9 +315,7 @@ export const DocsPage: FC = () => {
           </h2>
 
           {categories.map((category) => {
-            const components = componentList.filter(
-              (c) => c.category === category,
-            );
+            const components = componentList.filter((c) => c.category === category);
             if (components.length === 0) return null;
 
             return (
@@ -394,10 +391,7 @@ export const DocsPage: FC = () => {
           </h2>
 
           <div className="grid md:grid-cols-2 gap-10">
-            <div
-              className="rounded-xl p-10 border"
-              style={paperCardStyle}
-            >
+            <div className="rounded-xl p-10 border" style={paperCardStyle}>
               <h3
                 className="text-lg font-semibold mb-3"
                 style={{
@@ -418,8 +412,7 @@ export const DocsPage: FC = () => {
               >
                 <li className="flex items-start gap-2">
                   <span style={{ color: colorAccentGreen }}>✓</span>
-                  Use primary buttons for main actions, secondary for
-                  alternatives
+                  Use primary buttons for main actions, secondary for alternatives
                 </li>
                 <li className="flex items-start gap-2">
                   <span style={{ color: colorAccentGreen }}>✓</span>
@@ -440,10 +433,7 @@ export const DocsPage: FC = () => {
               </ul>
             </div>
 
-            <div
-              className="rounded-xl p-10 border"
-              style={paperCardStyle}
-            >
+            <div className="rounded-xl p-10 border" style={paperCardStyle}>
               <h3
                 className="text-lg font-semibold mb-3"
                 style={{

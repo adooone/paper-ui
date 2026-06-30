@@ -1,7 +1,7 @@
 import { useId } from 'react';
 import type { InputHTMLAttributes } from 'react';
-import { cn } from '../../utils/style-helpers';
 import { useBlobPaths } from '../../hooks/use-blob-paths';
+import { cn } from '../../utils/style-helpers';
 import styles from './checkbox.module.scss';
 
 export interface CheckboxProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> {
@@ -56,7 +56,16 @@ export function Checkbox({
         <span className={styles.box} aria-hidden="true">
           {indeterminate ? (
             <svg viewBox="0 0 20 20" fill="none" className={styles.icon}>
-              <line x1="4" y1="10" x2="16" y2="10" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" className={styles.indeterminateLine} />
+              <line
+                x1="4"
+                y1="10"
+                x2="16"
+                y2="10"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                className={styles.indeterminateLine}
+              />
             </svg>
           ) : (
             <svg viewBox="0 0 20 20" fill="none" className={styles.icon}>

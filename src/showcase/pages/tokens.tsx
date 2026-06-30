@@ -2,16 +2,16 @@ import type { FC } from 'react';
 import { CodeBlock } from '../../components/code-block';
 import { Footer } from '../components/footer';
 import {
+  colorAccentAmber,
+  colorAccentGreen,
+  colorAccentRose,
   colorInkPrimary,
   colorInkSecondary,
   colorInkTertiary,
-  colorAccentGreen,
-  colorAccentAmber,
-  colorAccentRose,
   colorPaperSurface,
   fontFamilyDisplay,
-  fontFamilySerif,
   fontFamilyMono,
+  fontFamilySerif,
   paperCardStyle,
 } from '../lib/styles';
 
@@ -224,8 +224,8 @@ export const TokensPage: FC = () => {
             fontSize: '1.35rem',
           }}
         >
-          Complete reference for Paper UI's design system tokens including
-          colors, typography, spacing, and more.
+          Complete reference for Paper UI's design system tokens including colors, typography,
+          spacing, and more.
         </p>
       </div>
 
@@ -249,18 +249,14 @@ export const TokensPage: FC = () => {
                 fontSize: '1.35rem',
               }}
             >
-              Nature-inspired color palette with semantic naming. Each color has
-              a full 50–950 scale.
+              Nature-inspired color palette with semantic naming. Each color has a full 50–950
+              scale.
             </p>
           </div>
 
           <div className="space-y-10">
             {Object.entries(colors).map(([key, color]) => (
-              <div
-                key={key}
-                className="rounded-xl p-10 border"
-                style={paperCardStyle}
-              >
+              <div key={key} className="rounded-xl p-10 border" style={paperCardStyle}>
                 <div className="mb-6">
                   <h3
                     className="text-lg font-semibold capitalize"
@@ -351,16 +347,12 @@ export const TokensPage: FC = () => {
                 fontSize: '1.35rem',
               }}
             >
-              Two primary font families — Luminari for display and Cormorant
-              Garamond for body text.
+              Two primary font families — Luminari for display and Cormorant Garamond for body text.
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-10">
-            <div
-              className="rounded-xl p-10 border"
-              style={paperCardStyle}
-            >
+            <div className="rounded-xl p-10 border" style={paperCardStyle}>
               <h3
                 className="text-lg font-semibold mb-6"
                 style={{
@@ -435,10 +427,7 @@ export const TokensPage: FC = () => {
               </div>
             </div>
 
-            <div
-              className="rounded-xl p-10 border"
-              style={paperCardStyle}
-            >
+            <div className="rounded-xl p-10 border" style={paperCardStyle}>
               <h3
                 className="text-lg font-semibold mb-6"
                 style={{
@@ -451,10 +440,7 @@ export const TokensPage: FC = () => {
               </h3>
               <div className="space-y-3">
                 {typography.sizes.map((size) => (
-                  <div
-                    key={size.name}
-                    className="flex items-center justify-between"
-                  >
+                  <div key={size.name} className="flex items-center justify-between">
                     <span
                       className="text-ink-900"
                       style={{
@@ -525,10 +511,7 @@ export const TokensPage: FC = () => {
             </p>
           </div>
 
-          <div
-            className="rounded-xl p-10 border"
-            style={paperCardStyle}
-          >
+          <div className="rounded-xl p-10 border" style={paperCardStyle}>
             <div className="space-y-3">
               {spacing.map((space) => (
                 <div key={space.name} className="flex items-center gap-5">
@@ -736,10 +719,7 @@ export const TokensPage: FC = () => {
             </p>
           </div>
 
-          <div
-            className="rounded-xl p-10 border"
-            style={paperCardStyle}
-          >
+          <div className="rounded-xl p-10 border" style={paperCardStyle}>
             <div className="grid md:grid-cols-2 gap-10">
               <div>
                 <h4
@@ -952,9 +932,8 @@ export const TokensPage: FC = () => {
                 fontSize: '1.25rem',
               }}
             >
-              SVG-generated surface textures — no external image files. Each
-              uses feTurbulence, feColorMatrix, and CSS gradients for
-              paper-like, canvas, and organic effects.
+              SVG-generated surface textures — no external image files. Each uses feTurbulence,
+              feColorMatrix, and CSS gradients for paper-like, canvas, and organic effects.
             </p>
           </div>
 

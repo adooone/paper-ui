@@ -59,6 +59,7 @@ export type {
   TableProps,
   TableColumn,
   TableToolbar,
+  TableExpandableConfig,
   TableBoardColumn,
   TableAccentColor,
   TableVariant,
@@ -83,5 +84,3 @@ export { CloseIcon, LightbulbIcon, CheckIcon, CopyIcon, PlusIcon, FolderIcon } f
 
 export { space } from './tokens';
 export { layoutConfig } from './layout';
-
-

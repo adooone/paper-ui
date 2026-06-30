@@ -16,9 +16,7 @@ export const container = ['w-full h-full p-4 overflow-auto pb-24'] as const;
 export const content = ['mx-auto max-w-7xl'] as const;
 
 /** Page title styling */
-export const title = [
-  'mb-6 font-display text-3xl font-bold text-ink tracking-wide',
-] as const;
+export const title = ['mb-6 font-display text-3xl font-bold text-ink tracking-wide'] as const;
 
 // =============================================================================
 // Paper Surfaces
@@ -47,9 +45,7 @@ export const handwritten = ['font-handwritten text-lg text-ink/70'] as const;
 // =============================================================================
 
 /** Stats grid - responsive 1-2-3 columns */
-export const statsGrid = [
-  'grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3',
-] as const;
+export const statsGrid = ['grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3'] as const;
 
 /** Card grid - responsive 1-2 columns */
 export const cardGrid = ['grid grid-cols-1 gap-6 lg:grid-cols-2'] as const;

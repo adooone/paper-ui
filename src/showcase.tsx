@@ -1,5 +1,8 @@
 import { useState } from 'react';
 import type { FC } from 'react';
+import type { PropDef } from './components/prop-table';
+import { DetailSidebar } from './showcase/components/detail-sidebar';
+import { Footer } from './showcase/components/footer';
 import { type Page, ShowcaseNav } from './showcase/components/nav';
 import { FontProvider } from './showcase/font-context';
 import { ComponentsPage } from './showcase/pages/components';
@@ -7,9 +10,6 @@ import { DocsPage } from './showcase/pages/docs';
 import { LayoutPage } from './showcase/pages/layout';
 import { TokensPage } from './showcase/pages/tokens';
 import { WelcomePage } from './showcase/pages/welcome';
-import { DetailSidebar } from './showcase/components/detail-sidebar';
-import { Footer } from './showcase/components/footer';
-import type { PropDef } from './components/prop-table';
 import './globals.scss';
 
 interface DetailData {
@@ -54,7 +54,13 @@ const Showcase: FC = () => {
       case 'welcome':
         return <WelcomePage onNavigate={setCurrentPage} />;
       case 'gallery':
-        return <ComponentsPage onOpenDetail={openDetail} onUpdateDetail={updateDetail} sidebarOpen={sidebarOpen} />;
+        return (
+          <ComponentsPage
+            onOpenDetail={openDetail}
+            onUpdateDetail={updateDetail}
+            sidebarOpen={sidebarOpen}
+          />
+        );
       case 'layout':
         return <LayoutPage />;
       case 'tokens':
@@ -97,6 +103,7 @@ export default Showcase;
 
 import ReactDOM from 'react-dom/client';
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
-  <Showcase />,
-);
+const rootElement = document.getElementById('root');
+if (rootElement) {
+  ReactDOM.createRoot(rootElement).render(<Showcase />);
+}

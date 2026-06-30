@@ -27,7 +27,7 @@ export function generateWobblyBlob(config?: BlobConfig): string {
 }
 
 export function generateWobblyRing(blobSeed: string | number, wobble?: number): string {
-  const rng = seededRandom(blobSeed + '-ring');
+  const rng = seededRandom(`${blobSeed}-ring`);
   const intensity = Math.max(0, Math.min(1, wobble ?? 0.5));
 
   const points = 8 + Math.round(intensity * 6);
@@ -60,10 +60,10 @@ export function generateWobblyRect(config?: BlobConfig): string {
   const pts: { x: number; y: number }[] = [];
 
   const edges: { ax: number; ay: number; bx: number; by: number }[] = [
-    { ax: margin, ay: margin, bx: 100 - margin, by: margin },     // top
+    { ax: margin, ay: margin, bx: 100 - margin, by: margin }, // top
     { ax: 100 - margin, ay: margin, bx: 100 - margin, by: 100 - margin }, // right
     { ax: 100 - margin, ay: 100 - margin, bx: margin, by: 100 - margin }, // bottom
-    { ax: margin, ay: 100 - margin, bx: margin, by: margin },     // left
+    { ax: margin, ay: 100 - margin, bx: margin, by: margin }, // left
   ];
 
   for (const edge of edges) {
@@ -88,7 +88,7 @@ export function generateWobblyRect(config?: BlobConfig): string {
 }
 
 export function generateWobblyRectRing(seed: string | number, wobble?: number): string {
-  const rng = seededRandom(seed + '-ring');
+  const rng = seededRandom(`${seed}-ring`);
   const intensity = Math.max(0, Math.min(1, wobble ?? 0.5));
 
   const perSide = 3 + Math.round(intensity * 3);

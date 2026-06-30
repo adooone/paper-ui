@@ -1,8 +1,8 @@
-import { useId, useRef, useState, useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useId, useRef, useState } from 'react';
+import type { CSSProperties, KeyboardEvent, MouseEvent, ReactNode } from 'react';
 import { createPortal } from 'react-dom';
-import type { ReactNode, KeyboardEvent, MouseEvent, CSSProperties } from 'react';
 import { cn } from '../../utils/style-helpers';
-import { getTextureStyles, type TextureConfig } from '../../utils/textures';
+import { type TextureConfig, getTextureStyles } from '../../utils/textures';
 import styles from './select.module.scss';
 
 export interface SelectOption {
@@ -160,10 +160,7 @@ export function Select({
     if (!isOpen) return;
     const handleClick = (e: globalThis.MouseEvent) => {
       const target = e.target as Node;
-      if (
-        triggerRef.current?.contains(target) ||
-        listRef.current?.contains(target)
-      ) {
+      if (triggerRef.current?.contains(target) || listRef.current?.contains(target)) {
         return;
       }
       closeDropdown();
@@ -251,9 +248,7 @@ export function Select({
         aria-haspopup="listbox"
         aria-controls={isOpen ? `${selectId}-listbox` : undefined}
         aria-activedescendant={
-          isOpen && highlightedIndex >= 0
-            ? `${selectId}-option-${highlightedIndex}`
-            : undefined
+          isOpen && highlightedIndex >= 0 ? `${selectId}-option-${highlightedIndex}` : undefined
         }
         className={cn(
           styles.trigger,
@@ -272,58 +267,61 @@ export function Select({
         <ChevronIcon className={cn(styles.chevron, isOpen && styles.chevronOpen)} />
       </button>
 
-      {isOpen && triggerRect && createPortal(
-        <div
-          ref={listRef}
-          id={`${selectId}-listbox`}
-          role="listbox"
-          className={styles.dropdown}
-          style={{
-            ...dropdownStyle,
-            position: 'fixed',
-            top: triggerRect.bottom + 6,
-            left: triggerRect.left,
-            width: triggerRect.width,
-            zIndex: 1000,
-          }}
-          onKeyDown={(e) => {
-            if (e.key === 'Escape') {
-              e.preventDefault();
-              closeDropdown();
-              triggerRef.current?.focus();
-            }
-          }}
-        >
-          {options.map((opt, idx) => (
-            <div
-              key={opt.value}
-              id={`${selectId}-option-${idx}`}
-              role="option"
-              aria-selected={opt.value === selectedValue}
-              data-option-index={idx}
-              className={cn(
-                styles.option,
-                opt.value === selectedValue && styles.optionSelected,
-                idx === highlightedIndex && styles.optionHighlighted,
-                opt.disabled && styles.optionDisabled,
-              )}
-              onClick={(e: MouseEvent<HTMLDivElement>) => {
-                e.stopPropagation();
-                selectOption(opt);
-              }}
-              onMouseEnter={() => setHighlightedIndex(idx)}
-            >
-              {opt.label}
-            </div>
-          ))}
-        </div>,
-        document.body,
-      )}
+      {isOpen &&
+        triggerRect &&
+        createPortal(
+          <div
+            ref={listRef}
+            id={`${selectId}-listbox`}
+            role="listbox"
+            tabIndex={-1}
+            className={styles.dropdown}
+            style={{
+              ...dropdownStyle,
+              position: 'fixed',
+              top: triggerRect.bottom + 6,
+              left: triggerRect.left,
+              width: triggerRect.width,
+              zIndex: 1000,
+            }}
+            onKeyDown={(e) => {
+              if (e.key === 'Escape') {
+                e.preventDefault();
+                closeDropdown();
+                triggerRef.current?.focus();
+              }
+            }}
+          >
+            {options.map((opt, idx) => (
+              // biome-ignore lint/a11y/useKeyWithClickEvents: keyboard selection is handled on the combobox trigger (arrow keys + Enter) via aria-activedescendant; options are pointer targets only.
+              <div
+                key={opt.value}
+                id={`${selectId}-option-${idx}`}
+                role="option"
+                aria-selected={opt.value === selectedValue}
+                tabIndex={-1}
+                data-option-index={idx}
+                className={cn(
+                  styles.option,
+                  opt.value === selectedValue && styles.optionSelected,
+                  idx === highlightedIndex && styles.optionHighlighted,
+                  opt.disabled && styles.optionDisabled,
+                )}
+                onClick={(e: MouseEvent<HTMLDivElement>) => {
+                  e.stopPropagation();
+                  selectOption(opt);
+                }}
+                onMouseEnter={() => setHighlightedIndex(idx)}
+              >
+                {opt.label}
+              </div>
+            ))}
+          </div>,
+          document.body,
+        )}
 
       {helperText && (
-        <span className={cn(styles.helperText, error && styles.helperError)}>
-          {helperText}
-        </span>
+        <span className={cn(styles.helperText, error && styles.helperError)}>{helperText}</span>
       )}
     </div>
   );

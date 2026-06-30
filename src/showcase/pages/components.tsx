@@ -1,28 +1,25 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import type { FC } from 'react';
 import { Alert } from '../../components/alert';
-import { Stamp } from '../../components/stamp';
 import { Button } from '../../components/button';
 import { Card } from '../../components/card';
 import { Checkbox } from '../../components/checkbox';
 import { IconButton } from '../../components/icon-button';
 import { Input } from '../../components/input';
 import { Island } from '../../components/island';
+import { Layout } from '../../components/layout';
 import { ListItem } from '../../components/list-item';
 import { Modal } from '../../components/modal';
-import { Layout } from '../../components/layout';
 import { Page } from '../../components/page';
 import { Progress } from '../../components/progress';
+import type { PropDef } from '../../components/prop-table';
 import { Select } from '../../components/select';
+import { Stamp } from '../../components/stamp';
 import { Table } from '../../components/table';
 import { Tabs } from '../../components/tabs';
 import { Textarea } from '../../components/textarea';
-import type { PropDef } from '../../components/prop-table';
 import { ComponentSection } from '../components/component-section';
-import {
-  ComponentSidebar,
-  componentIds,
-} from '../components/component-sidebar';
+import { ComponentSidebar, componentIds } from '../components/component-sidebar';
 import {
   colorInkPrimary,
   colorInkSecondary,
@@ -838,7 +835,15 @@ const sectionDetails: SectionDetail[] = [
 
 const detailMap = new Map(sectionDetails.map((d) => [d.id, d]));
 
-export const ComponentsPage: FC<{ onOpenDetail: (data: { title: string; codeExample: string; id: string; props?: PropDef[] } | null) => void; onUpdateDetail: (data: { title: string; codeExample: string; id: string; props?: PropDef[] } | null) => void; sidebarOpen?: boolean }> = ({ onOpenDetail, onUpdateDetail, sidebarOpen }) => {
+export const ComponentsPage: FC<{
+  onOpenDetail: (
+    data: { title: string; codeExample: string; id: string; props?: PropDef[] } | null,
+  ) => void;
+  onUpdateDetail: (
+    data: { title: string; codeExample: string; id: string; props?: PropDef[] } | null,
+  ) => void;
+  sidebarOpen?: boolean;
+}> = ({ onOpenDetail, onUpdateDetail, sidebarOpen }) => {
   const [activeSection, setActiveSection] = useState('button');
   const [checked1, setChecked1] = useState(false);
   const [checked2, setChecked2] = useState(true);
@@ -881,10 +886,15 @@ export const ComponentsPage: FC<{ onOpenDetail: (data: { title: string; codeExam
     if (sidebarOpen && activeSection) {
       const detail = detailMap.get(activeSection);
       if (detail) {
-        onUpdateDetail({ title: detail.title, codeExample: detail.codeExample, id: detail.id, props: detail.props });
+        onUpdateDetail({
+          title: detail.title,
+          codeExample: detail.codeExample,
+          id: detail.id,
+          props: detail.props,
+        });
       }
     }
-  }, [activeSection, sidebarOpen]);
+  }, [activeSection, sidebarOpen, onUpdateDetail]);
 
   const handleNavigate = useCallback((id: string) => {
     const element = document.getElementById(id);
@@ -893,12 +903,20 @@ export const ComponentsPage: FC<{ onOpenDetail: (data: { title: string; codeExam
     }
   }, []);
 
-  const handleViewDetails = useCallback((id: string) => {
-    const detail = detailMap.get(id);
-    if (detail) {
-      onOpenDetail({ title: detail.title, codeExample: detail.codeExample, id: detail.id, props: detail.props });
-    }
-  }, [onOpenDetail]);
+  const handleViewDetails = useCallback(
+    (id: string) => {
+      const detail = detailMap.get(id);
+      if (detail) {
+        onOpenDetail({
+          title: detail.title,
+          codeExample: detail.codeExample,
+          id: detail.id,
+          props: detail.props,
+        });
+      }
+    },
+    [onOpenDetail],
+  );
 
   return (
     <div className="max-w-7xl mx-auto px-6 sm:px-10 py-16">
@@ -921,16 +939,13 @@ export const ComponentsPage: FC<{ onOpenDetail: (data: { title: string; codeExam
             fontSize: '1.35rem',
           }}
         >
-          The component set — handcrafted pieces with paper textures, ink
-          effects, and watercolor washes.
+          The component set — handcrafted pieces with paper textures, ink effects, and watercolor
+          washes.
         </p>
       </div>
 
       <div className="flex gap-10">
-        <ComponentSidebar
-          activeSection={activeSection}
-          onNavigate={handleNavigate}
-        />
+        <ComponentSidebar activeSection={activeSection} onNavigate={handleNavigate} />
 
         <div className="flex-1 min-w-0 space-y-20 pb-24">
           <ComponentSection
@@ -944,17 +959,27 @@ export const ComponentsPage: FC<{ onOpenDetail: (data: { title: string; codeExam
             <div className="flex flex-wrap items-center gap-5">
               {chalkboardTheme ? (
                 <>
-                  <Button variant="chalkboard" wobble={buttonWobble}>Chalkboard</Button>
+                  <Button variant="chalkboard" wobble={buttonWobble}>
+                    Chalkboard
+                  </Button>
                   <Button variant="chalkboard" disabled wobble={buttonWobble}>
                     Disabled
                   </Button>
                 </>
               ) : (
                 <>
-                  <Button variant="primary" wobble={buttonWobble}>Primary</Button>
-                  <Button variant="secondary" wobble={buttonWobble}>Secondary</Button>
-                  <Button variant="ghost" wobble={buttonWobble}>Ghost</Button>
-                  <Button variant="danger" wobble={buttonWobble}>Danger</Button>
+                  <Button variant="primary" wobble={buttonWobble}>
+                    Primary
+                  </Button>
+                  <Button variant="secondary" wobble={buttonWobble}>
+                    Secondary
+                  </Button>
+                  <Button variant="ghost" wobble={buttonWobble}>
+                    Ghost
+                  </Button>
+                  <Button variant="danger" wobble={buttonWobble}>
+                    Danger
+                  </Button>
                   <Button variant="primary" disabled wobble={buttonWobble}>
                     Disabled
                   </Button>
@@ -1023,19 +1048,35 @@ export const ComponentsPage: FC<{ onOpenDetail: (data: { title: string; codeExam
             <div className="flex flex-wrap items-center gap-5">
               {chalkboardTheme ? (
                 <>
-                  <Stamp size="small" variant="chalkboard">Small</Stamp>
+                  <Stamp size="small" variant="chalkboard">
+                    Small
+                  </Stamp>
                   <Stamp variant="chalkboard">Done</Stamp>
-                  <Stamp size="large" variant="chalkboard">Draft</Stamp>
-                  <Stamp size="small" variant="chalkboard">Alert</Stamp>
+                  <Stamp size="large" variant="chalkboard">
+                    Draft
+                  </Stamp>
+                  <Stamp size="small" variant="chalkboard">
+                    Alert
+                  </Stamp>
                   <Stamp variant="chalkboard">Info</Stamp>
                 </>
               ) : (
                 <>
-                  <Stamp size="small" fillColor="rgba(143, 185, 150, 0.25)" textColor="#3D5A42">Small</Stamp>
-                  <Stamp fillColor="rgba(143, 185, 150, 0.25)" textColor="#3D5A42">Done</Stamp>
-                  <Stamp size="large" fillColor="rgba(212, 163, 115, 0.25)" textColor="#6B5135">Draft</Stamp>
-                  <Stamp size="small" fillColor="rgba(201, 139, 139, 0.25)" textColor="#6E3A3A">Alert</Stamp>
-                  <Stamp fillColor="rgba(168, 155, 168, 0.25)" textColor="#6E5E6E">Info</Stamp>
+                  <Stamp size="small" fillColor="rgba(143, 185, 150, 0.25)" textColor="#3D5A42">
+                    Small
+                  </Stamp>
+                  <Stamp fillColor="rgba(143, 185, 150, 0.25)" textColor="#3D5A42">
+                    Done
+                  </Stamp>
+                  <Stamp size="large" fillColor="rgba(212, 163, 115, 0.25)" textColor="#6B5135">
+                    Draft
+                  </Stamp>
+                  <Stamp size="small" fillColor="rgba(201, 139, 139, 0.25)" textColor="#6E3A3A">
+                    Alert
+                  </Stamp>
+                  <Stamp fillColor="rgba(168, 155, 168, 0.25)" textColor="#6E5E6E">
+                    Info
+                  </Stamp>
                 </>
               )}
             </div>
@@ -1053,7 +1094,16 @@ export const ComponentsPage: FC<{ onOpenDetail: (data: { title: string; codeExam
                 active={listItemActive === 'plans'}
                 onClick={() => setListItemActive('plans')}
                 icon={
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
                     <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
                     <polyline points="14 2 14 8 20 8" />
                     <line x1="16" y1="13" x2="8" y2="13" />
@@ -1067,7 +1117,16 @@ export const ComponentsPage: FC<{ onOpenDetail: (data: { title: string; codeExam
                 active={listItemActive === 'focus'}
                 onClick={() => setListItemActive('focus')}
                 icon={
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
                     <circle cx="12" cy="12" r="10" />
                     <circle cx="12" cy="12" r="3" />
                   </svg>
@@ -1080,13 +1139,24 @@ export const ComponentsPage: FC<{ onOpenDetail: (data: { title: string; codeExam
                 onClick={() => setListItemActive('settings')}
                 size="small"
                 icon={
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
                     <circle cx="12" cy="12" r="3" />
                     <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
                   </svg>
                 }
                 action={
-                  <Stamp size="small" fillColor="rgba(143,185,150,0.25)" textColor="#3D5A42">New</Stamp>
+                  <Stamp size="small" fillColor="rgba(143,185,150,0.25)" textColor="#3D5A42">
+                    New
+                  </Stamp>
                 }
               >
                 Settings
@@ -1126,7 +1196,7 @@ export const ComponentsPage: FC<{ onOpenDetail: (data: { title: string; codeExam
                 checked={false}
                 wobble={buttonWobble}
                 variant={chalkboardTheme ? 'chalkboard' : 'default'}
-                onChange={() => { }}
+                onChange={() => {}}
               />
             </div>
           </ComponentSection>
@@ -1312,8 +1382,7 @@ export const ComponentsPage: FC<{ onOpenDetail: (data: { title: string; codeExam
               style={{
                 height: '340px',
                 borderColor: 'rgba(61, 53, 43, 0.12)',
-                boxShadow:
-                  '0 4px 6px rgba(61, 53, 43, 0.08), 0 2px 4px rgba(61, 53, 43, 0.06)',
+                boxShadow: '0 4px 6px rgba(61, 53, 43, 0.08), 0 2px 4px rgba(61, 53, 43, 0.06)',
               }}
             >
               <Layout
@@ -1325,7 +1394,7 @@ export const ComponentsPage: FC<{ onOpenDetail: (data: { title: string; codeExam
                   { id: 'settings', label: 'Settings', path: '/settings' },
                 ]}
                 activeItemId="dash"
-                onNavigate={() => { }}
+                onNavigate={() => {}}
                 showSidebar
                 showPage
                 showHeader
@@ -1548,22 +1617,24 @@ export const ComponentsPage: FC<{ onOpenDetail: (data: { title: string; codeExam
                     cell: (r) => r.date,
                   },
                 ]}
-                data={[
-                  { item: 'Watercolor Study', type: 'Sketch', status: 'Done', date: 'Jun 2' },
-                  { item: 'Ink Portrait', type: 'Illustration', status: 'Draft', date: 'Jun 1' },
-                  { item: 'Paper Texture', type: 'Asset', status: 'Review', date: 'May 30' },
-                  { item: 'Canvas Weave', type: 'Pattern', status: 'Done', date: 'May 28' },
-                ].filter((row) =>
-                  tableSearch
-                    ? row.item.toLowerCase().includes(tableSearch.toLowerCase()) ||
-                    row.type.toLowerCase().includes(tableSearch.toLowerCase())
-                    : true,
-                ) as Array<{
-                  item: string;
-                  type: string;
-                  status: string;
-                  date: string;
-                }>}
+                data={
+                  [
+                    { item: 'Watercolor Study', type: 'Sketch', status: 'Done', date: 'Jun 2' },
+                    { item: 'Ink Portrait', type: 'Illustration', status: 'Draft', date: 'Jun 1' },
+                    { item: 'Paper Texture', type: 'Asset', status: 'Review', date: 'May 30' },
+                    { item: 'Canvas Weave', type: 'Pattern', status: 'Done', date: 'May 28' },
+                  ].filter((row) =>
+                    tableSearch
+                      ? row.item.toLowerCase().includes(tableSearch.toLowerCase()) ||
+                        row.type.toLowerCase().includes(tableSearch.toLowerCase())
+                      : true,
+                  ) as Array<{
+                    item: string;
+                    type: string;
+                    status: string;
+                    date: string;
+                  }>
+                }
               />
             </div>
           </ComponentSection>
@@ -1614,7 +1685,13 @@ export const ComponentsPage: FC<{ onOpenDetail: (data: { title: string; codeExam
                     id: 'design',
                     label: 'Design',
                     children: (
-                      <p style={{ fontFamily: fontFamilySerif, fontSize: '1rem', color: chalkboardTheme ? '#d4e8cb' : colorInkSecondary }}>
+                      <p
+                        style={{
+                          fontFamily: fontFamilySerif,
+                          fontSize: '1rem',
+                          color: chalkboardTheme ? '#d4e8cb' : colorInkSecondary,
+                        }}
+                      >
                         Design tools and systems for consistent visual language.
                       </p>
                     ),
@@ -1623,7 +1700,13 @@ export const ComponentsPage: FC<{ onOpenDetail: (data: { title: string; codeExam
                     id: 'code',
                     label: 'Code',
                     children: (
-                      <p style={{ fontFamily: fontFamilySerif, fontSize: '1rem', color: chalkboardTheme ? '#d4e8cb' : colorInkSecondary }}>
+                      <p
+                        style={{
+                          fontFamily: fontFamilySerif,
+                          fontSize: '1rem',
+                          color: chalkboardTheme ? '#d4e8cb' : colorInkSecondary,
+                        }}
+                      >
                         Implementation details and code architecture.
                       </p>
                     ),
@@ -1632,7 +1715,13 @@ export const ComponentsPage: FC<{ onOpenDetail: (data: { title: string; codeExam
                     id: 'preview',
                     label: 'Preview',
                     children: (
-                      <p style={{ fontFamily: fontFamilySerif, fontSize: '1rem', color: chalkboardTheme ? '#d4e8cb' : colorInkSecondary }}>
+                      <p
+                        style={{
+                          fontFamily: fontFamilySerif,
+                          fontSize: '1rem',
+                          color: chalkboardTheme ? '#d4e8cb' : colorInkSecondary,
+                        }}
+                      >
                         Live preview of the current configuration.
                       </p>
                     ),
@@ -1686,21 +1775,30 @@ export const ComponentsPage: FC<{ onOpenDetail: (data: { title: string; codeExam
           >
             <div className="w-full max-w-sm space-y-5">
               <div className="space-y-2">
-                <div className="flex justify-between text-sm" style={{ fontFamily: "'Luminari', serif", color: '#68635C' }}>
+                <div
+                  className="flex justify-between text-sm"
+                  style={{ fontFamily: "'Luminari', serif", color: '#68635C' }}
+                >
                   <span>Progress</span>
                   <span>65%</span>
                 </div>
                 <Progress value={65} color={undefined} height={6} />
               </div>
               <div className="space-y-2">
-                <div className="flex justify-between text-sm" style={{ fontFamily: "'Luminari', serif", color: '#68635C' }}>
+                <div
+                  className="flex justify-between text-sm"
+                  style={{ fontFamily: "'Luminari', serif", color: '#68635C' }}
+                >
                   <span>Custom color</span>
                   <span>42%</span>
                 </div>
                 <Progress value={42} color="#D4A373" height={8} />
               </div>
               <div className="space-y-2">
-                <div className="flex justify-between text-sm" style={{ fontFamily: "'Luminari', serif", color: '#68635C' }}>
+                <div
+                  className="flex justify-between text-sm"
+                  style={{ fontFamily: "'Luminari', serif", color: '#68635C' }}
+                >
                   <span>Small</span>
                   <span>80%</span>
                 </div>
@@ -1740,8 +1838,8 @@ export const ComponentsPage: FC<{ onOpenDetail: (data: { title: string; codeExam
                   lineHeight: 1.6,
                 }}
               >
-                This modal sits on a textured backdrop with an organic feel.
-                Click the backdrop or the close button to dismiss.
+                This modal sits on a textured backdrop with an organic feel. Click the backdrop or
+                the close button to dismiss.
               </p>
               <div className="mt-6 flex justify-end gap-3">
                 <Button

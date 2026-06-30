@@ -9,7 +9,13 @@ export interface TableCellInputProps {
   variant?: 'default' | 'chalkboard';
 }
 
-export function TableCellInput({ kind, value, placeholder, onChange, variant = 'default' }: TableCellInputProps) {
+export function TableCellInput({
+  kind,
+  value,
+  placeholder,
+  onChange,
+  variant = 'default',
+}: TableCellInputProps) {
   return (
     <input
       type={kind === 'number' ? 'number' : 'text'}

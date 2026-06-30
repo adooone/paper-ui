@@ -10,15 +10,16 @@ export interface AccordionProps {
   className?: string;
 }
 
-export function Accordion({ title, children, expanded = false, onToggle, className }: AccordionProps) {
+export function Accordion({
+  title,
+  children,
+  expanded = false,
+  onToggle,
+  className,
+}: AccordionProps) {
   return (
     <div className={cn(styles.accordion, expanded && styles.expanded, className)}>
-      <button
-        type="button"
-        className={styles.header}
-        onClick={onToggle}
-        aria-expanded={expanded}
-      >
+      <button type="button" className={styles.header} onClick={onToggle} aria-expanded={expanded}>
         <span className={styles.icon} aria-hidden="true">
           {expanded ? '▼' : '▶'}
         </span>

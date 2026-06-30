@@ -2,13 +2,12 @@ import { useState } from 'react';
 import type { FC } from 'react';
 import { Button } from '../../components/button';
 import { Checkbox } from '../../components/checkbox';
-import { Layout, type LayoutBackground } from '../../components/layout';
-import { Page } from '../../components/page';
-import { NavigationIsland } from '../../components/navigation-island';
 import { CodeBlock } from '../../components/code-block';
+import { Layout, type LayoutBackground } from '../../components/layout';
+import { NavigationIsland } from '../../components/navigation-island';
+import { Page } from '../../components/page';
 import { Footer } from '../components/footer';
 import { TextureSwatches } from '../components/texture-swatches';
-import { buildTextureStyles, type TextureConfig } from '../lib/textures';
 import {
   colorInkPrimary,
   colorInkSecondary,
@@ -17,6 +16,7 @@ import {
   paperCardStyle,
   shadowPaperMd,
 } from '../lib/styles';
+import { type TextureConfig, buildTextureStyles } from '../lib/textures';
 
 const navItems = [
   { id: 'dashboard', label: 'Dashboard', path: '/' },
@@ -66,7 +66,9 @@ const pageContent = (
         margin: 0,
       }}
     >
-      Paper UI is a library of reusable React components for building natural materials interfaces. It is made with accessibility and performance in mind. Colors and textures are carefully chosen to create a harmonious and intuitive user experience.
+      Paper UI is a library of reusable React components for building natural materials interfaces.
+      It is made with accessibility and performance in mind. Colors and textures are carefully
+      chosen to create a harmonious and intuitive user experience.
     </p>
   </div>
 );
@@ -98,10 +100,10 @@ export const LayoutPage: FC = () => {
     layoutConfig.ruledType === 'none'
       ? (layoutConfig.texture as LayoutBackground)
       : {
-        texture: layoutConfig.texture as 'paper' | 'parchment' | 'kraft' | 'white' | 'canvas',
-        ruledType: layoutConfig.ruledType,
-        ruledColor: layoutConfig.ruledColor as 'blue' | 'brown' | 'black',
-      };
+          texture: layoutConfig.texture as 'paper' | 'parchment' | 'kraft' | 'white' | 'canvas',
+          ruledType: layoutConfig.ruledType,
+          ruledColor: layoutConfig.ruledColor as 'blue' | 'brown' | 'black',
+        };
 
   const pageStyles = buildTextureStyles(pageConfig);
 
@@ -143,9 +145,9 @@ export const LayoutPage: FC = () => {
             fontSize: '1.35rem',
           }}
         >
-          Configurable page shell. Header spans full width above the sidebar and
-          main content. Sidebar inherits the layout background — no divider, just
-          a clean nav list. Supports full texture + ruled overlay backgrounds.
+          Configurable page shell. Header spans full width above the sidebar and main content.
+          Sidebar inherits the layout background — no divider, just a clean nav list. Supports full
+          texture + ruled overlay backgrounds.
         </p>
       </div>
 
@@ -163,7 +165,10 @@ export const LayoutPage: FC = () => {
             </h2>
           </div>
 
-          <div className="rounded-2xl p-2 w-full" style={{ backgroundColor: '#E8E0CC', height: '520px' }}>
+          <div
+            className="rounded-2xl p-2 w-full"
+            style={{ backgroundColor: '#E8E0CC', height: '520px' }}
+          >
             <div
               className="rounded-xl w-full h-full overflow-hidden"
               style={{
@@ -239,10 +244,7 @@ export const LayoutPage: FC = () => {
             </h2>
           </div>
 
-          <div
-            className="rounded-2xl p-6 border space-y-6"
-            style={paperCardStyle}
-          >
+          <div className="rounded-2xl p-6 border space-y-6" style={paperCardStyle}>
             <div className="grid grid-cols-2 gap-x-4 gap-y-2">
               <Checkbox
                 label="Sidebar"
@@ -291,17 +293,9 @@ export const LayoutPage: FC = () => {
             </div>
 
             {activeSurface === 'layout' ? (
-              <TextureSwatches
-                value={layoutConfig}
-                onChange={setLayoutConfig}
-                compact
-              />
+              <TextureSwatches value={layoutConfig} onChange={setLayoutConfig} compact />
             ) : (
-              <TextureSwatches
-                value={pageConfig}
-                onChange={setPageConfig}
-                compact
-              />
+              <TextureSwatches value={pageConfig} onChange={setPageConfig} compact />
             )}
           </div>
         </div>
@@ -329,9 +323,15 @@ export const LayoutPage: FC = () => {
             fontSize: '1.25rem',
           }}
         >
-          A floating pill-style navigation bar. By default it anchors to the
-          bottom of the viewport. Set{' '}
-          <code style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.95em', color: '#8FB996' }}>
+          A floating pill-style navigation bar. By default it anchors to the bottom of the viewport.
+          Set{' '}
+          <code
+            style={{
+              fontFamily: "'JetBrains Mono', monospace",
+              fontSize: '0.95em',
+              color: '#8FB996',
+            }}
+          >
             position="top"
           </code>{' '}
           to place it inline instead.
@@ -377,14 +377,22 @@ export const LayoutPage: FC = () => {
           />
         </div>
       </div>
-
     </div>
   );
 };
 
 function HomeIcon() {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
       <polyline points="9 22 9 12 15 12 15 22" />
     </svg>
@@ -393,7 +401,16 @@ function HomeIcon() {
 
 function CompassIcon() {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <circle cx="12" cy="12" r="10" />
       <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" />
     </svg>
@@ -402,7 +419,16 @@ function CompassIcon() {
 
 function BookIcon() {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
       <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
     </svg>
@@ -411,7 +437,16 @@ function BookIcon() {
 
 function UserIcon() {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
       <circle cx="12" cy="7" r="4" />
     </svg>

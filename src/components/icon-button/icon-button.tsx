@@ -1,6 +1,6 @@
 import type { ButtonHTMLAttributes, ReactNode } from 'react';
-import { cn } from '../../utils/style-helpers';
 import { useBlobPaths } from '../../hooks/use-blob-paths';
+import { cn } from '../../utils/style-helpers';
 import styles from './icon-button.module.scss';
 
 export interface IconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {

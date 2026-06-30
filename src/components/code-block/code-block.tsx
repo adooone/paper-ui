@@ -1,6 +1,6 @@
 import type { FC } from 'react';
-import { CopyButton } from '../copy-button';
 import { cn } from '../../utils/style-helpers';
+import { CopyButton } from '../copy-button';
 import styles from './code-block.module.scss';
 
 export interface CodeBlockProps {

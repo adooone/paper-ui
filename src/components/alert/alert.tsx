@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
-import { cn } from '../../utils/style-helpers';
 import { CloseIcon } from '../../utils/icons';
-import { textureMap, textureColorMap, type PaperTextureKey } from '../../utils/textures';
+import { cn } from '../../utils/style-helpers';
+import { type PaperTextureKey, textureColorMap, textureMap } from '../../utils/textures';
 import styles from './alert.module.scss';
 
 export interface AlertProps {
@@ -133,4 +133,3 @@ function AlertIcon({ variant }: { variant: AlertProps['variant'] }) {
       );
   }
 }
-

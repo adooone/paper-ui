@@ -1,10 +1,10 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import type { FC } from 'react';
 import { CodeBlock } from '../../components/code-block';
 import type { PropDef } from '../../components/prop-table';
 import { PropTable } from '../../components/prop-table';
-import { cn } from '../../utils/style-helpers';
 import { getDefaultValue } from '../../utils/prop-helpers';
+import { cn } from '../../utils/style-helpers';
 import styles from './detail-sidebar.module.scss';
 
 interface DetailSidebarProps {
@@ -23,8 +23,11 @@ function toPascal(id: string): string {
     .join('');
 }
 
-
-function generateCode(componentName: string, props: PropDef[], selectedValues: Record<string, string | boolean>): string {
+function generateCode(
+  componentName: string,
+  props: PropDef[],
+  selectedValues: Record<string, string | boolean>,
+): string {
   const lines: string[] = [];
   const imports = `import { ${componentName} } from '@dendelion/paper-ui';`;
 
@@ -44,20 +47,12 @@ function generateCode(componentName: string, props: PropDef[], selectedValues: R
     }
   }
 
-  const propBlock = propLines.length > 0
-    ? '\n' + propLines.join('\n') + '\n'
-    : '';
+  const propBlock = propLines.length > 0 ? `\n${propLines.join('\n')}\n` : '';
 
   return `${imports}\n\n<${componentName}${propBlock}>\n  ...\n</${componentName}>`;
 }
 
-export const DetailSidebar: FC<DetailSidebarProps> = ({
-  open,
-  title,
-  id,
-  props,
-  onClose,
-}) => {
+export const DetailSidebar: FC<DetailSidebarProps> = ({ open, title, id, props, onClose }) => {
   const componentName = id ? toPascal(id) : title;
   const [selectedValues, setSelectedValues] = useState<Record<string, string | boolean>>({});
 
@@ -84,6 +79,7 @@ export const DetailSidebar: FC<DetailSidebarProps> = ({
       <div className={styles.header}>
         <span className={styles.headerTitle}>{title}</span>
         <button
+          type="button"
           className={styles.closeBtn}
           onClick={onClose}
           aria-label="Close details"

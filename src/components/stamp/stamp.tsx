@@ -1,6 +1,6 @@
 import type { FC, ReactNode } from 'react';
-import { cn } from '../../utils/style-helpers';
 import { useBlobPaths } from '../../hooks/use-blob-paths';
+import { cn } from '../../utils/style-helpers';
 import styles from './stamp.module.scss';
 
 export interface StampProps {
@@ -26,7 +26,12 @@ export function Stamp({
 
   return (
     <span
-      className={cn(styles.stamp, styles[size], variant === 'chalkboard' && styles.chalkboard, className)}
+      className={cn(
+        styles.stamp,
+        styles[size],
+        variant === 'chalkboard' && styles.chalkboard,
+        className,
+      )}
       style={textColor ? { color: textColor } : undefined}
     >
       <svg
@@ -35,11 +40,7 @@ export function Stamp({
         preserveAspectRatio="none"
         aria-hidden="true"
       >
-        <path
-          d={paths.blob}
-          className={styles.blobFill}
-          style={{ fill: fillColor }}
-        />
+        <path d={paths.blob} className={styles.blobFill} style={{ fill: fillColor }} />
       </svg>
       <span className={styles.label}>{children}</span>
     </span>

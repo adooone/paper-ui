@@ -1,6 +1,6 @@
 import type { ButtonHTMLAttributes, ReactNode } from 'react';
-import { cn } from '../../utils/style-helpers';
 import { useRectBlobPaths } from '../../hooks/use-rect-blob-paths';
+import { cn } from '../../utils/style-helpers';
 import styles from './list-item.module.scss';
 
 export interface ListItemProps extends ButtonHTMLAttributes<HTMLButtonElement> {

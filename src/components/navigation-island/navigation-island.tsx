@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
+import { buttonSizeCompact, cn } from '../../utils/style-helpers';
 import { Button } from '../button';
-import { cn, buttonSizeCompact } from '../../utils/style-helpers';
 import styles from './navigation-island.module.scss';
 
 export interface NavigationIslandItem {

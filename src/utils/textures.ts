@@ -35,12 +35,12 @@ export const textureMap: Record<PaperTextureKey, string> = {
 
 // Color values here must match _tokens.scss — that file is the canonical source.
 export const textureColorMap: Record<PaperTextureKey, string> = {
-  paper: '#FAF8F0',      // $color-bg-surface
-  parchment: '#F5F1E6',  // $color-bg-elevated
-  kraft: '#E5DBC4',      // $color-canvas-300
-  white: '#FDFCF8',      // $color-bg-base (was #FDFCFA — corrected)
-  speckle: '#FAF8F0',    // $color-bg-surface
-  canvas: '#F0EAD8',     // $color-canvas-base
+  paper: '#FAF8F0', // $color-bg-surface
+  parchment: '#F5F1E6', // $color-bg-elevated
+  kraft: '#E5DBC4', // $color-canvas-300
+  white: '#FDFCF8', // $color-bg-base (was #FDFCFA — corrected)
+  speckle: '#FAF8F0', // $color-bg-surface
+  canvas: '#F0EAD8', // $color-canvas-base
   chalkboard: '#142e22', // $color-chalkboard-bg
 };
 

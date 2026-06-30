@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { cn } from '../../utils/style-helpers';
 import styles from './cells.module.scss';
 
@@ -9,7 +9,12 @@ export interface TableCellDropdownProps {
   variant?: 'default' | 'chalkboard';
 }
 
-export function TableCellDropdown({ options, value, onChange, variant = 'default' }: TableCellDropdownProps) {
+export function TableCellDropdown({
+  options,
+  value,
+  onChange,
+  variant = 'default',
+}: TableCellDropdownProps) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -35,8 +40,20 @@ export function TableCellDropdown({ options, value, onChange, variant = 'default
         onClick={() => setOpen(!open)}
       >
         {value}
-        <svg width="10" height="6" viewBox="0 0 10 6" fill="none" className={cn(styles.chevron, open && styles.chevronOpen)}>
-          <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        <svg
+          width="10"
+          height="6"
+          viewBox="0 0 10 6"
+          fill="none"
+          className={cn(styles.chevron, open && styles.chevronOpen)}
+        >
+          <path
+            d="M1 1L5 5L9 1"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
         </svg>
       </button>
       {open && (
@@ -45,8 +62,14 @@ export function TableCellDropdown({ options, value, onChange, variant = 'default
             <button
               key={opt}
               type="button"
-              className={cn(styles.dropdownItem, variant === 'chalkboard' && styles.chalkDropdownItem)}
-              onClick={() => { onChange(opt); setOpen(false); }}
+              className={cn(
+                styles.dropdownItem,
+                variant === 'chalkboard' && styles.chalkDropdownItem,
+              )}
+              onClick={() => {
+                onChange(opt);
+                setOpen(false);
+              }}
             >
               {opt}
             </button>

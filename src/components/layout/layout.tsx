@@ -1,18 +1,18 @@
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { useState } from 'react';
 import type { ReactNode } from 'react';
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
-import { Button } from '../button';
-import { Page } from '../page';
-import { cn, buttonSizeCompact } from '../../utils/style-helpers';
 import { layoutConfig } from '../../layout';
 import { space } from '../../tokens';
+import { buttonSizeCompact, cn } from '../../utils/style-helpers';
 import {
-  getTextureStyles,
-  type TextureConfig,
   type PaperTextureKey,
-  type RuledType,
   type RuledColorKey,
+  type RuledType,
+  type TextureConfig,
+  getTextureStyles,
 } from '../../utils/textures';
+import { Button } from '../button';
+import { Page } from '../page';
 import styles from './layout.module.scss';
 
 export interface NavigationItem {
@@ -125,10 +125,7 @@ export function Layout({
                   stroke="currentColor"
                   strokeWidth="2"
                 >
-                  <path
-                    d="M3 5h14M3 10h14M3 15h14"
-                    strokeLinecap="round"
-                  />
+                  <path d="M3 5h14M3 10h14M3 15h14" strokeLinecap="round" />
                 </svg>
               </button>
             )}
@@ -139,33 +136,29 @@ export function Layout({
             </div>
           </div>
 
-          {headerActions && (
-            <div className={styles.headerActions}>{headerActions}</div>
-          )}
+          {headerActions && <div className={styles.headerActions}>{headerActions}</div>}
         </header>
       )}
 
       <div className={styles.body}>
         {mobileOpen && (
-          <div
+          <button
+            type="button"
             className={styles.mobileOverlay}
             onClick={() => setMobileOpen(false)}
-            aria-hidden="true"
+            aria-label="Close navigation"
+            tabIndex={-1}
           />
         )}
 
         {hasSidebar && (
-          <aside
-            className={cn(styles.sidebar, mobileOpen && styles.sidebarOpen)}
-            role="navigation"
-            aria-label="Main navigation"
-          >
+          <aside className={cn(styles.sidebar, mobileOpen && styles.sidebarOpen)}>
             <div className={styles.sidebarInner}>
               <div className={styles.logoArea}>
                 {logo || <span className={styles.logoText}>Paper UI</span>}
               </div>
 
-              <nav className={styles.nav}>
+              <nav className={styles.nav} aria-label="Main navigation">
                 {navigationItems.map((item) => {
                   const isActive = item.id === activeItemId;
                   return (
@@ -192,26 +185,40 @@ export function Layout({
         )}
 
         <div className={styles.main}>
-          <main className={showPage ? styles.contentWithPage : styles.content} style={bleedBottom ? { paddingBottom: 0 } : undefined}>
+          <main
+            className={showPage ? styles.contentWithPage : styles.content}
+            style={bleedBottom ? { paddingBottom: 0 } : undefined}
+          >
             {(() => {
-              const content = routeKey !== undefined ? (
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={routeKey}
-                    initial={shouldReduceMotion ? undefined : { opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={shouldReduceMotion ? undefined : { opacity: 0, y: -8 }}
-                    transition={{ duration: 0.2, ease: 'easeOut' }}
-                    style={{ height: '100%' }}
-                  >
-                    {children}
-                  </motion.div>
-                </AnimatePresence>
-              ) : (
-                children
-              );
+              const content =
+                routeKey !== undefined ? (
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={routeKey}
+                      initial={shouldReduceMotion ? undefined : { opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={shouldReduceMotion ? undefined : { opacity: 0, y: -8 }}
+                      transition={{ duration: 0.2, ease: 'easeOut' }}
+                      style={{ height: '100%' }}
+                    >
+                      {children}
+                    </motion.div>
+                  </AnimatePresence>
+                ) : (
+                  children
+                );
               return showPage ? (
-                <Page withTexture rounded={bleedBottom ? 'top' : 'all'} style={bleedBottom && navigationIsland ? { paddingBottom: `calc(${layoutConfig.navIslandBottom} + ${layoutConfig.navIslandHeight} + ${space[4]})` } : undefined}>
+                <Page
+                  withTexture
+                  rounded={bleedBottom ? 'top' : 'all'}
+                  style={
+                    bleedBottom && navigationIsland
+                      ? {
+                          paddingBottom: `calc(${layoutConfig.navIslandBottom} + ${layoutConfig.navIslandHeight} + ${space[4]})`,
+                        }
+                      : undefined
+                  }
+                >
                   {content}
                 </Page>
               ) : (
@@ -245,9 +252,7 @@ export function Layout({
       {showFooter && (
         <footer className={styles.footer}>
           {footerContent || (
-            <p className={styles.footerText}>
-              Paper UI — Natural Materials Component Library
-            </p>
+            <p className={styles.footerText}>Paper UI — Natural Materials Component Library</p>
           )}
         </footer>
       )}

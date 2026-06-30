@@ -34,8 +34,6 @@ export const colorAccentRoseDark = '#9E5E5E';
 export const colorAccentSlateLight = '#B0BEC8';
 export const colorBorderDefault = 'rgba(61, 53, 43, 0.12)';
 export const colorBorderSubtle = 'rgba(61, 53, 43, 0.08)';
-export const shadowPaperMd =
-  '0 4px 6px rgba(61, 53, 43, 0.08), 0 2px 4px rgba(61, 53, 43, 0.06)';
-export const shadowPaperLg =
-  '0 10px 15px rgba(61, 53, 43, 0.1), 0 4px 6px rgba(61, 53, 43, 0.08)';
+export const shadowPaperMd = '0 4px 6px rgba(61, 53, 43, 0.08), 0 2px 4px rgba(61, 53, 43, 0.06)';
+export const shadowPaperLg = '0 10px 15px rgba(61, 53, 43, 0.1), 0 4px 6px rgba(61, 53, 43, 0.08)';
 export const shadowInkSm = '0 1px 2px rgba(26, 25, 23, 0.12)';

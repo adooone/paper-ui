@@ -1,7 +1,7 @@
 import type { CSSProperties, ReactNode } from 'react';
-import { cn } from '../../utils/style-helpers';
 import { createAccentClassMap } from '../../utils/accent-class-map';
-import { getTextureStyles, type TextureConfig } from '../../utils/textures';
+import { cn } from '../../utils/style-helpers';
+import { type TextureConfig, getTextureStyles } from '../../utils/textures';
 import styles from './page.module.scss';
 
 export interface PageProps {

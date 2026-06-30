@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useCallback, useEffect } from 'react';
+import { createContext, useCallback, useContext, useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
 
 export type DisplayFontKey = 'cormorant' | 'luminari' | 'cinzel' | 'almendra';
@@ -60,17 +60,14 @@ interface FontProviderProps {
 export function FontProvider({ children }: FontProviderProps) {
   const [activeFont, setActiveFontState] = useState<DisplayFontKey>('luminari');
 
-  const currentFont = displayFonts.find((f) => f.key === activeFont)!;
+  const currentFont = displayFonts.find((f) => f.key === activeFont) ?? displayFonts[0];
 
   const setActiveFont = useCallback((key: DisplayFontKey) => {
     setActiveFontState(key);
   }, []);
 
   useEffect(() => {
-    document.documentElement.style.setProperty(
-      '--paper-button-font',
-      currentFont.family,
-    );
+    document.documentElement.style.setProperty('--paper-button-font', currentFont.family);
   }, [currentFont.family]);
 
   return (

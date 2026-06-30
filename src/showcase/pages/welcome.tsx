@@ -1,20 +1,20 @@
 import { useState } from 'react';
 import type { FC } from 'react';
 import { Button } from '../../components/button';
-import { displayFonts, useFontContext } from '../font-context';
 import { CodeBlock } from '../../components/code-block';
 import { TextureSwatches } from '../components/texture-swatches';
-import type { TextureConfig } from '../lib/textures';
+import { displayFonts, useFontContext } from '../font-context';
 import {
+  colorAccentAmber,
+  colorAccentGreen,
   colorInkPrimary,
   colorInkSecondary,
   colorInkTertiary,
-  colorAccentGreen,
-  colorAccentAmber,
   colorPaperBase,
-  fontFamilySerif,
   fontFamilyHandwritten,
+  fontFamilySerif,
 } from '../lib/styles';
+import type { TextureConfig } from '../lib/textures';
 
 const installCode = `pnpm add @dendelion/paper-ui
 
@@ -94,23 +94,15 @@ export const WelcomePage: FC<WelcomePageProps> = ({ onNavigate }) => {
                   fontSize: '1.35rem',
                 }}
               >
-                Built with TypeScript, Tailwind CSS, and SCSS modules. Warm,
-                organic design tokens for interfaces that feel handcrafted.
+                Built with TypeScript, Tailwind CSS, and SCSS modules. Warm, organic design tokens
+                for interfaces that feel handcrafted.
               </p>
 
               <div className="flex flex-col sm:flex-row items-start gap-5 mb-16">
-                <Button
-                  variant="primary"
-                  size="large"
-                  onClick={() => onNavigate('gallery')}
-                >
+                <Button variant="primary" size="large" onClick={() => onNavigate('gallery')}>
                   Explore
                 </Button>
-                <Button
-                  variant="secondary"
-                  size="large"
-                  onClick={() => onNavigate('docs')}
-                >
+                <Button variant="secondary" size="large" onClick={() => onNavigate('docs')}>
                   Documentation
                 </Button>
               </div>
@@ -121,11 +113,7 @@ export const WelcomePage: FC<WelcomePageProps> = ({ onNavigate }) => {
             </div>
 
             <div className="hidden lg:flex flex-col items-center justify-center gap-8">
-              <TextureSwatches
-                value={textureConfig}
-                onChange={setTextureConfig}
-                showPreview
-              />
+              <TextureSwatches value={textureConfig} onChange={setTextureConfig} showPreview />
 
               <div className="w-full max-w-md">
                 <p

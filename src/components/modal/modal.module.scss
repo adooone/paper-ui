@@ -16,6 +16,19 @@
   animation: fadeIn 200ms ease-out;
 }
 
+.backdrop {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: transparent;
+  cursor: default;
+  z-index: $z-modal-backdrop;
+}
+
 .modal {
   position: relative;
   background-color: $color-bg-surface;

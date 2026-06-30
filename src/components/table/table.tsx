@@ -1,8 +1,8 @@
 import type { ReactNode } from 'react';
 import { Fragment, useState } from 'react';
-import { cn } from '../../utils/style-helpers';
 import { createAccentClassMap } from '../../utils/accent-class-map';
 import { getVariantTexture } from '../../utils/get-variant-texture';
+import { cn } from '../../utils/style-helpers';
 import type { TextureConfig } from '../../utils/textures';
 import styles from './table.module.scss';
 
@@ -91,7 +91,11 @@ export function Table<T = unknown>({
 
   return (
     <div
-      className={cn(styles.tableWrapper, variant === 'chalkboard' && styles.chalkboardWrapper, className)}
+      className={cn(
+        styles.tableWrapper,
+        variant === 'chalkboard' && styles.chalkboardWrapper,
+        className,
+      )}
       style={textureStyles}
     >
       {hasToolbar && (
@@ -138,7 +142,10 @@ export function Table<T = unknown>({
                     col.items.map((item, itemIndex) => (
                       <div
                         key={col.getKey ? col.getKey(item, itemIndex) : itemIndex}
-                        className={cn(styles.boardRow, variant === 'chalkboard' && styles.chalkboard)}
+                        className={cn(
+                          styles.boardRow,
+                          variant === 'chalkboard' && styles.chalkboard,
+                        )}
                       >
                         {col.renderItem(item, itemIndex, variant)}
                       </div>
@@ -163,7 +170,9 @@ export function Table<T = unknown>({
             </colgroup>
             <thead>
               <tr>
-                {hasExpandColumn && <th className={cn(styles.th, styles.expandTh)} aria-label="Expand" />}
+                {hasExpandColumn && (
+                  <th className={cn(styles.th, styles.expandTh)} aria-label="Expand" />
+                )}
                 {columns.map((col) => (
                   <th key={col.key} className={styles.th}>
                     {col.header}
@@ -178,6 +187,7 @@ export function Table<T = unknown>({
                 const isExpanded = canExpand && expandedRows.has(rowIndex);
                 return (
                   <Fragment key={rowIndex}>
+                    {/* biome-ignore lint/a11y/useKeyWithClickEvents: row click is a pointer-only convenience; keyboard users toggle expansion via the dedicated expand button in the first cell. */}
                     <tr
                       className={cn(
                         styles.tr,
@@ -189,9 +199,18 @@ export function Table<T = unknown>({
                       {hasExpandColumn && (
                         <td className={cn(styles.td, styles.expandTd)}>
                           {canExpand && (
-                            <span className={styles.expandIcon} aria-hidden="true">
+                            <button
+                              type="button"
+                              className={styles.expandIcon}
+                              aria-expanded={isExpanded}
+                              aria-label={isExpanded ? 'Collapse row' : 'Expand row'}
+                              onClick={(event) => {
+                                event.stopPropagation();
+                                toggleRow(rowIndex);
+                              }}
+                            >
                               {isExpanded ? '▼' : '▶'}
-                            </span>
+                            </button>
                           )}
                         </td>
                       )}

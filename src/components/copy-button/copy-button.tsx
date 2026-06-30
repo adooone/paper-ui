@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useCallback, useState } from 'react';
 import type { ButtonHTMLAttributes } from 'react';
 import { cn } from '../../utils/style-helpers';
 import styles from './copy-button.module.scss';
@@ -8,12 +8,7 @@ export interface CopyButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>
   variant?: 'light' | 'dark' | 'chalkboard';
 }
 
-export function CopyButton({
-  text,
-  variant = 'light',
-  className,
-  ...props
-}: CopyButtonProps) {
+export function CopyButton({ text, variant = 'light', className, ...props }: CopyButtonProps) {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = useCallback(async () => {

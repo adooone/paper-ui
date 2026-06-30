@@ -1,16 +1,16 @@
 import type { FC, ReactNode } from 'react';
-import { type PropDef } from '../../components/prop-table';
+import type { PropDef } from '../../components/prop-table';
 import { Stamp } from '../../components/stamp';
+import { categoryColors } from '../lib/category-colors';
 import {
   colorInkPrimary,
   colorInkSecondary,
   colorInkTertiary,
-  paperCardStyle,
   fontFamilyDisplay,
-  fontFamilySerif,
   fontFamilyMono,
+  fontFamilySerif,
+  paperCardStyle,
 } from '../lib/styles';
-import { categoryColors } from '../lib/category-colors';
 
 interface ComponentSectionProps {
   id: string;
@@ -23,7 +23,6 @@ interface ComponentSectionProps {
   props?: PropDef[];
   onViewDetails?: () => void;
 }
-
 
 const categoryLabels: Record<string, string> = {
   basic: 'Basic',
@@ -64,11 +63,7 @@ export const ComponentSection: FC<ComponentSectionProps> = ({
           >
             {title}
           </h2>
-          <Stamp
-            size="small"
-            fillColor={catStyle.bg}
-            textColor={catStyle.text}
-          >
+          <Stamp size="small" fillColor={catStyle.bg} textColor={catStyle.text}>
             {categoryLabels[category]}
           </Stamp>
         </div>
@@ -92,6 +87,7 @@ export const ComponentSection: FC<ComponentSectionProps> = ({
 
       <div className="flex justify-end">
         <button
+          type="button"
           onClick={onViewDetails}
           style={{
             fontFamily: fontFamilyMono,
