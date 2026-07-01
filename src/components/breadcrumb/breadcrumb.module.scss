@@ -1,0 +1,89 @@
+@use '../../styles/tokens' as *;
+@use '../../styles/mixins' as *;
+
+.breadcrumb {
+  font-family: var(--paper-font-default, $font-family-serif);
+  font-size: $font-size-sm;
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: $space-1;
+}
+
+.link {
+  color: $color-text-secondary;
+  text-decoration: none;
+  border-radius: $radius-sm;
+  transition: color $transition-fast;
+
+  &:hover {
+    color: $color-text-primary;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  &:focus-visible {
+    @include focus-ring;
+  }
+}
+
+.linkButton {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  cursor: pointer;
+}
+
+.current {
+  color: $color-text-primary;
+  font-weight: $font-weight-medium;
+}
+
+.static {
+  color: $color-text-secondary;
+}
+
+.separator {
+  flex-shrink: 0;
+  color: $color-text-tertiary;
+  margin: 0 $space-1;
+}
+
+.chalkboard {
+  .link {
+    color: $color-chalkboard-muted;
+
+    &:hover {
+      color: $color-chalkboard-chalk;
+    }
+
+    &:focus-visible {
+      @include focus-ring($color: $color-chalkboard-chalk);
+    }
+  }
+
+  .current {
+    color: $color-chalkboard-chalk;
+  }
+
+  .static {
+    color: $color-chalkboard-muted;
+  }
+
+  .separator {
+    color: $color-chalkboard-muted-dim;
+  }
+}

@@ -109,6 +109,15 @@ export type {
   ToastVariant,
 } from './components/toast';
 
+export { Avatar } from './components/avatar';
+export type { AvatarProps } from './components/avatar';
+
+export { Breadcrumb } from './components/breadcrumb';
+export type { BreadcrumbProps, BreadcrumbItem } from './components/breadcrumb';
+
+export { Pagination } from './components/pagination';
+export type { PaginationProps } from './components/pagination';
+
 export { CloseIcon, LightbulbIcon, CheckIcon, CopyIcon, PlusIcon, FolderIcon } from './utils/icons';
 
 export { getTextureStyles, resolveTexture } from './utils/textures';

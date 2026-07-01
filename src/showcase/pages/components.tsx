@@ -1,7 +1,9 @@
 import { useCallback, useEffect, useState } from 'react';
 import type { FC } from 'react';
 import { Alert } from '../../components/alert';
+import { Avatar } from '../../components/avatar';
 import { Badge } from '../../components/badge';
+import { Breadcrumb } from '../../components/breadcrumb';
 import { Button } from '../../components/button';
 import { Card } from '../../components/card';
 import { Checkbox } from '../../components/checkbox';
@@ -27,6 +29,7 @@ import { Textarea } from '../../components/textarea';
 import { Tooltip } from '../../components/tooltip';
 import { ComponentSection } from '../components/component-section';
 import { ComponentSidebar, componentIds } from '../components/component-sidebar';
+import { PaginationDemo } from '../components/pagination-demo';
 import { ToastDemo } from '../components/toast-demo';
 import {
   colorInkPrimary,
@@ -1043,6 +1046,50 @@ function SaveButton() {
     ],
   },
   {
+    id: 'avatar',
+    title: 'Avatar',
+    codeExample: `import { Avatar } from '@dendelion/paper-ui';
+
+<Avatar name="Ada Lovelace" />
+<Avatar src="/photo.jpg" alt="Ada Lovelace" />
+<Avatar name="Grace Hopper" shape="square" size="large" />`,
+    props: [
+      {
+        name: 'src',
+        type: 'string',
+        description: 'Image URL; falls back to initials when omitted',
+      },
+      {
+        name: 'alt',
+        type: 'string',
+        description: 'Alt text for the image, or label for the initials fallback',
+      },
+      {
+        name: 'name',
+        type: 'string',
+        description: 'Used to derive initials and a deterministic accent color',
+      },
+      {
+        name: 'size',
+        type: "'small' | 'medium' | 'large' | 'xlarge'",
+        default: "'medium'",
+        description: 'Avatar size',
+      },
+      {
+        name: 'shape',
+        type: "'circle' | 'square'",
+        default: "'circle'",
+        description: 'Outline shape',
+      },
+      {
+        name: 'surface',
+        type: "'paper' | 'chalkboard'",
+        default: "'paper'",
+        description: 'Surface style',
+      },
+    ],
+  },
+  {
     id: 'divider',
     title: 'Divider',
     codeExample: `import { Divider } from '@dendelion/paper-ui';
@@ -1108,6 +1155,73 @@ function SaveButton() {
         type: 'boolean',
         default: 'false',
         description: 'Suppress the tooltip',
+      },
+      {
+        name: 'surface',
+        type: "'paper' | 'chalkboard'",
+        default: "'paper'",
+        description: 'Surface style',
+      },
+    ],
+  },
+  {
+    id: 'breadcrumb',
+    title: 'Breadcrumb',
+    codeExample: `import { Breadcrumb } from '@dendelion/paper-ui';
+
+<Breadcrumb
+  items={[
+    { id: 'home', label: 'Home', href: '/' },
+    { id: 'docs', label: 'Docs', href: '/docs' },
+    { id: 'current', label: 'Breadcrumb' },
+  ]}
+/>`,
+    props: [
+      {
+        name: 'items',
+        type: 'BreadcrumbItem[]',
+        required: true,
+        description:
+          'Trail of { id, label, href?, onClick? }; the last item renders as the current page',
+      },
+      {
+        name: 'surface',
+        type: "'paper' | 'chalkboard'",
+        default: "'paper'",
+        description: 'Surface style',
+      },
+    ],
+  },
+  {
+    id: 'pagination',
+    title: 'Pagination',
+    codeExample: `import { Pagination } from '@dendelion/paper-ui';
+
+<Pagination page={page} totalPages={12} onPageChange={setPage} />`,
+    props: [
+      {
+        name: 'page',
+        type: 'number',
+        required: true,
+        description: 'Current page, 1-indexed',
+      },
+      {
+        name: 'totalPages',
+        type: 'number',
+        required: true,
+        description: 'Total number of pages',
+      },
+      {
+        name: 'onPageChange',
+        type: '(page: number) => void',
+        required: true,
+        description: 'Called with the new page number',
+      },
+      {
+        name: 'siblingCount',
+        type: 'number',
+        default: '1',
+        description: 'Page numbers to show on each side of the current page',
       },
       {
         name: 'surface',
@@ -1401,6 +1515,44 @@ export const ComponentsPage: FC<{
               >
                 small
               </Badge>
+            </div>
+          </ComponentSection>
+
+          <ComponentSection
+            id="avatar"
+            title="Avatar"
+            description="Circular or organic-square identity marker. Shows an image, or initials over a deterministic watercolor tint when none is given."
+            category="basic"
+            chalkboard={chalkboardTheme}
+            onViewDetails={() => handleViewDetails('avatar')}
+          >
+            <div className="flex flex-wrap items-center gap-4">
+              <Avatar
+                name="Ada Lovelace"
+                size="small"
+                surface={chalkboardTheme ? 'chalkboard' : 'paper'}
+              />
+              <Avatar name="Grace Hopper" surface={chalkboardTheme ? 'chalkboard' : 'paper'} />
+              <Avatar
+                name="Alan Turing"
+                size="large"
+                surface={chalkboardTheme ? 'chalkboard' : 'paper'}
+              />
+              <Avatar
+                name="Margaret Hamilton"
+                size="xlarge"
+                surface={chalkboardTheme ? 'chalkboard' : 'paper'}
+              />
+              <Avatar
+                name="Katherine Johnson"
+                shape="square"
+                surface={chalkboardTheme ? 'chalkboard' : 'paper'}
+              />
+              <Avatar
+                src="https://i.pravatar.cc/80?img=12"
+                alt="Sample user photo"
+                surface={chalkboardTheme ? 'chalkboard' : 'paper'}
+              />
             </div>
           </ComponentSection>
 
@@ -2140,6 +2292,36 @@ export const ComponentsPage: FC<{
                 onSelect={(id) => setActiveTab(id)}
               />
             </div>
+          </ComponentSection>
+
+          <ComponentSection
+            id="breadcrumb"
+            title="Breadcrumb"
+            description="Navigation trail rendered as ink-colored links with a chevron separator. The final crumb marks the current page."
+            category="navigation"
+            chalkboard={chalkboardTheme}
+            onViewDetails={() => handleViewDetails('breadcrumb')}
+          >
+            <Breadcrumb
+              items={[
+                { id: 'home', label: 'Home', href: '#' },
+                { id: 'library', label: 'Library', href: '#' },
+                { id: 'components', label: 'Components', href: '#' },
+                { id: 'breadcrumb', label: 'Breadcrumb' },
+              ]}
+              surface={chalkboardTheme ? 'chalkboard' : 'paper'}
+            />
+          </ComponentSection>
+
+          <ComponentSection
+            id="pagination"
+            title="Pagination"
+            description="Prev/next controls with a sibling-aware page range and ellipsis for long sequences."
+            category="navigation"
+            chalkboard={chalkboardTheme}
+            onViewDetails={() => handleViewDetails('pagination')}
+          >
+            <PaginationDemo surface={chalkboardTheme ? 'chalkboard' : 'paper'} />
           </ComponentSection>
 
           <ComponentSection

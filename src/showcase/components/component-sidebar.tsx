@@ -25,6 +25,7 @@ const componentGroups: ComponentGroup[] = [
       { id: 'icon-button', title: 'IconButton' },
       { id: 'stamp', title: 'Stamp' },
       { id: 'badge', title: 'Badge' },
+      { id: 'avatar', title: 'Avatar' },
       { id: 'list-item', title: 'ListItem' },
     ],
   },
@@ -54,6 +55,8 @@ const componentGroups: ComponentGroup[] = [
     items: [
       { id: 'navigation-island', title: 'Island' },
       { id: 'tabs', title: 'Tabs' },
+      { id: 'breadcrumb', title: 'Breadcrumb' },
+      { id: 'pagination', title: 'Pagination' },
     ],
   },
   {
