@@ -98,6 +98,9 @@ export type { BadgeProps } from './components/badge';
 export { Divider } from './components/divider';
 export type { DividerProps } from './components/divider';
 
+export { Tooltip } from './components/tooltip';
+export type { TooltipProps } from './components/tooltip';
+
 export { CloseIcon, LightbulbIcon, CheckIcon, CopyIcon, PlusIcon, FolderIcon } from './utils/icons';
 
 export { getTextureStyles, resolveTexture } from './utils/textures';

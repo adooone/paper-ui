@@ -1,0 +1,85 @@
+@use '../../styles/tokens' as *;
+@use '../../styles/mixins' as *;
+
+.wrapper {
+  display: inline-block;
+}
+
+.tooltip {
+  position: fixed;
+  z-index: $z-tooltip;
+  max-width: 240px;
+  padding: $space-2 $space-3;
+  font-family: var(--paper-font-default, $font-family-serif);
+  font-size: $font-size-sm;
+  line-height: $line-height-snug;
+  color: $color-bg-base;
+  background-color: $color-code-bg;
+  background-image: url($paper-texture-data-uri);
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  @include organic-radius($radius-sm, 1.5px);
+  box-shadow: $shadow-paper-md;
+  pointer-events: none;
+  animation: tooltipIn 120ms ease-out;
+
+  // hand-drawn ink arrow — a rotated square echoing the tooltip fill
+  &::after {
+    content: '';
+    position: absolute;
+    width: 9px;
+    height: 9px;
+    background-color: $color-code-bg;
+    transform: rotate(45deg);
+  }
+}
+
+.top::after {
+  bottom: -4px;
+  left: 50%;
+  margin-left: -4.5px;
+}
+
+.bottom::after {
+  top: -4px;
+  left: 50%;
+  margin-left: -4.5px;
+}
+
+.left::after {
+  right: -4px;
+  top: 50%;
+  margin-top: -4.5px;
+}
+
+.right::after {
+  left: -4px;
+  top: 50%;
+  margin-top: -4.5px;
+}
+
+.chalkboard {
+  color: $color-chalkboard-chalk;
+  background-color: $color-chalkboard-surface;
+  border: 1px solid $color-chalkboard-border;
+
+  &::after {
+    background-color: $color-chalkboard-surface;
+  }
+}
+
+@keyframes tooltipIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tooltip {
+    animation: none;
+  }
+}
