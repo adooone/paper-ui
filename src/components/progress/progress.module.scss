@@ -10,3 +10,11 @@
   transition: width 0.4s ease;
   background: $color-text-secondary;
 }
+
+.chalkboard {
+  background: rgba($color-chalkboard-chalk, 0.15);
+
+  .fill {
+    background: $color-chalkboard-chalk;
+  }
+}

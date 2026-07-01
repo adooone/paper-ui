@@ -9,6 +9,7 @@ export interface ListItemProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   action?: ReactNode;
   size?: 'small' | 'medium';
   wobble?: number;
+  surface?: 'paper' | 'chalkboard';
 }
 
 export function ListItem({
@@ -17,6 +18,7 @@ export function ListItem({
   action,
   size = 'medium',
   wobble = 0.5,
+  surface = 'paper',
   children,
   className,
   ...props
@@ -33,6 +35,7 @@ export function ListItem({
         isClickable && styles.clickable,
         !isClickable && !active && styles.static,
         active && styles.active,
+        surface === 'chalkboard' && styles.chalkboard,
         className,
       )}
       aria-current={active ? 'page' : undefined}

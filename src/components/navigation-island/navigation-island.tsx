@@ -28,7 +28,7 @@ export function NavigationIsland({
     <nav
       className={cn(
         styles.island,
-        position === 'bottom' ? styles.positionBottom : styles.positionRelative,
+        position === 'top' ? styles.positionTop : styles.positionBottom,
         surface === 'chalkboard' && styles.chalkboard,
       )}
       aria-label="Navigation island"

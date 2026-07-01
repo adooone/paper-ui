@@ -7,6 +7,7 @@ export interface AccordionProps {
   children: ReactNode;
   expanded?: boolean;
   onToggle?: () => void;
+  surface?: 'paper' | 'chalkboard';
   className?: string;
 }
 
@@ -15,10 +16,18 @@ export function Accordion({
   children,
   expanded = false,
   onToggle,
+  surface = 'paper',
   className,
 }: AccordionProps) {
   return (
-    <div className={cn(styles.accordion, expanded && styles.expanded, className)}>
+    <div
+      className={cn(
+        styles.accordion,
+        expanded && styles.expanded,
+        surface === 'chalkboard' && styles.chalkboard,
+        className,
+      )}
+    >
       <button type="button" className={styles.header} onClick={onToggle} aria-expanded={expanded}>
         <span className={styles.icon} aria-hidden="true">
           {expanded ? '▼' : '▶'}

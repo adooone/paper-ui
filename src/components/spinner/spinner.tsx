@@ -6,17 +6,28 @@ export interface SpinnerProps {
   size?: 'small' | 'medium' | 'large';
   color?: string;
   label?: string;
+  surface?: 'paper' | 'chalkboard';
   className?: string;
 }
 
 const sizeMap = { small: 18, medium: 28, large: 40 };
 
-export function Spinner({ size = 'medium', color, label = 'Loading', className }: SpinnerProps) {
+export function Spinner({
+  size = 'medium',
+  color,
+  label = 'Loading',
+  surface = 'paper',
+  className,
+}: SpinnerProps) {
   const px = sizeMap[size];
   const gradId = `spinner-${useId().replace(/:/g, '')}`;
 
   return (
-    <span className={cn(styles.spinner, className)} role="status" aria-label={label}>
+    <span
+      className={cn(styles.spinner, surface === 'chalkboard' && styles.chalkboard, className)}
+      role="status"
+      aria-label={label}
+    >
       <svg
         width={px}
         height={px}

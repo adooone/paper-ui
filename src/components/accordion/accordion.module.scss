@@ -53,3 +53,21 @@
   font-size: $font-size-base;
   line-height: $line-height-normal;
 }
+
+.chalkboard {
+  .icon {
+    color: $color-chalkboard-muted;
+  }
+
+  .header:hover .icon {
+    color: $color-chalkboard-chalk;
+  }
+
+  .header:focus-visible {
+    @include focus-ring($color: $color-chalkboard-chalk);
+  }
+
+  .content {
+    color: $color-chalkboard-muted;
+  }
+}

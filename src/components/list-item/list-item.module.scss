@@ -119,3 +119,23 @@
   flex-shrink: 0;
   margin-left: auto;
 }
+
+.chalkboard {
+  color: $color-chalkboard-text;
+
+  .icon {
+    color: $color-chalkboard-muted;
+  }
+
+  .blobRing {
+    stroke: $chalkboard-ring-ghost;
+  }
+
+  &.clickable:active .blobRing {
+    stroke: $chalkboard-ring-stroke-active;
+  }
+
+  &:focus-visible {
+    @include focus-ring($color: $color-chalkboard-chalk);
+  }
+}

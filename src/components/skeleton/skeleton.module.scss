@@ -28,6 +28,11 @@
   border-radius: 50%;
 }
 
+.chalkboard {
+  background-image: none;
+  background-color: rgba($color-chalkboard-chalk, 0.14);
+}
+
 @keyframes pulse {
   0%,
   100% {
