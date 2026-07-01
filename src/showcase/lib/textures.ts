@@ -20,10 +20,10 @@ export interface PaperTexture {
 const textureNames: Record<PaperTextureKey, string> = {
   white: 'White Paper',
   paper: 'Paper',
-  parchment: 'Parchment',
-  kraft: 'Kraft',
   speckle: 'Speckle',
+  parchment: 'Parchment',
   canvas: 'Canvas',
+  kraft: 'Kraft',
   chalkboard: 'Chalkboard',
 };
 
