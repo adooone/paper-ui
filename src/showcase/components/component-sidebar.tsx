@@ -24,7 +24,6 @@ const componentGroups: ComponentGroup[] = [
       { id: 'button', title: 'Button' },
       { id: 'icon-button', title: 'IconButton' },
       { id: 'stamp', title: 'Stamp' },
-      { id: 'badge', title: 'Badge' },
       { id: 'avatar', title: 'Avatar' },
       { id: 'list-item', title: 'ListItem' },
     ],

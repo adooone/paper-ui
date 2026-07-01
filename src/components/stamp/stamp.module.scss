@@ -39,6 +39,21 @@
   transition: fill 250ms ease;
 }
 
+.blobRing {
+  fill: none;
+  stroke-width: 1.8;
+}
+
+.dot {
+  position: relative;
+  z-index: 1;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  flex-shrink: 0;
+}
+
 .label {
   position: relative;
   z-index: 1;

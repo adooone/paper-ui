@@ -22,7 +22,7 @@ export { IconButton } from './components/icon-button';
 export type { IconButtonProps } from './components/icon-button';
 
 export { Stamp } from './components/stamp';
-export type { StampProps } from './components/stamp';
+export type { StampProps, StampVariant } from './components/stamp';
 
 export { CodeBlock } from './components/code-block';
 export type { CodeBlockProps } from './components/code-block';
@@ -91,9 +91,6 @@ export type { SpinnerProps } from './components/spinner';
 
 export { Skeleton } from './components/skeleton';
 export type { SkeletonProps } from './components/skeleton';
-
-export { Badge } from './components/badge';
-export type { BadgeProps } from './components/badge';
 
 export { Divider } from './components/divider';
 export type { DividerProps } from './components/divider';

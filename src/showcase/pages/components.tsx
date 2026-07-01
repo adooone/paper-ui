@@ -3,7 +3,6 @@ import type { FC } from 'react';
 import { Accordion } from '../../components/accordion';
 import { Alert } from '../../components/alert';
 import { Avatar } from '../../components/avatar';
-import { Badge } from '../../components/badge';
 import { Breadcrumb } from '../../components/breadcrumb';
 import { Button } from '../../components/button';
 import { Card } from '../../components/card';
@@ -165,6 +164,12 @@ const sectionDetails: SectionDetail[] = [
 </Stamp>
 <Stamp size="large" fillColor="rgba(212, 163, 115, 0.25)">
   Draft
+</Stamp>
+
+// Semantic status tag: a lower wobble plus a variant reads as a
+// quieter, repeatable label instead of a one-off decorative mark.
+<Stamp variant="success" dot wobble={0} size="small">
+  Active
 </Stamp>`,
     props: [
       {
@@ -180,21 +185,38 @@ const sectionDetails: SectionDetail[] = [
         description: 'Stamp size',
       },
       {
+        name: 'variant',
+        type: "'neutral' | 'info' | 'success' | 'warning' | 'error'",
+        description:
+          'Semantic color shortcut for fillColor/textColor, with a matching ink ring. Lower wobble toward 0 for a status-tag look that repeats consistently.',
+      },
+      {
+        name: 'dot',
+        type: 'boolean',
+        default: 'false',
+        description: 'Show a leading status dot',
+      },
+      {
         name: 'fillColor',
         type: 'string',
-        default: "'transparent'",
-        description: 'SVG blob fill color',
+        description: 'SVG blob fill color, overrides variant',
       },
       {
         name: 'textColor',
         type: 'string',
-        description: 'Text color override',
+        description: 'Text color override, overrides variant',
       },
       {
         name: 'wobble',
         type: 'number (0-1)',
         default: '0.3',
         description: 'Blob shape wobble intensity',
+      },
+      {
+        name: 'surface',
+        type: "'paper' | 'chalkboard'",
+        default: "'paper'",
+        description: 'Surface style',
       },
     ],
   },
@@ -1145,41 +1167,6 @@ function SaveButton() {
     ],
   },
   {
-    id: 'badge',
-    title: 'Badge',
-    codeExample: `import { Badge } from '@dendelion/paper-ui';
-
-<Badge variant="success" dot>Active</Badge>
-<Badge variant="warning">Pending</Badge>
-<Badge variant="error">Failed</Badge>`,
-    props: [
-      {
-        name: 'variant',
-        type: "'neutral' | 'info' | 'success' | 'warning' | 'error'",
-        default: "'neutral'",
-        description: 'Semantic status color',
-      },
-      {
-        name: 'size',
-        type: "'small' | 'medium'",
-        default: "'medium'",
-        description: 'Badge size',
-      },
-      {
-        name: 'dot',
-        type: 'boolean',
-        default: 'false',
-        description: 'Show a leading status dot',
-      },
-      {
-        name: 'surface',
-        type: "'paper' | 'chalkboard'",
-        default: "'paper'",
-        description: 'Surface style',
-      },
-    ],
-  },
-  {
     id: 'avatar',
     title: 'Avatar',
     codeExample: `import { Avatar } from '@dendelion/paper-ui';
@@ -1660,79 +1647,91 @@ export const ComponentsPage: FC<{
           <ComponentSection
             id="stamp"
             title="Stamp"
-            description="Artistic ink stamp with an organic SVG blob background. Every instance gets a unique wobbly shape."
+            description="Artistic ink stamp with an organic SVG blob background. Lower the wobble and add a variant to get a quieter, repeatable status tag from the same component."
             category="basic"
             chalkboard={chalkboardTheme}
             onViewDetails={() => handleViewDetails('stamp')}
           >
-            <div className="flex flex-wrap items-center gap-5">
-              {chalkboardTheme ? (
-                <>
-                  <Stamp size="small" surface="chalkboard">
-                    Small
-                  </Stamp>
-                  <Stamp surface="chalkboard">Done</Stamp>
-                  <Stamp size="large" surface="chalkboard">
-                    Draft
-                  </Stamp>
-                  <Stamp size="small" surface="chalkboard">
-                    Alert
-                  </Stamp>
-                  <Stamp surface="chalkboard">Info</Stamp>
-                </>
-              ) : (
-                <>
-                  <Stamp size="small" fillColor="rgba(143, 185, 150, 0.25)" textColor="#3D5A42">
-                    Small
-                  </Stamp>
-                  <Stamp fillColor="rgba(143, 185, 150, 0.25)" textColor="#3D5A42">
-                    Done
-                  </Stamp>
-                  <Stamp size="large" fillColor="rgba(212, 163, 115, 0.25)" textColor="#6B5135">
-                    Draft
-                  </Stamp>
-                  <Stamp size="small" fillColor="rgba(201, 139, 139, 0.25)" textColor="#6E3A3A">
-                    Alert
-                  </Stamp>
-                  <Stamp fillColor="rgba(168, 155, 168, 0.25)" textColor="#6E5E6E">
-                    Info
-                  </Stamp>
-                </>
-              )}
-            </div>
-          </ComponentSection>
-
-          <ComponentSection
-            id="badge"
-            title="Badge"
-            description="Compact semantic status pill with a watercolor wash, organic ink border, and paper grain."
-            category="basic"
-            chalkboard={chalkboardTheme}
-            onViewDetails={() => handleViewDetails('badge')}
-          >
-            <div className="flex flex-wrap items-center gap-3">
-              <Badge variant="neutral" surface={chalkboardTheme ? 'chalkboard' : 'paper'}>
-                Neutral
-              </Badge>
-              <Badge variant="info" dot surface={chalkboardTheme ? 'chalkboard' : 'paper'}>
-                Info
-              </Badge>
-              <Badge variant="success" dot surface={chalkboardTheme ? 'chalkboard' : 'paper'}>
-                Active
-              </Badge>
-              <Badge variant="warning" surface={chalkboardTheme ? 'chalkboard' : 'paper'}>
-                Pending
-              </Badge>
-              <Badge variant="error" surface={chalkboardTheme ? 'chalkboard' : 'paper'}>
-                Failed
-              </Badge>
-              <Badge
-                variant="success"
-                size="small"
-                surface={chalkboardTheme ? 'chalkboard' : 'paper'}
-              >
-                small
-              </Badge>
+            <div className="flex flex-col gap-4">
+              <div className="flex flex-wrap items-center gap-5">
+                {chalkboardTheme ? (
+                  <>
+                    <Stamp size="small" surface="chalkboard">
+                      Small
+                    </Stamp>
+                    <Stamp surface="chalkboard">Done</Stamp>
+                    <Stamp size="large" surface="chalkboard">
+                      Draft
+                    </Stamp>
+                    <Stamp size="small" surface="chalkboard">
+                      Alert
+                    </Stamp>
+                    <Stamp surface="chalkboard">Info</Stamp>
+                  </>
+                ) : (
+                  <>
+                    <Stamp size="small" fillColor="rgba(143, 185, 150, 0.25)" textColor="#3D5A42">
+                      Small
+                    </Stamp>
+                    <Stamp fillColor="rgba(143, 185, 150, 0.25)" textColor="#3D5A42">
+                      Done
+                    </Stamp>
+                    <Stamp size="large" fillColor="rgba(212, 163, 115, 0.25)" textColor="#6B5135">
+                      Draft
+                    </Stamp>
+                    <Stamp size="small" fillColor="rgba(201, 139, 139, 0.25)" textColor="#6E3A3A">
+                      Alert
+                    </Stamp>
+                    <Stamp fillColor="rgba(168, 155, 168, 0.25)" textColor="#6E5E6E">
+                      Info
+                    </Stamp>
+                  </>
+                )}
+              </div>
+              <div className="flex flex-wrap items-center gap-3">
+                <Stamp
+                  variant="neutral"
+                  wobble={0}
+                  size="small"
+                  surface={chalkboardTheme ? 'chalkboard' : 'paper'}
+                >
+                  Neutral
+                </Stamp>
+                <Stamp
+                  variant="info"
+                  dot
+                  wobble={0}
+                  size="small"
+                  surface={chalkboardTheme ? 'chalkboard' : 'paper'}
+                >
+                  Info
+                </Stamp>
+                <Stamp
+                  variant="success"
+                  dot
+                  wobble={0}
+                  size="small"
+                  surface={chalkboardTheme ? 'chalkboard' : 'paper'}
+                >
+                  Active
+                </Stamp>
+                <Stamp
+                  variant="warning"
+                  wobble={0}
+                  size="small"
+                  surface={chalkboardTheme ? 'chalkboard' : 'paper'}
+                >
+                  Pending
+                </Stamp>
+                <Stamp
+                  variant="error"
+                  wobble={0}
+                  size="small"
+                  surface={chalkboardTheme ? 'chalkboard' : 'paper'}
+                >
+                  Failed
+                </Stamp>
+              </div>
             </div>
           </ComponentSection>
 
