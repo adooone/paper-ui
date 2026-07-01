@@ -1,13 +1,6 @@
 @use 'sass:math';
 @use 'tokens' as *;
 
-@mixin canvas-texture($base-color: #F0EAD8) {
-  background-color: $base-color;
-  background-image:
-    repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.02) 2px, rgba(0,0,0,0.02) 3px),
-    repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(0,0,0,0.02) 2px, rgba(0,0,0,0.02) 3px);
-}
-
 @mixin serif-text($size: 1rem, $weight: 400) {
   font-family: 'Cormorant Garamond', Georgia, serif;
   font-size: $size;

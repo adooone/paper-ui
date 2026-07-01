@@ -19,7 +19,7 @@ export function Alert({
   children,
   variant = 'info',
   surface = 'paper',
-  texture = 'canvas',
+  texture = 'kraft',
   title,
   dismissible = false,
   onDismiss,

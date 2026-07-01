@@ -623,7 +623,7 @@ const sectionDetails: SectionDetail[] = [
       {
         name: 'texture',
         type: 'PaperTextureKey',
-        default: "'canvas'",
+        default: "'kraft'",
         description: 'Paper texture for the background',
       },
       {
