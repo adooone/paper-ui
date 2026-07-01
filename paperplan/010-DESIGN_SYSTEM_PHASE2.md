@@ -36,6 +36,9 @@ Repo infra (org transfer, release-please, commitlint, Vercel deploy of the showc
 - `2923d41` — canvas texture redesigned (was a mechanical CSS crosshatch, looked wrong and inconsistent vs. every other `feTurbulence`-based texture); speckle redesigned to actually differ from paper (was visually identical); Alert's default texture fixed to `kraft`
 - `275e981` — sorted all texture swatches by lightness (`white → paper → speckle → parchment → canvas → kraft → chalkboard`) — previously the swatch order was arbitrary and didn't track visual weight
 
+### Component gap-filling, round 2
+- `5cd11cc` — Avatar (circular/organic-square identity marker, initials fallback with a deterministic watercolor tint), Breadcrumb (ink-link trail with chevron separators), Pagination (prev/next IconButtons + sibling-aware page range with ellipsis, built on Button ghost/isActive like Tabs). Verified visually in both paper and chalkboard themes via the dev showcase.
+
 ---
 
 ## Current Inventory
@@ -44,14 +47,12 @@ Repo infra (org transfer, release-please, commitlint, Vercel deploy of the showc
 
 ---
 
-## Known Gaps (not yet started)
+## Known Gaps
 
-Identified during the earlier component-gap analysis, not yet built:
-
-- **Breadcrumb** — navigation trail, would live in the Navigation showcase group
-- **Pagination** — page-index control, likely Layout or Navigation group
-- **Menu / Dropdown** — generic anchored menu (Select already exists but is form-specific; this would be the general-purpose version, e.g. for context menus or the NavigationIsland)
-- **Avatar** — user/entity image or initials badge
+- ~~Breadcrumb~~ — done (`5cd11cc`)
+- ~~Pagination~~ — done (`5cd11cc`)
+- ~~Avatar~~ — done (`5cd11cc`)
+- **Menu / Dropdown** — generic anchored menu (Select already exists but is form-specific; this would be the general-purpose version, e.g. for context menus or the NavigationIsland). Not started — needs the same portal-positioning pattern as Tooltip/Select, more involved than the other three.
 
 **Deferred, build only when a concrete need shows up** (explicit user decision):
 - **Tag** — discussed against Badge/Stamp; decided the existing two cover current needs, don't add a third without a real use case
@@ -60,10 +61,10 @@ Identified during the earlier component-gap analysis, not yet built:
 
 ## Next Steps
 
-No batch is currently queued — the last completed unit of work was the texture sort-order fix (`275e981`). Candidates for the next batch, in rough priority order:
-
-1. Pick up 1-2 components from the gap list above (Breadcrumb + Pagination pair well; Menu/Dropdown is the more involved one since it needs the same portal-positioning pattern as Tooltip/Select/Modal)
+1. **Menu / Dropdown** — the one remaining component gap; needs portal positioning (same pattern as Tooltip/Select)
 2. Continue any further visual-quality passes the user flags while reviewing the showcase (texture/color consistency has been an iterative back-and-forth this phase — expect more of this)
-3. Dark mode (`010-PAPER_UI_DARK_MODE_PLAN.md`, listed as upcoming in [plans.md](./plans.md) but never started) is still open once component coverage feels sufficient
+3. Dark mode (`011-PAPER_UI_DARK_MODE_PLAN.md`, listed as upcoming in [plans.md](./plans.md) but never started) is still open once component coverage feels sufficient
+
+**Workflow note:** as of 2026-07-01 the user commits work themselves review-side — I commit locally but do not `git push`; they push manually.
 
 This file should be updated as batches complete, rather than creating a new numbered plan per batch — mirroring how 009 tracked the earlier cleanup phase.
