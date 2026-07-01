@@ -24,6 +24,7 @@ import { Switch } from '../../components/switch';
 import { Table } from '../../components/table';
 import { Tabs } from '../../components/tabs';
 import { Textarea } from '../../components/textarea';
+import { Tooltip } from '../../components/tooltip';
 import { ComponentSection } from '../components/component-section';
 import { ComponentSidebar, componentIds } from '../components/component-sidebar';
 import {
@@ -1011,6 +1012,53 @@ const sectionDetails: SectionDetail[] = [
         name: 'label',
         type: 'ReactNode',
         description: 'Optional centered label (horizontal only)',
+      },
+      {
+        name: 'surface',
+        type: "'paper' | 'chalkboard'",
+        default: "'paper'",
+        description: 'Surface style',
+      },
+    ],
+  },
+  {
+    id: 'tooltip',
+    title: 'Tooltip',
+    codeExample: `import { Tooltip } from '@dendelion/paper-ui';
+
+<Tooltip content="Saves your changes">
+  <Button>Save</Button>
+</Tooltip>`,
+    props: [
+      {
+        name: 'content',
+        type: 'ReactNode',
+        required: true,
+        description: 'Tooltip body',
+      },
+      {
+        name: 'children',
+        type: 'ReactElement',
+        required: true,
+        description: 'A single focusable/hoverable trigger element',
+      },
+      {
+        name: 'placement',
+        type: "'top' | 'bottom' | 'left' | 'right'",
+        default: "'top'",
+        description: 'Side of the trigger to render on',
+      },
+      {
+        name: 'delay',
+        type: 'number',
+        default: '300',
+        description: 'Show delay in ms',
+      },
+      {
+        name: 'disabled',
+        type: 'boolean',
+        default: 'false',
+        description: 'Suppress the tooltip',
       },
       {
         name: 'surface',
@@ -2203,6 +2251,54 @@ export const ComponentsPage: FC<{
                 </Button>
               </div>
             </Modal>
+          </ComponentSection>
+
+          <ComponentSection
+            id="tooltip"
+            title="Tooltip"
+            description="Inked label with a hand-drawn arrow, shown on hover or focus."
+            category="overlay"
+            chalkboard={chalkboardTheme}
+            onViewDetails={() => handleViewDetails('tooltip')}
+          >
+            <div className="flex flex-wrap items-center gap-8">
+              <Tooltip
+                content="Saves your changes"
+                placement="top"
+                surface={chalkboardTheme ? 'chalkboard' : 'paper'}
+              >
+                <Button variant="primary" surface={chalkboardTheme ? 'chalkboard' : 'paper'}>
+                  Top
+                </Button>
+              </Tooltip>
+              <Tooltip
+                content="Bottom placement"
+                placement="bottom"
+                surface={chalkboardTheme ? 'chalkboard' : 'paper'}
+              >
+                <Button variant="secondary" surface={chalkboardTheme ? 'chalkboard' : 'paper'}>
+                  Bottom
+                </Button>
+              </Tooltip>
+              <Tooltip
+                content="Left placement"
+                placement="left"
+                surface={chalkboardTheme ? 'chalkboard' : 'paper'}
+              >
+                <Button variant="ghost" surface={chalkboardTheme ? 'chalkboard' : 'paper'}>
+                  Left
+                </Button>
+              </Tooltip>
+              <Tooltip
+                content="Right placement"
+                placement="right"
+                surface={chalkboardTheme ? 'chalkboard' : 'paper'}
+              >
+                <Button variant="ghost" surface={chalkboardTheme ? 'chalkboard' : 'paper'}>
+                  Right
+                </Button>
+              </Tooltip>
+            </div>
           </ComponentSection>
         </div>
       </div>

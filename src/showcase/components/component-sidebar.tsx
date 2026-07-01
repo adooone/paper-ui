@@ -67,7 +67,10 @@ const componentGroups: ComponentGroup[] = [
   },
   {
     category: 'Overlay',
-    items: [{ id: 'modal', title: 'Modal' }],
+    items: [
+      { id: 'modal', title: 'Modal' },
+      { id: 'tooltip', title: 'Tooltip' },
+    ],
   },
 ];
 
