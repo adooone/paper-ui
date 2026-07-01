@@ -1,0 +1,75 @@
+@use '../../styles/tokens' as *;
+
+.stack {
+  position: fixed;
+  z-index: $z-toast;
+  display: flex;
+  flex-direction: column;
+  gap: $space-3;
+  max-width: calc(100vw - #{$space-8});
+  pointer-events: none;
+}
+
+.stack > * {
+  pointer-events: auto;
+}
+
+.topLeft {
+  top: $space-6;
+  left: $space-6;
+}
+
+.topCenter {
+  top: $space-6;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.topRight {
+  top: $space-6;
+  right: $space-6;
+}
+
+.bottomLeft {
+  bottom: $space-6;
+  left: $space-6;
+  flex-direction: column-reverse;
+}
+
+.bottomCenter {
+  bottom: $space-6;
+  left: 50%;
+  transform: translateX(-50%);
+  flex-direction: column-reverse;
+}
+
+.bottomRight {
+  bottom: $space-6;
+  right: $space-6;
+  flex-direction: column-reverse;
+}
+
+.item {
+  width: 360px;
+  max-width: 100%;
+  box-shadow: $shadow-paper-lg;
+  border-radius: $radius-md;
+  animation: toastIn 200ms ease-out;
+}
+
+@keyframes toastIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .item {
+    animation: none;
+  }
+}

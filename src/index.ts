@@ -101,6 +101,14 @@ export type { DividerProps } from './components/divider';
 export { Tooltip } from './components/tooltip';
 export type { TooltipProps } from './components/tooltip';
 
+export { ToastProvider, useToast } from './components/toast';
+export type {
+  ToastProviderProps,
+  ToastPosition,
+  ToastOptions,
+  ToastVariant,
+} from './components/toast';
+
 export { CloseIcon, LightbulbIcon, CheckIcon, CopyIcon, PlusIcon, FolderIcon } from './utils/icons';
 
 export { getTextureStyles, resolveTexture } from './utils/textures';
