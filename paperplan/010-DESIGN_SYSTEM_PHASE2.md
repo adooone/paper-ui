@@ -44,11 +44,15 @@ Repo infra (org transfer, release-please, commitlint, Vercel deploy of the showc
 - `f30d581` — added `surface` to Accordion, ListItem, Progress, Skeleton, Spinner (the last five visual components missing it — their showcase demos either silently didn't flip to chalkboard, or worked around it with manual per-theme color overrides); fixed a real bug in NavigationIsland where `position="top"` silently fell through to `position: relative` instead of actually fixing to the top (the CSS existed, the branch logic didn't check for it)
 - `1a5b667` — fixed docs that had drifted from reality: README's Quick Start told consumers to bare-import the package for CSS, which never actually worked (verified against `vite.config.ts` — CSS is a fully separate build asset); README's component table/count were stale (24 vs. actual 37); README claimed `bg-canvas-texture`/`bg-speckle-texture` Tailwind classes that didn't exist (real name is `canvas-weave`, speckle had no class at all — added it); Modal's showcase prop table referenced `tornEdge`/`accent`/`accentColor` which don't exist on the component anymore; Select's docs were missing several real props and its code example would crash at runtime (`onChange` receives a plain string, not an event); added a full showcase section for Accordion (shipped, zero docs); fixed the sidebar's "Island" entry which was actually documenting the *other* `Island` component, and added the real `NavigationIsland` a section of its own
 
+### Badge merged into Stamp
+- `20acc59` — the user pushed back on Badge's existence: as implemented it didn't look distinctly "artistic," and making it more artistic would just recreate Stamp with a different font. Rather than keep two components solving the same "tinted, ink-bordered label" problem, merged Badge's job into Stamp as opt-in props: `variant` (semantic color shortcut + matching ink ring, same token values Badge used) and `dot` (leading status dot). Stamp's existing `wobble` prop is now the dial between "one-off decorative mark" (default 0.3, random per instance) and "quiet repeatable status tag" (`wobble={0}` + `variant`) — same component, different scenario, per the user's stated preference for a minimal component set where components support scenarios via props rather than near-duplicate components. Badge removed entirely (component, export, showcase entry). Breaking change for direct `Badge` consumers.
+- Caught and fixed a real bug during the manual chalkboard check: `variant`'s light-mode paper-tinted colors read as muddy/low-contrast carried over verbatim onto the dark chalkboard surface — fixed by collapsing all variants to one neutral chalk-toned look on chalkboard (mirroring how Badge's own chalkboard variant used to work), same pattern as the round-2 QA pass.
+
 ---
 
 ## Current Inventory
 
-`src/components/`: accordion, alert, avatar, badge, breadcrumb, button, card, checkbox, code-block, copy-button, divider, icon, icon-button, input, island, layout, list-item, menu, modal, navigation-island, page, pagination, progress, prop-table, radio, select, skeleton, spinner, stamp, swatch, table, tabs, textarea, toast, tooltip.
+`src/components/`: accordion, alert, avatar, breadcrumb, button, card, checkbox, code-block, copy-button, divider, icon, icon-button, input, island, layout, list-item, menu, modal, navigation-island, page, pagination, progress, prop-table, radio, select, skeleton, spinner, stamp, swatch, table, tabs, textarea, toast, tooltip.
 
 ---
 
@@ -57,7 +61,7 @@ Repo infra (org transfer, release-please, commitlint, Vercel deploy of the showc
 All four gap components identified this phase are done: ~~Breadcrumb~~, ~~Pagination~~, ~~Avatar~~ (`5cd11cc`), ~~Menu/Dropdown~~ (`0adfca2`).
 
 **Deferred, build only when a concrete need shows up** (explicit user decision):
-- **Tag** — discussed against Badge/Stamp; decided the existing two cover current needs, don't add a third without a real use case
+- **Tag** — discussed against Stamp (which now also covers Badge's old job via `variant`/`dot`); decided Stamp alone covers current needs, don't add a separate component without a real use case
 
 ---
 
