@@ -1927,14 +1927,14 @@ export const ComponentsPage: FC<{
           >
             <div className="flex flex-col gap-3">
               <Switch
-                label="Notifications"
+                label="Small size"
+                size="small"
                 checked={switchOn}
                 surface={chalkboardTheme ? 'chalkboard' : 'paper'}
                 onChange={(e) => setSwitchOn(e.target.checked)}
               />
               <Switch
-                label="Small size"
-                size="small"
+                label="Medium size (default)"
                 checked={switchOn}
                 surface={chalkboardTheme ? 'chalkboard' : 'paper'}
                 onChange={(e) => setSwitchOn(e.target.checked)}
