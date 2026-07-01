@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.6.0](https://github.com/adooone/paper-ui/compare/v0.5.0...v0.6.0) (2026-07-01)
+
+
+### Features
+
+* **brand:** replace logo/favicon with a hand-drawn wobble blob ([b422ceb](https://github.com/adooone/paper-ui/commit/b422ceb75754622719f977a2f06addf8da5bf77a))
+
+
+### Documentation
+
+* **paperplan:** record Progress height fix and new logo/favicon ([3ef75de](https://github.com/adooone/paper-ui/commit/3ef75de1567e498833d42681d6139556292fbde1))
+
 ## [0.5.0](https://github.com/adooone/paper-ui/compare/v0.4.0...v0.5.0) (2026-07-01)
 
 
