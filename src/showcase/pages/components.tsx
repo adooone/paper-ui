@@ -13,6 +13,7 @@ import { Input } from '../../components/input';
 import { Island } from '../../components/island';
 import { Layout } from '../../components/layout';
 import { ListItem } from '../../components/list-item';
+import { Menu } from '../../components/menu';
 import { Modal } from '../../components/modal';
 import { Page } from '../../components/page';
 import { Progress } from '../../components/progress';
@@ -1222,6 +1223,48 @@ function SaveButton() {
         type: 'number',
         default: '1',
         description: 'Page numbers to show on each side of the current page',
+      },
+      {
+        name: 'surface',
+        type: "'paper' | 'chalkboard'",
+        default: "'paper'",
+        description: 'Surface style',
+      },
+    ],
+  },
+  {
+    id: 'menu',
+    title: 'Menu',
+    codeExample: `import { Menu } from '@dendelion/paper-ui';
+
+<Menu
+  trigger={<IconButton icon={<MoreIcon />} label="More options" variant="ghost" />}
+  items={[
+    { id: 'edit', label: 'Edit' },
+    { id: 'duplicate', label: 'Duplicate' },
+    { id: 'sep', type: 'separator' },
+    { id: 'delete', label: 'Delete', danger: true, onSelect: handleDelete },
+  ]}
+/>`,
+    props: [
+      {
+        name: 'trigger',
+        type: 'ReactElement',
+        required: true,
+        description: 'A single focusable element that opens the menu on click',
+      },
+      {
+        name: 'items',
+        type: 'MenuEntry[]',
+        required: true,
+        description:
+          'MenuItem ({ id, label, icon?, onSelect?, disabled?, danger? }) or a separator ({ id, type: "separator" })',
+      },
+      {
+        name: 'align',
+        type: "'start' | 'end'",
+        default: "'start'",
+        description: 'Horizontal alignment against the trigger',
       },
       {
         name: 'surface',
@@ -2542,6 +2585,50 @@ export const ComponentsPage: FC<{
               </Tooltip>
             </div>
           </ComponentSection>
+
+          <ComponentSection
+            id="menu"
+            title="Menu"
+            description="Anchored action menu with roving keyboard focus, separators, and a danger tone for destructive items."
+            category="overlay"
+            chalkboard={chalkboardTheme}
+            onViewDetails={() => handleViewDetails('menu')}
+          >
+            <div className="flex flex-wrap items-center gap-4">
+              <Menu
+                surface={chalkboardTheme ? 'chalkboard' : 'paper'}
+                trigger={
+                  <IconButton
+                    icon={<MoreIcon />}
+                    label="More options"
+                    variant="ghost"
+                    surface={chalkboardTheme ? 'chalkboard' : 'paper'}
+                  />
+                }
+                items={[
+                  { id: 'edit', label: 'Edit' },
+                  { id: 'duplicate', label: 'Duplicate' },
+                  { id: 'download', label: 'Download', icon: <DownloadIcon /> },
+                  { id: 'sep', type: 'separator' },
+                  { id: 'archived', label: 'Archived (disabled)', disabled: true },
+                  { id: 'delete', label: 'Delete', danger: true, icon: <TrashIcon /> },
+                ]}
+              />
+              <Menu
+                align="end"
+                surface={chalkboardTheme ? 'chalkboard' : 'paper'}
+                trigger={
+                  <Button variant="secondary" surface={chalkboardTheme ? 'chalkboard' : 'paper'}>
+                    Actions
+                  </Button>
+                }
+                items={[
+                  { id: 'share', label: 'Share' },
+                  { id: 'export', label: 'Export', icon: <DownloadIcon /> },
+                ]}
+              />
+            </div>
+          </ComponentSection>
         </div>
       </div>
 
@@ -2678,6 +2765,16 @@ function DownloadIcon() {
       <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
       <polyline points="7 10 12 15 17 10" />
       <line x1="12" y1="15" x2="12" y2="3" />
+    </svg>
+  );
+}
+
+function MoreIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="none">
+      <circle cx="12" cy="5" r="1.6" />
+      <circle cx="12" cy="12" r="1.6" />
+      <circle cx="12" cy="19" r="1.6" />
     </svg>
   );
 }

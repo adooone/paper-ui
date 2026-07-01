@@ -118,6 +118,9 @@ export type { BreadcrumbProps, BreadcrumbItem } from './components/breadcrumb';
 export { Pagination } from './components/pagination';
 export type { PaginationProps } from './components/pagination';
 
+export { Menu } from './components/menu';
+export type { MenuProps, MenuItem, MenuSeparator, MenuEntry } from './components/menu';
+
 export { CloseIcon, LightbulbIcon, CheckIcon, CopyIcon, PlusIcon, FolderIcon } from './utils/icons';
 
 export { getTextureStyles, resolveTexture } from './utils/textures';

@@ -74,6 +74,7 @@ const componentGroups: ComponentGroup[] = [
     items: [
       { id: 'modal', title: 'Modal' },
       { id: 'tooltip', title: 'Tooltip' },
+      { id: 'menu', title: 'Menu' },
     ],
   },
 ];
