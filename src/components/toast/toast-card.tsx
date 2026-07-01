@@ -1,12 +1,16 @@
 import { useCallback, useEffect, useRef } from 'react';
-import { Alert } from '../alert';
+import type { ReactNode } from 'react';
+import { CloseIcon } from '../../utils/icons';
+import { cn } from '../../utils/style-helpers';
+import { resolveTexture } from '../../utils/textures';
+import { AlertIcon } from '../alert/alert-icon';
 import type { ToastVariant } from './toast-context';
 import styles from './toast.module.scss';
 
 export interface ToastRecord {
   id: string;
   title?: string;
-  description?: React.ReactNode;
+  description?: ReactNode;
   variant: ToastVariant;
   duration: number;
 }
@@ -45,17 +49,31 @@ export function ToastCard({ record, surface = 'paper', onDismiss }: ToastCardPro
 
   const resume = () => schedule(remaining.current);
 
+  const isChalkboard = surface === 'chalkboard';
+
   return (
     <div className={styles.item} onMouseEnter={pause} onMouseLeave={resume}>
-      <Alert
-        variant={record.variant}
-        title={record.title}
-        surface={surface}
-        dismissible
-        onDismiss={() => onDismiss(record.id)}
+      <div
+        className={cn(styles.card, styles[record.variant], isChalkboard && styles.chalkboard)}
+        style={isChalkboard ? undefined : resolveTexture('kraft')}
+        role="alert"
       >
-        {record.description}
-      </Alert>
+        <span className={styles.iconWrapper}>
+          <AlertIcon variant={record.variant} />
+        </span>
+        <div className={styles.content}>
+          {record.title && <div className={styles.title}>{record.title}</div>}
+          <div className={styles.description}>{record.description}</div>
+        </div>
+        <button
+          type="button"
+          className={styles.dismiss}
+          onClick={() => onDismiss(record.id)}
+          aria-label="Dismiss notification"
+        >
+          <CloseIcon size={16} />
+        </button>
+      </div>
     </div>
   );
 }

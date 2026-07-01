@@ -757,13 +757,17 @@ const sectionDetails: SectionDetail[] = [
     title: 'Alert',
     codeExample: `import { Alert } from '@dendelion/paper-ui';
 
-<Alert variant="success" title="Saved">
-  Your changes have been saved to the journal.
-</Alert>
-<Alert variant="error" title="Error" dismissible onDismiss={handleDismiss}>
+<Alert variant="success">Your changes have been saved.</Alert>
+<Alert variant="error" dismissible onDismiss={handleDismiss}>
   Unable to connect to the server.
 </Alert>`,
     props: [
+      {
+        name: 'children',
+        type: 'ReactNode',
+        required: true,
+        description: 'Message text, truncated to a single line',
+      },
       {
         name: 'variant',
         type: "'info' | 'success' | 'warning' | 'error'",
@@ -772,14 +776,15 @@ const sectionDetails: SectionDetail[] = [
       },
       {
         name: 'texture',
-        type: 'PaperTextureKey',
+        type: 'boolean | PaperTextureKey | TextureConfig',
         default: "'kraft'",
-        description: 'Paper texture for the background',
+        description: 'Background texture: a name, a config, or false to disable',
       },
       {
-        name: 'title',
-        type: 'string',
-        description: 'Alert heading (Luminari font)',
+        name: 'surface',
+        type: "'paper' | 'chalkboard'",
+        default: "'paper'",
+        description: 'Surface style',
       },
       {
         name: 'dismissible',
@@ -2593,31 +2598,41 @@ export const ComponentsPage: FC<{
           <ComponentSection
             id="alert"
             title="Alert"
-            description="Paper-textured message box with tinted overlay and full-height accent border. Supports info, success, warning, and error tones."
+            description="Compact single-line message with an icon and a tinted accent border. Supports info, success, warning, and error tones — for a fuller notification with a title and description, use Toast."
             category="feedback"
             chalkboard={chalkboardTheme}
             onViewDetails={() => handleViewDetails('alert')}
           >
-            <div className="space-y-4 max-w-lg">
-              {chalkboardTheme ? (
-                <Alert surface="chalkboard" title="Chalkboard">
-                  This alert is styled for chalkboard surfaces.
-                </Alert>
-              ) : (
-                <>
-                  <Alert variant="info" title="Tip">
-                    Use paper textures sparingly for maximum impact.
-                  </Alert>
-                  <Alert variant="success" title="Published">
-                    Your article is now live and readable.
-                  </Alert>
-                  <Alert variant="warning" title="Draft">
-                    This plan has not been reviewed yet.
-                  </Alert>
-                  <Alert variant="error" title="Failed" dismissible>
-                    Could not save changes to the server.
-                  </Alert>
-                </>
+            <div className="flex flex-col gap-6 max-w-lg w-full">
+              <div className="flex flex-col gap-2">
+                {chalkboardTheme ? (
+                  <Alert surface="chalkboard">Styled for chalkboard surfaces.</Alert>
+                ) : (
+                  <>
+                    <Alert variant="info">Use paper textures sparingly for maximum impact.</Alert>
+                    <Alert variant="success">Your article is now live.</Alert>
+                    <Alert variant="warning">This plan has not been reviewed yet.</Alert>
+                    <Alert variant="error" dismissible>
+                      Could not save changes to the server.
+                    </Alert>
+                  </>
+                )}
+              </div>
+              {!chalkboardTheme && (
+                <div className="flex flex-col gap-2">
+                  <span
+                    className="text-xs uppercase tracking-wide"
+                    style={{ color: colorInkTertiary }}
+                  >
+                    Textures
+                  </span>
+                  <Alert texture="white">White texture</Alert>
+                  <Alert texture="paper">Paper texture</Alert>
+                  <Alert texture="speckle">Speckle texture</Alert>
+                  <Alert texture="parchment">Parchment texture</Alert>
+                  <Alert texture="canvas">Canvas texture</Alert>
+                  <Alert texture="kraft">Kraft texture</Alert>
+                </div>
               )}
             </div>
           </ComponentSection>
@@ -2625,7 +2640,7 @@ export const ComponentsPage: FC<{
           <ComponentSection
             id="toast"
             title="Toast"
-            description="Positioned, stacked notifications with auto-dismiss (pauses on hover) and manual close. Built on Alert."
+            description="Positioned, stacked notifications with a title, description, auto-dismiss (pauses on hover), and manual close."
             category="feedback"
             chalkboard={chalkboardTheme}
             onViewDetails={() => handleViewDetails('toast')}
