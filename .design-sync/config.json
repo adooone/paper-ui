@@ -1,0 +1,10 @@
+{
+  "projectId": "35751a8b-40e9-479d-8ef6-9b17a6621664",
+  "shape": "package",
+  "pkg": "@dendelion/paper-ui",
+  "buildCmd": "pnpm run build",
+  "cssEntry": "dist/index.css",
+  "extraFonts": ["dist/fonts/Luminari-Regular.woff"],
+  "runtimeFontPrefixes": ["JetBrains Mono", "Cormorant Garamond", "Caveat", "Courier Prime"],
+  "readmeHeader": ".design-sync/conventions.md"
+}

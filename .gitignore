@@ -31,3 +31,12 @@ Thumbs.db
 
 # Packaged tarballs
 *.tgz
+.vercel
+.env*
+
+# design-sync (local-only; durable config/notes live in .design-sync/)
+.ds-sync/
+ds-bundle/
+.design-sync/.cache/
+.design-sync/learnings/
+.design-sync/node_modules/
