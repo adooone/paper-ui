@@ -1,5 +1,6 @@
 import type { FC, ReactNode } from 'react';
 import { useBlobPaths } from '../../hooks/use-blob-paths';
+import { colors, withAlpha } from '../../tokens';
 import { cn } from '../../utils/style-helpers';
 import styles from './stamp.module.scss';
 
@@ -18,19 +19,39 @@ export interface StampProps {
 }
 
 const variantColors: Record<StampVariant, { fill: string; text: string; ring: string }> = {
-  neutral: { fill: 'rgba(138, 155, 168, 0.14)', text: '#5E7080', ring: 'rgba(94, 112, 128, 0.35)' },
-  info: { fill: 'rgba(124, 156, 192, 0.14)', text: '#51719B', ring: 'rgba(81, 113, 155, 0.35)' },
-  success: { fill: 'rgba(143, 185, 150, 0.16)', text: '#5E8A66', ring: 'rgba(94, 138, 102, 0.35)' },
-  warning: { fill: 'rgba(212, 163, 115, 0.16)', text: '#A67B4F', ring: 'rgba(166, 123, 79, 0.4)' },
-  error: { fill: 'rgba(201, 139, 139, 0.16)', text: '#9E5E5E', ring: 'rgba(158, 94, 94, 0.35)' },
+  neutral: {
+    fill: withAlpha(colors.accentSlate, 0.14),
+    text: colors.accentSlateDark,
+    ring: withAlpha(colors.accentSlateDark, 0.35),
+  },
+  info: {
+    fill: withAlpha(colors.accentBlue, 0.14),
+    text: colors.accentBlueDark,
+    ring: withAlpha(colors.accentBlueDark, 0.35),
+  },
+  success: {
+    fill: withAlpha(colors.accentGreen, 0.16),
+    text: colors.accentGreenDark,
+    ring: withAlpha(colors.accentGreenDark, 0.35),
+  },
+  warning: {
+    fill: withAlpha(colors.accentAmber, 0.16),
+    text: colors.accentAmberDark,
+    ring: withAlpha(colors.accentAmberDark, 0.4),
+  },
+  error: {
+    fill: withAlpha(colors.accentRose, 0.16),
+    text: colors.accentRoseDark,
+    ring: withAlpha(colors.accentRoseDark, 0.35),
+  },
 };
 
 // On chalkboard, per-variant paper-tinted colors read as muddy/low-contrast
 // against the dark background, so every variant collapses to one quiet
 // chalk-toned look instead (text color comes from the .chalkboard class).
 const chalkboardVariantColor = {
-  fill: 'rgba(200, 210, 195, 0.1)',
-  ring: 'rgba(200, 210, 195, 0.35)',
+  fill: withAlpha(colors.chalkboardBorderBase, 0.1),
+  ring: withAlpha(colors.chalkboardBorderBase, 0.35),
 };
 
 export function Stamp({

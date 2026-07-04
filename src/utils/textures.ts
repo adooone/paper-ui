@@ -1,3 +1,5 @@
+import { colors } from '../tokens';
+
 // Ordered lightest to darkest — this order drives the texture swatch pickers.
 export type PaperTextureKey =
   | 'white'
@@ -40,15 +42,14 @@ export const textureMap: Record<PaperTextureKey, string> = {
     "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='c'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.15 0 0 0 0 0.28 0 0 0 0 0.20 0 0 0 0.08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23c)' opacity='1'/%3E%3C/svg%3E\")",
 };
 
-// Color values here must match _tokens.scss — that file is the canonical source.
 export const textureColorMap: Record<PaperTextureKey, string> = {
-  white: '#FDFCF8', // $color-bg-base
-  paper: '#FAF8F0', // $color-bg-surface
-  speckle: '#FAF8F0', // $color-bg-surface
-  parchment: '#F5F1E6', // $color-bg-elevated
-  canvas: '#F0EAD8', // $color-canvas-base
-  kraft: '#E5DBC4', // $color-canvas-300
-  chalkboard: '#142e22', // $color-chalkboard-bg
+  white: colors.bgBase,
+  paper: colors.bgSurface,
+  speckle: colors.bgSurface,
+  parchment: colors.bgElevated,
+  canvas: colors.canvasBase,
+  kraft: colors.canvas300,
+  chalkboard: colors.chalkboardBg,
 };
 
 export const ruledColorMap: Record<RuledColorKey, string> = {

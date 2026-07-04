@@ -130,5 +130,6 @@ export type {
   RuledColorKey,
 } from './utils/textures';
 
-export { space } from './tokens';
+export { colors, space, withAlpha } from './tokens';
+export type { PaperColorToken } from './tokens';
 export { layoutConfig } from './layout';

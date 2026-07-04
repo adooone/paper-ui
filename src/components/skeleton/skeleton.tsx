@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import type { CSSProperties } from 'react';
 import { useStableSeed } from '../../hooks/use-stable-seed';
+import { colors, withAlpha } from '../../tokens';
 import { roughGenerator } from '../../utils/rough';
 import { cn } from '../../utils/style-helpers';
 import styles from './skeleton.module.scss';
@@ -32,7 +33,9 @@ export function Skeleton({
 }: SkeletonProps) {
   const isChalkboard = surface === 'chalkboard';
   const seed = Math.max(1, Math.round(useStableSeed() * 1_000_000));
-  const fillColor = isChalkboard ? 'rgba(200, 210, 195, 0.16)' : 'rgba(26, 25, 23, 0.09)';
+  const fillColor = isChalkboard
+    ? withAlpha(colors.chalkboardBorderBase, 0.16)
+    : withAlpha(colors.textPrimary, 0.09);
 
   const paths = useMemo(() => {
     const [, , vw, vh] = VARIANT_VIEWBOX[variant];
