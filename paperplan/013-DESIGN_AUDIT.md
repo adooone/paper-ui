@@ -46,17 +46,28 @@ Button, IconButton, Input, Textarea, Checkbox, Radio, Switch forward refs to the
 - **publint** (`pnpm check-package`) — immediately caught a real packaging bug: with `"type": "module"`, the CJS build `dist/index.js` was interpreted as ESM, so `require('@dendelion/paper-ui')` was broken. The CJS build is now emitted/exported as `dist/index.cjs`. Remaining publint notes (deferred): a `.d.cts` types split for require-resolution, and an `engines.node` field.
 - **Playwright visual regression: deferred, next candidate.** Chromium can't run in the dev sandbox, so the setup needs to be verified on the dev machine or in CI. One screenshot per gallery section (paper + chalkboard) would have caught the batch-1 white-fields bug; Lost Pixel is the lighter alternative if full Playwright feels heavy.
 
+### Batch 9 — Select polish (`38da8bb`)
+Portal dropdown moved from a hardcoded inline `zIndex: 1000` to `$z-popover` (matching Menu, above modals); it closes when its trigger scrolls out of view instead of floating detached; Tab away closes it.
+
+### Batch 10 — Tabs (`1e59b64`)
+Uncontrolled by default (first item, optional `defaultActiveKey`; `activeKey` stays the controlled mode — previously nothing rendered without it), plus the full ARIA tabs pattern: tab/panel ids, `aria-controls`/`aria-labelledby`, focusable `role=tabpanel`, roving tabindex, ArrowLeft/Right/Home/End with automatic activation.
+
+### Batch 11 — chalkboard base token, polite toasts, chevron icons (`531a0a0`)
+`$chalkboard-border-base` (rgb 200, 210, 195) is now the single source for ~20 scattered chalkboard border/ring rgba literals across nine modules (compiled CSS verified byte-identical); Toast/Alert announce `role=status` for info/success and keep `role=alert` for warning/error; Accordion and Table expand controls use a shared `ChevronRightIcon` SVG (CSS rotation) instead of `▼`/`▶` text glyphs.
+
+### Batch 12 — Tooltip viewport clamping (`6e42c99`)
+Tooltip measures itself (one hidden frame) and positions with explicit top/left clamped into the viewport, so edge-adjacent triggers no longer get cut-off tooltips.
+
+### Batch 13 — showcase hash routing (`0fa56ae`)
+Pages live in the URL hash (`#gallery`, `#tokens`, …): deep-linkable, reload-safe, back/forward work.
+
 ## Open findings (not yet fixed, roughly prioritized)
 
-3. **Select**: hardcoded portal `zIndex: 1000` bypasses the `$z-*` scale; dropdown doesn't close on scroll (can detach from trigger); Tab while open leaves it open. Intermittent semi-transparent dropdown panel was observed twice during the audit — recheck after batch 1, may have been the same custom-prop bug via the focused trigger.
-4. **Tabs**: no `defaultActiveKey` (renders nothing uncontrolled), missing `aria-controls`/`tabpanel`/arrow-key navigation.
-5. **Toast/Alert roles**: `role="alert"` unconditionally — info/success should be `role="status"`.
-6. **IconButton `label` optional** → icon-only buttons can lack an accessible name (breaking change to make required; decide).
-7. **Tooltip**: no viewport collision handling.
-8. Raw `rgba(200, 210, 195, …)` literals despite `$chalkboard-border-*` tokens; raw z-indexes in island/layout/code-block/cells; `▼`/`▶` text glyphs in Accordion/Table vs. SVG icons elsewhere.
-9. **Chalkboard contrast pass**: Stamp variant pills nearly invisible on dark; unchecked radio/checkbox outlines faint.
-10. **Showcase**: no URL routing (nothing deep-linkable, refresh resets to Home); exit animations missing everywhere (toast/modal/menu vanish abruptly).
-11. **Packaging (larger)**: `./tailwind` + `./styles` exports point at `.ts` source files (non-TS consumers); framer-motion is a hard dep used only by Layout's drawer; single-file dist prevents per-component tree-shaking (`preserveModules`); globals.scss import in index.ts force-styles consumer `<body>` (only when consuming source/CSS — consider an opt-in entry).
+1. **IconButton `label` optional** → icon-only buttons can lack an accessible name (breaking change to make required; decide).
+2. **Chalkboard contrast pass** (needs the user's eye): Stamp variant pills nearly invisible on dark; unchecked radio/checkbox outlines faint.
+3. **Exit animations** missing everywhere — toast/modal/menu/dropdown vanish abruptly on close.
+4. **Packaging (larger)**: `./tailwind` + `./styles` exports point at `.ts` source files (non-TS consumers); framer-motion is a hard dep used only by Layout's drawer; single-file dist prevents per-component tree-shaking (`preserveModules`); globals.scss import in index.ts force-styles consumer `<body>` (only when consuming source/CSS — consider an opt-in entry); `.d.cts` types split + `engines.node` from the publint report.
+5. Raw z-indexes in island (50) / layout (100) — global fixed elements that should map onto the `$z-*` scale; needs a visual pass since relative order must be preserved (code-block 10 / cells 20 are local stacking, fine as-is).
 
 ## Tooling candidates (fits the minimal-testing agreement)
 
