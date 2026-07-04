@@ -85,3 +85,7 @@ No component gaps remain from this phase's analysis, and a full QA pass (consist
 **Workflow note:** as of 2026-07-01 the user commits work themselves review-side — I commit locally but do not `git push`; they push manually.
 
 This file should be updated as batches complete, rather than creating a new numbered plan per batch — mirroring how 009 tracked the earlier cleanup phase.
+
+---
+
+**2026-07-04:** a full design/code audit of the library and showcase ran as its own effort — findings, the five fix batches that landed (headline: Sass was shipping un-interpolated `$color-accent-*` strings inside `--pui-*` custom properties, killing focus/error visuals on all text fields), remaining open items, and tooling candidates are tracked in [013-DESIGN_AUDIT.md](./013-DESIGN_AUDIT.md).

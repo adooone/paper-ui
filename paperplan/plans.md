@@ -6,6 +6,7 @@
 |------|--------|-------------|
 | [005-PAPER_UI_PLAN.md](./005-PAPER_UI_PLAN.md) | 🚧 In Progress | Create Paper UI component library (MVP: 6 components + showcase) |
 | [010-DESIGN_SYSTEM_PHASE2.md](./010-DESIGN_SYSTEM_PHASE2.md) | 🚧 In Progress | Design system phase 2: token/state consistency, texture quality pass, component gap-filling |
+| [013-DESIGN_AUDIT.md](./013-DESIGN_AUDIT.md) | 🚧 In Progress | Full design/code audit: findings, fix batches (5 landed), open items, tooling candidates |
 | [009-DESIGN_SYSTEM_CLEANUP.md](./009-DESIGN_SYSTEM_CLEANUP.md) | ✅ Completed | Design system cleanup: single source of truth, eliminate hardcoded hex, deduplicate code |
 | [006-PAPER_UI_CLEANUP_PLAN.md](./006-PAPER_UI_CLEANUP_PLAN.md) | ✅ Completed | Codebase cleanup: fix bugs, remove dead code, standardize patterns |
 | [007-SVG_BUTTON_BACKGROUNDS.md](./007-SVG_BUTTON_BACKGROUNDS.md) | ✅ Completed | Random organic blob shapes + pencil-ring hover for all buttons |
