@@ -1510,9 +1510,17 @@ export const ComponentsPage: FC<{
 
   const handleNavigate = useCallback((id: string) => {
     const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    if (!element) return;
+    // Some browser setups silently drop programmatic smooth scrolling
+    // (observed in Chrome on macOS) — verify the scroll actually moved
+    // and fall back to an instant jump.
+    const startY = window.scrollY;
+    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    window.setTimeout(() => {
+      if (Math.abs(window.scrollY - startY) < 2) {
+        element.scrollIntoView({ behavior: 'instant', block: 'start' });
+      }
+    }, 120);
   }, []);
 
   const handleViewDetails = useCallback(
@@ -1559,7 +1567,8 @@ export const ComponentsPage: FC<{
       <div className="flex gap-10">
         <ComponentSidebar activeSection={activeSection} onNavigate={handleNavigate} />
 
-        <div className="flex-1 min-w-0 space-y-20 pb-24">
+        {/* pb-40 keeps the last section clear of the floating wobble/theme island */}
+        <div className="flex-1 min-w-0 space-y-20 pb-40">
           <ComponentSection
             id="button"
             title="Button"

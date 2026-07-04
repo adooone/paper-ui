@@ -1,4 +1,5 @@
 import type { FC } from 'react';
+import packageJson from '../../../package.json';
 import { colorInkTertiary, colorPaperSurface, fontFamilySerif } from '../lib/styles';
 
 export const Footer: FC = () => {
@@ -12,7 +13,7 @@ export const Footer: FC = () => {
           Paper UI — Natural Materials Component Library
         </p>
         <p className="text-base" style={{ color: colorInkTertiary, fontFamily: fontFamilySerif }}>
-          v0.1.0
+          v{packageJson.version}
         </p>
       </div>
     </footer>

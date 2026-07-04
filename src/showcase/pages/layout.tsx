@@ -333,18 +333,25 @@ export const LayoutPage: FC = () => {
           >
             position="top"
           </code>{' '}
-          to place it inline instead.
+          to pin it to the top of the viewport instead.
         </p>
         <div
           className="p-10 rounded-2xl border flex flex-col items-center justify-center gap-8"
           style={paperCardStyle}
         >
-          <NavigationIsland
-            items={islandItems}
-            activeId={activeIsland}
-            onSelect={setActiveIsland}
-            position="top"
-          />
+          {/* NavigationIsland uses position: fixed — the transform makes this
+              box its containing block so the preview stays bounded. */}
+          <div
+            className="relative w-full flex items-start justify-center overflow-hidden"
+            style={{ height: 100, transform: 'translateZ(0)' }}
+          >
+            <NavigationIsland
+              items={islandItems}
+              activeId={activeIsland}
+              onSelect={setActiveIsland}
+              position="top"
+            />
+          </div>
           <p
             style={{
               fontFamily: fontFamilySerif,
@@ -366,7 +373,7 @@ export const LayoutPage: FC = () => {
   onSelect={(id) => navigate(id)}
 />
 
-// Inline placement (e.g. inside a header)
+// Pinned to the top of the viewport instead
 <NavigationIsland
   items={[...]}
   activeId="home"
