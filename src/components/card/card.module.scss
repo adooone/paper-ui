@@ -4,20 +4,11 @@
 .borderLayer {
   position: relative;
   overflow: hidden;
-  border: 2px solid transparent;
   @include organic-radius($radius-md, 3px);
-  background-image:
-    linear-gradient($color-bg-surface, $color-bg-surface),
-    conic-gradient(
-      from 45deg,
-      rgba(61, 53, 43, 0.32),
-      rgba(61, 53, 43, 0.12),
-      rgba(61, 53, 43, 0.32),
-      rgba(61, 53, 43, 0.12),
-      rgba(61, 53, 43, 0.32)
-    );
-  background-clip: padding-box, border-box;
-  background-origin: padding-box, border-box;
+  background-image: linear-gradient($color-bg-surface, $color-bg-surface);
+  // Consumed by the SketchBorder overlay that replaces the old conic-gradient
+  // pencil stroke with a real rough.js-drawn outline.
+  --sketch-stroke: rgba(61, 53, 43, 0.4);
 }
 
 .default {
@@ -74,17 +65,8 @@
 .accentSlate::before { background: radial-gradient(circle, $color-accent-slate-light 0%, transparent 70%); }
 
 .chalkboard {
-  border-color: $color-chalkboard-border;
-  background-image:
-    linear-gradient($color-chalkboard-bg, $color-chalkboard-bg),
-    conic-gradient(
-      from 45deg,
-      rgba($chalkboard-border-base, 0.18),
-      rgba($chalkboard-border-base, 0.06),
-      rgba($chalkboard-border-base, 0.18),
-      rgba($chalkboard-border-base, 0.06),
-      rgba($chalkboard-border-base, 0.18)
-    );
+  background-image: linear-gradient($color-chalkboard-bg, $color-chalkboard-bg);
+  --sketch-stroke: #{rgba($chalkboard-border-base, 0.4)};
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 
   .textureLayer {

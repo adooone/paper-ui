@@ -1,0 +1,19 @@
+@use '../../styles/tokens' as *;
+
+.svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+  z-index: 2;
+}
+
+.stroke {
+  fill: none;
+  stroke: var(--sketch-stroke, #{$button-ring-stroke});
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: stroke $transition-fast;
+}
