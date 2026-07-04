@@ -48,11 +48,11 @@
   transition: opacity 350ms ease 50ms;
 }
 
-.iconButton:hover .blobRing {
+.iconButton:hover:not(:disabled) .blobRing {
   opacity: 1;
 }
 
-.iconButton:active .blobRing {
+.iconButton:active:not(:disabled) .blobRing {
   stroke: $button-ring-stroke-active;
 }
 
@@ -72,11 +72,11 @@
   fill: $color-canvas-base;
 }
 
-.default:hover .blobFill {
+.default:hover:not(:disabled) .blobFill {
   fill: $color-primary-hover;
 }
 
-.default:active .blobFill {
+.default:active:not(:disabled) .blobFill {
   fill: $color-primary-active;
 }
 
@@ -96,11 +96,11 @@
   fill: transparent;
 }
 
-.ghost:hover .blobFill {
+.ghost:hover:not(:disabled) .blobFill {
   fill: $ghost-hover-fill;
 }
 
-.ghost:active .blobFill {
+.ghost:active:not(:disabled) .blobFill {
   fill: $ghost-active-fill;
 }
 
@@ -124,11 +124,11 @@
   fill: $color-canvas-base;
 }
 
-.danger:hover .blobFill {
+.danger:hover:not(:disabled) .blobFill {
   fill: $color-danger-hover;
 }
 
-.danger:active .blobFill {
+.danger:active:not(:disabled) .blobFill {
   fill: $color-danger-active;
 }
 
@@ -182,7 +182,7 @@
     stroke-width: 2.2;
   }
 
-  &:active .blobRing {
+  &:active:not(:disabled) .blobRing {
     stroke: $chalkboard-ring-stroke-active;
   }
 

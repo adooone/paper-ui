@@ -69,9 +69,9 @@
 
   &:focus {
     @include ink-focus();
-    --pui-wash: rgba($color-accent-slate, 0.06);
-    --pui-dark: rgba($color-accent-slate, 0.45);
-    --pui-light: rgba($color-accent-slate, 0.18);
+    --pui-wash: #{rgba($color-accent-slate, 0.06)};
+    --pui-dark: #{rgba($color-accent-slate, 0.45)};
+    --pui-light: #{rgba($color-accent-slate, 0.18)};
   }
 }
 
