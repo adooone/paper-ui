@@ -1,6 +1,7 @@
 import { forwardRef, useId } from 'react';
 import type { InputHTMLAttributes } from 'react';
 import { cn } from '../../utils/style-helpers';
+import { SketchBorder } from '../sketch-border';
 import styles from './input.module.scss';
 
 export interface InputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
@@ -26,12 +27,17 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
           {label}
         </label>
       )}
-      <input
-        ref={ref}
-        id={inputId}
-        className={cn(styles.input, styles[size], error && styles.error)}
-        {...props}
-      />
+      <span
+        className={cn(
+          styles.field,
+          styles[size],
+          error && styles.error,
+          props.disabled && styles.disabled,
+        )}
+      >
+        <input ref={ref} id={inputId} className={styles.input} {...props} />
+        <SketchBorder radius={8} inset={2} roughness={1.1} strokeWidth={1.3} />
+      </span>
       {helperText && (
         <span className={cn(styles.helperText, error && styles.helperError)}>{helperText}</span>
       )}

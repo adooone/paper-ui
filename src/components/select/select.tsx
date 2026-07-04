@@ -3,6 +3,7 @@ import type { CSSProperties, KeyboardEvent, MouseEvent, ReactNode } from 'react'
 import { createPortal } from 'react-dom';
 import { cn } from '../../utils/style-helpers';
 import { type TextureProp, resolveTexture } from '../../utils/textures';
+import { SketchBorder } from '../sketch-border';
 import styles from './select.module.scss';
 
 export interface SelectOption {
@@ -272,6 +273,7 @@ export function Select({
           {displayLabel}
         </span>
         <ChevronIcon className={cn(styles.chevron, isOpen && styles.chevronOpen)} />
+        <SketchBorder radius={8} inset={2} roughness={1.1} strokeWidth={1.3} />
       </button>
 
       {isOpen &&
@@ -298,30 +300,33 @@ export function Select({
               }
             }}
           >
-            {options.map((opt, idx) => (
-              // biome-ignore lint/a11y/useKeyWithClickEvents: keyboard selection is handled on the combobox trigger (arrow keys + Enter) via aria-activedescendant; options are pointer targets only.
-              <div
-                key={opt.value}
-                id={`${selectId}-option-${idx}`}
-                role="option"
-                aria-selected={opt.value === selectedValue}
-                tabIndex={-1}
-                data-option-index={idx}
-                className={cn(
-                  styles.option,
-                  opt.value === selectedValue && styles.optionSelected,
-                  idx === highlightedIndex && styles.optionHighlighted,
-                  opt.disabled && styles.optionDisabled,
-                )}
-                onClick={(e: MouseEvent<HTMLDivElement>) => {
-                  e.stopPropagation();
-                  selectOption(opt);
-                }}
-                onMouseEnter={() => setHighlightedIndex(idx)}
-              >
-                {opt.label}
-              </div>
-            ))}
+            <SketchBorder radius={12} inset={2.5} roughness={1.2} strokeWidth={1.3} />
+            <div className={styles.options}>
+              {options.map((opt, idx) => (
+                // biome-ignore lint/a11y/useKeyWithClickEvents: keyboard selection is handled on the combobox trigger (arrow keys + Enter) via aria-activedescendant; options are pointer targets only.
+                <div
+                  key={opt.value}
+                  id={`${selectId}-option-${idx}`}
+                  role="option"
+                  aria-selected={opt.value === selectedValue}
+                  tabIndex={-1}
+                  data-option-index={idx}
+                  className={cn(
+                    styles.option,
+                    opt.value === selectedValue && styles.optionSelected,
+                    idx === highlightedIndex && styles.optionHighlighted,
+                    opt.disabled && styles.optionDisabled,
+                  )}
+                  onClick={(e: MouseEvent<HTMLDivElement>) => {
+                    e.stopPropagation();
+                    selectOption(opt);
+                  }}
+                  onMouseEnter={() => setHighlightedIndex(idx)}
+                >
+                  {opt.label}
+                </div>
+              ))}
+            </div>
           </div>,
           document.body,
         )}

@@ -15,20 +15,44 @@
   letter-spacing: $letter-spacing-wide;
 }
 
-.input {
+// The visual box lives on this wrapper (an <input> can't host the
+// SketchBorder SVG); state tinting flows through --sketch-stroke.
+.field {
   position: relative;
-  appearance: none;
+  display: block;
   width: 100%;
-  color: $color-text-primary;
-  font-family: var(--paper-font-default, $font-family-serif);
-  font-weight: $font-weight-medium;
-  line-height: $line-height-tight;
 
-  @include pencil-border(
+  @include pencil-fill(
     $fill: $color-bg-input,
     $radius-base: $radius-sm,
     $radius-variance: 2px
   );
+
+  --sketch-stroke: rgba(61, 53, 43, 0.4);
+
+  &:hover {
+    --sketch-stroke: rgba(61, 53, 43, 0.55);
+    box-shadow: 1.5px 1.5px 3px rgba(61, 53, 43, 0.06);
+  }
+
+  &:focus-within {
+    @include ink-focus();
+    --pui-wash: #{rgba($color-accent-slate, 0.18)};
+    --sketch-stroke: #{rgba($color-accent-slate, 0.65)};
+  }
+}
+
+.input {
+  appearance: none;
+  display: block;
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: $color-text-primary;
+  font-family: var(--paper-font-default, $font-family-serif);
+  font-weight: $font-weight-medium;
+  line-height: $line-height-tight;
 
   &::placeholder {
     color: $color-text-tertiary;
@@ -36,53 +60,45 @@
     font-family: $font-family-handwritten;
     font-size: $font-size-md;
   }
-
-  &:hover {
-    --pui-dark: rgba(61, 53, 43, 0.42);
-    --pui-light: rgba(61, 53, 43, 0.18);
-    box-shadow: 1.5px 1.5px 3px rgba(61, 53, 43, 0.06);
-  }
-
-  &:focus {
-    @include ink-focus();
-    --pui-wash: #{rgba($color-accent-slate, 0.18)};
-    --pui-dark: #{rgba($color-accent-slate, 0.45)};
-    --pui-light: #{rgba($color-accent-slate, 0.18)};
-  }
-
-  &:disabled {
-    opacity: 0.55;
-    cursor: not-allowed;
-    --pui-fill: #{$color-bg-surface};
-    --pui-dark: rgba(61, 53, 43, 0.15);
-    --pui-light: rgba(61, 53, 43, 0.06);
-    box-shadow: none;
-  }
 }
 
-.small {
+.small .input {
   padding: $space-2 $space-3;
   font-size: $font-size-sm;
 }
 
-.medium {
+.medium .input {
   padding: $space-3 $space-4;
   font-size: $font-size-base;
 }
 
-.large {
+.large .input {
   padding: $space-4 $space-5;
   font-size: $font-size-md;
 }
 
 .error {
-  --pui-dark: #{rgba($color-accent-rose, 0.45)};
-  --pui-light: #{rgba($color-accent-rose, 0.18)};
+  --sketch-stroke: #{rgba($color-accent-rose, 0.6)};
 
-  &:focus {
+  &:focus-within {
     --pui-wash: #{rgba($color-accent-rose, 0.18)};
-    --pui-dark: #{rgba($color-accent-rose, 0.55)};
-    --pui-light: #{rgba($color-accent-rose, 0.22)};
+    --sketch-stroke: #{rgba($color-accent-rose, 0.75)};
+  }
+}
+
+.disabled {
+  opacity: 0.55;
+  box-shadow: none;
+  --pui-fill: #{$color-bg-surface};
+  --sketch-stroke: rgba(61, 53, 43, 0.2);
+
+  .input {
+    cursor: not-allowed;
+  }
+
+  &:hover {
+    --sketch-stroke: rgba(61, 53, 43, 0.2);
+    box-shadow: none;
   }
 }
 
@@ -105,32 +121,39 @@
     color: $color-chalkboard-muted;
   }
 
-  .input {
-    color: $color-chalkboard-chalk;
+  .field {
     background-image: none;
     background-color: $color-chalkboard-surface;
-    border: 1.5px solid rgba($chalkboard-border-base, 0.25);
     border-radius: $radius-sm;
     box-shadow: none;
+    --sketch-stroke: #{rgba($chalkboard-border-base, 0.4)};
+
+    &:hover {
+      --sketch-stroke: #{rgba($chalkboard-border-base, 0.6)};
+      box-shadow: 1.5px 1.5px 3px rgba(0, 0, 0, 0.15);
+    }
+
+    &:focus-within {
+      @include ink-focus($color: $color-chalkboard-chalk);
+      outline-offset: 2px;
+      --sketch-stroke: #{$color-chalkboard-chalk};
+    }
+  }
+
+  .input {
+    color: $color-chalkboard-chalk;
 
     &::placeholder {
       color: $color-chalkboard-muted;
     }
+  }
+
+  .disabled {
+    background-color: $color-chalkboard-bg;
+    --sketch-stroke: #{rgba($chalkboard-border-base, 0.15)};
 
     &:hover {
-      border-color: rgba($chalkboard-border-base, 0.4);
-      box-shadow: 1.5px 1.5px 3px rgba(0, 0, 0, 0.15);
-    }
-
-    &:focus {
-      @include ink-focus($color: $color-chalkboard-chalk);
-      outline-offset: 2px;
-    }
-
-    &:disabled {
-      opacity: 0.55;
-      background-color: $color-chalkboard-bg;
-      border-color: rgba($chalkboard-border-base, 0.1);
+      --sketch-stroke: #{rgba($chalkboard-border-base, 0.15)};
       box-shadow: none;
     }
   }
