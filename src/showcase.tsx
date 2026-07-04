@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import type { FC } from 'react';
 import type { PropDef } from './components/prop-table';
 import { DetailSidebar } from './showcase/components/detail-sidebar';
@@ -21,8 +21,16 @@ interface DetailData {
 
 const SIDEBAR_WIDTH = 560;
 
+const PAGES: readonly Page[] = ['welcome', 'gallery', 'layout', 'tokens', 'docs'];
+
+// Pages live in the URL hash so they can be deep-linked and survive reloads.
+function pageFromHash(): Page {
+  const hash = window.location.hash.replace('#', '');
+  return (PAGES as readonly string[]).includes(hash) ? (hash as Page) : 'welcome';
+}
+
 const Showcase: FC = () => {
-  const [currentPage, setCurrentPage] = useState<Page>('welcome');
+  const [currentPage, setCurrentPage] = useState<Page>(pageFromHash);
   const [detailData, setDetailData] = useState<DetailData | null>(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -39,20 +47,31 @@ const Showcase: FC = () => {
     }
   };
 
-  const closeDetail = () => {
+  const closeDetail = useCallback(() => {
     setSidebarOpen(false);
     setTimeout(() => setDetailData(null), 300);
-  };
+  }, []);
+
+  // Back/forward and hand-edited hashes drive the same state as nav clicks.
+  useEffect(() => {
+    const onHashChange = () => {
+      closeDetail();
+      setCurrentPage(pageFromHash());
+    };
+    window.addEventListener('hashchange', onHashChange);
+    return () => window.removeEventListener('hashchange', onHashChange);
+  }, [closeDetail]);
 
   const handlePageChange = (page: Page) => {
     closeDetail();
+    window.location.hash = page;
     setCurrentPage(page);
   };
 
   const renderPage = () => {
     switch (currentPage) {
       case 'welcome':
-        return <WelcomePage onNavigate={setCurrentPage} />;
+        return <WelcomePage onNavigate={handlePageChange} />;
       case 'gallery':
         return (
           <ComponentsPage
@@ -68,7 +87,7 @@ const Showcase: FC = () => {
       case 'docs':
         return <DocsPage />;
       default:
-        return <WelcomePage onNavigate={setCurrentPage} />;
+        return <WelcomePage onNavigate={handlePageChange} />;
     }
   };
 
