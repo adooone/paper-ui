@@ -76,3 +76,14 @@ Pages live in the URL hash (`#gallery`, `#tokens`, …): deep-linkable, reload-s
 3. **stylelint** — SCSS is currently unlinted (Biome is TS-only); includes the batch-1 guardrail rule.
 4. **publint + @arethetypeswrong/cli** — validate the exports map; **size-limit** for bundle budgets.
 5. **react-docgen-typescript** — generate showcase prop tables from real types; plan 010 already fought docs drift by hand.
+
+## Sketch-outline system (2026-07-04, user-directed)
+
+The user liked Skeleton's rough.js look and asked to extend it to cards, inputs and buttons. Landed as two batches:
+
+- **`583f833`** — internal `SketchBorder` building block (`src/components/sketch-border/`, not exported): absolutely-positioned SVG, measures its host via ResizeObserver, draws a rough.js rounded-rect outline at **real pixel size** (per-instance corner radii + jitter from `useStableSeed`; stroke color via `--sketch-stroke` so hosts tint states from CSS). Card swaps its conic-gradient stroke for it. Button/IconButton/Stamp/ListItem hover rings now trace the blob's own contour through `rough.path()` (`sketchOutline` in use-blob-paths) — sketchy overdraw instead of a second smooth curve; blob fills untouched.
+- **`40c25c9`** — Input/Textarea move the visual box to a `.field` wrapper (native inputs can't host SVG) using the new `pencil-fill` mixin (pencil-border's fill/texture/wash stack minus the conic stroke); Select trigger + dropdown (frame/scroller split so the border stays pinned). All states (hover/focus-within/error/disabled/chalkboard) drive `--sketch-stroke`.
+
+**Still on pencil-border (conic)**: Table wrapper, CopyButton, cells — candidates for the same treatment after visual review. Modal uses a plain border. **Tuning knobs** for the review pass: `roughness`/`strokeWidth`/`inset` per call site, and stroke alphas in each component's SCSS.
+
+**Trade-off accepted:** outlines are client-drawn, so SSR/no-JS shows fill without stroke until hydration+measure (progressive enhancement; CSS fallback possible later if it bothers).
