@@ -151,6 +151,10 @@ export function Select({
             if (last >= 0) setHighlightedIndex(last);
           }
           break;
+        case 'Tab':
+          // Let focus move on, but don't leave the dropdown floating open.
+          if (isOpen) closeDropdown();
+          break;
       }
     },
     [disabled, isOpen, highlightedIndex, options, openDropdown, closeDropdown, selectOption],
@@ -186,9 +190,14 @@ export function Select({
       return;
     }
     const updateRect = () => {
-      if (triggerRef.current) {
-        setTriggerRect(triggerRef.current.getBoundingClientRect());
+      if (!triggerRef.current) return;
+      const rect = triggerRef.current.getBoundingClientRect();
+      // Close rather than float detached once the trigger scrolls out of view.
+      if (rect.bottom < 0 || rect.top > window.innerHeight) {
+        closeDropdown();
+        return;
       }
+      setTriggerRect(rect);
     };
     updateRect();
     document.addEventListener('scroll', updateRect, { capture: true, passive: true });
@@ -197,7 +206,7 @@ export function Select({
       document.removeEventListener('scroll', updateRect, { capture: true });
       window.removeEventListener('resize', updateRect);
     };
-  }, [isOpen]);
+  }, [isOpen, closeDropdown]);
 
   const textureStyles = resolveTexture(texture);
 
@@ -280,7 +289,6 @@ export function Select({
               top: triggerRect.bottom + 6,
               left: triggerRect.left,
               width: triggerRect.width,
-              zIndex: 1000,
             }}
             onKeyDown={(e) => {
               if (e.key === 'Escape') {

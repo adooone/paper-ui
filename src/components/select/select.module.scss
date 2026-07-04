@@ -138,7 +138,9 @@
   top: calc(100% + 6px);
   left: 0;
   width: 100%;
-  z-index: $z-dropdown;
+  // Portal-rendered like Menu, so it layers with the popover tier (above
+  // modals) rather than the in-flow dropdown tier.
+  z-index: $z-popover;
   padding: $space-3 $space-4;
   max-height: 320px;
   overflow-y: auto;
