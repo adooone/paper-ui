@@ -51,6 +51,10 @@ export interface TableProps<T = unknown> {
   toolbar?: TableToolbar;
   expandable?: TableExpandableConfig<T>;
   showExpandColumn?: boolean;
+  // Stable row identity for React keys and expansion state. Without it rows
+  // fall back to their index, so expanded state sticks to positions (not
+  // records) when data is sorted or filtered.
+  rowKey?: (row: T, index: number) => string | number;
   rowClassName?: (row: T, index: number) => string | undefined;
   className?: string;
 }
@@ -66,20 +70,21 @@ export function Table<T = unknown>({
   toolbar,
   expandable,
   showExpandColumn = true,
+  rowKey,
   rowClassName,
   className,
 }: TableProps<T>) {
   const textureStyles = resolveTexture(texture, surface === 'chalkboard' ? 'chalkboard' : 'paper');
   const hasToolbar = !!toolbar;
-  const [expandedRows, setExpandedRows] = useState<Set<number>>(new Set());
+  const [expandedRows, setExpandedRows] = useState<Set<string | number>>(new Set());
 
-  const toggleRow = (index: number) => {
+  const toggleRow = (key: string | number) => {
     setExpandedRows((prev) => {
       const next = new Set(prev);
-      if (next.has(index)) {
-        next.delete(index);
+      if (next.has(key)) {
+        next.delete(key);
       } else {
-        next.add(index);
+        next.add(key);
       }
       return next;
     });
@@ -106,7 +111,8 @@ export function Table<T = unknown>({
                 type="text"
                 className={styles.searchInput}
                 placeholder={toolbar.search.placeholder ?? 'Search...'}
-                value={toolbar.search.value ?? ''}
+                aria-label={toolbar.search.placeholder ?? 'Search'}
+                value={toolbar.search.value}
                 onChange={(e) => toolbar.search?.onChange?.(e.target.value)}
               />
             </div>
@@ -181,11 +187,12 @@ export function Table<T = unknown>({
             </thead>
             <tbody>
               {data.map((row, rowIndex) => {
+                const key = rowKey ? rowKey(row, rowIndex) : rowIndex;
                 const expansionContent = expandable?.render(row, rowIndex, surface);
                 const canExpand = !!expansionContent;
-                const isExpanded = canExpand && expandedRows.has(rowIndex);
+                const isExpanded = canExpand && expandedRows.has(key);
                 return (
-                  <Fragment key={rowIndex}>
+                  <Fragment key={key}>
                     {/* biome-ignore lint/a11y/useKeyWithClickEvents: row click is a pointer-only convenience; keyboard users toggle expansion via the dedicated expand button in the first cell. */}
                     <tr
                       className={cn(
@@ -193,7 +200,7 @@ export function Table<T = unknown>({
                         canExpand && styles.expandable,
                         rowClassName?.(row, rowIndex),
                       )}
-                      onClick={() => canExpand && toggleRow(rowIndex)}
+                      onClick={() => canExpand && toggleRow(key)}
                     >
                       {hasExpandColumn && (
                         <td className={cn(styles.td, styles.expandTd)}>
@@ -205,7 +212,7 @@ export function Table<T = unknown>({
                               aria-label={isExpanded ? 'Collapse row' : 'Expand row'}
                               onClick={(event) => {
                                 event.stopPropagation();
-                                toggleRow(rowIndex);
+                                toggleRow(key);
                               }}
                             >
                               {isExpanded ? '▼' : '▶'}

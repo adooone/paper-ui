@@ -12,7 +12,8 @@
     fill: rgba($color-accent-blue, 0.18);
   }
 
-  &:hover .input:checked ~ .blobBg .blobFill {
+  &:hover .input:checked ~ .blobBg .blobFill,
+  &:hover .input:indeterminate ~ .blobBg .blobFill {
     fill: $color-primary-hover;
   }
 }
@@ -36,7 +37,8 @@
     @include ink-focus();
   }
 
-  &:checked ~ .box {
+  &:checked ~ .box,
+  &:indeterminate ~ .box {
     border-color: $color-text-primary;
 
     .checkmark {
@@ -48,7 +50,8 @@
     }
   }
 
-  &:checked ~ .blobBg .blobFill {
+  &:checked ~ .blobBg .blobFill,
+  &:indeterminate ~ .blobBg .blobFill {
     fill: $color-canvas-base;
   }
 
@@ -151,7 +154,8 @@
     outline-color: $color-chalkboard-chalk;
   }
 
-  .input:checked ~ .box {
+  .input:checked ~ .box,
+  .input:indeterminate ~ .box {
     border-color: $color-chalkboard-chalk;
   }
 }

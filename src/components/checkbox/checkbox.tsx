@@ -1,4 +1,4 @@
-import { forwardRef, useId } from 'react';
+import { forwardRef, useEffect, useId, useRef } from 'react';
 import type { InputHTMLAttributes } from 'react';
 import { useBlobPaths } from '../../hooks/use-blob-paths';
 import { cn } from '../../utils/style-helpers';
@@ -30,6 +30,16 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Che
   const generatedId = useId();
   const id = idProp ?? generatedId;
   const paths = useBlobPaths(wobble);
+  const innerRef = useRef<HTMLInputElement | null>(null);
+
+  // `indeterminate` only exists as a DOM property — there is no attribute —
+  // so it has to be set imperatively for :indeterminate CSS and screen
+  // readers ("mixed" state) to work.
+  useEffect(() => {
+    if (innerRef.current) {
+      innerRef.current.indeterminate = indeterminate;
+    }
+  }, [indeterminate]);
 
   return (
     <label
@@ -43,7 +53,11 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Che
     >
       <span className={styles.boxWrapper}>
         <input
-          ref={ref}
+          ref={(node) => {
+            innerRef.current = node;
+            if (typeof ref === 'function') ref(node);
+            else if (ref) ref.current = node;
+          }}
           id={id}
           type="checkbox"
           className={styles.input}

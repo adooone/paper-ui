@@ -22,6 +22,8 @@ export interface SelectProps {
   value?: string;
   defaultValue?: string;
   onChange?: (value: string) => void;
+  /** Submitted with the surrounding form via the hidden native select. */
+  name?: string;
   disabled?: boolean;
   width?: string | number;
   texture?: TextureProp;
@@ -39,6 +41,7 @@ export function Select({
   value,
   defaultValue,
   onChange,
+  name,
   disabled = false,
   width,
   texture = false,
@@ -219,6 +222,7 @@ export function Select({
       {/* Hidden native select for form submission / accessibility fallback */}
       <select
         id={selectId}
+        name={name}
         className={styles.nativeSelect}
         value={selectedValue}
         onChange={(e) => onChange?.(e.target.value)}
