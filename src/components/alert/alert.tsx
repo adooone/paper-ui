@@ -30,7 +30,9 @@ export function Alert({
     <div
       className={cn(styles.alert, styles[variant], isChalkboard && styles.chalkboard, className)}
       style={isChalkboard ? undefined : resolveTexture(texture)}
-      role="alert"
+      // Only genuinely urgent variants interrupt screen readers; info/success
+      // announce politely.
+      role={variant === 'warning' || variant === 'error' ? 'alert' : 'status'}
     >
       <span className={styles.iconWrapper}>
         <AlertIcon variant={variant} />

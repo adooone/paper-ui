@@ -50,13 +50,16 @@ export function ToastCard({ record, surface = 'paper', onDismiss }: ToastCardPro
   const resume = () => schedule(remaining.current);
 
   const isChalkboard = surface === 'chalkboard';
+  // Only genuinely urgent variants interrupt screen readers; info/success
+  // announce politely.
+  const role = record.variant === 'warning' || record.variant === 'error' ? 'alert' : 'status';
 
   return (
     <div className={styles.item} onMouseEnter={pause} onMouseLeave={resume}>
       <div
         className={cn(styles.card, styles[record.variant], isChalkboard && styles.chalkboard)}
         style={isChalkboard ? undefined : resolveTexture('kraft')}
-        role="alert"
+        role={role}
       >
         <span className={styles.iconWrapper}>
           <AlertIcon variant={record.variant} />

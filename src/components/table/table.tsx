@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import { Fragment, useState } from 'react';
 import { createAccentClassMap } from '../../utils/accent-class-map';
+import { ChevronRightIcon } from '../../utils/icons';
 import { cn } from '../../utils/style-helpers';
 import { type TextureProp, resolveTexture } from '../../utils/textures';
 import styles from './table.module.scss';
@@ -215,7 +216,7 @@ export function Table<T = unknown>({
                                 toggleRow(key);
                               }}
                             >
-                              {isExpanded ? '▼' : '▶'}
+                              <ChevronRightIcon size={14} />
                             </button>
                           )}
                         </td>

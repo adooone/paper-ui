@@ -79,11 +79,11 @@
     linear-gradient($color-chalkboard-bg, $color-chalkboard-bg),
     conic-gradient(
       from 45deg,
-      rgba(200, 210, 195, 0.18),
-      rgba(200, 210, 195, 0.06),
-      rgba(200, 210, 195, 0.18),
-      rgba(200, 210, 195, 0.06),
-      rgba(200, 210, 195, 0.18)
+      rgba($chalkboard-border-base, 0.18),
+      rgba($chalkboard-border-base, 0.06),
+      rgba($chalkboard-border-base, 0.18),
+      rgba($chalkboard-border-base, 0.06),
+      rgba($chalkboard-border-base, 0.18)
     );
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 

@@ -231,7 +231,7 @@
     color: $color-chalkboard-muted;
 
     &:hover {
-      background: rgba(200, 210, 195, 0.08);
+      background: rgba($chalkboard-border-base, 0.08);
     }
   }
 }

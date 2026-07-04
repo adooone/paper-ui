@@ -337,3 +337,11 @@
   color: $color-chalkboard-text;
   border-bottom-color: $color-chalkboard-border;
 }
+
+.expandIcon svg {
+  transition: transform $transition-fast;
+}
+
+.expandIcon[aria-expanded='true'] svg {
+  transform: rotate(90deg);
+}

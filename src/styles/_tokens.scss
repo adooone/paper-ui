@@ -29,6 +29,9 @@ $color-accent-slate: #8A9BA8;
 $color-accent-slate-light: #B0BEC8;
 $color-accent-slate-dark: #5E7080;
 
+// Base for every translucent chalkboard border/ring below.
+$chalkboard-border-base: rgb(200, 210, 195);
+
 $color-chalkboard-bg: #142e22;
 $color-chalkboard-surface: #1e3a2d;
 $color-chalkboard-light: #264a3a;
@@ -38,20 +41,19 @@ $color-chalkboard-muted: #a8b5a0;
 $color-chalkboard-muted-dim: #5e7a68; // darker muted for code-block syntax (intentional, see N2)
 $color-chalkboard-accent: #a8c49a;
 $color-chalkboard-rose: #e8a0a0;
-$color-chalkboard-border: rgba(200, 210, 195, 0.2);
+$color-chalkboard-border: rgba($chalkboard-border-base, 0.2);
 $color-chalkboard-toggle-active: #3D5A42;
 
-// Chalkboard border opacity variants (base rgb 200, 210, 195)
-$chalkboard-border-06: rgba(200, 210, 195, 0.06);
-$chalkboard-border-08: rgba(200, 210, 195, 0.08);
-$chalkboard-border-12: rgba(200, 210, 195, 0.12);
-$chalkboard-border-15: rgba(200, 210, 195, 0.15);
-$chalkboard-border-25: rgba(200, 210, 195, 0.25);
+$chalkboard-border-06: rgba($chalkboard-border-base, 0.06);
+$chalkboard-border-08: rgba($chalkboard-border-base, 0.08);
+$chalkboard-border-12: rgba($chalkboard-border-base, 0.12);
+$chalkboard-border-15: rgba($chalkboard-border-base, 0.15);
+$chalkboard-border-25: rgba($chalkboard-border-base, 0.25);
 
 // Chalkboard button ring strokes
-$chalkboard-ring-stroke: rgba(200, 210, 195, 0.45);
-$chalkboard-ring-stroke-active: rgba(200, 210, 195, 0.65);
-$chalkboard-ring-ghost: rgba(200, 210, 195, 0.35);
+$chalkboard-ring-stroke: rgba($chalkboard-border-base, 0.45);
+$chalkboard-ring-stroke-active: rgba($chalkboard-border-base, 0.65);
+$chalkboard-ring-ghost: rgba($chalkboard-border-base, 0.35);
 
 $color-canvas-base: #F0EAD8;
 $color-canvas-300: #E5DBC4;   // kraft texture / island bg (canvas.300 in tailwind) — see N1

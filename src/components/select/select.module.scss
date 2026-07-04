@@ -235,18 +235,18 @@
     color: $color-chalkboard-chalk;
     background-image: none;
     background-color: $color-chalkboard-surface;
-    border: 1.5px solid rgba(200, 210, 195, 0.25);
+    border: 1.5px solid rgba($chalkboard-border-base, 0.25);
     border-radius: $radius-sm;
     box-shadow: none;
 
     &:hover:not(:disabled) {
-      border-color: rgba(200, 210, 195, 0.4);
+      border-color: rgba($chalkboard-border-base, 0.4);
       box-shadow: 1.5px 1.5px 3px rgba(0, 0, 0, 0.15);
     }
 
     &.open {
       border-color: $color-chalkboard-chalk;
-      box-shadow: 0 0 0 2px rgba(200, 210, 195, 0.15);
+      box-shadow: 0 0 0 2px rgba($chalkboard-border-base, 0.15);
     }
 
     &:focus-visible {
@@ -257,7 +257,7 @@
     &:disabled {
       opacity: 0.55;
       background-color: $color-chalkboard-bg;
-      border-color: rgba(200, 210, 195, 0.1);
+      border-color: rgba($chalkboard-border-base, 0.1);
       box-shadow: none;
     }
   }
@@ -273,7 +273,7 @@
   .dropdown {
     background-image: none;
     background-color: $color-chalkboard-surface;
-    border: 1.5px solid rgba(200, 210, 195, 0.25);
+    border: 1.5px solid rgba($chalkboard-border-base, 0.25);
     border-radius: $radius-md;
     box-shadow: 0 10px 15px rgba(0, 0, 0, 0.25);
   }
@@ -284,18 +284,18 @@
 
     &:hover:not(.optionDisabled) {
       background-image: none;
-      background-color: rgba(200, 210, 195, 0.08);
+      background-color: rgba($chalkboard-border-base, 0.08);
     }
   }
 
   .optionSelected {
     color: $color-chalkboard-chalk;
     background-image: none;
-    background-color: rgba(200, 210, 195, 0.12);
+    background-color: rgba($chalkboard-border-base, 0.12);
   }
 
   .optionHighlighted {
     background-image: none;
-    background-color: rgba(200, 210, 195, 0.1);
+    background-color: rgba($chalkboard-border-base, 0.1);
   }
 }

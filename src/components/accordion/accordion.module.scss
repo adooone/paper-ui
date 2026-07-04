@@ -71,3 +71,11 @@
     color: $color-chalkboard-muted;
   }
 }
+
+.icon svg {
+  transition: transform $transition-fast;
+}
+
+.expanded .icon svg {
+  transform: rotate(90deg);
+}

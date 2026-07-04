@@ -132,7 +132,7 @@
 .chalkboard {
   background-image: none;
   background-color: $color-chalkboard-surface;
-  border: 1.5px solid rgba(200, 210, 195, 0.25);
+  border: 1.5px solid rgba($chalkboard-border-base, 0.25);
   border-radius: $radius-md;
   box-shadow: 0 10px 15px rgba(0, 0, 0, 0.25);
 
@@ -142,7 +142,7 @@
     &:hover:not(:disabled),
     &:focus {
       background-image: none;
-      background-color: rgba(200, 210, 195, 0.1);
+      background-color: rgba($chalkboard-border-base, 0.1);
     }
 
     &:focus-visible {

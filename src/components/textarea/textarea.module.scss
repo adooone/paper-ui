@@ -111,7 +111,7 @@
     color: $color-chalkboard-chalk;
     background-image: none;
     background-color: $color-chalkboard-surface;
-    border: 1.5px solid rgba(200, 210, 195, 0.25);
+    border: 1.5px solid rgba($chalkboard-border-base, 0.25);
     border-radius: $radius-sm;
     box-shadow: none;
 
@@ -120,7 +120,7 @@
     }
 
     &:hover {
-      border-color: rgba(200, 210, 195, 0.4);
+      border-color: rgba($chalkboard-border-base, 0.4);
       box-shadow: 1.5px 1.5px 3px rgba(0, 0, 0, 0.15);
     }
 
@@ -132,7 +132,7 @@
     &:disabled {
       opacity: 0.55;
       background-color: $color-chalkboard-bg;
-      border-color: rgba(200, 210, 195, 0.1);
+      border-color: rgba($chalkboard-border-base, 0.1);
       box-shadow: none;
     }
   }

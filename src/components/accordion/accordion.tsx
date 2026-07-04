@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { ChevronRightIcon } from '../../utils/icons';
 import { cn } from '../../utils/style-helpers';
 import styles from './accordion.module.scss';
 
@@ -30,7 +31,7 @@ export function Accordion({
     >
       <button type="button" className={styles.header} onClick={onToggle} aria-expanded={expanded}>
         <span className={styles.icon} aria-hidden="true">
-          {expanded ? '▼' : '▶'}
+          <ChevronRightIcon size={14} />
         </span>
         <span className={styles.title}>{title}</span>
       </button>
