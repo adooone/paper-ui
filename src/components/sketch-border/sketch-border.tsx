@@ -1,22 +1,29 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useStableSeed } from '../../hooks/use-stable-seed';
-import { roughGenerator } from '../../utils/rough';
 import { cn } from '../../utils/style-helpers';
 import styles from './sketch-border.module.scss';
 
 export interface SketchBorderProps {
   /** Base corner radius in px; each corner deviates slightly (seeded). */
   radius?: number;
-  /** rough.js roughness for the corner arcs — edges draw calmer than this. */
+  /** Amplitude of the hand-wander in px — how far the line strays to either
+   * side of the true boundary. */
   roughness?: number;
-  /** rough.js bowing — how much a stroke curves along its length. Low by
-   * design: this is a pencil line, not a wavy one. */
-  bowing?: number;
   strokeWidth?: number;
-  /** Nominal distance from the host's true edge. The drawn line wanders a
-   * little to either side of this via jitter, so it isn't a perfect offset. */
+  /** Nominal distance from the host's true edge. */
   inset?: number;
   className?: string;
+}
+
+interface Pt {
+  x: number;
+  y: number;
+}
+
+interface Seg {
+  c1: Pt;
+  c2: Pt;
+  to: Pt;
 }
 
 interface Size {
@@ -24,28 +31,24 @@ interface Size {
   height: number;
 }
 
-type Radii = [number, number, number, number];
-
 // Internal building block: an absolutely-positioned SVG that measures its
-// parent and draws a rough.js hand-sketched outline at real pixel size —
-// stretching an abstract viewBox would squash the jitter (see Progress).
+// parent and draws a hand-sketched outline at real pixel size.
 //
-// The outline is built from eight independent segments (four corner arcs,
-// four straight edges) instead of one continuous path. Sketching the whole
-// rounded rect in a single rough.js pass produced messy, self-crossing
-// corners (high curvature + the default double-stroke pass). Small,
-// individually-drawn, single-stroke segments read as one clean pencil line.
-// Corners draw slightly darker/thicker than edges — the same dark/light
-// language the old conic-gradient pencil-border used for "pressure" — and
-// each segment overshoots into its neighbor's territory a little, so the
-// line visibly wanders outside and inside the nominal box instead of
-// tracing it exactly.
+// The outline is ONE closed Catmull-Rom spline through slightly-jittered
+// points (corner arcs sampled at three points each, edges at a few interior
+// points). A single smooth spline is what guarantees the two things rough.js
+// couldn't: the line never doubles or crosses itself, and corners are round
+// by construction. The jitter makes it wander gently outside and inside the
+// nominal boundary like a pencil stroke.
+//
+// The darker "pencil pressure" at corners is NOT a second line: it re-draws
+// the exact same spline segments that cover each corner in the darker tone,
+// so it recolors a stretch of the one line instead of adding another.
 export function SketchBorder({
   radius = 10,
-  roughness = 0.85,
-  bowing = 0.35,
+  roughness = 1,
   strokeWidth = 1.3,
-  inset = 1,
+  inset = 2,
   className,
 }: SketchBorderProps) {
   const seed = useStableSeed();
@@ -67,34 +70,29 @@ export function SketchBorder({
     return () => observer.disconnect();
   }, []);
 
-  const segments = useMemo(() => {
+  const paths = useMemo(() => {
     if (!size || size.width < 8 || size.height < 8) return null;
-    const seedInt = Math.max(1, Math.round(seed * 1_000_000));
-    const rng = createRng(seedInt);
-    const radii = cornerRadii(rng, radius, 2.5);
-    const { corners, edges } = buildSegments(size.width, size.height, inset, radii, rng, 1.4);
+    const rng = createRng(Math.max(1, Math.round(seed * 1_000_000)));
+    const amplitude = roughness * 0.75;
+    const { pts, cornerStarts } = buildPoints(
+      size.width,
+      size.height,
+      inset,
+      radius,
+      rng,
+      amplitude,
+    );
+    const segs = catmullSegments(pts);
 
-    const sketch = (d: string, segRoughness: number, segSeed: number, width: number) =>
-      roughGenerator
-        .toPaths(
-          roughGenerator.path(d, {
-            seed: segSeed,
-            roughness: segRoughness,
-            bowing,
-            disableMultiStroke: true,
-            strokeWidth: width,
-          }),
-        )
-        .map((p) => p.d)
-        .join(' ');
+    const outline = `M ${fmt(pts[0])} ${segs.map((s) => `C ${fmt(s.c1)}, ${fmt(s.c2)}, ${fmt(s.to)}`).join(' ')} Z`;
+    // Two spline segments span each corner's three sample points.
+    const corners = cornerStarts.map(
+      (ci) =>
+        `M ${fmt(pts[ci])} C ${fmt(segs[ci].c1)}, ${fmt(segs[ci].c2)}, ${fmt(segs[ci].to)} C ${fmt(segs[ci + 1].c1)}, ${fmt(segs[ci + 1].c2)}, ${fmt(segs[ci + 1].to)}`,
+    );
 
-    return {
-      corners: corners.map((d, i) =>
-        sketch(d, roughness, seedInt + i * 97 + 1, strokeWidth * 1.15),
-      ),
-      edges: edges.map((d, i) => sketch(d, roughness * 0.6, seedInt + i * 97 + 53, strokeWidth)),
-    };
-  }, [size, seed, radius, roughness, bowing, strokeWidth, inset]);
+    return { outline, corners };
+  }, [size, seed, radius, roughness, inset]);
 
   return (
     <svg
@@ -103,15 +101,13 @@ export function SketchBorder({
       viewBox={size ? `0 0 ${size.width} ${size.height}` : undefined}
       aria-hidden="true"
     >
-      {segments?.edges.map((d, i) => (
-        <path key={`edge-${i}`} className={styles.edgeStroke} d={d} strokeWidth={strokeWidth} />
-      ))}
-      {segments?.corners.map((d, i) => (
+      {paths && <path className={styles.edgeStroke} d={paths.outline} strokeWidth={strokeWidth} />}
+      {paths?.corners.map((d, i) => (
         <path
           key={`corner-${i}`}
           className={styles.cornerStroke}
           d={d}
-          strokeWidth={strokeWidth * 1.15}
+          strokeWidth={strokeWidth * 1.2}
         />
       ))}
     </svg>
@@ -126,66 +122,80 @@ function createRng(seed: number) {
   };
 }
 
-function cornerRadii(rng: () => number, base: number, variance: number): Radii {
-  const r = () => Math.max(2, base + (rng() - 0.5) * variance * 2);
-  return [r(), r(), r(), r()];
-}
-
-// Four corner-arc paths (each a single quadratic curve) and four straight
-// edge paths, all with small per-point jitter so the line doesn't sit
-// exactly on the nominal rounded-rect boundary. Edges additionally
-// overshoot past their nominal endpoints into the corner, so consecutive
-// segments overlap slightly rather than meeting at a precise seam.
-function buildSegments(
+// Sample points clockwise around the rounded rect: three per corner arc
+// (at 0°, 45° and 90° of the arc, with small radial jitter) and a few
+// interior points per edge (with small perpendicular jitter). Because every
+// point feeds one shared spline, jitter can never break the line apart.
+function buildPoints(
   width: number,
   height: number,
   inset: number,
-  radii: Radii,
+  radius: number,
   rng: () => number,
-  jitter: number,
-) {
+  amplitude: number,
+): { pts: Pt[]; cornerStarts: number[] } {
   const x = inset;
   const y = inset;
   const w = width - inset * 2;
   const h = height - inset * 2;
-  const clamp = (r: number) => Math.min(r, w / 2, h / 2);
-  const [tl, tr, br, bl] = radii.map(clamp) as Radii;
-  const jit = () => (rng() - 0.5) * jitter * 2;
-  const overshoot = Math.max(1.5, jitter);
+  const vary = () => (rng() - 0.5) * 2;
+  const clampR = (r: number) => Math.max(2, Math.min(r, w / 2 - 1, h / 2 - 1));
+  const [tl, tr, br, bl] = [0, 0, 0, 0].map(() => clampR(radius + vary() * 1.5));
 
-  const corners = [
-    // top-left
-    `M ${fmt(x)} ${fmt(y + tl + jit())} Q ${fmt(x + jit())} ${fmt(y + jit())} ${fmt(x + tl + jit())} ${fmt(y)}`,
-    // top-right
-    `M ${fmt(x + w - tr + jit())} ${fmt(y)} Q ${fmt(x + w + jit())} ${fmt(y + jit())} ${fmt(x + w)} ${fmt(y + tr + jit())}`,
-    // bottom-right
-    `M ${fmt(x + w)} ${fmt(y + h - br + jit())} Q ${fmt(x + w + jit())} ${fmt(y + h + jit())} ${fmt(x + w - br + jit())} ${fmt(y + h)}`,
-    // bottom-left
-    `M ${fmt(x + bl + jit())} ${fmt(y + h)} Q ${fmt(x + jit())} ${fmt(y + h + jit())} ${fmt(x)} ${fmt(y + h - bl + jit())}`,
-  ];
+  const pts: Pt[] = [];
+  const cornerStarts: number[] = [];
 
-  const edges = [
-    // top: (x+tl, y) -> (x+w-tr, y), extended along x
-    horizontalEdge(x + tl - overshoot, x + w - tr + overshoot, y, jit),
-    // right: (x+w, y+tr) -> (x+w, y+h-br), extended along y
-    verticalEdge(x + w, y + tr - overshoot, y + h - br + overshoot, jit),
-    // bottom: (x+w-br, y+h) -> (x+bl, y+h), extended along x (reversed direction)
-    horizontalEdge(x + w - br + overshoot, x + bl - overshoot, y + h, jit),
-    // left: (x, y+h-bl) -> (x, y+tl), extended along y (reversed direction)
-    verticalEdge(x, y + h - bl + overshoot, y + tl - overshoot, jit),
-  ];
+  const arc = (cx: number, cy: number, r: number, startAngle: number) => {
+    cornerStarts.push(pts.length);
+    for (const da of [0, 45, 90]) {
+      const a = ((startAngle + da) * Math.PI) / 180;
+      const rr = r + vary() * amplitude * 0.6;
+      pts.push({ x: cx + Math.cos(a) * rr, y: cy + Math.sin(a) * rr });
+    }
+  };
 
-  return { corners, edges };
+  const edge = (x1: number, y1: number, x2: number, y2: number) => {
+    const len = Math.hypot(x2 - x1, y2 - y1);
+    const count = Math.max(1, Math.min(4, Math.round(len / 70)));
+    const nx = -(y2 - y1) / len;
+    const ny = (x2 - x1) / len;
+    for (let i = 1; i <= count; i++) {
+      const t = i / (count + 1);
+      const o = vary() * amplitude;
+      pts.push({ x: x1 + (x2 - x1) * t + nx * o, y: y1 + (y2 - y1) * t + ny * o });
+    }
+  };
+
+  arc(x + tl, y + tl, tl, 180); // top-left: 180° → 270°
+  edge(x + tl, y, x + w - tr, y); // top
+  arc(x + w - tr, y + tr, tr, 270); // top-right: 270° → 360°
+  edge(x + w, y + tr, x + w, y + h - br); // right
+  arc(x + w - br, y + h - br, br, 0); // bottom-right: 0° → 90°
+  edge(x + w - br, y + h, x + bl, y + h); // bottom
+  arc(x + bl, y + h - bl, bl, 90); // bottom-left: 90° → 180°
+  edge(x, y + h - bl, x, y + tl); // left
+
+  return { pts, cornerStarts };
 }
 
-function horizontalEdge(x1: number, x2: number, y: number, jit: () => number) {
-  return `M ${fmt(x1)} ${fmt(y + jit())} L ${fmt(x2)} ${fmt(y + jit())}`;
+// Closed-loop Catmull-Rom → cubic Bézier. segs[i] runs pts[i] → pts[i+1].
+function catmullSegments(pts: Pt[]): Seg[] {
+  const n = pts.length;
+  const segs: Seg[] = [];
+  for (let i = 0; i < n; i++) {
+    const p0 = pts[(i - 1 + n) % n];
+    const p1 = pts[i];
+    const p2 = pts[(i + 1) % n];
+    const p3 = pts[(i + 2) % n];
+    segs.push({
+      c1: { x: p1.x + (p2.x - p0.x) / 6, y: p1.y + (p2.y - p0.y) / 6 },
+      c2: { x: p2.x - (p3.x - p1.x) / 6, y: p2.y - (p3.y - p1.y) / 6 },
+      to: p2,
+    });
+  }
+  return segs;
 }
 
-function verticalEdge(x: number, y1: number, y2: number, jit: () => number) {
-  return `M ${fmt(x + jit())} ${fmt(y1)} L ${fmt(x + jit())} ${fmt(y2)}`;
-}
-
-function fmt(n: number): string {
-  return n.toFixed(2);
+function fmt(p: Pt): string {
+  return `${p.x.toFixed(2)} ${p.y.toFixed(2)}`;
 }
