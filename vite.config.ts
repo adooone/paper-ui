@@ -34,7 +34,7 @@ export default defineConfig(({ command }) => {
       lib: {
         entry: resolve(__dirname, 'src/index.ts'),
         name: 'PaperUI',
-        fileName: (format) => `index.${format === 'es' ? 'mjs' : 'js'}`,
+        fileName: (format) => `index.${format === 'es' ? 'mjs' : 'cjs'}`,
         formats: ['es', 'cjs'],
       },
       rollupOptions: {

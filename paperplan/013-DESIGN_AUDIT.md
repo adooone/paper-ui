@@ -32,13 +32,22 @@ Button, IconButton, Input, Textarea, Checkbox, Radio, Switch forward refs to the
 - Footer version read from package.json (was hardcoded `v0.1.0`).
 - (Uncommitted, riding with the user's nav.tsx WIP:) sticky header made opaque — at `rgba(…, 0.95)` dark chalkboard demo cards ghosted through behind the nav links.
 
-### Batch 5 — packaging (`this commit`)
+### Batch 5 — packaging (`c1c53bf`)
 `"sideEffects": ["**/*.css", "**/*.scss"]` in package.json so bundlers can tree-shake the JS while keeping stylesheet imports.
+
+### Batch 6 — SSR-stable seeds (`588776f`)
+`Math.random()` during render made server and client draw different blob/rough shapes (hydration mismatch under SSR) and re-rolled silhouettes on remount. New `useStableSeed()` hook hashes React's SSR-stable `useId`; `use-blob-paths`, `use-rect-blob-paths`, Progress and Skeleton all use it. Raw `generateWobbly*` utils keep their random fallback for direct callers.
+
+### Batch 7 — TS token export (`84701fa`)
+`src/tokens.ts` now mirrors the full `_tokens.scss` color palette plus a `withAlpha()` helper (both exported from the package root). Stamp `variantColors`, Progress, Skeleton and `textureColorMap` no longer carry hex/rgba copies. Remaining duplication (acceptable for now): `tailwind.ts` must stay self-contained because it ships as a source file, and the showcase's `lib/styles.ts` keeps its own constants.
+
+### Batch 8 — tooling guardrails (`this commit`)
+- **stylelint** (minimal config, `postcss-scss` syntax) wired into `pnpm lint` / `lint:fix` and the `ci` script. One rule so far: `$` in `--*` custom-property values is an error unless `#{…}`-interpolated — the batch-1 bug class can't ship again (verified against a canary).
+- **publint** (`pnpm check-package`) — immediately caught a real packaging bug: with `"type": "module"`, the CJS build `dist/index.js` was interpreted as ESM, so `require('@dendelion/paper-ui')` was broken. The CJS build is now emitted/exported as `dist/index.cjs`. Remaining publint notes (deferred): a `.d.cts` types split for require-resolution, and an `engines.node` field.
+- **Playwright visual regression: deferred, next candidate.** Chromium can't run in the dev sandbox, so the setup needs to be verified on the dev machine or in CI. One screenshot per gallery section (paper + chalkboard) would have caught the batch-1 white-fields bug; Lost Pixel is the lighter alternative if full Playwright feels heavy.
 
 ## Open findings (not yet fixed, roughly prioritized)
 
-1. **SSR/hydration**: `Math.random()` in `use-blob-paths`, Progress, Skeleton → hydration mismatch for Next.js consumers; blobs change shape on remount. Add optional `seed` prop / derive from `useId`.
-2. **tokens.ts exports only `space`** — root cause of Stamp's `variantColors` and Progress's hardcoded hex duplicating SCSS tokens. Export the full token set to TS (or generate both sides from one source).
 3. **Select**: hardcoded portal `zIndex: 1000` bypasses the `$z-*` scale; dropdown doesn't close on scroll (can detach from trigger); Tab while open leaves it open. Intermittent semi-transparent dropdown panel was observed twice during the audit — recheck after batch 1, may have been the same custom-prop bug via the focused trigger.
 4. **Tabs**: no `defaultActiveKey` (renders nothing uncontrolled), missing `aria-controls`/`tabpanel`/arrow-key navigation.
 5. **Toast/Alert roles**: `role="alert"` unconditionally — info/success should be `role="status"`.

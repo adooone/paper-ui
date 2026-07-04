@@ -3,16 +3,19 @@
   "version": "0.5.0",
   "description": "Natural-material React component library — paper, ink, canvas, and watercolor",
   "type": "module",
-  "sideEffects": ["**/*.css", "**/*.scss"],
+  "sideEffects": [
+    "**/*.css",
+    "**/*.scss"
+  ],
   "packageManager": "pnpm@10.12.1",
-  "main": "dist/index.js",
+  "main": "dist/index.cjs",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
+      "require": "./dist/index.cjs"
     },
     "./tailwind": {
       "types": "./tailwind.ts",
@@ -43,9 +46,11 @@
     "dev": "vite",
     "test": "echo 'No tests yet'",
     "check-types": "tsc --noEmit",
-    "lint": "biome check ./src",
-    "lint:fix": "biome check ./src --write",
-    "ci": "pnpm run check-types && pnpm run build && pnpm run test"
+    "lint": "biome check ./src && stylelint \"src/**/*.scss\"",
+    "lint:fix": "biome check ./src --write && stylelint \"src/**/*.scss\"",
+    "lint:styles": "stylelint \"src/**/*.scss\"",
+    "check-package": "publint",
+    "ci": "pnpm run check-types && pnpm run lint && pnpm run build && pnpm run test"
   },
   "repository": {
     "type": "git",
@@ -86,7 +91,10 @@
     "@vitejs/plugin-react-swc": "3.7.1",
     "autoprefixer": "10.4.20",
     "postcss": "8.4.47",
+    "postcss-scss": "^4.0.9",
+    "publint": "^0.3.21",
     "sass-embedded": "^1.100.0",
+    "stylelint": "^17.14.0",
     "tailwindcss": "3.4.14",
     "typescript": "^5.0.0",
     "vite": "5.4.9",

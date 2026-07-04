@@ -1,0 +1,11 @@
+{
+  "customSyntax": "postcss-scss",
+  "rules": {
+    "declaration-property-value-disallowed-list": [
+      { "/^--/": ["/\\$[a-zA-Z-]+(?![^{}]*\\})/"] },
+      {
+        "message": "Interpolate SCSS vars inside custom properties with #{…} — Sass ships them verbatim otherwise (see paperplan/013-DESIGN_AUDIT.md, batch 1)"
+      }
+    ]
+  }
+}
