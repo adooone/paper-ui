@@ -7,8 +7,10 @@
   @include organic-radius($radius-md, 3px);
   background-image: linear-gradient($color-bg-surface, $color-bg-surface);
   // Consumed by the SketchBorder overlay that replaces the old conic-gradient
-  // pencil stroke with a real rough.js-drawn outline.
-  --sketch-stroke: rgba(61, 53, 43, 0.4);
+  // pencil stroke with a real rough.js-drawn outline — same dark/light
+  // values the conic-gradient used, now drawn corner (dark) vs. edge (light).
+  --sketch-dark: rgba(61, 53, 43, 0.32);
+  --sketch-light: rgba(61, 53, 43, 0.12);
 }
 
 .default {
@@ -66,7 +68,8 @@
 
 .chalkboard {
   background-image: linear-gradient($color-chalkboard-bg, $color-chalkboard-bg);
-  --sketch-stroke: #{rgba($chalkboard-border-base, 0.4)};
+  --sketch-dark: #{rgba($chalkboard-border-base, 0.18)};
+  --sketch-light: #{rgba($chalkboard-border-base, 0.06)};
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
 
   .textureLayer {

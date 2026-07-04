@@ -16,7 +16,8 @@
 }
 
 // The visual box lives on this wrapper (an <input> can't host the
-// SketchBorder SVG); state tinting flows through --sketch-stroke.
+// SketchBorder SVG); state tinting flows through --sketch-dark/--sketch-light
+// (corner / edge stroke tone — same values the old pencil-border used).
 .field {
   position: relative;
   display: block;
@@ -28,17 +29,20 @@
     $radius-variance: 2px
   );
 
-  --sketch-stroke: rgba(61, 53, 43, 0.4);
+  --sketch-dark: rgba(61, 53, 43, 0.32);
+  --sketch-light: rgba(61, 53, 43, 0.12);
 
   &:hover {
-    --sketch-stroke: rgba(61, 53, 43, 0.55);
+    --sketch-dark: rgba(61, 53, 43, 0.42);
+    --sketch-light: rgba(61, 53, 43, 0.18);
     box-shadow: 1.5px 1.5px 3px rgba(61, 53, 43, 0.06);
   }
 
   &:focus-within {
     @include ink-focus();
     --pui-wash: #{rgba($color-accent-slate, 0.18)};
-    --sketch-stroke: #{rgba($color-accent-slate, 0.65)};
+    --sketch-dark: #{rgba($color-accent-slate, 0.45)};
+    --sketch-light: #{rgba($color-accent-slate, 0.18)};
   }
 }
 
@@ -78,11 +82,13 @@
 }
 
 .error {
-  --sketch-stroke: #{rgba($color-accent-rose, 0.6)};
+  --sketch-dark: #{rgba($color-accent-rose, 0.45)};
+  --sketch-light: #{rgba($color-accent-rose, 0.18)};
 
   &:focus-within {
     --pui-wash: #{rgba($color-accent-rose, 0.18)};
-    --sketch-stroke: #{rgba($color-accent-rose, 0.75)};
+    --sketch-dark: #{rgba($color-accent-rose, 0.55)};
+    --sketch-light: #{rgba($color-accent-rose, 0.22)};
   }
 }
 
@@ -90,14 +96,16 @@
   opacity: 0.55;
   box-shadow: none;
   --pui-fill: #{$color-bg-surface};
-  --sketch-stroke: rgba(61, 53, 43, 0.2);
+  --sketch-dark: rgba(61, 53, 43, 0.15);
+  --sketch-light: rgba(61, 53, 43, 0.06);
 
   .input {
     cursor: not-allowed;
   }
 
   &:hover {
-    --sketch-stroke: rgba(61, 53, 43, 0.2);
+    --sketch-dark: rgba(61, 53, 43, 0.15);
+    --sketch-light: rgba(61, 53, 43, 0.06);
     box-shadow: none;
   }
 }
@@ -126,17 +134,20 @@
     background-color: $color-chalkboard-surface;
     border-radius: $radius-sm;
     box-shadow: none;
-    --sketch-stroke: #{rgba($chalkboard-border-base, 0.4)};
+    --sketch-dark: #{rgba($chalkboard-border-base, 0.18)};
+    --sketch-light: #{rgba($chalkboard-border-base, 0.06)};
 
     &:hover {
-      --sketch-stroke: #{rgba($chalkboard-border-base, 0.6)};
+      --sketch-dark: #{rgba($chalkboard-border-base, 0.3)};
+      --sketch-light: #{rgba($chalkboard-border-base, 0.1)};
       box-shadow: 1.5px 1.5px 3px rgba(0, 0, 0, 0.15);
     }
 
     &:focus-within {
       @include ink-focus($color: $color-chalkboard-chalk);
       outline-offset: 2px;
-      --sketch-stroke: #{$color-chalkboard-chalk};
+      --sketch-dark: #{$color-chalkboard-chalk};
+      --sketch-light: #{rgba($chalkboard-border-base, 0.3)};
     }
   }
 
@@ -150,10 +161,12 @@
 
   .disabled {
     background-color: $color-chalkboard-bg;
-    --sketch-stroke: #{rgba($chalkboard-border-base, 0.15)};
+    --sketch-dark: #{rgba($chalkboard-border-base, 0.08)};
+    --sketch-light: #{rgba($chalkboard-border-base, 0.04)};
 
     &:hover {
-      --sketch-stroke: #{rgba($chalkboard-border-base, 0.15)};
+      --sketch-dark: #{rgba($chalkboard-border-base, 0.08)};
+      --sketch-light: #{rgba($chalkboard-border-base, 0.04)};
       box-shadow: none;
     }
   }

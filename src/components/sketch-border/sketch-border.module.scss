@@ -10,10 +10,16 @@
   z-index: 2;
 }
 
-.stroke {
+.edgeStroke {
   fill: none;
-  stroke: var(--sketch-stroke, #{$button-ring-stroke});
+  stroke: var(--sketch-light, #{rgba(61, 53, 43, 0.12)});
   stroke-linecap: round;
-  stroke-linejoin: round;
+  transition: stroke $transition-fast;
+}
+
+.cornerStroke {
+  fill: none;
+  stroke: var(--sketch-dark, #{rgba(61, 53, 43, 0.32)});
+  stroke-linecap: round;
   transition: stroke $transition-fast;
 }
