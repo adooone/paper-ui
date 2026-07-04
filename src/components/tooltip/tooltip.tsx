@@ -1,4 +1,4 @@
-import { cloneElement, useEffect, useId, useRef, useState } from 'react';
+import { cloneElement, useEffect, useId, useLayoutEffect, useRef, useState } from 'react';
 import type { ReactElement, ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import { useEscapeKey } from '../../hooks/use-escape-key';
@@ -15,34 +15,52 @@ export interface TooltipProps {
 }
 
 const GAP = 8;
+// Minimum distance kept from the viewport edge once clamped.
+const VIEWPORT_PADDING = 8;
 
-function getPosition(rect: DOMRect, placement: NonNullable<TooltipProps['placement']>) {
+// useLayoutEffect warns when invoked during server rendering.
+const useIsomorphicLayoutEffect = typeof window === 'undefined' ? useEffect : useLayoutEffect;
+
+interface TooltipSize {
+  width: number;
+  height: number;
+}
+
+function getPosition(
+  rect: DOMRect,
+  placement: NonNullable<TooltipProps['placement']>,
+  size: TooltipSize,
+) {
+  let top: number;
+  let left: number;
   switch (placement) {
     case 'bottom':
-      return {
-        top: rect.bottom + GAP,
-        left: rect.left + rect.width / 2,
-        transform: 'translate(-50%, 0)',
-      };
+      top = rect.bottom + GAP;
+      left = rect.left + rect.width / 2 - size.width / 2;
+      break;
     case 'left':
-      return {
-        top: rect.top + rect.height / 2,
-        left: rect.left - GAP,
-        transform: 'translate(-100%, -50%)',
-      };
+      top = rect.top + rect.height / 2 - size.height / 2;
+      left = rect.left - GAP - size.width;
+      break;
     case 'right':
-      return {
-        top: rect.top + rect.height / 2,
-        left: rect.right + GAP,
-        transform: 'translate(0, -50%)',
-      };
+      top = rect.top + rect.height / 2 - size.height / 2;
+      left = rect.right + GAP;
+      break;
     default:
-      return {
-        top: rect.top - GAP,
-        left: rect.left + rect.width / 2,
-        transform: 'translate(-50%, -100%)',
-      };
+      top = rect.top - GAP - size.height;
+      left = rect.left + rect.width / 2 - size.width / 2;
   }
+  // Clamp into the viewport so tooltips on triggers near an edge stay
+  // readable instead of being cut off.
+  left = Math.min(
+    Math.max(left, VIEWPORT_PADDING),
+    window.innerWidth - size.width - VIEWPORT_PADDING,
+  );
+  top = Math.min(
+    Math.max(top, VIEWPORT_PADDING),
+    window.innerHeight - size.height - VIEWPORT_PADDING,
+  );
+  return { top, left };
 }
 
 export function Tooltip({
@@ -61,10 +79,15 @@ export function Tooltip({
   const [focused, setFocused] = useState(false);
   const [dismissed, setDismissed] = useState(false);
   const [rect, setRect] = useState<DOMRect | null>(null);
+  // The tooltip renders hidden for one frame while its size is measured, so
+  // the final position (including viewport clamping) can be computed from
+  // real dimensions.
+  const [size, setSize] = useState<TooltipSize | null>(null);
   // A wrapper element holds the position ref rather than the child itself,
   // since paper-ui's components are plain function components (no
   // forwardRef), so a ref passed via cloneElement would silently fail.
   const wrapperRef = useRef<HTMLSpanElement>(null);
+  const tooltipRef = useRef<HTMLSpanElement | null>(null);
   const showTimer = useRef<ReturnType<typeof setTimeout>>();
 
   const open = !disabled && !!content && !dismissed && (hovering || focused);
@@ -109,6 +132,15 @@ export function Tooltip({
     };
   }, [open]);
 
+  useIsomorphicLayoutEffect(() => {
+    if (!open) {
+      setSize(null);
+      return;
+    }
+    const el = tooltipRef.current;
+    if (el) setSize({ width: el.offsetWidth, height: el.offsetHeight });
+  }, [open, content, placement]);
+
   useEffect(() => () => clearTimeout(showTimer.current), []);
 
   const childProps = children.props as { 'aria-describedby'?: string };
@@ -130,6 +162,7 @@ export function Tooltip({
         typeof document !== 'undefined' &&
         createPortal(
           <span
+            ref={tooltipRef}
             id={tooltipId}
             role="tooltip"
             className={cn(
@@ -137,7 +170,11 @@ export function Tooltip({
               styles[placement],
               surface === 'chalkboard' && styles.chalkboard,
             )}
-            style={{ position: 'fixed', ...getPosition(rect, placement) }}
+            style={
+              size
+                ? { position: 'fixed', ...getPosition(rect, placement, size) }
+                : { position: 'fixed', top: 0, left: 0, visibility: 'hidden' }
+            }
           >
             {content}
           </span>,
