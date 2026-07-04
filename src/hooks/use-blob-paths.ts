@@ -1,12 +1,14 @@
 import { useMemo } from 'react';
 import { generateWobblyBlob, generateWobblyRing } from '../utils/random-blob';
+import { useStableSeed } from './use-stable-seed';
 
 export function useBlobPaths(wobble: number) {
-  return useMemo(() => {
-    const seed = Math.random();
-    return {
+  const seed = useStableSeed();
+  return useMemo(
+    () => ({
       blob: generateWobblyBlob({ seed, wobble }),
       ring: generateWobblyRing(seed, wobble),
-    };
-  }, [wobble]);
+    }),
+    [seed, wobble],
+  );
 }

@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { useStableSeed } from '../../hooks/use-stable-seed';
 import { roughGenerator } from '../../utils/rough';
 import { cn } from '../../utils/style-helpers';
 import styles from './progress.module.scss';
@@ -29,7 +30,7 @@ export function Progress({
 }: ProgressProps) {
   const pct = max > 0 ? Math.max(0, Math.min(100, Math.round((value / max) * 100))) : 0;
   const isChalkboard = surface === 'chalkboard';
-  const seed = useMemo(() => Math.round(Math.random() * 1_000_000), []);
+  const seed = Math.max(1, Math.round(useStableSeed() * 1_000_000));
 
   const trackColor = isChalkboard ? 'rgba(200, 210, 195, 0.16)' : 'rgba(26, 25, 23, 0.12)';
   const fillColor = color ?? (isChalkboard ? '#d4e8cb' : '#68635C');
