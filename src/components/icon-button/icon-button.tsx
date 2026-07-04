@@ -1,3 +1,4 @@
+import { forwardRef } from 'react';
 import type { ButtonHTMLAttributes, ReactNode } from 'react';
 import { useBlobPaths } from '../../hooks/use-blob-paths';
 import { cn } from '../../utils/style-helpers';
@@ -13,21 +14,25 @@ export interface IconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>
   isActive?: boolean;
 }
 
-export function IconButton({
-  icon,
-  variant = 'default',
-  surface = 'paper',
-  size = 'medium',
-  label,
-  wobble = 0.5,
-  isActive = false,
-  className,
-  ...props
-}: IconButtonProps) {
+export const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(function IconButton(
+  {
+    icon,
+    variant = 'default',
+    surface = 'paper',
+    size = 'medium',
+    label,
+    wobble = 0.5,
+    isActive = false,
+    className,
+    ...props
+  },
+  ref,
+) {
   const paths = useBlobPaths(wobble);
 
   return (
     <button
+      ref={ref}
       type="button"
       className={cn(
         styles.iconButton,
@@ -53,4 +58,4 @@ export function IconButton({
       <span className={styles.icon}>{icon}</span>
     </button>
   );
-}
+});

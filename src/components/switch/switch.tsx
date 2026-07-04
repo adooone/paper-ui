@@ -1,4 +1,4 @@
-import { useId } from 'react';
+import { forwardRef, useId } from 'react';
 import type { InputHTMLAttributes } from 'react';
 import { cn } from '../../utils/style-helpers';
 import styles from './switch.module.scss';
@@ -10,17 +10,20 @@ export interface SwitchProps extends Omit<InputHTMLAttributes<HTMLInputElement>,
   surface?: 'paper' | 'chalkboard';
 }
 
-export function Switch({
-  label,
-  labelPosition = 'right',
-  size = 'medium',
-  surface = 'paper',
-  className,
-  checked,
-  onChange,
-  id,
-  ...props
-}: SwitchProps) {
+export const Switch = forwardRef<HTMLInputElement, SwitchProps>(function Switch(
+  {
+    label,
+    labelPosition = 'right',
+    size = 'medium',
+    surface = 'paper',
+    className,
+    checked,
+    onChange,
+    id,
+    ...props
+  },
+  ref,
+) {
   const generatedId = useId();
   const inputId = id ?? generatedId;
 
@@ -36,6 +39,7 @@ export function Switch({
       htmlFor={inputId}
     >
       <input
+        ref={ref}
         id={inputId}
         type="checkbox"
         className={styles.input}
@@ -49,4 +53,4 @@ export function Switch({
       {label && <span className={styles.labelText}>{label}</span>}
     </label>
   );
-}
+});

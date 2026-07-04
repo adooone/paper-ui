@@ -1,4 +1,4 @@
-import { useId } from 'react';
+import { forwardRef, useId } from 'react';
 import type { TextareaHTMLAttributes } from 'react';
 import { cn } from '../../utils/style-helpers';
 import styles from './textarea.module.scss';
@@ -12,16 +12,10 @@ export interface TextareaProps extends Omit<TextareaHTMLAttributes<HTMLTextAreaE
   className?: string;
 }
 
-export function Textarea({
-  label,
-  helperText,
-  error = false,
-  size = 'medium',
-  surface = 'paper',
-  className,
-  id,
-  ...props
-}: TextareaProps) {
+export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(function Textarea(
+  { label, helperText, error = false, size = 'medium', surface = 'paper', className, id, ...props },
+  ref,
+) {
   const generatedId = useId();
   const textareaId = id ?? generatedId;
 
@@ -33,6 +27,7 @@ export function Textarea({
         </label>
       )}
       <textarea
+        ref={ref}
         id={textareaId}
         className={cn(styles.textarea, styles[size], error && styles.error)}
         {...props}
@@ -42,4 +37,4 @@ export function Textarea({
       )}
     </div>
   );
-}
+});

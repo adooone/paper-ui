@@ -1,4 +1,4 @@
-import { useId } from 'react';
+import { forwardRef, useId } from 'react';
 import type { InputHTMLAttributes } from 'react';
 import { useBlobPaths } from '../../hooks/use-blob-paths';
 import { cn } from '../../utils/style-helpers';
@@ -12,18 +12,21 @@ export interface CheckboxProps extends Omit<InputHTMLAttributes<HTMLInputElement
   surface?: 'paper' | 'chalkboard';
 }
 
-export function Checkbox({
-  label,
-  labelPosition = 'right',
-  indeterminate = false,
-  wobble = 0.4,
-  surface = 'paper',
-  className,
-  checked,
-  onChange,
-  id: idProp,
-  ...props
-}: CheckboxProps) {
+export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Checkbox(
+  {
+    label,
+    labelPosition = 'right',
+    indeterminate = false,
+    wobble = 0.4,
+    surface = 'paper',
+    className,
+    checked,
+    onChange,
+    id: idProp,
+    ...props
+  },
+  ref,
+) {
   const generatedId = useId();
   const id = idProp ?? generatedId;
   const paths = useBlobPaths(wobble);
@@ -40,6 +43,7 @@ export function Checkbox({
     >
       <span className={styles.boxWrapper}>
         <input
+          ref={ref}
           id={id}
           type="checkbox"
           className={styles.input}
@@ -86,4 +90,4 @@ export function Checkbox({
       {label && <span className={styles.labelText}>{label}</span>}
     </label>
   );
-}
+});
