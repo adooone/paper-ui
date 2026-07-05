@@ -29,6 +29,10 @@ export interface LayoutProps {
   title?: string;
   subtitle?: string;
   headerActions?: ReactNode;
+  /** Header height. A number is treated as px; a string is used verbatim. Defaults to 48px. */
+  headerHeight?: number | string;
+  /** Header texture (name or config). Overrides the default speckle background. */
+  headerTexture?: Texture;
   navigationItems?: NavigationItem[];
   activeItemId?: string;
   onNavigate?: (item: NavigationItem) => void;
@@ -67,6 +71,8 @@ export function Layout({
   title,
   subtitle,
   headerActions,
+  headerHeight,
+  headerTexture,
   navigationItems = [],
   activeItemId,
   onNavigate,
@@ -85,11 +91,21 @@ export function Layout({
 
   const bgStyles = getBackgroundStyles(background);
   const hasSidebar = showSidebar && navigationItems.length > 0;
+  const headerStyle: React.CSSProperties | undefined =
+    headerHeight !== undefined || headerTexture !== undefined
+      ? {
+          // Texture first so an explicit height isn't clobbered by the texture spread.
+          ...(headerTexture !== undefined ? getTextureStyles(headerTexture) : {}),
+          ...(headerHeight !== undefined
+            ? { height: typeof headerHeight === 'number' ? `${headerHeight}px` : headerHeight }
+            : {}),
+        }
+      : undefined;
 
   return (
     <div className={styles.layout} style={{ ...bgStyles, ...style }}>
       {showHeader && (
-        <header className={styles.header}>
+        <header className={styles.header} style={headerStyle}>
           <div className={styles.headerLeft}>
             {hasSidebar && (
               <button
