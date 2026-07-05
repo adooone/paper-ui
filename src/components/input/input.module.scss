@@ -16,39 +16,34 @@
 }
 
 // The visual box lives on this wrapper (an <input> can't host the
-// SketchBorder SVG); state tinting flows through --sketch-dark/--sketch-light
-// (corner / edge stroke tone — same values the old pencil-border used).
+// SketchBorder SVG). The SketchBorder paints both the sketchy fill and the
+// outline; --sketch-fill / --sketch-stroke tint them per state.
 .field {
   position: relative;
   display: block;
   width: 100%;
-
-  @include pencil-fill(
-    $fill: $color-bg-input,
-    $radius-base: $radius-sm,
-    $radius-variance: 2px
-  );
-
-  --sketch-dark: rgba(61, 53, 43, 0.32);
-  --sketch-light: rgba(61, 53, 43, 0.12);
+  // Only shapes the dotted focus outline (the fill/border are the sketch SVG).
+  border-radius: $radius-sm;
+  // Transparent fill — just a faint ink wash so the paper texture behind
+  // shows through, slightly darkened, rather than an opaque swatch.
+  --sketch-fill: rgba(61, 53, 43, 0.05);
+  --sketch-stroke: rgba(61, 53, 43, 0.32);
 
   &:hover {
-    --sketch-dark: rgba(61, 53, 43, 0.42);
-    --sketch-light: rgba(61, 53, 43, 0.18);
-    box-shadow: 1.5px 1.5px 3px rgba(61, 53, 43, 0.06);
+    --sketch-stroke: rgba(61, 53, 43, 0.42);
   }
 
   &:focus-within {
     @include ink-focus();
-    --pui-wash: #{rgba($color-accent-slate, 0.18)};
-    --sketch-dark: #{rgba($color-accent-slate, 0.45)};
-    --sketch-light: #{rgba($color-accent-slate, 0.18)};
+    --sketch-stroke: #{rgba($color-accent-slate, 0.45)};
   }
 }
 
 .input {
   appearance: none;
   display: block;
+  position: relative;
+  z-index: 1;
   width: 100%;
   border: none;
   outline: none;
@@ -82,31 +77,24 @@
 }
 
 .error {
-  --sketch-dark: #{rgba($color-accent-rose, 0.45)};
-  --sketch-light: #{rgba($color-accent-rose, 0.18)};
+  --sketch-stroke: #{rgba($color-accent-rose, 0.45)};
 
   &:focus-within {
-    --pui-wash: #{rgba($color-accent-rose, 0.18)};
-    --sketch-dark: #{rgba($color-accent-rose, 0.55)};
-    --sketch-light: #{rgba($color-accent-rose, 0.22)};
+    --sketch-stroke: #{rgba($color-accent-rose, 0.55)};
   }
 }
 
 .disabled {
   opacity: 0.55;
-  box-shadow: none;
-  --pui-fill: #{$color-bg-surface};
-  --sketch-dark: rgba(61, 53, 43, 0.15);
-  --sketch-light: rgba(61, 53, 43, 0.06);
+  --sketch-fill: rgba(61, 53, 43, 0.03);
+  --sketch-stroke: rgba(61, 53, 43, 0.15);
 
   .input {
     cursor: not-allowed;
   }
 
   &:hover {
-    --sketch-dark: rgba(61, 53, 43, 0.15);
-    --sketch-light: rgba(61, 53, 43, 0.06);
-    box-shadow: none;
+    --sketch-stroke: rgba(61, 53, 43, 0.15);
   }
 }
 
@@ -130,24 +118,19 @@
   }
 
   .field {
-    background-image: none;
-    background-color: $color-chalkboard-surface;
-    border-radius: $radius-sm;
-    box-shadow: none;
-    --sketch-dark: #{rgba($chalkboard-border-base, 0.18)};
-    --sketch-light: #{rgba($chalkboard-border-base, 0.06)};
+    // Faint chalk wash — lightens the dark surface behind rather than an
+    // opaque fill.
+    --sketch-fill: #{rgba($chalkboard-border-base, 0.08)};
+    --sketch-stroke: #{rgba($chalkboard-border-base, 0.3)};
 
     &:hover {
-      --sketch-dark: #{rgba($chalkboard-border-base, 0.3)};
-      --sketch-light: #{rgba($chalkboard-border-base, 0.1)};
-      box-shadow: 1.5px 1.5px 3px rgba(0, 0, 0, 0.15);
+      --sketch-stroke: #{rgba($chalkboard-border-base, 0.45)};
     }
 
     &:focus-within {
       @include ink-focus($color: $color-chalkboard-chalk);
       outline-offset: 2px;
-      --sketch-dark: #{$color-chalkboard-chalk};
-      --sketch-light: #{rgba($chalkboard-border-base, 0.3)};
+      --sketch-stroke: #{$color-chalkboard-chalk};
     }
   }
 
@@ -160,14 +143,11 @@
   }
 
   .disabled {
-    background-color: $color-chalkboard-bg;
-    --sketch-dark: #{rgba($chalkboard-border-base, 0.08)};
-    --sketch-light: #{rgba($chalkboard-border-base, 0.04)};
+    --sketch-fill: #{rgba($chalkboard-border-base, 0.04)};
+    --sketch-stroke: #{rgba($chalkboard-border-base, 0.12)};
 
     &:hover {
-      --sketch-dark: #{rgba($chalkboard-border-base, 0.08)};
-      --sketch-light: #{rgba($chalkboard-border-base, 0.04)};
-      box-shadow: none;
+      --sketch-stroke: #{rgba($chalkboard-border-base, 0.12)};
     }
   }
 }

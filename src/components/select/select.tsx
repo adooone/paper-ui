@@ -211,11 +211,10 @@ export function Select({
 
   const textureStyles = resolveTexture(texture);
 
+  // The sketch fill is a solid colour, so a texture prop contributes its base
+  // colour (the texture image itself can't ride on a rough-drawn fill).
   const dropdownStyle = textureStyles
-    ? ({
-        '--pui-texture': textureStyles.backgroundImage,
-        '--pui-fill': textureStyles.backgroundColor,
-      } as React.CSSProperties)
+    ? ({ '--sketch-fill': textureStyles.backgroundColor } as React.CSSProperties)
     : undefined;
 
   return (
@@ -273,7 +272,7 @@ export function Select({
           {displayLabel}
         </span>
         <ChevronIcon className={cn(styles.chevron, isOpen && styles.chevronOpen)} />
-        <SketchBorder radius={8} inset={2} roughness={1.1} strokeWidth={1.3} />
+        <SketchBorder fill radius={8} inset={2} roughness={1.1} strokeWidth={1.3} />
       </button>
 
       {isOpen &&
@@ -300,7 +299,7 @@ export function Select({
               }
             }}
           >
-            <SketchBorder radius={12} inset={2.5} roughness={1.2} strokeWidth={1.3} />
+            <SketchBorder fill radius={12} inset={2.5} roughness={1.2} strokeWidth={1.3} />
             <div className={styles.options}>
               {options.map((opt, idx) => (
                 // biome-ignore lint/a11y/useKeyWithClickEvents: keyboard selection is handled on the combobox trigger (arrow keys + Enter) via aria-activedescendant; options are pointer targets only.

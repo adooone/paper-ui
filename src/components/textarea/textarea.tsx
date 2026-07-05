@@ -36,7 +36,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(function 
         )}
       >
         <textarea ref={ref} id={textareaId} className={styles.textarea} {...props} />
-        <SketchBorder radius={8} inset={2} roughness={1.1} strokeWidth={1.3} />
+        <SketchBorder fill radius={8} inset={2} roughness={1.1} strokeWidth={1.3} />
       </span>
       {helperText && (
         <span className={cn(styles.helperText, error && styles.helperError)}>{helperText}</span>

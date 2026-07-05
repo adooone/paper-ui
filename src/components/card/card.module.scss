@@ -5,20 +5,19 @@
   position: relative;
   overflow: hidden;
   @include organic-radius($radius-md, 3px);
-  background-image: linear-gradient($color-bg-surface, $color-bg-surface);
-  // Consumed by the SketchBorder overlay that replaces the old conic-gradient
-  // pencil stroke with a real rough.js-drawn outline — same dark/light
-  // values the conic-gradient used, now drawn corner (dark) vs. edge (light).
-  --sketch-dark: rgba(61, 53, 43, 0.32);
-  --sketch-light: rgba(61, 53, 43, 0.12);
+  // The fill lives on .textureLayer (so its texture is kept) and is clipped to
+  // the sketchy silhouette; SketchBorder draws the outline + publishes the clip.
+  --sketch-stroke: rgba(61, 53, 43, 0.32);
 }
 
+// drop-shadow (not box-shadow) so the shadow follows the clipped sketchy
+// silhouette instead of the rectangular border-box.
 .default {
-  box-shadow: $shadow-paper-sm;
+  filter: $filter-shadow-sm;
 }
 
 .elevated {
-  box-shadow: $shadow-paper-md;
+  filter: $filter-shadow-md;
 }
 
 .textureLayer {
@@ -27,6 +26,11 @@
   padding: $space-8;
   font-size: $font-size-md;
   line-height: $line-height-grid;
+  // Base fill (texture, when set, overrides this via inline style); clipped to
+  // the hand-drawn silhouette so the surface edge is sketchy, texture intact.
+  background-color: $color-bg-surface;
+  @include organic-radius($radius-md, 3px);
+  clip-path: var(--sketch-clip);
 
   > * + * {
     margin-top: $space-8;
@@ -67,10 +71,8 @@
 .accentSlate::before { background: radial-gradient(circle, $color-accent-slate-light 0%, transparent 70%); }
 
 .chalkboard {
-  background-image: linear-gradient($color-chalkboard-bg, $color-chalkboard-bg);
-  --sketch-dark: #{rgba($chalkboard-border-base, 0.18)};
-  --sketch-light: #{rgba($chalkboard-border-base, 0.06)};
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  --sketch-stroke: #{rgba($chalkboard-border-base, 0.3)};
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.28));
 
   .textureLayer {
     color: $color-chalkboard-text;

@@ -4,6 +4,7 @@ import { createAccentClassMap } from '../../utils/accent-class-map';
 import { ChevronRightIcon } from '../../utils/icons';
 import { cn } from '../../utils/style-helpers';
 import { type TextureProp, resolveTexture } from '../../utils/textures';
+import { SketchBorder } from '../sketch-border';
 import styles from './table.module.scss';
 
 export type TableSurface = 'paper' | 'chalkboard';
@@ -97,150 +98,156 @@ export function Table<T = unknown>({
   return (
     <div
       className={cn(
-        styles.tableWrapper,
-        surface === 'chalkboard' && styles.chalkboardWrapper,
+        styles.tableFrame,
+        surface === 'chalkboard' && styles.chalkboardFrame,
         className,
       )}
-      style={textureStyles}
     >
-      {hasToolbar && (
-        <div className={styles.toolbar}>
-          {toolbar.search && (
-            <div className={styles.search}>
-              <SearchIcon className={styles.searchIcon} />
-              <input
-                type="text"
-                className={styles.searchInput}
-                placeholder={toolbar.search.placeholder ?? 'Search...'}
-                aria-label={toolbar.search.placeholder ?? 'Search'}
-                value={toolbar.search.value}
-                onChange={(e) => toolbar.search?.onChange?.(e.target.value)}
-              />
-            </div>
-          )}
-          {toolbar.actions && (
-            <div className={styles.toolbarActions}>
-              {typeof toolbar.actions === 'function' ? toolbar.actions(surface) : toolbar.actions}
-            </div>
-          )}
-        </div>
-      )}
-
-      {board ? (
-        <div className={styles.boardScroll}>
-          <div className={styles.board}>
-            {board.map((col) => (
-              <div key={col.key} className={styles.boardColumn}>
-                <div
-                  className={cn(
-                    styles.boardColumnHeader,
-                    surface === 'chalkboard' && styles.chalkboard,
-                    col.accent && accentClassMap[col.accent],
-                  )}
-                >
-                  <span className={styles.boardColumnLabel}>{col.label}</span>
-                  <span className={styles.boardColumnCount}>{col.items.length}</span>
-                </div>
-                <div className={styles.boardColumnBody}>
-                  {col.items.length === 0 ? (
-                    <div className={styles.boardEmpty}>{col.emptyLabel ?? 'empty'}</div>
-                  ) : (
-                    col.items.map((item, itemIndex) => (
-                      <div
-                        key={col.getKey ? col.getKey(item, itemIndex) : itemIndex}
-                        className={cn(
-                          styles.boardRow,
-                          surface === 'chalkboard' && styles.chalkboard,
-                        )}
-                      >
-                        {col.renderItem(item, itemIndex, surface)}
-                      </div>
-                    ))
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      ) : (
-        <div className={styles.tableScroll}>
-          <table className={cn(styles.table, surface === 'chalkboard' && styles.chalkboard)}>
-            <colgroup>
-              {hasExpandColumn && <col style={{ width: '48px' }} />}
-              {columns.map((col) => (
-                <col
-                  key={col.key}
-                  style={col.width ? { width: `${col.width * 32}px` } : undefined}
+      <SketchBorder clip radius={12} inset={2.5} roughness={1.2} strokeWidth={1.3} />
+      <div
+        className={cn(styles.tableWrapper, surface === 'chalkboard' && styles.chalkboardWrapper)}
+        style={textureStyles}
+      >
+        {hasToolbar && (
+          <div className={styles.toolbar}>
+            {toolbar.search && (
+              <div className={styles.search}>
+                <SearchIcon className={styles.searchIcon} />
+                <input
+                  type="text"
+                  className={styles.searchInput}
+                  placeholder={toolbar.search.placeholder ?? 'Search...'}
+                  aria-label={toolbar.search.placeholder ?? 'Search'}
+                  value={toolbar.search.value}
+                  onChange={(e) => toolbar.search?.onChange?.(e.target.value)}
                 />
-              ))}
-            </colgroup>
-            <thead>
-              <tr>
-                {hasExpandColumn && (
-                  <th className={cn(styles.th, styles.expandTh)} aria-label="Expand" />
-                )}
-                {columns.map((col) => (
-                  <th key={col.key} className={styles.th}>
-                    {col.header}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {data.map((row, rowIndex) => {
-                const key = rowKey ? rowKey(row, rowIndex) : rowIndex;
-                const expansionContent = expandable?.render(row, rowIndex, surface);
-                const canExpand = !!expansionContent;
-                const isExpanded = canExpand && expandedRows.has(key);
-                return (
-                  <Fragment key={key}>
-                    {/* biome-ignore lint/a11y/useKeyWithClickEvents: row click is a pointer-only convenience; keyboard users toggle expansion via the dedicated expand button in the first cell. */}
-                    <tr
-                      className={cn(
-                        styles.tr,
-                        canExpand && styles.expandable,
-                        rowClassName?.(row, rowIndex),
-                      )}
-                      onClick={() => canExpand && toggleRow(key)}
-                    >
-                      {hasExpandColumn && (
-                        <td className={cn(styles.td, styles.expandTd)}>
-                          {canExpand && (
-                            <button
-                              type="button"
-                              className={styles.expandIcon}
-                              aria-expanded={isExpanded}
-                              aria-label={isExpanded ? 'Collapse row' : 'Expand row'}
-                              onClick={(event) => {
-                                event.stopPropagation();
-                                toggleRow(key);
-                              }}
-                            >
-                              <ChevronRightIcon size={14} />
-                            </button>
-                          )}
-                        </td>
-                      )}
-                      {columns.map((col) => (
-                        <td key={col.key} className={styles.td}>
-                          {col.cell(row, rowIndex, surface)}
-                        </td>
-                      ))}
-                    </tr>
-                    {isExpanded && (
-                      <tr className={styles.expandedRow}>
-                        <td colSpan={totalColumns} className={styles.expandedCell}>
-                          {expansionContent}
-                        </td>
-                      </tr>
+                <SketchBorder fill radius={6} inset={1.5} roughness={1} strokeWidth={1.1} />
+              </div>
+            )}
+            {toolbar.actions && (
+              <div className={styles.toolbarActions}>
+                {typeof toolbar.actions === 'function' ? toolbar.actions(surface) : toolbar.actions}
+              </div>
+            )}
+          </div>
+        )}
+
+        {board ? (
+          <div className={styles.boardScroll}>
+            <div className={styles.board}>
+              {board.map((col) => (
+                <div key={col.key} className={styles.boardColumn}>
+                  <div
+                    className={cn(
+                      styles.boardColumnHeader,
+                      surface === 'chalkboard' && styles.chalkboard,
+                      col.accent && accentClassMap[col.accent],
                     )}
-                  </Fragment>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
-      )}
+                  >
+                    <span className={styles.boardColumnLabel}>{col.label}</span>
+                    <span className={styles.boardColumnCount}>{col.items.length}</span>
+                  </div>
+                  <div className={styles.boardColumnBody}>
+                    {col.items.length === 0 ? (
+                      <div className={styles.boardEmpty}>{col.emptyLabel ?? 'empty'}</div>
+                    ) : (
+                      col.items.map((item, itemIndex) => (
+                        <div
+                          key={col.getKey ? col.getKey(item, itemIndex) : itemIndex}
+                          className={cn(
+                            styles.boardRow,
+                            surface === 'chalkboard' && styles.chalkboard,
+                          )}
+                        >
+                          {col.renderItem(item, itemIndex, surface)}
+                        </div>
+                      ))
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <div className={styles.tableScroll}>
+            <table className={cn(styles.table, surface === 'chalkboard' && styles.chalkboard)}>
+              <colgroup>
+                {hasExpandColumn && <col style={{ width: '48px' }} />}
+                {columns.map((col) => (
+                  <col
+                    key={col.key}
+                    style={col.width ? { width: `${col.width * 32}px` } : undefined}
+                  />
+                ))}
+              </colgroup>
+              <thead>
+                <tr>
+                  {hasExpandColumn && (
+                    <th className={cn(styles.th, styles.expandTh)} aria-label="Expand" />
+                  )}
+                  {columns.map((col) => (
+                    <th key={col.key} className={styles.th}>
+                      {col.header}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {data.map((row, rowIndex) => {
+                  const key = rowKey ? rowKey(row, rowIndex) : rowIndex;
+                  const expansionContent = expandable?.render(row, rowIndex, surface);
+                  const canExpand = !!expansionContent;
+                  const isExpanded = canExpand && expandedRows.has(key);
+                  return (
+                    <Fragment key={key}>
+                      {/* biome-ignore lint/a11y/useKeyWithClickEvents: row click is a pointer-only convenience; keyboard users toggle expansion via the dedicated expand button in the first cell. */}
+                      <tr
+                        className={cn(
+                          styles.tr,
+                          canExpand && styles.expandable,
+                          rowClassName?.(row, rowIndex),
+                        )}
+                        onClick={() => canExpand && toggleRow(key)}
+                      >
+                        {hasExpandColumn && (
+                          <td className={cn(styles.td, styles.expandTd)}>
+                            {canExpand && (
+                              <button
+                                type="button"
+                                className={styles.expandIcon}
+                                aria-expanded={isExpanded}
+                                aria-label={isExpanded ? 'Collapse row' : 'Expand row'}
+                                onClick={(event) => {
+                                  event.stopPropagation();
+                                  toggleRow(key);
+                                }}
+                              >
+                                <ChevronRightIcon size={14} />
+                              </button>
+                            )}
+                          </td>
+                        )}
+                        {columns.map((col) => (
+                          <td key={col.key} className={styles.td}>
+                            {col.cell(row, rowIndex, surface)}
+                          </td>
+                        ))}
+                      </tr>
+                      {isExpanded && (
+                        <tr className={styles.expandedRow}>
+                          <td colSpan={totalColumns} className={styles.expandedCell}>
+                            {expansionContent}
+                          </td>
+                        </tr>
+                      )}
+                    </Fragment>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

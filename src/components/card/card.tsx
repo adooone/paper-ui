@@ -40,7 +40,7 @@ export function Card({
         className,
       )}
     >
-      <SketchBorder radius={12} inset={3} roughness={1.4} strokeWidth={1.4} />
+      <SketchBorder clip radius={12} inset={3} roughness={1.4} strokeWidth={1.4} />
       <div
         className={styles.textureLayer}
         style={surface === 'chalkboard' ? undefined : resolveTexture(texture)}

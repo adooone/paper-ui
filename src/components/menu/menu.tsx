@@ -8,6 +8,7 @@ import type {
 import { createPortal } from 'react-dom';
 import { useEscapeKey } from '../../hooks/use-escape-key';
 import { cn } from '../../utils/style-helpers';
+import { SketchBorder } from '../sketch-border';
 import styles from './menu.module.scss';
 
 export interface MenuItem {
@@ -163,29 +164,33 @@ export function Menu({ trigger, items, align = 'start', surface = 'paper', class
             }}
             onKeyDown={handleListKeyDown}
           >
-            {items.map((entry) =>
-              isSeparator(entry) ? (
-                // biome-ignore lint/a11y/useFocusableInteractive: a static visual divider between menu items, not an adjustable splitter, so it is intentionally not focusable.
-                <div key={entry.id} role="separator" className={styles.separator} />
-              ) : (
-                <button
-                  key={entry.id}
-                  type="button"
-                  role="menuitem"
-                  tabIndex={-1}
-                  disabled={entry.disabled}
-                  className={cn(
-                    styles.item,
-                    entry.danger && styles.danger,
-                    entry.disabled && styles.itemDisabled,
-                  )}
-                  onClick={() => handleSelect(entry)}
-                >
-                  {entry.icon && <span className={styles.icon}>{entry.icon}</span>}
-                  <span className={styles.label}>{entry.label}</span>
-                </button>
-              ),
-            )}
+            <SketchBorder clip radius={12} inset={2.5} roughness={1.2} strokeWidth={1.3} />
+            <div className={styles.surface} />
+            <div className={styles.list}>
+              {items.map((entry) =>
+                isSeparator(entry) ? (
+                  // biome-ignore lint/a11y/useFocusableInteractive: a static visual divider between menu items, not an adjustable splitter, so it is intentionally not focusable.
+                  <div key={entry.id} role="separator" className={styles.separator} />
+                ) : (
+                  <button
+                    key={entry.id}
+                    type="button"
+                    role="menuitem"
+                    tabIndex={-1}
+                    disabled={entry.disabled}
+                    className={cn(
+                      styles.item,
+                      entry.danger && styles.danger,
+                      entry.disabled && styles.itemDisabled,
+                    )}
+                    onClick={() => handleSelect(entry)}
+                  >
+                    {entry.icon && <span className={styles.icon}>{entry.icon}</span>}
+                    <span className={styles.label}>{entry.label}</span>
+                  </button>
+                ),
+              )}
+            </div>
           </div>,
           document.body,
         )}

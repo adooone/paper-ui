@@ -36,7 +36,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
         )}
       >
         <input ref={ref} id={inputId} className={styles.input} {...props} />
-        <SketchBorder radius={8} inset={2} roughness={1.1} strokeWidth={1.3} />
+        <SketchBorder fill radius={8} inset={2} roughness={1.1} strokeWidth={1.3} />
       </span>
       {helperText && (
         <span className={cn(styles.helperText, error && styles.helperError)}>{helperText}</span>
