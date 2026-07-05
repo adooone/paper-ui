@@ -10,16 +10,21 @@
   z-index: 2;
 }
 
-.edgeStroke {
+// When the sketch also paints the fill, it must sit behind the host content.
+.behind {
+  z-index: 0;
+}
+
+.stroke {
   fill: none;
-  stroke: var(--sketch-light, #{rgba(61, 53, 43, 0.12)});
+  stroke: var(--sketch-stroke, #{rgba(61, 53, 43, 0.3)});
   stroke-linecap: round;
+  stroke-linejoin: round;
   transition: stroke $transition-fast;
 }
 
-.cornerStroke {
-  fill: none;
-  stroke: var(--sketch-dark, #{rgba(61, 53, 43, 0.32)});
-  stroke-linecap: round;
-  transition: stroke $transition-fast;
+.fill {
+  stroke: none;
+  fill: var(--sketch-fill, transparent);
+  transition: fill $transition-fast;
 }

@@ -1,29 +1,47 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { useStableSeed } from '../../hooks/use-stable-seed';
+import { roughGenerator } from '../../utils/rough';
 import { cn } from '../../utils/style-helpers';
 import styles from './sketch-border.module.scss';
 
 export interface SketchBorderProps {
-  /** Base corner radius in px; each corner deviates slightly (seeded). */
+  /** `rect` (default) draws a rounded rectangle; `circle` a hand-drawn ellipse. */
+  shape?: 'rect' | 'circle';
+  /** Base corner radius in px; each corner deviates slightly (seeded). rect only. */
   radius?: number;
-  /** Amplitude of the hand-wander in px — how far the line strays to either
-   * side of the true boundary. */
+  /** rough.js roughness — how shaky the pencil hand is. */
   roughness?: number;
+  /** rough.js bowing — how much a straight run bows on its way across. */
+  bowing?: number;
   strokeWidth?: number;
-  /** Nominal distance from the host's true edge. */
+  /** Inset from the host edge so the stroke's wobble stays inside the box. */
   inset?: number;
+  /**
+   * Also fill the sketched silhouette (solid, tinted by --sketch-fill), so the
+   * background shares the pencil line's wobbly edge instead of showing a clean
+   * rectangle underneath. When set, the SVG renders BEHIND host content.
+   * Use for surfaces WITHOUT a texture (a rough solid fill is flat).
+   */
+  fill?: boolean;
+  /**
+   * Instead of painting a fill, publish the wobbly silhouette as a
+   * `--sketch-clip: path(...)` custom property on the host, so a textured
+   * background layer can `clip-path: var(--sketch-clip)` and keep its texture
+   * while gaining the sketchy edge. Use for surfaces WITH a texture.
+   */
+  clip?: boolean;
+  /**
+   * Draw the outline as ONE hand-drawn rough.js line (its doubling pass
+   * disabled) instead of the default multi-stroke. Still sketchy — roughness
+   * and bowing apply — just a single, calmer stroke. Good for small controls
+   * (Checkbox / Radio / Avatar).
+   */
+  smooth?: boolean;
   className?: string;
 }
 
-interface Pt {
-  x: number;
-  y: number;
-}
-
-interface Seg {
-  c1: Pt;
-  c2: Pt;
-  to: Pt;
+interface Part {
+  d: string;
+  filled: boolean;
 }
 
 interface Size {
@@ -31,27 +49,37 @@ interface Size {
   height: number;
 }
 
+type Radii = [number, number, number, number];
+
 // Internal building block: an absolutely-positioned SVG that measures its
-// parent and draws a hand-sketched outline at real pixel size.
+// parent and draws a hand-sketched outline at real pixel size — stretching an
+// abstract viewBox would squash the jitter (see Progress).
 //
-// The outline is ONE closed Catmull-Rom spline through slightly-jittered
-// points (corner arcs sampled at three points each, edges at a few interior
-// points). A single smooth spline is what guarantees the two things rough.js
-// couldn't: the line never doubles or crosses itself, and corners are round
-// by construction. The jitter makes it wander gently outside and inside the
-// nominal boundary like a pencil stroke.
-//
-// The darker "pencil pressure" at corners is NOT a second line: it re-draws
-// the exact same spline segments that cover each corner in the darker tone,
-// so it recolors a stretch of the one line instead of adding another.
+// It feeds ONE clean rounded-rect path to rough.js. rough.js sketches that
+// single continuous shape with its own hand-drawn pass — the multi-stroke it
+// emits (a couple of overlapping passes with small gaps, uneven density and a
+// wobble) IS the pencil look, the same one Skeleton/Progress use. Every emitted
+// sub-stroke traces the same outline in the same colour, so it reads as one
+// pencil line gone over a couple of times, not separate geometric pieces
+// welded together. preserveVertices keeps the corner points anchored so the
+// sketch doesn't drift into the self-crossing tangle a naive pass produces.
 export function SketchBorder({
-  radius = 10,
-  roughness = 1,
-  strokeWidth = 1.3,
+  shape = 'rect',
+  radius = 9,
+  roughness = 1.2,
+  bowing = 1,
+  strokeWidth = 1,
   inset = 2,
+  fill = false,
+  clip = false,
+  smooth = false,
   className,
 }: SketchBorderProps) {
-  const seed = useStableSeed();
+  // Random per mount (not per re-render), so each element instance draws a
+  // unique shape that stays put while mounted — like the button's blob. Safe
+  // vs. SSR because the path only computes once the element is measured on
+  // the client (size starts null), so it never renders during hydration.
+  const [seed] = useState(Math.random);
   const svgRef = useRef<SVGSVGElement | null>(null);
   const [size, setSize] = useState<Size | null>(null);
 
@@ -70,46 +98,147 @@ export function SketchBorder({
     return () => observer.disconnect();
   }, []);
 
-  const paths = useMemo(() => {
-    if (!size || size.width < 8 || size.height < 8) return null;
-    const rng = createRng(Math.max(1, Math.round(seed * 1_000_000)));
-    const amplitude = roughness * 0.75;
-    const { pts, cornerStarts } = buildPoints(
-      size.width,
-      size.height,
-      inset,
-      radius,
-      rng,
-      amplitude,
-    );
-    const segs = catmullSegments(pts);
+  const { parts, clipPath } = useMemo<{ parts: Part[] | null; clipPath: string | null }>(() => {
+    if (!size || size.width < 8 || size.height < 8) return { parts: null, clipPath: null };
+    const base = Math.max(1, Math.round(seed * 1_000_000));
+    const seedStroke = base;
+    const seedFill = (base * 2654435761) % 2147483647;
 
-    const outline = `M ${fmt(pts[0])} ${segs.map((s) => `C ${fmt(s.c1)}, ${fmt(s.c2)}, ${fmt(s.to)}`).join(' ')} Z`;
-    // Two spline segments span each corner's three sample points.
-    const corners = cornerStarts.map(
-      (ci) =>
-        `M ${fmt(pts[ci])} C ${fmt(segs[ci].c1)}, ${fmt(segs[ci].c2)}, ${fmt(segs[ci].to)} C ${fmt(segs[ci + 1].c1)}, ${fmt(segs[ci + 1].c2)}, ${fmt(segs[ci + 1].to)}`,
-    );
+    const strokeFrom = (d: string): Part[] =>
+      roughGenerator
+        .toPaths(
+          roughGenerator.path(d, {
+            seed: seedStroke,
+            roughness,
+            bowing,
+            preserveVertices: true,
+            strokeWidth,
+          }),
+        )
+        .filter((p) => !p.fill || p.fill === 'none')
+        .map((p) => ({ d: p.d, filled: false }));
 
-    return { outline, corners };
-  }, [size, seed, radius, roughness, inset]);
+    if (smooth) {
+      // ONE hand-drawn rough.js line — disableMultiStroke turns off the second
+      // (doubling) pass, so it's a single sketchy stroke rather than the
+      // overlapping multi-stroke. When clipping, the line traces the exact clip
+      // silhouette so the outline hugs the fill edge.
+      const single = { seed: seedStroke, roughness, bowing, strokeWidth, disableMultiStroke: true };
+      const toStroke = (drawable: ReturnType<typeof roughGenerator.path>): Part[] =>
+        roughGenerator
+          .toPaths(drawable)
+          .filter((p) => !p.fill || p.fill === 'none')
+          .map((p) => ({ d: p.d, filled: false }));
+
+      if (clip) {
+        const silhouette = silhouettePath(
+          shape,
+          size,
+          inset,
+          radius,
+          createRng(seedFill),
+          roughness * 1.1,
+        );
+        return {
+          parts: toStroke(roughGenerator.path(silhouette, { ...single, preserveVertices: true })),
+          clipPath: silhouette,
+        };
+      }
+      const drawable =
+        shape === 'circle'
+          ? roughGenerator.ellipse(
+              size.width / 2,
+              size.height / 2,
+              size.width - inset * 2,
+              size.height - inset * 2,
+              single,
+            )
+          : roughGenerator.path(rectPath(size, inset, radius, createRng(seedStroke)), {
+              ...single,
+              preserveVertices: true,
+            });
+      return { parts: toStroke(drawable), clipPath: null };
+    }
+
+    if (clip) {
+      // The fill edge IS this silhouette (via --sketch-clip), and the outline
+      // is a rough overdraw of the SAME silhouette — so the pencil line hugs
+      // the fill edge instead of diverging into a separate shape (which on a
+      // large surface leaves a gap of background showing through).
+      const silhouette = silhouettePath(
+        shape,
+        size,
+        inset,
+        radius,
+        createRng(seedFill),
+        roughness * 1.1,
+      );
+      return { parts: strokeFrom(silhouette), clipPath: silhouette };
+    }
+
+    // Non-clip: an optional rough solid fill plus an independent outline shape,
+    // so the outline wanders in and out of the fill (fine on small elements,
+    // where there is no clip gap to expose the background).
+    const draw = (segSeed: number, filled: boolean) => {
+      const opts = filled ? { fill: '#000', fillStyle: 'solid' as const } : {};
+      const drawable =
+        shape === 'circle'
+          ? roughGenerator.ellipse(
+              size.width / 2,
+              size.height / 2,
+              size.width - inset * 2,
+              size.height - inset * 2,
+              { seed: segSeed, roughness, bowing, strokeWidth, ...opts },
+            )
+          : roughGenerator.path(rectPath(size, inset, radius, createRng(segSeed)), {
+              seed: segSeed,
+              roughness,
+              bowing,
+              preserveVertices: true,
+              strokeWidth,
+              ...opts,
+            });
+      return roughGenerator.toPaths(drawable);
+    };
+
+    const fillParts: Part[] = fill
+      ? draw(seedFill, true)
+          .filter((p) => !!p.fill && p.fill !== 'none')
+          .map((p) => ({ d: p.d, filled: true }))
+      : [];
+    const strokeParts: Part[] = draw(seedStroke, false)
+      .filter((p) => !p.fill || p.fill === 'none')
+      .map((p) => ({ d: p.d, filled: false }));
+    return { parts: [...fillParts, ...strokeParts], clipPath: null };
+  }, [size, seed, clip, smooth, shape, radius, roughness, bowing, strokeWidth, inset, fill]);
+
+  useEffect(() => {
+    const host = svgRef.current?.parentElement;
+    if (!host) return;
+    if (clipPath) {
+      host.style.setProperty('--sketch-clip', `path("${clipPath}")`);
+    } else {
+      host.style.removeProperty('--sketch-clip');
+    }
+    return () => {
+      host.style.removeProperty('--sketch-clip');
+    };
+  }, [clipPath]);
 
   return (
     <svg
       ref={svgRef}
-      className={cn(styles.svg, className)}
+      className={cn(styles.svg, fill && styles.behind, className)}
       viewBox={size ? `0 0 ${size.width} ${size.height}` : undefined}
       aria-hidden="true"
     >
-      {paths && <path className={styles.edgeStroke} d={paths.outline} strokeWidth={strokeWidth} />}
-      {paths?.corners.map((d, i) => (
-        <path
-          key={`corner-${i}`}
-          className={styles.cornerStroke}
-          d={d}
-          strokeWidth={strokeWidth * 1.2}
-        />
-      ))}
+      {parts?.map((p, i) =>
+        p.filled ? (
+          <path key={`f-${i}`} className={styles.fill} d={p.d} />
+        ) : (
+          <path key={`s-${i}`} className={styles.stroke} d={p.d} strokeWidth={strokeWidth} />
+        ),
+      )}
     </svg>
   );
 }
@@ -122,80 +251,107 @@ function createRng(seed: number) {
   };
 }
 
-// Sample points clockwise around the rounded rect: three per corner arc
-// (at 0°, 45° and 90° of the arc, with small radial jitter) and a few
-// interior points per edge (with small perpendicular jitter). Because every
-// point feeds one shared spline, jitter can never break the line apart.
-function buildPoints(
-  width: number,
-  height: number,
+interface Pt {
+  x: number;
+  y: number;
+}
+
+// A single closed, gently-wobbly path around the shape, for use as a CSS
+// clip-path. Points are sampled around a rounded rect (or ellipse) with small
+// jitter, then joined by a closed Catmull-Rom spline so the edge undulates
+// smoothly rather than in straight facets.
+function silhouettePath(
+  shape: 'rect' | 'circle',
+  size: Size,
   inset: number,
   radius: number,
   rng: () => number,
   amplitude: number,
-): { pts: Pt[]; cornerStarts: number[] } {
-  const x = inset;
-  const y = inset;
-  const w = width - inset * 2;
-  const h = height - inset * 2;
-  const vary = () => (rng() - 0.5) * 2;
-  const clampR = (r: number) => Math.max(2, Math.min(r, w / 2 - 1, h / 2 - 1));
-  const [tl, tr, br, bl] = [0, 0, 0, 0].map(() => clampR(radius + vary() * 1.5));
-
+): string {
+  const w = size.width - inset * 2;
+  const h = size.height - inset * 2;
+  const cx = size.width / 2;
+  const cy = size.height / 2;
+  const wob = () => (rng() - 0.5) * amplitude * 2;
   const pts: Pt[] = [];
-  const cornerStarts: number[] = [];
 
-  const arc = (cx: number, cy: number, r: number, startAngle: number) => {
-    cornerStarts.push(pts.length);
-    for (const da of [0, 45, 90]) {
-      const a = ((startAngle + da) * Math.PI) / 180;
-      const rr = r + vary() * amplitude * 0.6;
-      pts.push({ x: cx + Math.cos(a) * rr, y: cy + Math.sin(a) * rr });
+  if (shape === 'circle') {
+    const steps = 16;
+    for (let i = 0; i < steps; i++) {
+      const a = (i / steps) * Math.PI * 2;
+      pts.push({ x: cx + (Math.cos(a) * w) / 2 + wob(), y: cy + (Math.sin(a) * h) / 2 + wob() });
     }
-  };
+  } else {
+    const r = Math.max(2, Math.min(radius, w / 2, h / 2));
+    const x = inset;
+    const y = inset;
+    // corners as small arcs, edges as a couple of jittered midpoints
+    const corner = (ccx: number, ccy: number, start: number) => {
+      for (const da of [0, 45, 90]) {
+        const a = ((start + da) * Math.PI) / 180;
+        pts.push({ x: ccx + Math.cos(a) * r + wob(), y: ccy + Math.sin(a) * r + wob() });
+      }
+    };
+    const edge = (x1: number, y1: number, x2: number, y2: number) => {
+      for (const t of [0.5]) {
+        pts.push({ x: x1 + (x2 - x1) * t + wob(), y: y1 + (y2 - y1) * t + wob() });
+      }
+    };
+    corner(x + r, y + r, 180);
+    edge(x + r, y, x + w - r, y);
+    corner(x + w - r, y + r, 270);
+    edge(x + w, y + r, x + w, y + h - r);
+    corner(x + w - r, y + h - r, 0);
+    edge(x + w - r, y + h, x + r, y + h);
+    corner(x + r, y + h - r, 90);
+    edge(x, y + h - r, x, y + r);
+  }
 
-  const edge = (x1: number, y1: number, x2: number, y2: number) => {
-    const len = Math.hypot(x2 - x1, y2 - y1);
-    const count = Math.max(1, Math.min(4, Math.round(len / 70)));
-    const nx = -(y2 - y1) / len;
-    const ny = (x2 - x1) / len;
-    for (let i = 1; i <= count; i++) {
-      const t = i / (count + 1);
-      const o = vary() * amplitude;
-      pts.push({ x: x1 + (x2 - x1) * t + nx * o, y: y1 + (y2 - y1) * t + ny * o });
-    }
-  };
-
-  arc(x + tl, y + tl, tl, 180); // top-left: 180° → 270°
-  edge(x + tl, y, x + w - tr, y); // top
-  arc(x + w - tr, y + tr, tr, 270); // top-right: 270° → 360°
-  edge(x + w, y + tr, x + w, y + h - br); // right
-  arc(x + w - br, y + h - br, br, 0); // bottom-right: 0° → 90°
-  edge(x + w - br, y + h, x + bl, y + h); // bottom
-  arc(x + bl, y + h - bl, bl, 90); // bottom-left: 90° → 180°
-  edge(x, y + h - bl, x, y + tl); // left
-
-  return { pts, cornerStarts };
+  return closedSpline(pts);
 }
 
-// Closed-loop Catmull-Rom → cubic Bézier. segs[i] runs pts[i] → pts[i+1].
-function catmullSegments(pts: Pt[]): Seg[] {
+function closedSpline(pts: Pt[]): string {
   const n = pts.length;
-  const segs: Seg[] = [];
+  if (n < 3) return '';
+  let d = `M ${pts[0].x.toFixed(2)} ${pts[0].y.toFixed(2)}`;
   for (let i = 0; i < n; i++) {
     const p0 = pts[(i - 1 + n) % n];
     const p1 = pts[i];
     const p2 = pts[(i + 1) % n];
     const p3 = pts[(i + 2) % n];
-    segs.push({
-      c1: { x: p1.x + (p2.x - p0.x) / 6, y: p1.y + (p2.y - p0.y) / 6 },
-      c2: { x: p2.x - (p3.x - p1.x) / 6, y: p2.y - (p3.y - p1.y) / 6 },
-      to: p2,
-    });
+    const c1x = p1.x + (p2.x - p0.x) / 6;
+    const c1y = p1.y + (p2.y - p0.y) / 6;
+    const c2x = p2.x - (p3.x - p1.x) / 6;
+    const c2y = p2.y - (p3.y - p1.y) / 6;
+    d += ` C ${c1x.toFixed(2)} ${c1y.toFixed(2)}, ${c2x.toFixed(2)} ${c2y.toFixed(2)}, ${p2.x.toFixed(2)} ${p2.y.toFixed(2)}`;
   }
-  return segs;
+  return `${d} Z`;
 }
 
-function fmt(p: Pt): string {
-  return `${p.x.toFixed(2)} ${p.y.toFixed(2)}`;
+// One continuous rounded-rectangle path with seeded per-corner radius jitter.
+function rectPath(size: Size, inset: number, radius: number, rng: () => number): string {
+  const radii = [0, 0, 0, 0].map(() => Math.max(2, radius + (rng() - 0.5) * 3)) as Radii;
+  return roundedRectPath(inset, inset, size.width - inset * 2, size.height - inset * 2, radii);
+}
+
+// Straight edges + quadratic corners, as one continuous path.
+function roundedRectPath(x: number, y: number, w: number, h: number, radii: Radii): string {
+  const clamp = (r: number) => Math.min(r, w / 2, h / 2);
+  const [tl, tr, br, bl] = radii.map(clamp) as Radii;
+  return [
+    `M ${fmt(x + tl)} ${fmt(y)}`,
+    `L ${fmt(x + w - tr)} ${fmt(y)}`,
+    `Q ${fmt(x + w)} ${fmt(y)} ${fmt(x + w)} ${fmt(y + tr)}`,
+    `L ${fmt(x + w)} ${fmt(y + h - br)}`,
+    `Q ${fmt(x + w)} ${fmt(y + h)} ${fmt(x + w - br)} ${fmt(y + h)}`,
+    `L ${fmt(x + bl)} ${fmt(y + h)}`,
+    `Q ${fmt(x)} ${fmt(y + h)} ${fmt(x)} ${fmt(y + h - bl)}`,
+    `L ${fmt(x)} ${fmt(y + tl)}`,
+    `Q ${fmt(x)} ${fmt(y)} ${fmt(x + tl)} ${fmt(y)}`,
+    'Z',
+  ].join(' ');
+}
+
+function fmt(n: number): string {
+  return n.toFixed(2);
 }

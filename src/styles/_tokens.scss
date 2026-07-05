@@ -152,6 +152,12 @@ $shadow-paper-sm: 0 1px 2px rgba(61, 53, 43, 0.08), 0 1px 1px rgba(61, 53, 43, 0
 $shadow-paper-md: 0 4px 6px rgba(61, 53, 43, 0.08), 0 2px 4px rgba(61, 53, 43, 0.06);
 $shadow-paper-lg: 0 10px 15px rgba(61, 53, 43, 0.1), 0 4px 6px rgba(61, 53, 43, 0.08);
 $shadow-pressed: inset 0 2px 4px rgba(61, 53, 43, 0.15);
+
+// filter: drop-shadow equivalents — for sketch-clipped surfaces, where these
+// hug the wobbly silhouette instead of the rectangular box-shadow border-box.
+$filter-shadow-sm: drop-shadow(0 1px 2px rgba(61, 53, 43, 0.09));
+$filter-shadow-md: drop-shadow(0 4px 6px rgba(61, 53, 43, 0.1)) drop-shadow(0 1px 2px rgba(61, 53, 43, 0.06));
+$filter-shadow-lg: drop-shadow(0 8px 14px rgba(61, 53, 43, 0.14));
 $shadow-ink-sm: 0 1px 2px rgba(26, 25, 23, 0.12);
 
 // Watercolor blob tokens
