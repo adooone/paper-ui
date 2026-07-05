@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import { Button } from '../../components/button';
-import { colorInkPrimary, fontFamilyDisplay } from '../lib/styles';
+import { colorInkPrimary, colorPaperSurface, fontFamilyDisplay } from '../lib/styles';
 
 export type Page = 'welcome' | 'gallery' | 'layout' | 'tokens' | 'docs';
 
@@ -20,8 +20,8 @@ const navItems: { id: Page; label: string }[] = [
 export const ShowcaseNav: FC<NavProps> = ({ currentPage, onPageChange }) => {
   return (
     <nav
-      className="sticky top-0 z-50 backdrop-blur-sm border-b border-ink-100"
-      style={{ backgroundColor: 'rgba(250, 248, 240, 0.95)' }}
+      className="sticky top-0 z-50 border-b border-ink-100"
+      style={{ backgroundColor: colorPaperSurface }}
     >
       <div className="max-w-7xl mx-auto px-6 sm:px-10">
         <div className="flex items-center justify-between h-20">
@@ -39,7 +39,7 @@ export const ShowcaseNav: FC<NavProps> = ({ currentPage, onPageChange }) => {
                 fontWeight: 600,
               }}
             >
-              Dendelion
+              Paper UI
             </span>
           </button>
 

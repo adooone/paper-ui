@@ -70,7 +70,7 @@ export const WelcomePage: FC<WelcomePageProps> = ({ onNavigate }) => {
                   fontWeight: 700,
                 }}
               >
-                Dendelion UI
+                Paper UI
               </h1>
 
               <p
