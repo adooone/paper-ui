@@ -4,7 +4,6 @@ import { Button } from '../../components/button';
 import { Checkbox } from '../../components/checkbox';
 import { CodeBlock } from '../../components/code-block';
 import { Layout, type LayoutBackground } from '../../components/layout';
-import { NavigationIsland } from '../../components/navigation-island';
 import { Page } from '../../components/page';
 import { Footer } from '../components/footer';
 import { TextureSwatches } from '../components/texture-swatches';
@@ -22,13 +21,6 @@ const navItems = [
   { id: 'dashboard', label: 'Dashboard', path: '/' },
   { id: 'plans', label: 'Plans', path: '/plans' },
   { id: 'settings', label: 'Settings', path: '/settings' },
-];
-
-const islandItems = [
-  { id: 'home', label: 'Home', icon: <HomeIcon /> },
-  { id: 'explore', label: 'Explore', icon: <CompassIcon /> },
-  { id: 'library', label: 'Library', icon: <BookIcon /> },
-  { id: 'profile', label: 'Profile', icon: <UserIcon /> },
 ];
 
 const pageContent = (
@@ -76,11 +68,9 @@ const pageContent = (
 export const LayoutPage: FC = () => {
   const [showSidebar, setShowSidebar] = useState(true);
   const [showPage, setShowPage] = useState(true);
-  const [showIsland, setShowIsland] = useState(true);
   const [showHeader, setShowHeader] = useState(false);
   const [showFooter, setShowFooter] = useState(false);
   const [activeNav, setActiveNav] = useState('dashboard');
-  const [activeIsland, setActiveIsland] = useState('home');
 
   const [layoutConfig, setLayoutConfig] = useState<TextureConfig>({
     texture: 'paper',
@@ -118,7 +108,6 @@ export const LayoutPage: FC = () => {
   navigationItems={[...]}
   activeItemId="${activeNav}"
   onNavigate={...}
-  navigationIsland={${showIsland ? '<NavigationIsland ... />' : 'undefined'}}
 >
   <Page style={{ /* texture styles */ }}>
     Content here
@@ -195,16 +184,6 @@ export const LayoutPage: FC = () => {
                       Action
                     </Button>
                   }
-                  navigationIsland={
-                    showIsland ? (
-                      <NavigationIsland
-                        items={islandItems}
-                        activeId={activeIsland}
-                        onSelect={setActiveIsland}
-                        position="top"
-                      />
-                    ) : undefined
-                  }
                 >
                   {showPage ? (
                     <Page
@@ -265,11 +244,6 @@ export const LayoutPage: FC = () => {
                 checked={showFooter}
                 onChange={(e) => setShowFooter(e.target.checked)}
               />
-              <Checkbox
-                label="Island"
-                checked={showIsland}
-                onChange={(e) => setShowIsland(e.target.checked)}
-              />
             </div>
 
             <div className="flex items-center gap-2">
@@ -303,160 +277,8 @@ export const LayoutPage: FC = () => {
       <div className="mb-16">
         <CodeBlock filename="Layout.tsx" code={code} />
       </div>
-
-      <div className="mb-16">
-        <h2
-          className="text-2xl font-bold mb-4"
-          style={{
-            fontFamily: fontFamilyDisplay,
-            color: colorInkPrimary,
-          }}
-        >
-          Navigation Island
-        </h2>
-        <p
-          className="mb-6"
-          style={{
-            fontFamily: fontFamilySerif,
-            color: colorInkSecondary,
-            fontSize: '1.25rem',
-          }}
-        >
-          A floating pill-style navigation bar. By default it anchors to the bottom of the viewport.
-          Set{' '}
-          <code
-            style={{
-              fontFamily: "'JetBrains Mono', monospace",
-              fontSize: '0.95em',
-              color: '#8FB996',
-            }}
-          >
-            position="top"
-          </code>{' '}
-          to pin it to the top of the viewport instead.
-        </p>
-        <div
-          className="p-10 rounded-2xl border flex flex-col items-center justify-center gap-8"
-          style={paperCardStyle}
-        >
-          {/* NavigationIsland uses position: fixed — the transform makes this
-              box its containing block so the preview stays bounded. */}
-          <div
-            className="relative w-full flex items-start justify-center overflow-hidden"
-            style={{ height: 100, transform: 'translateZ(0)' }}
-          >
-            <NavigationIsland
-              items={islandItems}
-              activeId={activeIsland}
-              onSelect={setActiveIsland}
-              position="top"
-            />
-          </div>
-          <p
-            style={{
-              fontFamily: fontFamilySerif,
-              color: colorInkSecondary,
-            }}
-          >
-            Paper-textured floating nav with ink shadows
-          </p>
-        </div>
-        <div className="mt-6">
-          <CodeBlock
-            filename="NavigationIsland.tsx"
-            code={`import { NavigationIsland } from '@dendelion/paper-ui';
-
-// Default: fixed to bottom of viewport
-<NavigationIsland
-  items={[...]}
-  activeId="home"
-  onSelect={(id) => navigate(id)}
-/>
-
-// Pinned to the top of the viewport instead
-<NavigationIsland
-  items={[...]}
-  activeId="home"
-  onSelect={(id) => navigate(id)}
-  position="top"
-/>`}
-          />
-        </div>
-      </div>
     </div>
   );
 };
-
-function HomeIcon() {
-  return (
-    <svg
-      width="18"
-      height="18"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-      <polyline points="9 22 9 12 15 12 15 22" />
-    </svg>
-  );
-}
-
-function CompassIcon() {
-  return (
-    <svg
-      width="18"
-      height="18"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <circle cx="12" cy="12" r="10" />
-      <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" />
-    </svg>
-  );
-}
-
-function BookIcon() {
-  return (
-    <svg
-      width="18"
-      height="18"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
-      <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
-    </svg>
-  );
-}
-
-function UserIcon() {
-  return (
-    <svg
-      width="18"
-      height="18"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-      <circle cx="12" cy="7" r="4" />
-    </svg>
-  );
-}
 
 export default LayoutPage;

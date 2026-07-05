@@ -15,7 +15,6 @@ import { Layout } from '../../components/layout';
 import { ListItem } from '../../components/list-item';
 import { Menu } from '../../components/menu';
 import { Modal } from '../../components/modal';
-import { NavigationIsland } from '../../components/navigation-island';
 import { Page } from '../../components/page';
 import { Progress } from '../../components/progress';
 import type { PropDef } from '../../components/prop-table';
@@ -500,7 +499,7 @@ const sectionDetails: SectionDetail[] = [
       {
         name: 'navigationIsland',
         type: 'ReactNode',
-        description: 'Floating element (typically a NavigationIsland) anchored to the layout',
+        description: 'Floating navigation element anchored to the layout',
       },
     ],
   },
@@ -660,51 +659,6 @@ const sectionDetails: SectionDetail[] = [
         type: 'ReactNode',
         required: true,
         description: 'Content to render inside the island',
-      },
-      {
-        name: 'surface',
-        type: "'paper' | 'chalkboard'",
-        default: "'paper'",
-        description: 'Visual style variant',
-      },
-    ],
-  },
-  {
-    id: 'navigation-island',
-    title: 'NavigationIsland',
-    codeExample: `import { NavigationIsland } from '@dendelion/paper-ui';
-
-<NavigationIsland
-  items={[
-    { id: 'dash', label: 'Dashboard', icon: <HomeIcon /> },
-    { id: 'plans', label: 'Plans', icon: <FolderIcon /> },
-  ]}
-  activeId={activeId}
-  onSelect={setActiveId}
-  position="bottom"
-/>`,
-    props: [
-      {
-        name: 'items',
-        type: 'NavigationIslandItem[]',
-        required: true,
-        description: 'Nav entries ({ id, label, icon? })',
-      },
-      {
-        name: 'activeId',
-        type: 'string',
-        description: 'Currently active item id',
-      },
-      {
-        name: 'onSelect',
-        type: '(id: string) => void',
-        description: 'Called when an item is clicked',
-      },
-      {
-        name: 'position',
-        type: "'top' | 'bottom'",
-        default: "'bottom'",
-        description: 'Fixed edge of the viewport to anchor to',
       },
       {
         name: 'surface',
@@ -1466,7 +1420,6 @@ export const ComponentsPage: FC<{
   const [chalkboardTheme, setChalkboardTheme] = useState(false);
   const [radioValue, setRadioValue] = useState('paper');
   const [switchOn, setSwitchOn] = useState(true);
-  const [navIslandActive, setNavIslandActive] = useState('dash');
   const [accordionOpen, setAccordionOpen] = useState(true);
 
   useEffect(() => {
@@ -2482,31 +2435,6 @@ export const ComponentsPage: FC<{
               >
                 Scroll down to see it with the Wobble and Theme controls.
               </p>
-            </div>
-          </ComponentSection>
-
-          <ComponentSection
-            id="navigation-island"
-            title="NavigationIsland"
-            description="Pill-style navigation bar with active-item highlighting. Typically passed to Layout's navigationIsland prop. Uses fixed positioning, so this preview is bounded to the box below via a CSS transform containing block."
-            category="navigation"
-            chalkboard={chalkboardTheme}
-            onViewDetails={() => handleViewDetails('navigation-island')}
-          >
-            <div
-              className="relative w-full flex items-end justify-center overflow-hidden"
-              style={{ height: 100, transform: 'translateZ(0)' }}
-            >
-              <NavigationIsland
-                items={[
-                  { id: 'dash', label: 'Dashboard', icon: <HeartIcon /> },
-                  { id: 'plans', label: 'Plans', icon: <FilterIcon /> },
-                  { id: 'settings', label: 'Settings', icon: <DownloadIcon /> },
-                ]}
-                activeId={navIslandActive}
-                onSelect={setNavIslandActive}
-                surface={chalkboardTheme ? 'chalkboard' : 'paper'}
-              />
             </div>
           </ComponentSection>
 

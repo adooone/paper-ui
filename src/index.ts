@@ -6,9 +6,6 @@ export type { LayoutProps, NavigationItem, LayoutBackground } from './components
 export { Island } from './components/island';
 export type { IslandProps } from './components/island';
 
-export { NavigationIsland } from './components/navigation-island';
-export type { NavigationIslandProps, NavigationIslandItem } from './components/navigation-island';
-
 export { Page } from './components/page';
 export type { PageProps } from './components/page';
 

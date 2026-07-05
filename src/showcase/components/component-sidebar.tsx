@@ -54,7 +54,6 @@ const componentGroups: ComponentGroup[] = [
     category: 'Navigation',
     items: [
       { id: 'island', title: 'Island' },
-      { id: 'navigation-island', title: 'NavigationIsland' },
       { id: 'tabs', title: 'Tabs' },
       { id: 'breadcrumb', title: 'Breadcrumb' },
       { id: 'pagination', title: 'Pagination' },
