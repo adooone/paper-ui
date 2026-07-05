@@ -53,8 +53,6 @@
 .item {
   width: 360px;
   max-width: 100%;
-  box-shadow: $shadow-paper-lg;
-  border-radius: $radius-md;
   animation: toastIn 200ms ease-out;
 }
 
@@ -75,34 +73,25 @@
   }
 }
 
+// The kraft fill lives on .surface (clipped to the sketchy silhouette); the
+// SketchBorder draws the hand-drawn outline; the shadow follows that shape.
 .card {
   position: relative;
   display: flex;
   align-items: flex-start;
   gap: $space-4;
   padding: $space-5 $space-6;
-  overflow: hidden;
-  @include organic-radius($radius-md, 3px);
+  color: $color-text-secondary;
+  filter: $filter-shadow-lg;
+  --sketch-stroke: rgba(61, 53, 43, 0.34);
+}
 
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  &::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 4px;
-    pointer-events: none;
-    z-index: 2;
-  }
+.surface {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  border-radius: $radius-md;
+  clip-path: var(--sketch-clip);
 }
 
 .iconWrapper {
@@ -165,66 +154,36 @@
   }
 }
 
+// Variant colour is carried by the icon plus a soft tint on the pencil
+// outline — no coloured fill wash or bar.
 .info {
-  color: $color-text-secondary;
-
-  &::before {
-    background: linear-gradient(135deg, rgba($color-accent-slate, 0.12) 0%, transparent 60%);
-  }
-
-  &::after {
-    background: $color-accent-slate;
-  }
+  --sketch-stroke: #{rgba($color-accent-slate, 0.45)};
 }
 
 .success {
-  color: $color-text-secondary;
-
-  &::before {
-    background: linear-gradient(135deg, rgba($color-accent-green, 0.14) 0%, transparent 60%);
-  }
-
-  &::after {
-    background: $color-accent-green;
-  }
+  --sketch-stroke: #{rgba($color-accent-green-dark, 0.42)};
 }
 
 .warning {
-  color: $color-text-secondary;
-
-  &::before {
-    background: linear-gradient(135deg, rgba($color-accent-amber, 0.14) 0%, transparent 60%);
-  }
-
-  &::after {
-    background: $color-accent-amber;
-  }
+  --sketch-stroke: #{rgba($color-accent-amber-dark, 0.45)};
 }
 
 .error {
   color: $color-accent-rose-dark;
-
-  &::before {
-    background: linear-gradient(135deg, rgba($color-accent-rose, 0.14) 0%, transparent 60%);
-  }
-
-  &::after {
-    background: $color-accent-rose;
-  }
+  --sketch-stroke: #{rgba($color-accent-rose-dark, 0.45)};
 }
 
 .chalkboard {
-  background-color: $color-chalkboard-surface;
-  background-image: url($chalkboard-texture-data-uri);
   color: $color-chalkboard-text;
+  filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.32));
+  // On the dark surface every variant collapses to one quiet chalk outline.
+  --sketch-stroke: #{rgba($chalkboard-border-base, 0.4)};
 
-  &::before {
-    background: linear-gradient(135deg, rgba($color-chalkboard-chalk, 0.08) 0%, transparent 60%);
-  }
-
-  &::after {
-    background: $color-chalkboard-chalk;
-    opacity: 0.4;
+  .surface {
+    background-color: $color-chalkboard-surface;
+    background-image: url($chalkboard-texture-data-uri);
+    background-repeat: repeat;
+    background-size: 200px 200px;
   }
 
   .dismiss {

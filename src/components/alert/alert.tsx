@@ -2,6 +2,7 @@ import type { ReactNode } from 'react';
 import { CloseIcon } from '../../utils/icons';
 import { cn } from '../../utils/style-helpers';
 import { type TextureProp, resolveTexture } from '../../utils/textures';
+import { SketchBorder } from '../sketch-border';
 import { AlertIcon } from './alert-icon';
 import styles from './alert.module.scss';
 
@@ -29,11 +30,12 @@ export function Alert({
   return (
     <div
       className={cn(styles.alert, styles[variant], isChalkboard && styles.chalkboard, className)}
-      style={isChalkboard ? undefined : resolveTexture(texture)}
       // Only genuinely urgent variants interrupt screen readers; info/success
       // announce politely.
       role={variant === 'warning' || variant === 'error' ? 'alert' : 'status'}
     >
+      <SketchBorder clip radius={8} inset={2} roughness={1.1} strokeWidth={1.2} />
+      <div className={styles.surface} style={isChalkboard ? undefined : resolveTexture(texture)} />
       <span className={styles.iconWrapper}>
         <AlertIcon variant={variant} />
       </span>
