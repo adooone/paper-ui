@@ -1,4 +1,5 @@
 import { cn } from '../../utils/style-helpers';
+import { SketchBorder } from '../sketch-border';
 import styles from './avatar.module.scss';
 
 export interface AvatarProps {
@@ -53,11 +54,23 @@ export function Avatar({
       role={src ? undefined : 'img'}
       aria-label={src ? undefined : alt || name || undefined}
     >
-      {src ? (
-        <img className={styles.image} src={src} alt={alt ?? name} />
-      ) : (
-        <span aria-hidden="true">{initials}</span>
-      )}
+      <SketchBorder
+        smooth
+        clip
+        shape={shape === 'circle' ? 'circle' : 'rect'}
+        radius={6}
+        inset={2}
+        roughness={0.5}
+        bowing={0.6}
+        strokeWidth={1.2}
+      />
+      <span className={styles.surface}>
+        {src ? (
+          <img className={styles.image} src={src} alt={alt ?? name} />
+        ) : (
+          <span aria-hidden="true">{initials}</span>
+        )}
+      </span>
     </span>
   );
 }

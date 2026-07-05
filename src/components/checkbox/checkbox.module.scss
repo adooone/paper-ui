@@ -39,7 +39,7 @@
 
   &:checked ~ .box,
   &:indeterminate ~ .box {
-    border-color: $color-text-primary;
+    --sketch-stroke: rgba(61, 53, 43, 0.7);
 
     .checkmark {
       stroke-dashoffset: 0;
@@ -91,15 +91,15 @@
   width: 24px;
   height: 24px;
   background-color: transparent;
-  border: 2px solid $color-text-secondary;
-  border-radius: 5px 4px 6px 5px;
-  transition: all 200ms ease-out;
   position: relative;
   z-index: 1;
+  // Only shapes the dotted focus outline (the box border is the sketch SVG).
+  border-radius: 6px;
+  // Hand-drawn outline is a SketchBorder child; tint it via --sketch-stroke.
+  --sketch-stroke: rgba(61, 53, 43, 0.42);
 
   &:hover {
-    border-color: $color-text-primary;
-    box-shadow: $shadow-ink-sm;
+    --sketch-stroke: rgba(61, 53, 43, 0.6);
   }
 }
 
@@ -135,10 +135,10 @@
   }
 
   .box {
-    border-color: rgba($chalkboard-border-base, 0.3);
+    --sketch-stroke: #{rgba($chalkboard-border-base, 0.5)};
 
     &:hover {
-      border-color: $color-chalkboard-chalk;
+      --sketch-stroke: #{$color-chalkboard-chalk};
     }
   }
 
@@ -156,6 +156,6 @@
 
   .input:checked ~ .box,
   .input:indeterminate ~ .box {
-    border-color: $color-chalkboard-chalk;
+    --sketch-stroke: #{$color-chalkboard-chalk};
   }
 }

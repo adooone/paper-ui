@@ -1,29 +1,42 @@
 @use '../../styles/tokens' as *;
 @use '../../styles/mixins' as *;
 
+// The fill lives on .surface (clipped to the sketchy silhouette); the
+// SketchBorder draws the hand-drawn outline. --avatar-fill tints the surface.
 .avatar {
   position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  overflow: hidden;
   font-family: var(--paper-font-default, $font-family-serif);
   font-weight: $font-weight-semibold;
   color: $color-text-primary;
-  border: 1px solid $color-border-medium;
-  background-color: $color-bg-elevated;
+  user-select: none;
+  --avatar-fill: #{$color-bg-elevated};
+  --sketch-stroke: #{$color-border-strong};
+}
+
+.surface {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: var(--avatar-fill);
   background-image: url($paper-texture-data-uri);
   background-repeat: repeat;
   background-size: 200px 200px;
-  user-select: none;
+  clip-path: var(--sketch-clip);
 }
 
-.circle {
+.circle .surface {
   border-radius: 50%;
 }
 
-.square {
+.square .surface {
   @include organic-radius($radius-sm, 2px);
 }
 
@@ -58,33 +71,36 @@
 }
 
 .blue {
-  background-color: rgba($color-accent-blue, 0.18);
+  --avatar-fill: #{rgba($color-accent-blue, 0.18)};
   color: $color-accent-blue-dark;
 }
 
 .green {
-  background-color: rgba($color-accent-green, 0.2);
+  --avatar-fill: #{rgba($color-accent-green, 0.2)};
   color: $color-accent-green-dark;
 }
 
 .amber {
-  background-color: rgba($color-accent-amber, 0.2);
+  --avatar-fill: #{rgba($color-accent-amber, 0.2)};
   color: $color-accent-amber-dark;
 }
 
 .rose {
-  background-color: rgba($color-accent-rose, 0.2);
+  --avatar-fill: #{rgba($color-accent-rose, 0.2)};
   color: $color-accent-rose-dark;
 }
 
 .slate {
-  background-color: rgba($color-accent-slate, 0.18);
+  --avatar-fill: #{rgba($color-accent-slate, 0.18)};
   color: $color-accent-slate-dark;
 }
 
 .chalkboard {
-  border-color: $color-chalkboard-border;
-  background-image: none;
-  background-color: rgba($color-chalkboard-chalk, 0.08);
   color: $color-chalkboard-chalk;
+  --avatar-fill: #{rgba($color-chalkboard-chalk, 0.08)};
+  --sketch-stroke: #{rgba($chalkboard-border-base, 0.4)};
+
+  .surface {
+    background-image: none;
+  }
 }

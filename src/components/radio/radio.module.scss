@@ -45,7 +45,7 @@
   }
 
   &:checked ~ .box {
-    border-color: $color-text-primary;
+    --sketch-stroke: rgba(61, 53, 43, 0.7);
 
     .dot {
       transform: scale(1);
@@ -88,15 +88,15 @@
   width: 24px;
   height: 24px;
   background-color: transparent;
-  border: 2px solid $color-text-secondary;
-  border-radius: 50%;
-  transition: all 200ms ease-out;
   position: relative;
   z-index: 1;
+  // Circle, so the dotted focus outline follows the shape (border is the SVG).
+  border-radius: 50%;
+  // Hand-drawn circle is a SketchBorder child; tint it via --sketch-stroke.
+  --sketch-stroke: rgba(61, 53, 43, 0.42);
 
   &:hover {
-    border-color: $color-text-primary;
-    box-shadow: $shadow-ink-sm;
+    --sketch-stroke: rgba(61, 53, 43, 0.6);
   }
 }
 
@@ -123,10 +123,10 @@
   }
 
   .box {
-    border-color: rgba($chalkboard-border-base, 0.3);
+    --sketch-stroke: #{rgba($chalkboard-border-base, 0.5)};
 
     &:hover {
-      border-color: $color-chalkboard-chalk;
+      --sketch-stroke: #{$color-chalkboard-chalk};
     }
   }
 
@@ -143,6 +143,6 @@
   }
 
   .input:checked ~ .box {
-    border-color: $color-chalkboard-chalk;
+    --sketch-stroke: #{$color-chalkboard-chalk};
   }
 }

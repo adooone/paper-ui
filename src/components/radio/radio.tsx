@@ -2,6 +2,7 @@ import { forwardRef, useId } from 'react';
 import type { InputHTMLAttributes } from 'react';
 import { useBlobPaths } from '../../hooks/use-blob-paths';
 import { cn } from '../../utils/style-helpers';
+import { SketchBorder } from '../sketch-border';
 import styles from './radio.module.scss';
 
 export interface RadioProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'size'> {
@@ -58,6 +59,14 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(function Radio(
           <path d={paths.blob} className={styles.blobFill} />
         </svg>
         <span className={styles.box} aria-hidden="true">
+          <SketchBorder
+            smooth
+            shape="circle"
+            inset={2}
+            roughness={0.5}
+            bowing={0.6}
+            strokeWidth={1.4}
+          />
           <span className={styles.dot} />
         </span>
       </span>

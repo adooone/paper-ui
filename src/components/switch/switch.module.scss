@@ -30,7 +30,7 @@
 
   &:checked ~ .track {
     background-color: $color-accent-green;
-    border-color: $color-accent-green-dark;
+    --sketch-stroke: #{$color-accent-green-dark};
 
     .thumb {
       transform: translateX(var(--switch-travel));
@@ -49,12 +49,13 @@
   flex-shrink: 0;
   box-sizing: border-box;
   border-radius: $radius-full;
-  border: 1px solid $color-border-strong;
   background-color: $color-surface-overlay;
   background-image: url($paper-texture-data-uri);
   background-repeat: repeat;
   background-size: 200px 200px;
-  transition: background-color 200ms ease, border-color 200ms ease;
+  transition: background-color 200ms ease;
+  // Hand-drawn pill outline is a SketchBorder child.
+  --sketch-stroke: #{$color-border-strong};
 }
 
 // Hand-drawn ink pebble on a paper disc.
@@ -119,7 +120,7 @@
 .chalkboard {
   .track {
     background: $chalkboard-border-08;
-    border-color: $chalkboard-border-25;
+    --sketch-stroke: #{$chalkboard-border-25};
   }
 
   .thumb {
@@ -132,7 +133,7 @@
 
   .input:checked ~ .track {
     background: $color-chalkboard-toggle-active;
-    border-color: $color-chalkboard-accent;
+    --sketch-stroke: #{$color-chalkboard-accent};
 
     .thumb {
       background: $color-chalkboard-chalk;
