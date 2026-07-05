@@ -1,5 +1,55 @@
 # Changelog
 
+## [0.6.0](https://github.com/adooone/paper-ui/compare/v0.5.0...v0.6.0) (2026-07-05)
+
+
+### ⚠ BREAKING CHANGES
+
+* NavigationIsland and its export are removed — use Island instead. Layout's `navigationIsland` ReactNode prop is unchanged.
+
+### Features
+
+* **brand:** replace logo/favicon with a hand-drawn wobble blob ([b422ceb](https://github.com/adooone/paper-ui/commit/b422ceb75754622719f977a2f06addf8da5bf77a))
+* **components:** forward refs on all interactive controls ([d561f50](https://github.com/adooone/paper-ui/commit/d561f50db2228ba064c1812f46536da501483668))
+* **controls:** hand-drawn outlines on checkbox, radio, switch, avatar ([c0c18e9](https://github.com/adooone/paper-ui/commit/c0c18e95409681023a3783a138f5254082b768da))
+* **layout:** configurable header height and texture ([7f706f4](https://github.com/adooone/paper-ui/commit/7f706f4c85de4d0121b54019f9e6af110353cef2))
+* **showcase:** hash routing for pages ([0fa56ae](https://github.com/adooone/paper-ui/commit/0fa56aef2a8500e1cc459081fef956fb6a0db73f))
+* **sketch:** hand-sketched outlines for Input, Textarea and Select ([40c25c9](https://github.com/adooone/paper-ui/commit/40c25c94cab990644e449314a0221819cf0c5c0e))
+* **sketch:** rework SketchBorder engine (fill/clip/smooth modes) ([4e552ce](https://github.com/adooone/paper-ui/commit/4e552ce9d90e6b4d181dc867d6c7817b1769eabf))
+* **sketch:** rough.js hand-sketched outlines for Card and blob rings ([583f833](https://github.com/adooone/paper-ui/commit/583f8332b4d4f8ef65d3f725d7d57c707842b733))
+* **tabs:** uncontrolled mode and the full ARIA tabs pattern ([1e59b64](https://github.com/adooone/paper-ui/commit/1e59b6418b2419026305c2a650598575ebde558c))
+* **tokens:** export the color palette to TS and end hex duplication ([84701fa](https://github.com/adooone/paper-ui/commit/84701fa3b9f81e83fc818d82c96f0a901843608f))
+
+
+### Bug Fixes
+
+* **components:** close form-integration gaps in Select, Checkbox and Table ([2bde667](https://github.com/adooone/paper-ui/commit/2bde6670735c8a4fd7f3e99624ebf24126e0f5d1))
+* **hooks:** derive blob and rough.js seeds from useId instead of Math.random ([588776f](https://github.com/adooone/paper-ui/commit/588776f7224fd69a74d1287ada431848dd0a1e2d))
+* **select:** popover z-index tier, close on scroll-out, close on Tab ([38da8bb](https://github.com/adooone/paper-ui/commit/38da8bb51d2bcc641cb6905fc74845dba818c0c3))
+* **showcase:** sidebar scroll fallback, island containment, live footer version ([a6e02df](https://github.com/adooone/paper-ui/commit/a6e02dff55378998aa2a1e160bba9233c03fdb17))
+* **sketch:** one continuous spline outline — truly single line, round corners ([18df867](https://github.com/adooone/paper-ui/commit/18df8674b56c2dbce1d2901d54314766cbb74eff))
+* **sketch:** segment-based outlines — smoother corners, single-line strokes, dual-tone ([f4ee548](https://github.com/adooone/paper-ui/commit/f4ee5481ea43f6d6948535989aa82c5cae09802f))
+* **styles:** interpolate SCSS vars inside CSS custom properties ([b07d73d](https://github.com/adooone/paper-ui/commit/b07d73d22fc79371b700b83b89e3e0628ee8de0a))
+* **tooltip:** clamp position into the viewport ([6e42c99](https://github.com/adooone/paper-ui/commit/6e42c9971b56a5bc3ed28f6f94345ffa42dc2305))
+
+
+### Code Refactoring
+
+* **components:** draw surfaces & fields with SketchBorder ([c0d34e6](https://github.com/adooone/paper-ui/commit/c0d34e603e81a29a39cfb6685e8706e38b799bd1))
+* remove NavigationIsland component ([c47f0cd](https://github.com/adooone/paper-ui/commit/c47f0cd9b85395a4c982fee407e873a99281a2b6))
+* **showcase:** rename to "Paper UI"; opaque nav header ([091fc42](https://github.com/adooone/paper-ui/commit/091fc42f141d535013f9b73b641b2cdd291c6a37))
+* **styles:** single chalkboard border base; fix(a11y): polite info toasts; chevron icons ([531a0a0](https://github.com/adooone/paper-ui/commit/531a0a097c27bfd64e28fef5cd67eeb8166f8d28))
+* **toast,alert:** sketchy cards, drop colour gradient and left bar ([3dbadef](https://github.com/adooone/paper-ui/commit/3dbadef9b299c66100ac36642482c42b85e64760))
+
+
+### Documentation
+
+* **paperplan:** record audit batches 9-13 ([d43f466](https://github.com/adooone/paper-ui/commit/d43f466af7af4a2edfd54b2f42f36998ef351f3a))
+* **paperplan:** record Progress height fix and new logo/favicon ([3ef75de](https://github.com/adooone/paper-ui/commit/3ef75de1567e498833d42681d6139556292fbde1))
+* **paperplan:** record sketch outline v2 fixes ([74b1c69](https://github.com/adooone/paper-ui/commit/74b1c690c32effe0730a6e12728ffa33742e308c))
+* **paperplan:** record sketch outline v3 (single-spline rewrite) ([faa2241](https://github.com/adooone/paper-ui/commit/faa2241878b300fe25944d003d365f1e60f23080))
+* **paperplan:** record sketch-outline system ([054d04c](https://github.com/adooone/paper-ui/commit/054d04cc8ea0c75bf3fd9c721e5ea6013948bf12))
+
 ## [0.5.0](https://github.com/adooone/paper-ui/compare/v0.4.0...v0.5.0) (2026-07-01)
 
 
