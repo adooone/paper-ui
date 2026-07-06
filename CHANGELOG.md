@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.6.1](https://github.com/adooone/paper-ui/compare/v0.6.0...v0.6.1) (2026-07-06)
+
+
+### Bug Fixes
+
+* **card:** stretch texture layer to full card height ([4bd6dd1](https://github.com/adooone/paper-ui/commit/4bd6dd1acb3e97a6fcb8bee616441e4dceaad559))
+* **sketch:** centripetal spline to remove corner spikes ([928653c](https://github.com/adooone/paper-ui/commit/928653cdd86aa4e7291dd5919c7d80a285fbdc99))
+
 ## [0.6.0](https://github.com/adooone/paper-ui/compare/v0.5.0...v0.6.0) (2026-07-05)
 
 
