@@ -305,24 +305,48 @@ function silhouettePath(
     edge(x + w - r, y + h, x + r, y + h);
     corner(x + r, y + h - r, 90);
     edge(x, y + h - r, x, y + r);
+
+    // Start the closed path at the middle of the top edge, not the top-left
+    // corner. The M/Z seam — where the first and last curve segments meet and
+    // rough.js's independent jitter can make them cross into a little spur —
+    // then lands on a straight run where it's invisible, instead of poking out
+    // of a corner. (3 corner-arc points precede the top-edge midpoint.)
+    const seam = 3;
+    return closedSpline([...pts.slice(seam), ...pts.slice(0, seam)]);
   }
 
   return closedSpline(pts);
 }
 
+// Closed centripetal (alpha=0.5) Catmull-Rom spline. Centripetal — not the
+// simpler uniform (p2-p0)/6 — because the sample points are very unevenly
+// spaced: three points bunched within the corner radius, then an edge midpoint
+// half the side away. Uniform Catmull-Rom overshoots wildly at that jump and
+// throws a spike out past the corner; centripetal parameterisation scales each
+// tangent by the actual point distances, so tight corners stay tucked in and
+// never cusp or self-intersect.
 function closedSpline(pts: Pt[]): string {
   const n = pts.length;
   if (n < 3) return '';
+  const knot = (a: Pt, b: Pt) => Math.max(1e-3, Math.hypot(b.x - a.x, b.y - a.y) ** 0.5);
   let d = `M ${pts[0].x.toFixed(2)} ${pts[0].y.toFixed(2)}`;
   for (let i = 0; i < n; i++) {
     const p0 = pts[(i - 1 + n) % n];
     const p1 = pts[i];
     const p2 = pts[(i + 1) % n];
     const p3 = pts[(i + 2) % n];
-    const c1x = p1.x + (p2.x - p0.x) / 6;
-    const c1y = p1.y + (p2.y - p0.y) / 6;
-    const c2x = p2.x - (p3.x - p1.x) / 6;
-    const c2y = p2.y - (p3.y - p1.y) / 6;
+    const t01 = knot(p0, p1);
+    const t12 = knot(p1, p2);
+    const t23 = knot(p2, p3);
+    // Non-uniform Catmull-Rom tangents at p1 (m1) and p2 (m2).
+    const m1x = p2.x - p1.x + t12 * ((p1.x - p0.x) / t01 - (p2.x - p0.x) / (t01 + t12));
+    const m1y = p2.y - p1.y + t12 * ((p1.y - p0.y) / t01 - (p2.y - p0.y) / (t01 + t12));
+    const m2x = p2.x - p1.x + t12 * ((p3.x - p2.x) / t23 - (p3.x - p1.x) / (t12 + t23));
+    const m2y = p2.y - p1.y + t12 * ((p3.y - p2.y) / t23 - (p3.y - p1.y) / (t12 + t23));
+    const c1x = p1.x + m1x / 3;
+    const c1y = p1.y + m1y / 3;
+    const c2x = p2.x - m2x / 3;
+    const c2y = p2.y - m2y / 3;
     d += ` C ${c1x.toFixed(2)} ${c1y.toFixed(2)}, ${c2x.toFixed(2)} ${c2y.toFixed(2)}, ${p2.x.toFixed(2)} ${p2.y.toFixed(2)}`;
   }
   return `${d} Z`;
