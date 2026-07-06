@@ -3,6 +3,12 @@
 
 .borderLayer {
   position: relative;
+  // Flex column so .textureLayer stretches to the full card height when the
+  // card is taller than its content (e.g. an equal-height grid/flex row);
+  // otherwise the sketch outline is drawn full-height but the texture stops
+  // at content height, leaving a bare band at the bottom.
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
   @include organic-radius($radius-md, 3px);
   // The fill lives on .textureLayer (so its texture is kept) and is clipped to
@@ -23,6 +29,9 @@
 .textureLayer {
   position: relative;
   z-index: 1;
+  // Fill the (possibly stretched) border layer so the texture reaches the
+  // sketchy bottom edge instead of stopping at content height.
+  flex: 1 1 auto;
   padding: $space-8;
   font-size: $font-size-md;
   line-height: $line-height-grid;
