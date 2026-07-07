@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.7.1](https://github.com/adooone/paper-ui/compare/v0.7.0...v0.7.1) (2026-07-07)
+
+
+### Bug Fixes
+
+* **page:** apply consumer style to the frame so page box is overridable ([7b2b742](https://github.com/adooone/paper-ui/commit/7b2b7428cedffc2099cbd625dda0345ae72c6128))
+* **page:** apply consumer style to the frame so page box is overridable ([61276f8](https://github.com/adooone/paper-ui/commit/61276f8f20d440553045a88b0604d2cfb7499733))
+* **sketch:** straighten surface outlines (roughness 1.2 → 0.5) ([9c9e433](https://github.com/adooone/paper-ui/commit/9c9e4335710ba94312cf01b9ac789d7beca70809))
+
 ## [0.7.0](https://github.com/adooone/paper-ui/compare/v0.6.1...v0.7.0) (2026-07-07)
 
 
