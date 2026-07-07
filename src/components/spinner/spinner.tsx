@@ -1,4 +1,4 @@
-import { useId } from 'react';
+import { roughGenerator } from '../../utils/rough';
 import { cn } from '../../utils/style-helpers';
 import styles from './spinner.module.scss';
 
@@ -12,6 +12,24 @@ export interface SpinnerProps {
 
 const sizeMap = { small: 18, medium: 28, large: 40 };
 
+const CENTER = 25;
+const RADIUS = 18;
+
+// One continuous hand-drawn circle (single stroke so it takes a clean dash),
+// computed from a fixed seed at module load: deterministic, SSR-safe, and
+// shared across every instance. The track and the travelling head reuse it, so
+// the moving arc follows the exact wobbly contour.
+const circlePath = roughGenerator
+  .toPaths(
+    roughGenerator.circle(CENTER, CENTER, RADIUS * 2, {
+      seed: 7,
+      roughness: 1.15,
+      disableMultiStroke: true,
+    }),
+  )
+  .map((p) => p.d)
+  .join(' ');
+
 export function Spinner({
   size = 'medium',
   color,
@@ -20,7 +38,6 @@ export function Spinner({
   className,
 }: SpinnerProps) {
   const px = sizeMap[size];
-  const gradId = `spinner-${useId().replace(/:/g, '')}`;
 
   return (
     <span
@@ -36,24 +53,19 @@ export function Spinner({
         style={color ? { color } : undefined}
         aria-hidden="true"
       >
-        <defs>
-          {/* ink brush stroke — fades from faint to solid, tintable via `color` */}
-          <linearGradient id={gradId} x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="currentColor" stopOpacity="0.1" />
-            <stop offset="100%" stopColor="currentColor" stopOpacity="1" />
-          </linearGradient>
-        </defs>
-        <circle className={styles.track} cx="25" cy="25" r="20" fill="none" strokeWidth="6" />
-        <circle
-          className={styles.head}
-          cx="25"
-          cy="25"
-          r="20"
+        <path
+          className={styles.track}
+          d={circlePath}
           fill="none"
-          strokeWidth="6"
+          pathLength={100}
           strokeLinecap="round"
-          stroke={`url(#${gradId})`}
-          pathLength="100"
+        />
+        <path
+          className={styles.head}
+          d={circlePath}
+          fill="none"
+          pathLength={100}
+          strokeLinecap="round"
         />
       </svg>
     </span>
