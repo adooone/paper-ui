@@ -1,21 +1,41 @@
 @use '../../styles/tokens' as *;
+@use '../../styles/mixins' as *;
 
+// Frame — mirrors Card: holds the SketchBorder outline + the elevation, and
+// never scrolls. drop-shadow (not box-shadow) so the shadow hugs the clipped
+// sketchy silhouette rather than a rectangular border-box.
 .page {
   position: relative;
-  background-color: $color-bg-base;
+  display: flex;
+  flex-direction: column;
   height: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  filter: $filter-shadow-md;
+  // Outline hidden by default (the shape still comes from the clip); the
+  // `outline` prop turns the pencil line on.
+  --sketch-stroke: transparent;
+}
+
+.outlined {
+  --sketch-stroke: rgba(61, 53, 43, 0.32);
+}
+
+// Inner surface — carries the texture + content, clipped to the sketchy
+// silhouette, and scrolls independently so the outline stays pinned to the
+// frame instead of scrolling with the content.
+.surface {
+  position: relative;
+  z-index: 1;
+  flex: 1 1 auto;
+  min-height: 0;
   overflow-y: auto;
   padding: $space-8;
   font-size: $font-size-md;
   line-height: $line-height-grid;
-  max-width: 800px;
-  margin: 0 auto;
-  border-radius: $radius-md;
-  box-shadow: $shadow-paper-md;
-
-  &.roundedTop {
-    border-radius: $radius-md $radius-md 0 0;
-  }
+  background-color: $color-bg-base;
+  @include organic-radius($radius-md, 3px);
+  clip-path: var(--sketch-clip);
 
   > * + * {
     margin-top: $space-8;
@@ -26,27 +46,22 @@
   }
 }
 
-.withAccent {
-  overflow: hidden;
-
-  &::before {
-    content: '';
-    position: absolute;
-    width: 300px;
-    height: 300px;
-    border-radius: 50%;
-    top: -80px;
-    right: -80px;
-    filter: blur($watercolor-blur-lg);
-    mix-blend-mode: multiply;
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.08;
-  }
+// Soft watercolor accent bloom in the top-right, clipped to the page shape so
+// it can't spill past the silhouette (no overflow:hidden needed, which would
+// clip the outline).
+.withAccent::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  clip-path: var(--sketch-clip);
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  opacity: 0.08;
 }
 
-.accentBlue::before { background: radial-gradient(circle, $color-accent-blue-light 0%, transparent 70%); }
-.accentGreen::before { background: radial-gradient(circle, $color-accent-green-light 0%, transparent 70%); }
-.accentAmber::before { background: radial-gradient(circle, $color-accent-amber-light 0%, transparent 70%); }
-.accentRose::before { background: radial-gradient(circle, $color-accent-rose-light 0%, transparent 70%); }
-.accentSlate::before { background: radial-gradient(circle, $color-accent-slate-light 0%, transparent 70%); }
+.accentBlue::before { background: radial-gradient(300px 300px at calc(100% + 80px) -80px, $color-accent-blue-light 0%, transparent 70%); }
+.accentGreen::before { background: radial-gradient(300px 300px at calc(100% + 80px) -80px, $color-accent-green-light 0%, transparent 70%); }
+.accentAmber::before { background: radial-gradient(300px 300px at calc(100% + 80px) -80px, $color-accent-amber-light 0%, transparent 70%); }
+.accentRose::before { background: radial-gradient(300px 300px at calc(100% + 80px) -80px, $color-accent-rose-light 0%, transparent 70%); }
+.accentSlate::before { background: radial-gradient(300px 300px at calc(100% + 80px) -80px, $color-accent-slate-light 0%, transparent 70%); }
