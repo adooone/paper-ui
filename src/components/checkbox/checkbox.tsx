@@ -2,7 +2,7 @@ import { forwardRef, useEffect, useId, useRef } from 'react';
 import type { InputHTMLAttributes } from 'react';
 import { useBlobPaths } from '../../hooks/use-blob-paths';
 import { cn } from '../../utils/style-helpers';
-import { SketchBorder } from '../sketch-border';
+import { SketchBorder, sketchOutline } from '../sketch-border';
 import styles from './checkbox.module.scss';
 
 export interface CheckboxProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> {
@@ -75,14 +75,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Che
           <path d={paths.blob} className={styles.blobFill} />
         </svg>
         <span className={styles.box} aria-hidden="true">
-          <SketchBorder
-            smooth
-            radius={5}
-            inset={2}
-            roughness={0.5}
-            bowing={0.6}
-            strokeWidth={1.4}
-          />
+          <SketchBorder smooth {...sketchOutline.control} />
           {indeterminate ? (
             <svg viewBox="0 0 20 20" fill="none" className={styles.icon}>
               <line

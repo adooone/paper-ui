@@ -3,7 +3,7 @@ import type { CSSProperties, KeyboardEvent, MouseEvent, ReactNode } from 'react'
 import { createPortal } from 'react-dom';
 import { cn } from '../../utils/style-helpers';
 import { type TextureProp, resolveTexture } from '../../utils/textures';
-import { SketchBorder } from '../sketch-border';
+import { SketchBorder, sketchOutline } from '../sketch-border';
 import styles from './select.module.scss';
 
 export interface SelectOption {
@@ -272,7 +272,7 @@ export function Select({
           {displayLabel}
         </span>
         <ChevronIcon className={cn(styles.chevron, isOpen && styles.chevronOpen)} />
-        <SketchBorder fill radius={8} inset={2} roughness={1.1} strokeWidth={1.3} />
+        <SketchBorder fill {...sketchOutline.field} />
       </button>
 
       {isOpen &&
@@ -299,7 +299,7 @@ export function Select({
               }
             }}
           >
-            <SketchBorder fill radius={12} inset={2.5} roughness={1.2} strokeWidth={1.3} />
+            <SketchBorder fill {...sketchOutline.surface} />
             <div className={styles.options}>
               {options.map((opt, idx) => (
                 // biome-ignore lint/a11y/useKeyWithClickEvents: keyboard selection is handled on the combobox trigger (arrow keys + Enter) via aria-activedescendant; options are pointer targets only.

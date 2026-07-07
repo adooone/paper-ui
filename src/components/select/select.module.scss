@@ -49,10 +49,10 @@
   border-radius: $radius-sm;
 
   --sketch-fill: rgba(61, 53, 43, 0.05);
-  --sketch-stroke: rgba(61, 53, 43, 0.32);
+  --sketch-stroke: #{$color-sketch-stroke};
 
   &:hover:not(:disabled) {
-    --sketch-stroke: rgba(61, 53, 43, 0.42);
+    --sketch-stroke: #{$color-sketch-stroke-strong};
   }
 
   &.open {
@@ -67,7 +67,7 @@
     opacity: 0.55;
     cursor: not-allowed;
     --sketch-fill: rgba(61, 53, 43, 0.03);
-    --sketch-stroke: rgba(61, 53, 43, 0.15);
+    --sketch-stroke: #{$color-sketch-stroke-muted};
   }
 }
 
@@ -136,7 +136,7 @@
   z-index: $z-popover;
 
   --sketch-fill: #{$color-bg-elevated};
-  --sketch-stroke: rgba(61, 53, 43, 0.32);
+  --sketch-stroke: #{$color-sketch-stroke};
   filter: drop-shadow(0 8px 14px rgba(61, 53, 43, 0.12));
 
   animation: slideDown 180ms ease-out;

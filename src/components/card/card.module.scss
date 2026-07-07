@@ -13,7 +13,7 @@
   @include organic-radius($radius-md, 3px);
   // The fill lives on .textureLayer (so its texture is kept) and is clipped to
   // the sketchy silhouette; SketchBorder draws the outline + publishes the clip.
-  --sketch-stroke: rgba(61, 53, 43, 0.32);
+  --sketch-stroke: #{$color-sketch-stroke};
 }
 
 // drop-shadow (not box-shadow) so the shadow follows the clipped sketchy

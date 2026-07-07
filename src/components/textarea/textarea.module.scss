@@ -26,10 +26,10 @@
   // Only shapes the dotted focus outline (the fill/border are the sketch SVG).
   border-radius: $radius-sm;
   --sketch-fill: rgba(61, 53, 43, 0.05);
-  --sketch-stroke: rgba(61, 53, 43, 0.32);
+  --sketch-stroke: #{$color-sketch-stroke};
 
   &:hover {
-    --sketch-stroke: rgba(61, 53, 43, 0.42);
+    --sketch-stroke: #{$color-sketch-stroke-strong};
   }
 
   &:focus-within {
@@ -119,14 +119,14 @@
 .disabled {
   opacity: 0.55;
   --sketch-fill: rgba(61, 53, 43, 0.03);
-  --sketch-stroke: rgba(61, 53, 43, 0.15);
+  --sketch-stroke: #{$color-sketch-stroke-muted};
 
   .textarea {
     cursor: not-allowed;
   }
 
   &:hover {
-    --sketch-stroke: rgba(61, 53, 43, 0.15);
+    --sketch-stroke: #{$color-sketch-stroke-muted};
   }
 }
 

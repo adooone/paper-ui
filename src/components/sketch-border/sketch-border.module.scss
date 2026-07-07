@@ -17,7 +17,7 @@
 
 .stroke {
   fill: none;
-  stroke: var(--sketch-stroke, #{rgba(61, 53, 43, 0.3)});
+  stroke: var(--sketch-stroke, var(--pui-sketch-stroke, #{$color-sketch-stroke}));
   stroke-linecap: round;
   stroke-linejoin: round;
   transition: stroke $transition-fast;

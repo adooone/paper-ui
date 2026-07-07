@@ -1,5 +1,5 @@
 import { cn } from '../../utils/style-helpers';
-import { SketchBorder } from '../sketch-border';
+import { SketchBorder, sketchOutline } from '../sketch-border';
 import styles from './avatar.module.scss';
 
 export interface AvatarProps {
@@ -58,11 +58,7 @@ export function Avatar({
         smooth
         clip
         shape={shape === 'circle' ? 'circle' : 'rect'}
-        radius={6}
-        inset={2}
-        roughness={0.5}
-        bowing={0.6}
-        strokeWidth={1.2}
+        {...sketchOutline.control}
       />
       <span className={styles.surface}>
         {src ? (

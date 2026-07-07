@@ -4,7 +4,7 @@ import { CloseIcon } from '../../utils/icons';
 import { cn } from '../../utils/style-helpers';
 import { resolveTexture } from '../../utils/textures';
 import { AlertIcon } from '../alert/alert-icon';
-import { SketchBorder } from '../sketch-border';
+import { SketchBorder, sketchOutline } from '../sketch-border';
 import type { ToastVariant } from './toast-context';
 import styles from './toast.module.scss';
 
@@ -61,7 +61,7 @@ export function ToastCard({ record, surface = 'paper', onDismiss }: ToastCardPro
         className={cn(styles.card, styles[record.variant], isChalkboard && styles.chalkboard)}
         role={role}
       >
-        <SketchBorder clip radius={12} inset={2.5} roughness={1.2} strokeWidth={1.3} />
+        <SketchBorder clip {...sketchOutline.surface} />
         <div
           className={styles.surface}
           style={isChalkboard ? undefined : resolveTexture('kraft')}

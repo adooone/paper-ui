@@ -27,10 +27,10 @@
   // Transparent fill — just a faint ink wash so the paper texture behind
   // shows through, slightly darkened, rather than an opaque swatch.
   --sketch-fill: rgba(61, 53, 43, 0.05);
-  --sketch-stroke: rgba(61, 53, 43, 0.32);
+  --sketch-stroke: #{$color-sketch-stroke};
 
   &:hover {
-    --sketch-stroke: rgba(61, 53, 43, 0.42);
+    --sketch-stroke: #{$color-sketch-stroke-strong};
   }
 
   &:focus-within {
@@ -87,14 +87,14 @@
 .disabled {
   opacity: 0.55;
   --sketch-fill: rgba(61, 53, 43, 0.03);
-  --sketch-stroke: rgba(61, 53, 43, 0.15);
+  --sketch-stroke: #{$color-sketch-stroke-muted};
 
   .input {
     cursor: not-allowed;
   }
 
   &:hover {
-    --sketch-stroke: rgba(61, 53, 43, 0.15);
+    --sketch-stroke: #{$color-sketch-stroke-muted};
   }
 }
 

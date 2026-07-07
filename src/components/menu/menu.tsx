@@ -8,7 +8,7 @@ import type {
 import { createPortal } from 'react-dom';
 import { useEscapeKey } from '../../hooks/use-escape-key';
 import { cn } from '../../utils/style-helpers';
-import { SketchBorder } from '../sketch-border';
+import { SketchBorder, sketchOutline } from '../sketch-border';
 import styles from './menu.module.scss';
 
 export interface MenuItem {
@@ -164,7 +164,7 @@ export function Menu({ trigger, items, align = 'start', surface = 'paper', class
             }}
             onKeyDown={handleListKeyDown}
           >
-            <SketchBorder clip radius={12} inset={2.5} roughness={1.2} strokeWidth={1.3} />
+            <SketchBorder clip {...sketchOutline.surface} />
             <div className={styles.surface} />
             <div className={styles.list}>
               {items.map((entry) =>

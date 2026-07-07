@@ -4,7 +4,7 @@ import { createAccentClassMap } from '../../utils/accent-class-map';
 import { ChevronRightIcon } from '../../utils/icons';
 import { cn } from '../../utils/style-helpers';
 import { type TextureProp, resolveTexture } from '../../utils/textures';
-import { SketchBorder } from '../sketch-border';
+import { SketchBorder, sketchOutline } from '../sketch-border';
 import styles from './table.module.scss';
 
 export type TableSurface = 'paper' | 'chalkboard';
@@ -103,7 +103,7 @@ export function Table<T = unknown>({
         className,
       )}
     >
-      <SketchBorder clip radius={12} inset={2.5} roughness={1.2} strokeWidth={1.3} />
+      <SketchBorder clip {...sketchOutline.surface} />
       <div
         className={cn(styles.tableWrapper, surface === 'chalkboard' && styles.chalkboardWrapper)}
         style={textureStyles}
@@ -121,7 +121,7 @@ export function Table<T = unknown>({
                   value={toolbar.search.value}
                   onChange={(e) => toolbar.search?.onChange?.(e.target.value)}
                 />
-                <SketchBorder fill radius={6} inset={1.5} roughness={1} strokeWidth={1.1} />
+                <SketchBorder fill {...sketchOutline.field} />
               </div>
             )}
             {toolbar.actions && (

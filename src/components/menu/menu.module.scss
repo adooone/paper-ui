@@ -10,7 +10,7 @@
   z-index: $z-popover;
   min-width: 160px;
   filter: $filter-shadow-lg;
-  --sketch-stroke: rgba(61, 53, 43, 0.3);
+  --sketch-stroke: #{$color-sketch-stroke};
 
   animation: menuIn 160ms ease-out;
 }

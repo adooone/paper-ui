@@ -10,6 +10,8 @@
   --pui-bg-elevated: #{$color-bg-elevated};
   --pui-text-primary: #{$color-text-primary};
   --pui-text-secondary: #{$color-text-secondary};
+  // Base colour for every hand-drawn outline; components tint per state on top.
+  --pui-sketch-stroke: #{$color-sketch-stroke};
 }
 
 body {

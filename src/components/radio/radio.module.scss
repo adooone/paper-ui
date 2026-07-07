@@ -45,7 +45,7 @@
   }
 
   &:checked ~ .box {
-    --sketch-stroke: rgba(61, 53, 43, 0.7);
+    --sketch-stroke: #{$color-sketch-stroke-active};
 
     .dot {
       transform: scale(1);
@@ -93,10 +93,10 @@
   // Circle, so the dotted focus outline follows the shape (border is the SVG).
   border-radius: 50%;
   // Hand-drawn circle is a SketchBorder child; tint it via --sketch-stroke.
-  --sketch-stroke: rgba(61, 53, 43, 0.42);
+  --sketch-stroke: #{$color-sketch-stroke-strong};
 
   &:hover {
-    --sketch-stroke: rgba(61, 53, 43, 0.6);
+    --sketch-stroke: #{$color-sketch-stroke-stronger};
   }
 }
 

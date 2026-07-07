@@ -11,7 +11,7 @@
   padding: $space-3 $space-4;
   color: $color-text-secondary;
   filter: $filter-shadow-sm;
-  --sketch-stroke: rgba(61, 53, 43, 0.34);
+  --sketch-stroke: #{$color-sketch-stroke};
 }
 
 .surface {

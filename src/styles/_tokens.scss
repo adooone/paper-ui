@@ -153,6 +153,18 @@ $shadow-paper-md: 0 4px 6px rgba(61, 53, 43, 0.08), 0 2px 4px rgba(61, 53, 43, 0
 $shadow-paper-lg: 0 10px 15px rgba(61, 53, 43, 0.1), 0 4px 6px rgba(61, 53, 43, 0.08);
 $shadow-pressed: inset 0 2px 4px rgba(61, 53, 43, 0.15);
 
+// ── Sketch outline (hand-drawn borders) ─────────────────────────────────────
+// One place to re-tint every SketchBorder pencil line. All components set
+// --sketch-stroke from these; accent-tinted states (focus/error/variant) layer
+// their own accent colour on top. $color-sketch-stroke is also emitted as the
+// runtime --pui-sketch-stroke in globals.scss for theming.
+$color-sketch-ink: rgb(61, 53, 43); // pencil base (#3D352B)
+$color-sketch-stroke: rgba($color-sketch-ink, 0.32); // resting (surfaces / fields)
+$color-sketch-stroke-strong: rgba($color-sketch-ink, 0.42); // hover · control resting
+$color-sketch-stroke-stronger: rgba($color-sketch-ink, 0.6); // control hover
+$color-sketch-stroke-active: rgba($color-sketch-ink, 0.7); // checked / pressed
+$color-sketch-stroke-muted: rgba($color-sketch-ink, 0.15); // disabled
+
 // filter: drop-shadow equivalents — for sketch-clipped surfaces, where these
 // hug the wobbly silhouette instead of the rectangular box-shadow border-box.
 $filter-shadow-sm: drop-shadow(0 1px 2px rgba(61, 53, 43, 0.09));

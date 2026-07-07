@@ -39,7 +39,7 @@
 
   &:checked ~ .box,
   &:indeterminate ~ .box {
-    --sketch-stroke: rgba(61, 53, 43, 0.7);
+    --sketch-stroke: #{$color-sketch-stroke-active};
 
     .checkmark {
       stroke-dashoffset: 0;
@@ -96,10 +96,10 @@
   // Only shapes the dotted focus outline (the box border is the sketch SVG).
   border-radius: 6px;
   // Hand-drawn outline is a SketchBorder child; tint it via --sketch-stroke.
-  --sketch-stroke: rgba(61, 53, 43, 0.42);
+  --sketch-stroke: #{$color-sketch-stroke-strong};
 
   &:hover {
-    --sketch-stroke: rgba(61, 53, 43, 0.6);
+    --sketch-stroke: #{$color-sketch-stroke-stronger};
   }
 }
 

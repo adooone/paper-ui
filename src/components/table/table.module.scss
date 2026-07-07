@@ -9,7 +9,7 @@
 .tableFrame {
   position: relative;
   filter: $filter-shadow-lg;
-  --sketch-stroke: rgba(61, 53, 43, 0.3);
+  --sketch-stroke: #{$color-sketch-stroke};
 }
 
 // Inner surface holds the texture + content, clipped to the sketchy silhouette.
@@ -44,7 +44,7 @@
   flex: 1;
   max-width: 280px;
   --sketch-fill: #{$color-bg-input};
-  --sketch-stroke: rgba(61, 53, 43, 0.32);
+  --sketch-stroke: #{$color-sketch-stroke};
 
   &:focus-within {
     --sketch-stroke: #{rgba($color-accent-slate, 0.45)};

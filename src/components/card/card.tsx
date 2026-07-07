@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 import { createAccentClassMap } from '../../utils/accent-class-map';
 import { cn } from '../../utils/style-helpers';
 import { type TextureProp, resolveTexture } from '../../utils/textures';
-import { SketchBorder } from '../sketch-border';
+import { SketchBorder, sketchOutline } from '../sketch-border';
 import styles from './card.module.scss';
 
 export interface CardProps {
@@ -40,7 +40,7 @@ export function Card({
         className,
       )}
     >
-      <SketchBorder clip radius={12} inset={3} roughness={1.4} strokeWidth={1.4} />
+      <SketchBorder clip {...sketchOutline.surface} />
       <div
         className={styles.textureLayer}
         style={surface === 'chalkboard' ? undefined : resolveTexture(texture)}

@@ -1,7 +1,7 @@
 import { forwardRef, useCallback, useId, useRef } from 'react';
 import type { PointerEvent as ReactPointerEvent, TextareaHTMLAttributes } from 'react';
 import { cn } from '../../utils/style-helpers';
-import { SketchBorder } from '../sketch-border';
+import { SketchBorder, sketchOutline } from '../sketch-border';
 import styles from './textarea.module.scss';
 
 export interface TextareaProps extends Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, 'size'> {
@@ -70,7 +70,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(function 
         )}
       >
         <textarea ref={setRefs} id={textareaId} className={styles.textarea} {...props} />
-        <SketchBorder fill radius={8} inset={2} roughness={1.1} strokeWidth={1.3} />
+        <SketchBorder fill {...sketchOutline.field} />
         {!props.disabled && (
           <span
             className={styles.resizeGrip}

@@ -2,7 +2,7 @@ import type { CSSProperties, ReactNode } from 'react';
 import { createAccentClassMap } from '../../utils/accent-class-map';
 import { cn } from '../../utils/style-helpers';
 import { type TextureProp, resolveTexture } from '../../utils/textures';
-import { SketchBorder } from '../sketch-border';
+import { SketchBorder, sketchOutline } from '../sketch-border';
 import styles from './page.module.scss';
 
 export interface PageProps {
@@ -54,13 +54,7 @@ export function Page({
         className,
       )}
     >
-      <SketchBorder
-        clip
-        radius={cornerRadius[rounded]}
-        inset={3}
-        roughness={1.2}
-        strokeWidth={1.3}
-      />
+      <SketchBorder clip {...sketchOutline.surface} radius={cornerRadius[rounded]} />
       <div className={styles.surface} style={{ ...textureStyles, ...style }}>
         {children}
       </div>
