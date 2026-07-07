@@ -13,9 +13,8 @@ import {
   fontFamilyDisplay,
   fontFamilySerif,
   paperCardStyle,
-  shadowPaperMd,
 } from '../lib/styles';
-import { type TextureConfig, buildTextureStyles } from '../lib/textures';
+import type { TextureConfig } from '../lib/textures';
 
 const navItems = [
   { id: 'dashboard', label: 'Dashboard', path: '/' },
@@ -94,8 +93,6 @@ export const LayoutPage: FC = () => {
           ruledType: layoutConfig.ruledType,
           ruledColor: layoutConfig.ruledColor as 'blue' | 'brown' | 'black',
         };
-
-  const pageStyles = buildTextureStyles(pageConfig);
 
   const code = `<Layout
   showHeader={${showHeader}}
@@ -187,12 +184,10 @@ export const LayoutPage: FC = () => {
                 >
                   {showPage ? (
                     <Page
+                      texture={pageConfig}
                       style={{
-                        ...pageStyles,
                         maxWidth: 'none',
                         margin: 0,
-                        borderRadius: '28px',
-                        boxShadow: shadowPaperMd,
                         minHeight: '100%',
                       }}
                     >

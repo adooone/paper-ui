@@ -45,6 +45,10 @@ export function Page({
   }) ?? { backgroundColor: 'var(--pui-bg-base)' };
 
   return (
+    // `style`/`className` apply to the frame — the element that owns the page's
+    // box (max-width, margin, height), so consumers can override those (e.g. a
+    // full-bleed dashboard setting `maxWidth: 'none'`). The texture belongs to
+    // the inner surface, since that's the layer clipped to the sketchy edge.
     <div
       className={cn(
         styles.page,
@@ -53,9 +57,10 @@ export function Page({
         withAccent && accentClassMap[accentColor],
         className,
       )}
+      style={style}
     >
       <SketchBorder clip {...sketchOutline.surface} radius={cornerRadius[rounded]} />
-      <div className={styles.surface} style={{ ...textureStyles, ...style }}>
+      <div className={styles.surface} style={textureStyles}>
         {children}
       </div>
     </div>
