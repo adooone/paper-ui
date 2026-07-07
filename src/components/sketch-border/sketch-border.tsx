@@ -131,7 +131,7 @@ export function SketchBorder({
           .map((p) => ({ d: p.d, filled: false }));
 
       if (clip) {
-        const silhouette = silhouettePath(
+        const clipSil = silhouettePath(
           shape,
           size,
           inset,
@@ -139,9 +139,17 @@ export function SketchBorder({
           createRng(seedFill),
           roughness * 1.1,
         );
+        const strokeSil = silhouettePath(
+          shape,
+          size,
+          inset + strokePad(strokeWidth, roughness),
+          radius,
+          createRng(seedFill),
+          roughness * 1.1,
+        );
         return {
-          parts: toStroke(roughGenerator.path(silhouette, { ...single, preserveVertices: true })),
-          clipPath: silhouette,
+          parts: toStroke(roughGenerator.path(strokeSil, { ...single, preserveVertices: true })),
+          clipPath: clipSil,
         };
       }
       const drawable =
@@ -161,11 +169,13 @@ export function SketchBorder({
     }
 
     if (clip) {
-      // The fill edge IS this silhouette (via --sketch-clip), and the outline
-      // is a rough overdraw of the SAME silhouette — so the pencil line hugs
-      // the fill edge instead of diverging into a separate shape (which on a
-      // large surface leaves a gap of background showing through).
-      const silhouette = silhouettePath(
+      // The fill/texture edge is the clip silhouette (via --sketch-clip). The
+      // outline is a rough overdraw of the SAME wobble, but inset a touch more:
+      // rough.js wanders the drawn line outward, so keeping the clip at `inset`
+      // and the stroke slightly inside means the pencil line stays within the
+      // host box (never hard-clipped by an overflow:hidden ancestor) while the
+      // texture still reaches the original edge — no background gap.
+      const clipSil = silhouettePath(
         shape,
         size,
         inset,
@@ -173,7 +183,15 @@ export function SketchBorder({
         createRng(seedFill),
         roughness * 1.1,
       );
-      return { parts: strokeFrom(silhouette), clipPath: silhouette };
+      const strokeSil = silhouettePath(
+        shape,
+        size,
+        inset + strokePad(strokeWidth, roughness),
+        radius,
+        createRng(seedFill),
+        roughness * 1.1,
+      );
+      return { parts: strokeFrom(strokeSil), clipPath: clipSil };
     }
 
     // Non-clip: an optional rough solid fill plus an independent outline shape,
@@ -241,6 +259,13 @@ export function SketchBorder({
       )}
     </svg>
   );
+}
+
+// How far to pull the stroke silhouette inside the clip silhouette. rough.js
+// pushes the drawn line outward from its path by roughly its roughness, plus
+// half the stroke width; padding by that keeps the whole wobble inside the box.
+function strokePad(strokeWidth: number, roughness: number): number {
+  return strokeWidth / 2 + roughness * 1.5;
 }
 
 function createRng(seed: number) {
