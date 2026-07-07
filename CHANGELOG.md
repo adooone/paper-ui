@@ -1,5 +1,24 @@
 # Changelog
 
+## [0.7.0](https://github.com/adooone/paper-ui/compare/v0.6.1...v0.7.0) (2026-07-07)
+
+
+### Features
+
+* **page:** card-style sketchy shape + optional outline prop ([facb1ee](https://github.com/adooone/paper-ui/commit/facb1ee0cd8ce714d31b755be3aa1e35d49d4188))
+* **spinner:** hand-drawn ring with a pencil arc that travels around it ([83e6abc](https://github.com/adooone/paper-ui/commit/83e6abc535ffae2fb3ea61f7253de036ecb2e2bf))
+
+
+### Bug Fixes
+
+* **sketch:** keep clip-mode stroke inside the box so it isn't clipped ([46a95b2](https://github.com/adooone/paper-ui/commit/46a95b211faf462091bb25b0f0e67fcecaabdbee))
+* **textarea:** hand-drawn vertical resize grip in place of native grabber ([6e6fedf](https://github.com/adooone/paper-ui/commit/6e6fedf664622133d7861966b14a3badb9121221))
+
+
+### Code Refactoring
+
+* **sketch:** centralise outline colour + geometry into one config ([d38dbdd](https://github.com/adooone/paper-ui/commit/d38dbdde67fd9e9f10b8350b9e854a339272466d))
+
 ## [0.6.1](https://github.com/adooone/paper-ui/compare/v0.6.0...v0.6.1) (2026-07-06)
 
 

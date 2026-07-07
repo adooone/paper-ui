@@ -1,6 +1,6 @@
 {
   "name": "@dendelion/paper-ui",
-  "version": "0.6.1",
+  "version": "0.7.0",
   "description": "Natural-material React component library — paper, ink, canvas, and watercolor",
   "type": "module",
   "sideEffects": [
