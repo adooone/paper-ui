@@ -45,7 +45,9 @@
   z-index: 1;
   width: 100%;
   min-height: 4rem;
-  resize: vertical;
+  // Native resize is off — the .resizeGrip below drives height instead, so the
+  // hand-drawn look holds and width can never change.
+  resize: none;
   border: none;
   outline: none;
   background: transparent;
@@ -59,6 +61,35 @@
     font-weight: $font-weight-normal;
     font-family: $font-family-handwritten;
     font-size: $font-size-md;
+  }
+}
+
+// Hand-drawn vertical-resize grip in the bottom-right corner, inside the
+// sketch border. Colour tracks --sketch-stroke so it matches the outline and
+// its per-surface / state tint.
+.resizeGrip {
+  position: absolute;
+  right: 3px;
+  bottom: 3px;
+  z-index: 2;
+  display: flex;
+  padding: 3px;
+  cursor: ns-resize;
+  color: var(--sketch-stroke, rgba(61, 53, 43, 0.32));
+  opacity: 0.75;
+  touch-action: none;
+  transition: opacity $transition-fast;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  svg {
+    width: 11px;
+    height: 11px;
+    stroke: currentColor;
+    stroke-width: 1.4;
+    stroke-linecap: round;
   }
 }
 
