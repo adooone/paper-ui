@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.7.2](https://github.com/adooone/paper-ui/compare/v0.7.1...v0.7.2) (2026-07-08)
+
+
+### Bug Fixes
+
+* **page:** sit outline on the clip edge instead of inset inside it ([28eb7d6](https://github.com/adooone/paper-ui/commit/28eb7d6889b997439d3deaec482280f1022ae684))
+* **page:** sit outline on the clip edge instead of inset inside it ([0beff07](https://github.com/adooone/paper-ui/commit/0beff0703c3815b0fe145b1ae9900c2f4c179fbc))
+
 ## [0.7.1](https://github.com/adooone/paper-ui/compare/v0.7.0...v0.7.1) (2026-07-07)
 
 
