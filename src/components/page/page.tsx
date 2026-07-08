@@ -59,7 +59,12 @@ export function Page({
       )}
       style={style}
     >
-      <SketchBorder clip {...sketchOutline.surface} radius={cornerRadius[rounded]} />
+      <SketchBorder
+        clip
+        strokeInset={false}
+        {...sketchOutline.surface}
+        radius={cornerRadius[rounded]}
+      />
       <div className={styles.surface} style={textureStyles}>
         {children}
       </div>

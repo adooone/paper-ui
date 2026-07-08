@@ -36,6 +36,13 @@ export interface SketchBorderProps {
    * (Checkbox / Radio / Avatar).
    */
   smooth?: boolean;
+  /**
+   * clip only. Inset the stroke slightly inside the clip edge so it survives an
+   * `overflow:hidden` ancestor (e.g. Card's border layer). Set false when the
+   * host doesn't clip, so the outline sits exactly on the clip/texture edge
+   * instead of floating inside it. Default true.
+   */
+  strokeInset?: boolean;
   className?: string;
 }
 
@@ -73,6 +80,7 @@ export function SketchBorder({
   fill = false,
   clip = false,
   smooth = false,
+  strokeInset = true,
   className,
 }: SketchBorderProps) {
   // Random per mount (not per re-render), so each element instance draws a
@@ -139,14 +147,10 @@ export function SketchBorder({
           createRng(seedFill),
           roughness * 1.1,
         );
-        const strokeSil = silhouettePath(
-          shape,
-          size,
-          inset + strokePad(strokeWidth, roughness),
-          radius,
-          createRng(seedFill),
-          roughness * 1.1,
-        );
+        const pad = strokeInset ? strokePad(strokeWidth, roughness) : 0;
+        const strokeSil = pad
+          ? silhouettePath(shape, size, inset + pad, radius, createRng(seedFill), roughness * 1.1)
+          : clipSil;
         return {
           parts: toStroke(roughGenerator.path(strokeSil, { ...single, preserveVertices: true })),
           clipPath: clipSil,
@@ -183,14 +187,10 @@ export function SketchBorder({
         createRng(seedFill),
         roughness * 1.1,
       );
-      const strokeSil = silhouettePath(
-        shape,
-        size,
-        inset + strokePad(strokeWidth, roughness),
-        radius,
-        createRng(seedFill),
-        roughness * 1.1,
-      );
+      const pad = strokeInset ? strokePad(strokeWidth, roughness) : 0;
+      const strokeSil = pad
+        ? silhouettePath(shape, size, inset + pad, radius, createRng(seedFill), roughness * 1.1)
+        : clipSil;
       return { parts: strokeFrom(strokeSil), clipPath: clipSil };
     }
 
@@ -228,7 +228,20 @@ export function SketchBorder({
       .filter((p) => !p.fill || p.fill === 'none')
       .map((p) => ({ d: p.d, filled: false }));
     return { parts: [...fillParts, ...strokeParts], clipPath: null };
-  }, [size, seed, clip, smooth, shape, radius, roughness, bowing, strokeWidth, inset, fill]);
+  }, [
+    size,
+    seed,
+    clip,
+    smooth,
+    shape,
+    radius,
+    roughness,
+    bowing,
+    strokeWidth,
+    inset,
+    fill,
+    strokeInset,
+  ]);
 
   useEffect(() => {
     const host = svgRef.current?.parentElement;
