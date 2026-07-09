@@ -15,11 +15,12 @@ export interface SketchGeometry {
  */
 export const sketchOutline = {
   /** Large textured surfaces (clip): Card, Table, Menu, Toast, Alert, Select dropdown, Page. */
-  // Lower roughness than fields/controls: big containers read better with a
-  // near-straight hand-drawn edge — high roughness lumps up on wide/short cards
-  // where the corners dominate. Drives both the stroke shake and the clip
-  // silhouette wobble (silhouettePath amplitude = roughness * 1.1).
-  surface: { radius: 12, inset: 2.5, roughness: 0.5, strokeWidth: 1.3 },
+  // Low roughness AND low bowing: big containers read better with a near-straight
+  // hand-drawn edge — high roughness lumps up on wide/short cards, and the default
+  // bowing (1) bends the long straight runs into visible curves. roughness drives
+  // both the stroke shake and the clip silhouette wobble (amplitude = roughness *
+  // 1.1); bowing only bends the stroke between corners.
+  surface: { radius: 12, inset: 2.5, roughness: 0.5, bowing: 0.2, strokeWidth: 1.3 },
   /** Text fields (fill): Input, Textarea, Select trigger, Table search. */
   field: { radius: 8, inset: 2, roughness: 1.1, strokeWidth: 1.3 },
   /** Small controls (smooth single stroke): Checkbox, Radio, Avatar. */
