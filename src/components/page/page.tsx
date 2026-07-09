@@ -59,12 +59,11 @@ export function Page({
       )}
       style={style}
     >
-      <SketchBorder
-        clip
-        strokeInset={false}
-        {...sketchOutline.surface}
-        radius={cornerRadius[rounded]}
-      />
+      {/* Keep the default strokeInset: on a full-bleed page the outline sits at
+          the box edge, where straddling the clip silhouette (and any consumer
+          overflow:hidden ancestor) eats parts of the thin stroke — the same
+          reason Card keeps its outline safely inside. */}
+      <SketchBorder clip {...sketchOutline.surface} radius={cornerRadius[rounded]} />
       <div className={styles.surface} style={textureStyles}>
         {children}
       </div>
