@@ -331,7 +331,15 @@ function silhouettePath(
       }
     };
     const edge = (x1: number, y1: number, x2: number, y2: number) => {
-      for (const t of [0.5]) {
+      // Subdivide long edges (~1 pt / 160px) so rough.js has enough anchor points
+      // to trace them cleanly. A single midpoint across a tall page's edge leaves
+      // rough.js one giant segment, which it wanders into a self-crossing tangle —
+      // and the outline visibly vanishes down the long edges (small cards are fine
+      // because their edges are short, so they still get just one point).
+      const len = Math.hypot(x2 - x1, y2 - y1);
+      const n = Math.min(12, Math.max(1, Math.round(len / 160)));
+      for (let i = 1; i <= n; i++) {
+        const t = i / (n + 1);
         pts.push({ x: x1 + (x2 - x1) * t + wob(), y: y1 + (y2 - y1) * t + wob() });
       }
     };
