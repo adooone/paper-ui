@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.7.3](https://github.com/adooone/paper-ui/compare/v0.7.2...v0.7.3) (2026-07-09)
+
+
+### Bug Fixes
+
+* **page:** keep default strokeInset so the page outline isn't clipped ([910931d](https://github.com/adooone/paper-ui/commit/910931d5e2447450556e0bb767180b59baa5ae29))
+* **sketch:** straighten surface outlines with lower bowing ([5060de3](https://github.com/adooone/paper-ui/commit/5060de3cc88a25583501e05c279008c2dcce4c61))
+
 ## [0.7.2](https://github.com/adooone/paper-ui/compare/v0.7.1...v0.7.2) (2026-07-08)
 
 
