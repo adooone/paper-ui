@@ -20,7 +20,7 @@ export const sketchOutline = {
   // bowing (1) bends the long straight runs into visible curves. roughness drives
   // both the stroke shake and the clip silhouette wobble (amplitude = roughness *
   // 1.1); bowing only bends the stroke between corners.
-  surface: { radius: 12, inset: 2.5, roughness: 0.5, bowing: 0.2, strokeWidth: 1.3 },
+  surface: { radius: 12, inset: 2.5, roughness: 0.2, bowing: 0, strokeWidth: 1.3 },
   /** Text fields (fill): Input, Textarea, Select trigger, Table search. */
   field: { radius: 8, inset: 2, roughness: 1.1, strokeWidth: 1.3 },
   /** Small controls (smooth single stroke): Checkbox, Radio, Avatar. */
