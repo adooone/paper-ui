@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.7.4](https://github.com/adooone/paper-ui/compare/v0.7.3...v0.7.4) (2026-07-09)
+
+
+### Bug Fixes
+
+* **sketch:** make surface outlines near-rectangular ([db4b6c2](https://github.com/adooone/paper-ui/commit/db4b6c23af3e68c224245a5949cec5df34331fd7))
+* **sketch:** subdivide long silhouette edges so tall outlines don't tangle ([2fe2a95](https://github.com/adooone/paper-ui/commit/2fe2a952f72ed29b64e465eaeeb9e1dc67fd5509))
+
 ## [0.7.3](https://github.com/adooone/paper-ui/compare/v0.7.2...v0.7.3) (2026-07-09)
 
 
