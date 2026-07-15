@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.5](https://github.com/adooone/paper-ui/compare/v0.7.4...v0.7.5) (2026-07-15)
+
+
+### Bug Fixes
+
+* **toast:** fix toasts background ([d35a72f](https://github.com/adooone/paper-ui/commit/d35a72fc91bb51f49d5163bc456d8d9758556f40))
+
 ## [0.7.4](https://github.com/adooone/paper-ui/compare/v0.7.3...v0.7.4) (2026-07-09)
 
 
