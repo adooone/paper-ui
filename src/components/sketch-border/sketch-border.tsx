@@ -95,9 +95,15 @@ export function SketchBorder({
     const host = svgRef.current?.parentElement;
     if (!host) return;
     const observer = new ResizeObserver(() => {
-      const rect = host.getBoundingClientRect();
-      const width = Math.round(rect.width);
-      const height = Math.round(rect.height);
+      // offsetWidth/Height report the *layout* box; getBoundingClientRect reports
+      // the transform-scaled *visual* box. Measuring a host that animates in under
+      // a transform (Toast's `toastIn` runs scale(0.97)->1) would otherwise bake in
+      // a too-small geometry, and since a transform never changes layout size, no
+      // later resize fires to correct it. The stroke hides this — the SVG viewBox
+      // rescales it to fit — but `--sketch-clip`'s path() is raw CSS px, so the
+      // texture would stay clipped short of the drawn border.
+      const width = host.offsetWidth;
+      const height = host.offsetHeight;
       setSize((prev) =>
         prev && prev.width === width && prev.height === height ? prev : { width, height },
       );
