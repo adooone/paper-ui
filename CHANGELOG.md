@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.0](https://github.com/adooone/paper-ui/compare/v0.7.5...v0.8.0) (2026-07-30)
+
+
+### Features
+
+* **button:** theme primary fill via --pui-btn-primary CSS vars ([30daa62](https://github.com/adooone/paper-ui/commit/30daa6248359e019e6f09e1a924a0c9ea2f6a5da))
+
 ## [0.7.5](https://github.com/adooone/paper-ui/compare/v0.7.4...v0.7.5) (2026-07-15)
 
 
