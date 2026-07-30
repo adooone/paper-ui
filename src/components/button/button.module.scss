@@ -64,24 +64,26 @@
   opacity: 1;
 }
 
+// Var-backed so a consuming app can theme its brand primary (e.g. green) without
+// forking the component; the scss token stays the default for every other consumer.
 .primary .blobFill {
-  fill: $color-canvas-base;
+  fill: var(--pui-btn-primary, #{$color-canvas-base});
 }
 
 .primary:hover:not(:disabled) .blobFill {
-  fill: $color-primary-hover;
+  fill: var(--pui-btn-primary-hover, #{$color-primary-hover});
 }
 
 .primary:active:not(:disabled) .blobFill {
-  fill: $color-primary-active;
+  fill: var(--pui-btn-primary-active, #{$color-primary-active});
 }
 
 .isActive.primary .blobFill {
-  fill: $color-primary-hover;
+  fill: var(--pui-btn-primary-hover, #{$color-primary-hover});
 }
 
 .isActive.primary:hover .blobFill {
-  fill: $color-primary-active;
+  fill: var(--pui-btn-primary-active, #{$color-primary-active});
 }
 
 .secondary .blobFill {
