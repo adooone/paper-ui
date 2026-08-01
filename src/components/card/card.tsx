@@ -44,7 +44,7 @@ export function Card({
         className,
       )}
     >
-      {sketch && <SketchBorder clip {...sketchOutline.surface} />}
+      <SketchBorder clip {...sketchOutline.surface} straight={!sketch} />
       <div
         className={styles.textureLayer}
         style={surface === 'chalkboard' ? undefined : resolveTexture(texture)}

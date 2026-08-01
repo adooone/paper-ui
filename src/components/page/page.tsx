@@ -14,11 +14,16 @@ export interface PageProps {
   accentColor?: 'blue' | 'green' | 'amber' | 'rose' | 'slate';
   rounded?: 'all' | 'top' | 'none';
   /**
-   * Draw a hand-drawn sketch outline around the page, like Card. The wobbly
-   * silhouette shape (and its drop-shadow) is always applied; this just makes
-   * the pencil line visible.
+   * Draw a hand-drawn sketch outline around the page, like Card. The silhouette
+   * shape (and its drop-shadow) is always applied; this just makes the pencil
+   * line visible.
    */
   outline?: boolean;
+  /**
+   * Draw the outline/silhouette with the hand-drawn wobble. Off by default — a
+   * straight pencil edge, matching Card.
+   */
+  sketch?: boolean;
 }
 
 const accentClassMap = createAccentClassMap(styles);
@@ -37,6 +42,7 @@ export function Page({
   accentColor = 'blue',
   rounded = 'all',
   outline = false,
+  sketch = false,
 }: PageProps) {
   const textureStyles = resolveTexture(texture, {
     texture: 'white',
@@ -55,6 +61,7 @@ export function Page({
         outline && styles.outlined,
         withAccent && styles.withAccent,
         withAccent && accentClassMap[accentColor],
+        !sketch && styles.flat,
         className,
       )}
       style={style}
@@ -63,7 +70,12 @@ export function Page({
           the box edge, where straddling the clip silhouette (and any consumer
           overflow:hidden ancestor) eats parts of the thin stroke — the same
           reason Card keeps its outline safely inside. */}
-      <SketchBorder clip {...sketchOutline.surface} radius={cornerRadius[rounded]} />
+      <SketchBorder
+        clip
+        {...sketchOutline.surface}
+        radius={cornerRadius[rounded]}
+        straight={!sketch}
+      />
       <div className={styles.surface} style={textureStyles}>
         {children}
       </div>

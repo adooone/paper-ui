@@ -46,6 +46,12 @@
   }
 }
 
+// Flat (default, non-sketch): straighten the corners to match SketchBorder's
+// geometric (straight) outline; the outline and clip are drawn by SketchBorder.
+.flat .surface {
+  border-radius: $radius-md;
+}
+
 // Soft watercolor accent bloom in the top-right, clipped to the page shape so
 // it can't spill past the silhouette (no overflow:hidden needed, which would
 // clip the outline).

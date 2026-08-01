@@ -37,6 +37,13 @@ export interface SketchBorderProps {
    */
   smooth?: boolean;
   /**
+   * Default (true). Trace a geometric rounded rectangle (straight edges, arc
+   * corners) instead of the wobbly spline silhouette, drawn through a sketchy
+   * pencil stroke — a straight shape with a hand-drawn border. Pass false for the
+   * fully hand-drawn, wavy-shape silhouette. clip only.
+   */
+  straight?: boolean;
+  /**
    * clip only. Inset the stroke slightly inside the clip edge so it survives an
    * `overflow:hidden` ancestor (e.g. Card's border layer). Set false when the
    * host doesn't clip, so the outline sits exactly on the clip/texture edge
@@ -57,6 +64,12 @@ interface Size {
 }
 
 type Radii = [number, number, number, number];
+
+// `straight` mode keeps the shape geometric (via the clip) but still draws a
+// hand-drawn outline. These tune only that outline's pencil hand — a roughness
+// strong enough to read at 1:1, and a little bowing so the line gently waves.
+const STRAIGHT_BORDER_ROUGHNESS = 1.2;
+const STRAIGHT_BORDER_BOWING = 0.7;
 
 // Internal building block: an absolutely-positioned SVG that measures its
 // parent and draws a hand-sketched outline at real pixel size — stretching an
@@ -80,6 +93,9 @@ export function SketchBorder({
   fill = false,
   clip = false,
   smooth = false,
+  // Straight geometric shape with a sketchy pencil border is the default look;
+  // pass straight={false} for the fully hand-drawn (wavy-shape) silhouette.
+  straight = true,
   strokeInset = true,
   className,
 }: SketchBorderProps) {
@@ -179,6 +195,31 @@ export function SketchBorder({
     }
 
     if (clip) {
+      // Straight shape, sketchy border: the clip (fill edge) is a clean geometric
+      // rounded rect, while the outline is rough.js sketched *along* that same path,
+      // so the card shape stays straight but the pencil line keeps its hand-drawn
+      // texture. If rough.js yields nothing (degenerate at very low roughness), fall
+      // back to the geometric path so the border never vanishes.
+      if (straight) {
+        const geo = rectPath(size, inset, radius, createRng(seedFill));
+        // The clip keeps the shape geometric; the outline is sketched harder than
+        // the passed roughness so the pencil hand actually reads at 1:1 (a light
+        // roughness on a straight path looks like a plain line). Bowing stays off so
+        // the straight runs don't bend.
+        const stroke = roughGenerator
+          .toPaths(
+            roughGenerator.path(geo, {
+              seed: seedStroke,
+              roughness: STRAIGHT_BORDER_ROUGHNESS,
+              bowing: STRAIGHT_BORDER_BOWING,
+              preserveVertices: true,
+              strokeWidth,
+            }),
+          )
+          .filter((p) => !p.fill || p.fill === 'none')
+          .map((p) => ({ d: p.d, filled: false }));
+        return { parts: stroke.length ? stroke : [{ d: geo, filled: false }], clipPath: geo };
+      }
       // The fill/texture edge is the clip silhouette (via --sketch-clip). The
       // outline is a rough overdraw of the SAME wobble, but inset a touch more:
       // rough.js wanders the drawn line outward, so keeping the clip at `inset`
@@ -239,6 +280,7 @@ export function SketchBorder({
     seed,
     clip,
     smooth,
+    straight,
     shape,
     radius,
     roughness,
