@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.11.0](https://github.com/adooone/paper-ui/compare/v0.10.0...v0.11.0) (2026-08-01)
+
+
+### Features
+
+* **table:** add rowTexture to give rows a paper texture ([65415d6](https://github.com/adooone/paper-ui/commit/65415d6abe7f8458f6cbdef64ed321ac4e49d075))
+
+
+### Bug Fixes
+
+* **table:** compute rowTexture once to satisfy noNonNullAssertion ([eabb84b](https://github.com/adooone/paper-ui/commit/eabb84bf8a927ac22f59b6e39a13f4ed31fb4b11))
+
 ## [0.10.0](https://github.com/adooone/paper-ui/compare/v0.9.0...v0.10.0) (2026-08-01)
 
 
