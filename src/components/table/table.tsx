@@ -3,7 +3,12 @@ import { Fragment, useState } from 'react';
 import { createAccentClassMap } from '../../utils/accent-class-map';
 import { ChevronRightIcon } from '../../utils/icons';
 import { cn } from '../../utils/style-helpers';
-import { type TextureProp, resolveTexture } from '../../utils/textures';
+import {
+  type PaperTextureKey,
+  type TextureProp,
+  getTextureStyles,
+  resolveTexture,
+} from '../../utils/textures';
 import { SketchBorder, sketchOutline } from '../sketch-border';
 import styles from './table.module.scss';
 
@@ -62,6 +67,9 @@ export interface TableProps<T = unknown> {
   // records) when data is sorted or filtered.
   rowKey?: (row: T, index: number) => string | number;
   rowClassName?: (row: T, index: number) => string | undefined;
+  /** Give a row a paper texture (e.g. `kraft`) so a group of rows reads as distinct
+   *  without a separate table. Return undefined for the default row surface. */
+  rowTexture?: (row: T, index: number) => PaperTextureKey | undefined;
   className?: string;
 }
 
@@ -78,6 +86,7 @@ export function Table<T = unknown>({
   showExpandColumn = true,
   rowKey,
   rowClassName,
+  rowTexture,
   className,
 }: TableProps<T>) {
   const textureStyles = resolveTexture(texture, surface === 'chalkboard' ? 'chalkboard' : 'paper');
@@ -215,6 +224,11 @@ export function Table<T = unknown>({
                           canExpand && styles.expandable,
                           rowClassName?.(row, rowIndex),
                         )}
+                        style={
+                          rowTexture?.(row, rowIndex)
+                            ? getTextureStyles(rowTexture(row, rowIndex)!)
+                            : undefined
+                        }
                         onClick={() => canExpand && toggleRow(key)}
                       >
                         {hasExpandColumn && (
