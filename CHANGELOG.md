@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.9.0](https://github.com/adooone/paper-ui/compare/v0.8.0...v0.9.0) (2026-08-01)
+
+
+### ⚠ BREAKING CHANGES
+
+* **card:** Cards render with flat, straight-cornered edges by default; opt back into the hand-drawn wobble outline with `sketch`.
+
+### Features
+
+* **card:** make the wobble outline an opt-in `sketch` prop, off by default ([11d87db](https://github.com/adooone/paper-ui/commit/11d87db7fede465c86c80921ee8c54c185cdfb01))
+* **table:** header sits a shade below the body on any texture ([09270bd](https://github.com/adooone/paper-ui/commit/09270bd39b3ab76725df789b0764b881a1135e93))
+
 ## [0.8.0](https://github.com/adooone/paper-ui/compare/v0.7.5...v0.8.0) (2026-07-30)
 
 
