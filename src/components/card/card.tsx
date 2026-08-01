@@ -13,6 +13,8 @@ export interface CardProps {
   texture?: TextureProp;
   accent?: boolean;
   accentColor?: 'blue' | 'green' | 'amber' | 'rose' | 'slate';
+  /** Draw the hand-drawn wobble outline. Off by default — a clean, flat-edged card. */
+  sketch?: boolean;
   className?: string;
 }
 
@@ -26,6 +28,7 @@ export function Card({
   texture = 'parchment',
   accent = false,
   accentColor = 'blue',
+  sketch = false,
   className,
 }: CardProps) {
   return (
@@ -37,10 +40,11 @@ export function Card({
         styles[size],
         accent && styles.withAccent,
         accent && accentClassMap[accentColor],
+        !sketch && styles.flat,
         className,
       )}
     >
-      <SketchBorder clip {...sketchOutline.surface} />
+      {sketch && <SketchBorder clip {...sketchOutline.surface} />}
       <div
         className={styles.textureLayer}
         style={surface === 'chalkboard' ? undefined : resolveTexture(texture)}

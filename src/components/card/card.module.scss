@@ -46,6 +46,18 @@
   }
 }
 
+// The wobble outline is opt-in (the `sketch` prop). Without it, drop the sketchy
+// clip and the organic (uneven) radius for clean, straight-cornered edges; the
+// drop-shadow and accent glow still apply.
+.flat {
+  border-radius: $radius-md;
+
+  .textureLayer {
+    border-radius: $radius-md;
+    clip-path: none;
+  }
+}
+
 .small {
   .textureLayer {
     padding: $space-3 $space-4;
