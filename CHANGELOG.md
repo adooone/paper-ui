@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.10.0](https://github.com/adooone/paper-ui/compare/v0.9.0...v0.10.0) (2026-08-01)
+
+
+### ⚠ BREAKING CHANGES
+
+* **sketch-border:** clip-mode sketch surfaces (Card, Page, and others) render with a straight shape by default instead of the hand-drawn wavy silhouette; pass straight={false} or `sketch` to restore the previous look.
+
+### Features
+
+* **sketch-border:** straight geometric shape with a sketchy border by default ([1735db8](https://github.com/adooone/paper-ui/commit/1735db871fd8b4c8eeaeb065f331e787631fe052))
+* **table:** pencil dividers, shorter rows, and per-column align ([901a3af](https://github.com/adooone/paper-ui/commit/901a3afa6c4f8efffef9d3581c51b262beb4d987))
+
+
+### Code Refactoring
+
+* **textures:** map the chalkboard shade to a token, not a raw hex ([1e5f7f8](https://github.com/adooone/paper-ui/commit/1e5f7f89448ecfacdbe43dd0fc59ca5207d165fb))
+
 ## [0.9.0](https://github.com/adooone/paper-ui/compare/v0.8.0...v0.9.0) (2026-08-01)
 
 
