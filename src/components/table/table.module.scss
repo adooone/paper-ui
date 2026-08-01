@@ -121,8 +121,10 @@
   box-sizing: border-box;
   vertical-align: middle;
   line-height: $line-height-grid;
-  background-color: $color-bg-elevated;
-  background-image: url($paper-texture-data-uri);
+  // Sit a shade below the body on whatever texture the table uses; the vars are
+  // published by the texture styles, and fall back to the default paper header.
+  background-color: var(--pui-texture-shade, #{$color-bg-elevated});
+  background-image: var(--pui-texture-image, url($paper-texture-data-uri));
   background-repeat: repeat;
   background-size: 200px 200px;
   border-bottom: 1px solid $color-border-default;

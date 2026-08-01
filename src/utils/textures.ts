@@ -52,6 +52,18 @@ export const textureColorMap: Record<PaperTextureKey, string> = {
   chalkboard: colors.chalkboardBg,
 };
 
+// A shade darker than each texture's base colour, for supportive surfaces that
+// should sit just below the body on the same paper — e.g. a table's header row.
+export const textureShadeMap: Record<PaperTextureKey, string> = {
+  white: colors.bgElevated,
+  paper: colors.bgElevated,
+  speckle: colors.bgElevated,
+  parchment: colors.canvasBase,
+  canvas: colors.canvas300,
+  kraft: colors.canvasDark,
+  chalkboard: '#0F251B',
+};
+
 export const ruledColorMap: Record<RuledColorKey, string> = {
   blue: 'rgba(168, 200, 216, 0.35)',
   brown: 'rgba(164, 144, 120, 0.35)',
@@ -68,8 +80,16 @@ export function getTextureStyles(input: Texture): React.CSSProperties {
   const bgColor = textureColorMap[texture];
   const lineColor = ruledColorMap[ruledColor];
 
+  // Published to the subtree so supportive surfaces (e.g. a table header) can sit a
+  // shade below the body on this same texture without hardcoding a colour.
+  const shadeVars = {
+    '--pui-texture-shade': textureShadeMap[texture],
+    '--pui-texture-image': bgImage,
+  } as React.CSSProperties;
+
   if (ruledType === 'none') {
     return {
+      ...shadeVars,
       backgroundColor: bgColor,
       backgroundImage: bgImage,
       backgroundRepeat: 'repeat',
@@ -79,6 +99,7 @@ export function getTextureStyles(input: Texture): React.CSSProperties {
 
   if (ruledType === 'lines') {
     return {
+      ...shadeVars,
       backgroundColor: bgColor,
       backgroundImage: `${bgImage}, repeating-linear-gradient(180deg, transparent, transparent 31px, ${lineColor} 31px, ${lineColor} 32px)`,
       backgroundRepeat: 'repeat, repeat',
@@ -87,6 +108,7 @@ export function getTextureStyles(input: Texture): React.CSSProperties {
   }
 
   return {
+    ...shadeVars,
     backgroundColor: bgColor,
     backgroundImage: `${bgImage}, repeating-linear-gradient(180deg, transparent, transparent 31px, ${lineColor} 31px, ${lineColor} 32px), repeating-linear-gradient(90deg, transparent, transparent 31px, ${lineColor} 31px, ${lineColor} 32px)`,
     backgroundRepeat: 'repeat, repeat, repeat',
