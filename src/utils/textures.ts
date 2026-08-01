@@ -61,7 +61,9 @@ export const textureShadeMap: Record<PaperTextureKey, string> = {
   parchment: colors.canvasBase,
   canvas: colors.canvas300,
   kraft: colors.canvasDark,
-  chalkboard: '#0F251B',
+  // Chalkboard is already the darkest surface and has no darker token; keep its
+  // base so headers stay on-palette rather than inventing an off-token shade.
+  chalkboard: colors.chalkboardBg,
 };
 
 export const ruledColorMap: Record<RuledColorKey, string> = {
