@@ -15,6 +15,10 @@ export interface TableColumn<T = unknown> {
   header: ReactNode;
   cell: (row: T, index: number, surface: TableSurface) => ReactNode;
   width?: number;
+  /** Horizontal alignment of the header and cells (default start). Use `end` for a
+   *  last column (actions, numbers) so it hugs the right edge. Inline/inline-flex
+   *  cell content is required for `end`/`center` to take effect. */
+  align?: 'start' | 'center' | 'end';
 }
 
 export interface TableToolbar {
@@ -186,7 +190,11 @@ export function Table<T = unknown>({
                     <th className={cn(styles.th, styles.expandTh)} aria-label="Expand" />
                   )}
                   {columns.map((col) => (
-                    <th key={col.key} className={styles.th}>
+                    <th
+                      key={col.key}
+                      className={styles.th}
+                      style={col.align ? { textAlign: col.align } : undefined}
+                    >
                       {col.header}
                     </th>
                   ))}
@@ -228,7 +236,11 @@ export function Table<T = unknown>({
                           </td>
                         )}
                         {columns.map((col) => (
-                          <td key={col.key} className={styles.td}>
+                          <td
+                            key={col.key}
+                            className={styles.td}
+                            style={col.align ? { textAlign: col.align } : undefined}
+                          >
                             {col.cell(row, rowIndex, surface)}
                           </td>
                         ))}

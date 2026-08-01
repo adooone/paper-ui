@@ -1,6 +1,11 @@
 @use '../../styles/tokens' as *;
 @use '../../styles/mixins' as *;
 
+// Hand-drawn pencil line for row dividers — a wavy ink stroke tiled horizontally,
+// so rows are separated by a sketched line rather than a flat CSS border. Stroke
+// is $color-sketch-ink (#3d352b); kept inline as a data-URI can't take a Sass var.
+$pencil-divider: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='3' preserveAspectRatio='none' viewBox='0 0 64 3'%3E%3Cpath d='M0 1.6 C 8 0.7 14 2.3 22 1.5 C 30 0.8 38 2.2 46 1.5 C 54 0.9 60 2.1 64 1.5' fill='none' stroke='%233d352b' stroke-opacity='0.3' stroke-width='1' stroke-linecap='round'/%3E%3C/svg%3E");
+
 /* ─── Wrapper ─── */
 
 // Outer frame carries the elevation + the SketchBorder outline (unclipped).
@@ -117,7 +122,7 @@
   letter-spacing: $letter-spacing-wide;
   white-space: nowrap;
   padding: 0 $space-8;
-  height: 64px;
+  height: 52px;
   box-sizing: border-box;
   vertical-align: middle;
   line-height: $line-height-grid;
@@ -127,22 +132,50 @@
   background-image: var(--pui-texture-image, url($paper-texture-data-uri));
   background-repeat: repeat;
   background-size: 200px 200px;
-  border-bottom: 1px solid $color-border-default;
+  position: relative;
+}
+
+// Pencil divider under the header, straddling the header/first-row boundary (see .td::after).
+.th::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1.5px;
+  height: 3px;
+  background: $pencil-divider repeat-x left center;
+  background-size: 64px 3px;
+  pointer-events: none;
 }
 
 .td {
   font-family: var(--paper-font-default, $font-family-serif);
   color: $color-text-secondary;
   padding: 0 $space-8;
-  height: 64px;
+  height: 52px;
   box-sizing: border-box;
   vertical-align: middle;
   line-height: $line-height-grid;
-  border-bottom: 1px solid $color-border-subtle;
+  position: relative;
 }
 
-.tr:last-child .td {
-  border-bottom: none;
+// Pencil row divider straddling the row boundary (bottom: -1.5px) so the space
+// above and below the cell content stays symmetric — a line sitting inside the
+// cell bottom makes the content read as pushed down.
+.td::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1.5px;
+  height: 3px;
+  background: $pencil-divider repeat-x left center;
+  background-size: 64px 3px;
+  pointer-events: none;
+}
+
+.tr:last-child .td::after {
+  display: none;
 }
 
 /* ─── Expandable rows ─── */
