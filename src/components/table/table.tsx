@@ -215,6 +215,7 @@ export function Table<T = unknown>({
                   const expansionContent = expandable?.render(row, rowIndex, surface);
                   const canExpand = !!expansionContent;
                   const isExpanded = canExpand && expandedRows.has(key);
+                  const rowTex = rowTexture?.(row, rowIndex);
                   return (
                     <Fragment key={key}>
                       {/* biome-ignore lint/a11y/useKeyWithClickEvents: row click is a pointer-only convenience; keyboard users toggle expansion via the dedicated expand button in the first cell. */}
@@ -224,11 +225,7 @@ export function Table<T = unknown>({
                           canExpand && styles.expandable,
                           rowClassName?.(row, rowIndex),
                         )}
-                        style={
-                          rowTexture?.(row, rowIndex)
-                            ? getTextureStyles(rowTexture(row, rowIndex)!)
-                            : undefined
-                        }
+                        style={rowTex ? getTextureStyles(rowTex) : undefined}
                         onClick={() => canExpand && toggleRow(key)}
                       >
                         {hasExpandColumn && (
