@@ -538,10 +538,12 @@ const sectionDetails: SectionDetail[] = [
     title: 'Card',
     codeExample: `import { Card } from '@dendelion/paper-ui';
 
-<Card texture="parchment" accent accentColor="green">
+<Card texture="kraft" shade>
   <h3>Project Notes</h3>
-  <p>Hand-written on textured paper.</p>
-</Card>`,
+  <p>Same grain, a shade darker — lifts off a kraft panel.</p>
+</Card>
+
+<Card fill="rose">Any palette colour as a soft surface fill.</Card>`,
     props: [
       {
         name: 'variant',
@@ -559,7 +561,19 @@ const sectionDetails: SectionDetail[] = [
         name: 'texture',
         type: "PaperTextureKey ('white' | 'paper' | 'parchment' | 'kraft' | 'speckle' | 'canvas')",
         default: "'parchment'",
-        description: 'Paper texture for the card surface',
+        description: 'Paper texture (grain) for the card surface',
+      },
+      {
+        name: 'fill',
+        type: "SurfaceFillKey ('base' | 'surface' | 'elevated' | 'canvas' | 'canvasDark' | 'blue' | 'green' | 'amber' | 'rose' | 'slate')",
+        default: '—',
+        description: "Explicit palette fill; overrides the texture's own colour, grain stays",
+      },
+      {
+        name: 'shade',
+        type: 'boolean',
+        default: 'false',
+        description: "Fill with the texture's darker step instead of its base",
       },
       {
         name: 'accent',
@@ -2232,6 +2246,48 @@ export const ComponentsPage: FC<{
                       }}
                     >
                       Raised card with watercolor accent.
+                    </p>
+                  </Card>
+                  <Card texture="kraft" shade>
+                    <h4
+                      className="font-bold mb-2"
+                      style={{
+                        fontFamily: fontFamilySerif,
+                        color: colorInkPrimary,
+                        fontSize: '1.15rem',
+                      }}
+                    >
+                      Shaded kraft
+                    </h4>
+                    <p
+                      style={{
+                        fontFamily: fontFamilySerif,
+                        color: colorInkSecondary,
+                        fontSize: '0.95rem',
+                      }}
+                    >
+                      Same grain, darker fill — lifts off a kraft panel.
+                    </p>
+                  </Card>
+                  <Card fill="rose">
+                    <h4
+                      className="font-bold mb-2"
+                      style={{
+                        fontFamily: fontFamilySerif,
+                        color: colorInkPrimary,
+                        fontSize: '1.15rem',
+                      }}
+                    >
+                      Rose wash
+                    </h4>
+                    <p
+                      style={{
+                        fontFamily: fontFamilySerif,
+                        color: colorInkSecondary,
+                        fontSize: '0.95rem',
+                      }}
+                    >
+                      Any palette colour as a soft, paper-toned fill.
                     </p>
                   </Card>
                 </>

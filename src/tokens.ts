@@ -34,6 +34,12 @@ export const colors = {
   canvasDark: '#D6C9A8',
   canvas700: '#8C7D56',
 
+  washBlue: '#DEE4E5',
+  washGreen: '#E3EADC',
+  washAmber: '#F2E5D5',
+  washRose: '#EFE0DA',
+  washSlate: '#E1E4E0',
+
   chalkboardBg: '#142e22',
   chalkboardSurface: '#1e3a2d',
   chalkboardLight: '#264a3a',

@@ -117,11 +117,18 @@ export type { MenuProps, MenuItem, MenuSeparator, MenuEntry } from './components
 
 export { CloseIcon, LightbulbIcon, CheckIcon, CopyIcon, PlusIcon, FolderIcon } from './utils/icons';
 
-export { getTextureStyles, resolveTexture } from './utils/textures';
+export {
+  getTextureStyles,
+  getSurfaceStyles,
+  resolveTexture,
+  surfaceFillMap,
+} from './utils/textures';
 export type {
   Texture,
   TextureProp,
   TextureConfig,
+  SurfaceConfig,
+  SurfaceFillKey,
   PaperTextureKey,
   RuledType,
   RuledColorKey,

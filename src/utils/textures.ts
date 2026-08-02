@@ -25,6 +25,14 @@ export type Texture = PaperTextureKey | TextureConfig;
 /** The value a component's `texture` prop accepts: a texture, or `true`/`false` to toggle the default. */
 export type TextureProp = boolean | Texture;
 
+/** A surface: a texture grain plus an optional explicit fill colour / darker shade. */
+export interface SurfaceConfig extends TextureConfig {
+  /** Explicit palette fill; overrides the texture's own base colour. The grain stays. */
+  fill?: SurfaceFillKey;
+  /** Use the texture's darker step as the fill. Ignored when `fill` is set. */
+  shade?: boolean;
+}
+
 export const textureMap: Record<PaperTextureKey, string> = {
   white:
     "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='w'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0.97 0 0 0 0 0.96 0 0 0 0 0.95 0 0 0 0.04 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23w)' opacity='1'/%3E%3C/svg%3E\")",
@@ -66,20 +74,46 @@ export const textureShadeMap: Record<PaperTextureKey, string> = {
   chalkboard: colors.chalkboardBg,
 };
 
+// Palette colours assignable as a surface fill, independent of the texture grain:
+// paper neutrals, the canvas ramp, and the soft accent washes.
+export const surfaceFillMap = {
+  base: colors.bgBase,
+  surface: colors.bgSurface,
+  elevated: colors.bgElevated,
+  canvas: colors.canvasBase,
+  canvasDark: colors.canvasDark,
+  blue: colors.washBlue,
+  green: colors.washGreen,
+  amber: colors.washAmber,
+  rose: colors.washRose,
+  slate: colors.washSlate,
+} satisfies Record<string, string>;
+
+export type SurfaceFillKey = keyof typeof surfaceFillMap;
+
 export const ruledColorMap: Record<RuledColorKey, string> = {
   blue: 'rgba(168, 200, 216, 0.35)',
   brown: 'rgba(164, 144, 120, 0.35)',
   black: 'rgba(61, 53, 43, 0.15)',
 };
 
-export function getTextureStyles(input: Texture): React.CSSProperties {
-  const config: TextureConfig = typeof input === 'string' ? { texture: input } : input;
+/**
+ * Resolves a surface (texture grain + optional fill / shade) to background styles.
+ * The fill colour is chosen in priority order: explicit `fill`, then `shade` (the
+ * texture's darker step), then the texture's own base colour.
+ */
+export function getSurfaceStyles(input: PaperTextureKey | SurfaceConfig): React.CSSProperties {
+  const config: SurfaceConfig = typeof input === 'string' ? { texture: input } : input;
   const texture = config.texture ?? 'paper';
   const ruledType = config.ruledType ?? 'none';
   const ruledColor = config.ruledColor ?? 'blue';
 
   const bgImage = textureMap[texture];
-  const bgColor = textureColorMap[texture];
+  const bgColor = config.fill
+    ? surfaceFillMap[config.fill]
+    : config.shade
+      ? textureShadeMap[texture]
+      : textureColorMap[texture];
   const lineColor = ruledColorMap[ruledColor];
 
   // Published to the subtree so supportive surfaces (e.g. a table header) can sit a
@@ -116,6 +150,11 @@ export function getTextureStyles(input: Texture): React.CSSProperties {
     backgroundRepeat: 'repeat, repeat, repeat',
     backgroundSize: '200px 200px, 100% 32px, 32px 32px',
   };
+}
+
+/** Texture-only surface styles. Thin alias over {@link getSurfaceStyles}. */
+export function getTextureStyles(input: Texture): React.CSSProperties {
+  return getSurfaceStyles(input);
 }
 
 /**

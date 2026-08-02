@@ -60,6 +60,14 @@ $color-canvas-300: #E5DBC4;   // kraft texture / island bg (canvas.300 in tailwi
 $color-canvas-dark: #D6C9A8;  // canvas.400 in tailwind
 $color-canvas-700: #8C7D56;   // canvas.700 in tailwind
 
+// Soft accent washes — a pale tint of each accent, for a paper-toned coloured surface
+// fill (Card `fill="rose"`, etc.). ~22% of the accent mixed over $color-bg-surface.
+$color-wash-blue: #DEE4E5;
+$color-wash-green: #E3EADC;
+$color-wash-amber: #F2E5D5;
+$color-wash-rose: #EFE0DA;
+$color-wash-slate: #E1E4E0;
+
 $color-code-bg: #2B2926;      // dark pre background (ink.800)
 
 $color-border-subtle: rgba(61, 53, 43, 0.08);
