@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.12.0](https://github.com/adooone/paper-ui/compare/v0.11.0...v0.12.0) (2026-08-02)
+
+
+### Features
+
+* **surface:** Decouple surface fill from texture — Card shade + fill ([34d49ea](https://github.com/adooone/paper-ui/commit/34d49ead7cb2b38424bdf69c2195caa2836226a7))
+
 ## [0.11.0](https://github.com/adooone/paper-ui/compare/v0.10.0...v0.11.0) (2026-08-01)
 
 
