@@ -105,6 +105,14 @@ $pencil-divider: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
   .panelFooter {
     padding: $space-3 $space-4 $space-4;
   }
+
+  // Button's own `small` size (font-size-md, 18px) is tuned for comfortable
+  // toolbars — oversized once the toolbar itself drops to 48px. Targets the
+  // element, not a paper-ui class name, since Button's own CSS module scope
+  // isn't reachable from here.
+  .toolbarActions button {
+    font-size: $font-size-sm;
+  }
 }
 
 .search {
