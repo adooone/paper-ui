@@ -262,7 +262,10 @@ export function Table<T = unknown>({
                         ))}
                       </tr>
                       {footerContent && (
-                        <tr className={styles.footerRow}>
+                        <tr
+                          className={styles.footerRow}
+                          style={rowTex ? getTextureStyles(rowTex) : undefined}
+                        >
                           <td colSpan={totalColumns} className={styles.footerCell}>
                             {footerContent}
                           </td>
