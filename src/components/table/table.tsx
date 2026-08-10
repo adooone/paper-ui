@@ -135,7 +135,13 @@ export function Table<T = unknown>({
     >
       <SketchBorder clip {...sketchOutline.surface} />
       <div
-        className={cn(styles.tableWrapper, surface === 'chalkboard' && styles.chalkboardWrapper)}
+        className={cn(
+          styles.tableWrapper,
+          surface === 'chalkboard' && styles.chalkboardWrapper,
+          // Also carried here (not just on <table>) so .compact reaches the
+          // toolbar/panelFooter bands, which sit outside the table element.
+          density === 'compact' && styles.compact,
+        )}
         style={textureStyles}
       >
         {hasToolbar && (

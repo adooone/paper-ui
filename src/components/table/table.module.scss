@@ -34,8 +34,11 @@ $pencil-divider: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
   gap: $space-4;
   height: 64px;
   padding: 0 $space-8;
-  background-color: $color-bg-base;
-  background-image: url($paper-texture-data-uri);
+  // Follows the instance's own texture, same as .th — a hardcoded texture here
+  // ignored whatever `texture` the table was given, reading brighter/flatter
+  // than the body it sits above.
+  background-color: var(--pui-texture-shade, #{$color-bg-elevated});
+  background-image: var(--pui-texture-image, url($paper-texture-data-uri));
   background-repeat: repeat;
   background-size: 200px 200px;
   border-bottom: 1px solid $color-border-subtle;
@@ -49,17 +52,30 @@ $pencil-divider: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 }
 
 // Arbitrary content pinned below the rows, inside the same clipped card as the
-// toolbar/table above it — mirrors .toolbar's border/texture, flipped to the
-// top edge. Extra bottom padding clears the wrapper's wobbly sketch-clip inset
-// (see .tableScroll) since this band sits flush against the wrapper's own edge.
+// toolbar/table above it — mirrors .toolbar's border/texture/shade, flipped to
+// the top edge. Extra bottom padding clears the wrapper's wobbly sketch-clip
+// inset (see .tableScroll) since this band sits flush against the wrapper's edge.
 .panelFooter {
   padding: $space-4 $space-8 $space-6;
-  background-color: $color-bg-base;
-  background-image: url($paper-texture-data-uri);
+  background-color: var(--pui-texture-shade, #{$color-bg-elevated});
+  background-image: var(--pui-texture-image, url($paper-texture-data-uri));
   background-repeat: repeat;
   background-size: 200px 200px;
   border-top: 1px solid $color-border-subtle;
   box-sizing: border-box;
+}
+
+// Matches .compact's cell-padding halving (see .th/.td above) — a 64px toolbar
+// next to 40px compact rows reads oversized/unbalanced.
+.compact {
+  .toolbar {
+    height: 48px;
+    padding: 0 $space-4;
+  }
+
+  .panelFooter {
+    padding: $space-3 $space-4 $space-4;
+  }
 }
 
 .search {
