@@ -41,8 +41,24 @@ $pencil-divider: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
   background-image: var(--pui-texture-image, url($paper-texture-data-uri));
   background-repeat: repeat;
   background-size: 200px 200px;
-  border-bottom: 1px solid $color-border-subtle;
   box-sizing: border-box;
+  position: relative;
+}
+
+// Same hand-drawn seam as .th/.td::after, not a flat CSS border — a straight
+// border reads as a stark line against the paper texture and, since it
+// consumes real box height even under border-box, also throws off vertical
+// centering relative to the borderless rows below it.
+.toolbar::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1.5px;
+  height: 3px;
+  background: $pencil-divider repeat-x left center;
+  background-size: 64px 3px;
+  pointer-events: none;
 }
 
 .toolbarTitle {
@@ -52,8 +68,8 @@ $pencil-divider: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 }
 
 // Arbitrary content pinned below the rows, inside the same clipped card as the
-// toolbar/table above it — mirrors .toolbar's border/texture/shade, flipped to
-// the top edge. Extra bottom padding clears the wrapper's wobbly sketch-clip
+// toolbar/table above it — mirrors .toolbar's texture/shade, flipped to the
+// top edge. Extra bottom padding clears the wrapper's wobbly sketch-clip
 // inset (see .tableScroll) since this band sits flush against the wrapper's edge.
 .panelFooter {
   padding: $space-4 $space-8 $space-6;
@@ -61,8 +77,21 @@ $pencil-divider: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
   background-image: var(--pui-texture-image, url($paper-texture-data-uri));
   background-repeat: repeat;
   background-size: 200px 200px;
-  border-top: 1px solid $color-border-subtle;
   box-sizing: border-box;
+  position: relative;
+}
+
+// Same seam technique as .toolbar::after, straddling the top edge instead.
+.panelFooter::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -1.5px;
+  height: 3px;
+  background: $pencil-divider repeat-x left center;
+  background-size: 64px 3px;
+  pointer-events: none;
 }
 
 // Matches .compact's cell-padding halving (see .th/.td above) — a 64px toolbar
@@ -411,13 +440,11 @@ $pencil-divider: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
   .toolbar {
     background-color: $color-chalkboard-surface;
     background-image: url($chalkboard-texture-data-uri);
-    border-bottom-color: $color-chalkboard-border;
   }
 
   .panelFooter {
     background-color: $color-chalkboard-surface;
     background-image: url($chalkboard-texture-data-uri);
-    border-top-color: $color-chalkboard-border;
   }
 
   .searchIcon {
