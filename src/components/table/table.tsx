@@ -67,6 +67,8 @@ export interface TableProps<T = unknown> {
   // records) when data is sorted or filtered.
   rowKey?: (row: T, index: number) => string | number;
   rowClassName?: (row: T, index: number) => string | undefined;
+  /** Drop the header row for tables whose columns explain themselves. */
+  hideHeader?: boolean;
   /** Give a row a paper texture (e.g. `kraft`) so a group of rows reads as distinct
    *  without a separate table. Return undefined for the default row surface. */
   rowTexture?: (row: T, index: number) => PaperTextureKey | undefined;
@@ -91,6 +93,7 @@ export function Table<T = unknown>({
   rowClassName,
   rowTexture,
   rowFooter,
+  hideHeader = false,
   className,
 }: TableProps<T>) {
   const textureStyles = resolveTexture(texture, surface === 'chalkboard' ? 'chalkboard' : 'paper');
@@ -197,22 +200,24 @@ export function Table<T = unknown>({
                   />
                 ))}
               </colgroup>
-              <thead>
-                <tr>
-                  {hasExpandColumn && (
-                    <th className={cn(styles.th, styles.expandTh)} aria-label="Expand" />
-                  )}
-                  {columns.map((col) => (
-                    <th
-                      key={col.key}
-                      className={styles.th}
-                      style={col.align ? { textAlign: col.align } : undefined}
-                    >
-                      {col.header}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
+              {!hideHeader && (
+                <thead>
+                  <tr>
+                    {hasExpandColumn && (
+                      <th className={cn(styles.th, styles.expandTh)} aria-label="Expand" />
+                    )}
+                    {columns.map((col) => (
+                      <th
+                        key={col.key}
+                        className={styles.th}
+                        style={col.align ? { textAlign: col.align } : undefined}
+                      >
+                        {col.header}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+              )}
               <tbody>
                 {data.map((row, rowIndex) => {
                   const key = rowKey ? rowKey(row, rowIndex) : rowIndex;
