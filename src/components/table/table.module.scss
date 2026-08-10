@@ -151,8 +151,8 @@ $pencil-divider: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 .td {
   font-family: var(--paper-font-default, $font-family-serif);
   color: $color-text-secondary;
-  padding: 0 $space-8;
-  height: 52px;
+  padding: $space-2 $space-8;
+  height: auto;
   box-sizing: border-box;
   vertical-align: middle;
   line-height: $line-height-grid;
@@ -212,8 +212,8 @@ $pencil-divider: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 .footerRow {
   .footerCell {
     padding: 0 $space-8;
-    background-color: $color-canvas-300;
-    background-image: url($kraft-texture-data-uri);
+    background-color: var(--pui-texture-shade, $color-bg-elevated);
+    background-image: var(--pui-texture-image, url($paper-texture-data-uri));
     background-repeat: repeat;
     background-size: 200px 200px;
     color: $color-text-secondary;
