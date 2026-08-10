@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.13.1](https://github.com/adooone/paper-ui/compare/v0.13.0...v0.13.1) (2026-08-10)
+
+
+### Bug Fixes
+
+* **table:** rowFooter inherits its row's texture shade ([e31f7b6](https://github.com/adooone/paper-ui/commit/e31f7b648002601dd4a0127176b19c0bb14c0c3d))
+
 ## [0.13.0](https://github.com/adooone/paper-ui/compare/v0.12.0...v0.13.0) (2026-08-10)
 
 
