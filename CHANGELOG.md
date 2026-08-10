@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.15.0](https://github.com/adooone/paper-ui/compare/v0.14.0...v0.15.0) (2026-08-10)
+
+
+### Features
+
+* **table:** toolbar title slot and panelFooter band ([0932868](https://github.com/adooone/paper-ui/commit/0932868d08a885cb4ce2eaba910a50129454e002))
+
+
+### Bug Fixes
+
+* **table:** scope the clip-inset buffer to tableScroll's real edge ([6ecdc8f](https://github.com/adooone/paper-ui/commit/6ecdc8f1002449a81bcb8867976cca87cb63f69f))
+* **table:** shrink toolbarActions button text in compact tables ([f1b5977](https://github.com/adooone/paper-ui/commit/f1b5977988ce3ad7f798561db11c6d9037f5f480))
+* **table:** toolbar/panelFooter follow instance texture, compact height ([7fb8ebf](https://github.com/adooone/paper-ui/commit/7fb8ebfed5147a80339de07edf99b41c730dd1f6))
+* **table:** toolbar/panelFooter use the pencil-divider seam, not a flat border ([d3dcc86](https://github.com/adooone/paper-ui/commit/d3dcc86c49f3e5be804542acb900643499b7ce90))
+
 ## [0.14.0](https://github.com/adooone/paper-ui/compare/v0.13.1...v0.14.0) (2026-08-10)
 
 
