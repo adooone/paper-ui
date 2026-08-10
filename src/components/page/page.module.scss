@@ -30,6 +30,9 @@
   flex: 1 1 auto;
   min-height: 0;
   overflow-y: auto;
+  // Reserve the scrollbar lane so content growth (row expansion, loaded data)
+  // toggling the scrollbar never reflows the sheet's width.
+  scrollbar-gutter: stable;
   padding: $space-8;
   font-size: $font-size-md;
   line-height: $line-height-grid;
