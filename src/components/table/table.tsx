@@ -69,6 +69,9 @@ export interface TableProps<T = unknown> {
   rowClassName?: (row: T, index: number) => string | undefined;
   /** Drop the header row for tables whose columns explain themselves. */
   hideHeader?: boolean;
+  /** `compact` halves the cell's horizontal padding for dense, low-column-count
+   *  tables (e.g. a checkbox/title/actions row list). Default `comfortable`. */
+  density?: 'comfortable' | 'compact';
   /** Give a row a paper texture (e.g. `kraft`) so a group of rows reads as distinct
    *  without a separate table. Return undefined for the default row surface. */
   rowTexture?: (row: T, index: number) => PaperTextureKey | undefined;
@@ -94,6 +97,7 @@ export function Table<T = unknown>({
   rowTexture,
   rowFooter,
   hideHeader = false,
+  density = 'comfortable',
   className,
 }: TableProps<T>) {
   const textureStyles = resolveTexture(texture, surface === 'chalkboard' ? 'chalkboard' : 'paper');
@@ -190,7 +194,13 @@ export function Table<T = unknown>({
           </div>
         ) : (
           <div className={styles.tableScroll}>
-            <table className={cn(styles.table, surface === 'chalkboard' && styles.chalkboard)}>
+            <table
+              className={cn(
+                styles.table,
+                surface === 'chalkboard' && styles.chalkboard,
+                density === 'compact' && styles.compact,
+              )}
+            >
               <colgroup>
                 {hasExpandColumn && <col style={{ width: '48px' }} />}
                 {columns.map((col) => (
