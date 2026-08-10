@@ -27,6 +27,8 @@ export interface TableColumn<T = unknown> {
 }
 
 export interface TableToolbar {
+  /** Leading label/heading, e.g. a section title — sits left of search/actions. */
+  title?: ReactNode;
   search?: {
     placeholder?: string;
     value?: string;
@@ -72,6 +74,9 @@ export interface TableProps<T = unknown> {
   /** `compact` halves the cell's horizontal padding for dense, low-column-count
    *  tables (e.g. a checkbox/title/actions row list). Default `comfortable`. */
   density?: 'comfortable' | 'compact';
+  /** Arbitrary content pinned below the rows, inside the table's own card —
+   *  e.g. a commit form that belongs to the same unit of work as the rows above it. */
+  panelFooter?: ReactNode;
   /** Give a row a paper texture (e.g. `kraft`) so a group of rows reads as distinct
    *  without a separate table. Return undefined for the default row surface. */
   rowTexture?: (row: T, index: number) => PaperTextureKey | undefined;
@@ -98,6 +103,7 @@ export function Table<T = unknown>({
   rowFooter,
   hideHeader = false,
   density = 'comfortable',
+  panelFooter,
   className,
 }: TableProps<T>) {
   const textureStyles = resolveTexture(texture, surface === 'chalkboard' ? 'chalkboard' : 'paper');
@@ -134,6 +140,7 @@ export function Table<T = unknown>({
       >
         {hasToolbar && (
           <div className={styles.toolbar}>
+            {toolbar.title && <div className={styles.toolbarTitle}>{toolbar.title}</div>}
             {toolbar.search && (
               <div className={styles.search}>
                 <SearchIcon className={styles.searchIcon} />
@@ -300,6 +307,8 @@ export function Table<T = unknown>({
             </table>
           </div>
         )}
+
+        {panelFooter && <div className={styles.panelFooter}>{panelFooter}</div>}
       </div>
     </div>
   );

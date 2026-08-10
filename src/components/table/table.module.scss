@@ -42,6 +42,26 @@ $pencil-divider: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
   box-sizing: border-box;
 }
 
+.toolbarTitle {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+// Arbitrary content pinned below the rows, inside the same clipped card as the
+// toolbar/table above it — mirrors .toolbar's border/texture, flipped to the
+// top edge. Extra bottom padding clears the wrapper's wobbly sketch-clip inset
+// (see .tableScroll) since this band sits flush against the wrapper's own edge.
+.panelFooter {
+  padding: $space-4 $space-8 $space-6;
+  background-color: $color-bg-base;
+  background-image: url($paper-texture-data-uri);
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  border-top: 1px solid $color-border-subtle;
+  box-sizing: border-box;
+}
+
 .search {
   position: relative;
   display: flex;
@@ -376,6 +396,12 @@ $pencil-divider: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
     background-color: $color-chalkboard-surface;
     background-image: url($chalkboard-texture-data-uri);
     border-bottom-color: $color-chalkboard-border;
+  }
+
+  .panelFooter {
+    background-color: $color-chalkboard-surface;
+    background-image: url($chalkboard-texture-data-uri);
+    border-top-color: $color-chalkboard-border;
   }
 
   .searchIcon {
