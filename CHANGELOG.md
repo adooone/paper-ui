@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.14.0](https://github.com/adooone/paper-ui/compare/v0.13.1...v0.14.0) (2026-08-10)
+
+
+### Features
+
+* **table:** add compact density option ([526cd74](https://github.com/adooone/paper-ui/commit/526cd7449f8f16ef7b8c3ad317b42d0224906ea0))
+* **table:** hideHeader option and fixed 40px rows ([ac31aa0](https://github.com/adooone/paper-ui/commit/ac31aa0a05d888508de0e256d6f6ba5fb3b822a7))
+
+
+### Bug Fixes
+
+* **table:** pad tableScroll to clear the wrapper's sketch-clip inset ([7dd3c25](https://github.com/adooone/paper-ui/commit/7dd3c25726d076d49d672c19e7a93409e8302d21))
+
 ## [0.13.1](https://github.com/adooone/paper-ui/compare/v0.13.0...v0.13.1) (2026-08-10)
 
 
