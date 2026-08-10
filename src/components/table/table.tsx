@@ -70,6 +70,9 @@ export interface TableProps<T = unknown> {
   /** Give a row a paper texture (e.g. `kraft`) so a group of rows reads as distinct
    *  without a separate table. Return undefined for the default row surface. */
   rowTexture?: (row: T, index: number) => PaperTextureKey | undefined;
+  /** Always-visible full-width band under a row (per-row stats, provenance), set on
+   *  the darker texture shade in the mono data voice. Return null for rows without one. */
+  rowFooter?: (row: T, index: number, surface: TableSurface) => ReactNode;
   className?: string;
 }
 
@@ -87,6 +90,7 @@ export function Table<T = unknown>({
   rowKey,
   rowClassName,
   rowTexture,
+  rowFooter,
   className,
 }: TableProps<T>) {
   const textureStyles = resolveTexture(texture, surface === 'chalkboard' ? 'chalkboard' : 'paper');
@@ -213,6 +217,7 @@ export function Table<T = unknown>({
                 {data.map((row, rowIndex) => {
                   const key = rowKey ? rowKey(row, rowIndex) : rowIndex;
                   const expansionContent = expandable?.render(row, rowIndex, surface);
+                  const footerContent = rowFooter?.(row, rowIndex, surface);
                   const canExpand = !!expansionContent;
                   const isExpanded = canExpand && expandedRows.has(key);
                   const rowTex = rowTexture?.(row, rowIndex);
@@ -256,6 +261,13 @@ export function Table<T = unknown>({
                           </td>
                         ))}
                       </tr>
+                      {footerContent && (
+                        <tr className={styles.footerRow}>
+                          <td colSpan={totalColumns} className={styles.footerCell}>
+                            {footerContent}
+                          </td>
+                        </tr>
+                      )}
                       {isExpanded && (
                         <tr className={styles.expandedRow}>
                           <td colSpan={totalColumns} className={styles.expandedCell}>

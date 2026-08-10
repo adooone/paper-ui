@@ -209,6 +209,35 @@ $pencil-divider: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
   }
 }
 
+.footerRow {
+  .footerCell {
+    padding: $space-1 $space-8 $space-2;
+    background-color: var(--pui-texture-shade, $color-bg-elevated);
+    background-image: var(--pui-texture-image, url($paper-texture-data-uri));
+    background-repeat: repeat;
+    background-size: 200px 200px;
+    color: $color-text-secondary;
+    font-family: $font-family-mono;
+    font-size: $font-size-xs;
+    line-height: $line-height-normal;
+    position: relative;
+  }
+
+  // Redraw the pencil divider under the band — it replaces the row boundary
+  // its host row's cells would otherwise draw against the next row.
+  .footerCell::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1.5px;
+    height: 3px;
+    background: $pencil-divider repeat-x left center;
+    background-size: 64px 3px;
+    pointer-events: none;
+  }
+}
+
 .expandedRow {
   .expandedCell {
     padding: $space-4 $space-8;
