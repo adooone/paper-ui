@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.13.0](https://github.com/adooone/paper-ui/compare/v0.12.0...v0.13.0) (2026-08-10)
+
+
+### Features
+
+* **table:** Add rowFooter full-width band under rows ([3a14a44](https://github.com/adooone/paper-ui/commit/3a14a44d9e5a287c69272180d655c0bedc9d2340))
+
+
+### Bug Fixes
+
+* **page:** stable scrollbar gutter on the surface ([7348768](https://github.com/adooone/paper-ui/commit/7348768898cb13c1fd7c6dfe0c3b48faa32c097e))
+* **table:** auto row height, rowFooter on the header shade ([bb8b8e1](https://github.com/adooone/paper-ui/commit/bb8b8e1db411173d49fbbe8f1235b5fb5591f12c))
+* **table:** rowFooter on kraft with no vertical padding ([f4187de](https://github.com/adooone/paper-ui/commit/f4187de89c928bf59503efd4a3884bd85d3da43b))
+
 ## [0.12.0](https://github.com/adooone/paper-ui/compare/v0.11.0...v0.12.0) (2026-08-02)
 
 
