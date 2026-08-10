@@ -102,6 +102,10 @@ $pencil-divider: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 
 .tableScroll {
   overflow-x: auto;
+  // The wrapper's sketchy clip-path insets ~2.5px with a wobble, which without
+  // this buffer nibbles the top/bottom row's content — invisible against a tall
+  // header row, visible against a fixed-height body row (hideHeader tables).
+  padding: $space-1 0;
 }
 
 .table {
