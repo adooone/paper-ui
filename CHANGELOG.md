@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.16.0](https://github.com/adooone/paper-ui/compare/v0.15.0...v0.16.0) (2026-08-11)
+
+
+### Features
+
+* **button:** add a tiny size to Button and IconButton ([71bcc4a](https://github.com/adooone/paper-ui/commit/71bcc4a2b61b8b73b40d33d91331e60787c061c4))
+* **button:** add a tiny size to Button and IconButton ([9895455](https://github.com/adooone/paper-ui/commit/9895455c2a76f55f501d1f7265ca352691a1245c))
+
 ## [0.15.0](https://github.com/adooone/paper-ui/compare/v0.14.0...v0.15.0) (2026-08-10)
 
 
