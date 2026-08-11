@@ -8,7 +8,7 @@ export interface IconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>
   icon: ReactNode;
   variant?: 'default' | 'ghost' | 'danger';
   surface?: 'paper' | 'chalkboard';
-  size?: 'small' | 'medium' | 'large';
+  size?: 'tiny' | 'small' | 'medium' | 'large';
   label?: string;
   wobble?: number;
   isActive?: boolean;
