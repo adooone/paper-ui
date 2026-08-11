@@ -7,7 +7,7 @@ import styles from './button.module.scss';
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'ghost' | 'danger';
   surface?: 'paper' | 'chalkboard';
-  size?: 'small' | 'medium' | 'large';
+  size?: 'tiny' | 'small' | 'medium' | 'large';
   icon?: ReactNode;
   iconRight?: ReactNode;
   fullWidth?: boolean;

@@ -140,6 +140,16 @@
   fill: $color-danger-active;
 }
 
+.tiny {
+  width: 32px;
+  height: 32px;
+
+  .icon {
+    width: 16px;
+    height: 16px;
+  }
+}
+
 .small {
   width: 40px;
   height: 40px;
