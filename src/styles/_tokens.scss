@@ -86,10 +86,21 @@ $ghost-active-hover: rgba(143, 185, 150, 0.3);
 $ghost-border: rgba(61, 53, 43, 0.22);
 
 // Button interaction states (primary / secondary / danger hover+active)
+// Washes, not paint. An unthemed consumer used to fall back to opaque $color-canvas-base,
+// which hides the paper grain the whole system is built on.
+$color-primary-wash: rgba(143, 185, 150, 0.25);
+$color-primary-wash-hover: rgba(143, 185, 150, 0.3);
+$color-primary-wash-active: rgba(143, 185, 150, 0.34);
 $color-primary-hover: #E8DEC8;
 $color-primary-active: #DDD2B8;
 $color-secondary-hover: #F5F0E4;
 $color-secondary-active: #EDE6D6;
+
+// Neutral button wash — the ink at low alpha, so the paper grain reads through it the
+// way it does under every coloured variant. Replaces the opaque near-white fill.
+$color-secondary-wash: rgba(61, 53, 43, 0.1);
+$color-secondary-wash-hover: rgba(61, 53, 43, 0.14);
+$color-secondary-wash-active: rgba(61, 53, 43, 0.18);
 $color-danger-hover: #E8D4D4;
 $color-danger-active: #DEC4C4;
 

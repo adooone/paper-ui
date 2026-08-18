@@ -67,43 +67,46 @@
 // Var-backed so a consuming app can theme its brand primary (e.g. green) without
 // forking the component; the scss token stays the default for every other consumer.
 .primary .blobFill {
-  fill: var(--pui-btn-primary, #{$color-canvas-base});
+  fill: var(--pui-btn-primary, #{$color-primary-wash});
 }
 
 .primary:hover:not(:disabled) .blobFill {
-  fill: var(--pui-btn-primary-hover, #{$color-primary-hover});
+  fill: var(--pui-btn-primary-hover, #{$color-primary-wash-hover});
 }
 
 .primary:active:not(:disabled) .blobFill {
-  fill: var(--pui-btn-primary-active, #{$color-primary-active});
+  fill: var(--pui-btn-primary-active, #{$color-primary-wash-active});
 }
 
 .isActive.primary .blobFill {
-  fill: var(--pui-btn-primary-hover, #{$color-primary-hover});
+  fill: var(--pui-btn-primary-hover, #{$color-primary-wash-hover});
 }
 
 .isActive.primary:hover .blobFill {
-  fill: var(--pui-btn-primary-active, #{$color-primary-active});
+  fill: var(--pui-btn-primary-active, #{$color-primary-wash-active});
 }
 
+// Var-backed like .primary, so a consuming app owns its neutral. The default is an
+// ink wash rather than $color-bg-surface: an opaque near-white painted over the paper
+// hides the grain and reads as a sticker, where every other button tints through it.
 .secondary .blobFill {
-  fill: $color-bg-surface;
+  fill: var(--pui-btn-secondary, #{$color-secondary-wash});
 }
 
 .secondary:hover:not(:disabled) .blobFill {
-  fill: $color-secondary-hover;
+  fill: var(--pui-btn-secondary-hover, #{$color-secondary-wash-hover});
 }
 
 .secondary:active:not(:disabled) .blobFill {
-  fill: $color-secondary-active;
+  fill: var(--pui-btn-secondary-active, #{$color-secondary-wash-active});
 }
 
 .isActive.secondary .blobFill {
-  fill: $color-secondary-hover;
+  fill: var(--pui-btn-secondary-hover, #{$color-secondary-wash-hover});
 }
 
 .isActive.secondary:hover .blobFill {
-  fill: $color-secondary-active;
+  fill: var(--pui-btn-secondary-active, #{$color-secondary-wash-active});
 }
 
 .ghost {
