@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.17.0](https://github.com/adooone/paper-ui/compare/v0.16.0...v0.17.0) (2026-08-18)
+
+
+### Features
+
+* **button:** wash button fills instead of painting them opaque ([556954d](https://github.com/adooone/paper-ui/commit/556954dea72f29542e2aea1a77e76ffdf2f050ea))
+
 ## [0.16.0](https://github.com/adooone/paper-ui/compare/v0.15.0...v0.16.0) (2026-08-11)
 
 
