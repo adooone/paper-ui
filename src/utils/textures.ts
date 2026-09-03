@@ -19,8 +19,8 @@ export interface TextureConfig {
   ruledColor?: RuledColorKey;
 }
 
-/** A texture as either a bare name (`"parchment"`) or a full config object. */
-export type Texture = PaperTextureKey | TextureConfig;
+/** A texture as a bare name (`"parchment"`) or a config object, which may also carry `fill`/`shade`. */
+export type Texture = PaperTextureKey | SurfaceConfig;
 
 /** The value a component's `texture` prop accepts: a texture, or `true`/`false` to toggle the default. */
 export type TextureProp = boolean | Texture;
