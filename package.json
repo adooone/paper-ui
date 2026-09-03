@@ -34,6 +34,7 @@
     "tailwind.ts",
     "tailwind.config.js",
     "postcss.config.js",
+    "src/components",
     "src/styles",
     "src/globals.scss",
     "CHANGELOG.md",
