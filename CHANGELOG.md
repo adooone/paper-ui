@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.18.0](https://github.com/adooone/paper-ui/compare/v0.17.0...v0.18.0) (2026-09-03)
+
+
+### Features
+
+* **package:** ship src/components in the published files array ([df5ee85](https://github.com/adooone/paper-ui/commit/df5ee85ba6344f6aba1b3df6116bd802e739d866))
+* **package:** ship src/components in the published files array ([9fe659e](https://github.com/adooone/paper-ui/commit/9fe659e83c1f1683f6f6d590032139aa783953bf))
+
+
+### Bug Fixes
+
+* **textures:** let Texture carry fill and shade ([f433893](https://github.com/adooone/paper-ui/commit/f433893d49fc928ba41997a576d5067f6f3d7c96))
+
 ## [0.17.0](https://github.com/adooone/paper-ui/compare/v0.16.0...v0.17.0) (2026-08-18)
 
 
