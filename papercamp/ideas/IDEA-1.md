@@ -51,7 +51,7 @@ Changing any token value. Native components; the phone app builds its
 own from these tokens. A runtime theme switch.
 
 ### Phases
-- [ ] Make `src/tokens.ts` hold every token value
+- [x] Make `src/tokens.ts` hold every token value
       Absorb the ramps and font families from `tailwind.ts` and the colors, type scale, spacing, radii, and shadows from the SCSS as plain `as const` objects with no imports.
 - [ ] Generate the SCSS with `scripts/tokens-scss.ts`
       Emit `src/styles/_tokens.scss` with today's variable names, wire up `pnpm tokens` and `--check`, and add the check to `ci`.
