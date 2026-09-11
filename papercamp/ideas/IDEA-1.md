@@ -58,7 +58,7 @@ own from these tokens. A runtime theme switch.
 - [x] Generate the SCSS with `scripts/tokens-scss.ts`
       Emit `src/styles/_tokens.scss` with today's variable names, wire up `pnpm tokens` and `--check`, and add the check to `ci`.
 - [x] Derive `tailwind.ts` from the token objects
-- [ ] Add the `./tokens` build entry and package export
+- [x] Add the `./tokens` build entry and package export
       A second Vite library entry emitting `dist/tokens.{mjs,cjs,d.ts}`, with the root export still re-exporting `colors`, `space`, and `withAlpha`.
 - [ ] Document the native consumer surface in the README
       Name the `./tokens` export alongside `dist/fonts` and `dist/img`.
@@ -72,3 +72,4 @@ own from these tokens. A runtime theme switch.
 - [x] 2026-09-11 [question] [agent] Run-all parked on phase 2 ("Generate the SCSS with `scripts/tokens-scss.ts`") — the agent needs a decision: run denied by permission ask: cp src/styles/_tokens.scss /tmp/tokens-backup.scss && echo "// extra" >> src/styles/_tokens.scss && (pnpm run tokens:check 2>&1 || echo "EXIT=$?"); cp /tmp/tokens-backup.scss src/styles/_tokens.scss; echo "---restored---"; pnpm run tokens:check 2>&1 | tail -3
 - [x] 2026-09-11 [clarification] Decision: the repo's .claude/settings.json now allows `pnpm run *`, `pnpm test*`, `node scripts/*`, `npx biome check*`, and edits under src/, scripts/, and papercamp/. Do not copy or mutate files through the shell to test the check mode. Verify `tokens:check` like this: run `pnpm run tokens:check` on the committed state and expect it to pass; then change one value in src/tokens.ts with the Edit tool, run `pnpm run tokens:check` and expect it to fail, then run `pnpm run tokens` to regenerate the SCSS, and revert the value with Edit. Continue phase 2.
 - [x] 2026-09-11 [chat] [agent] Good, that unblocks it — settings.json now allows the pnpm/node commands and edits under src/, scripts/, papercamp/, and the plan is to verify tokens:check by editing src/tokens.ts directly instead of shell-copying files. Picking phase 2 back up with that approach.
+- [x] 2026-09-11 [log] [agent] Settings.json update unblocked phase 2; plan is to verify tokens:check via direct src/tokens.ts edits, not shell-copied files.

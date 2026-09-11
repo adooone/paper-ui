@@ -32,9 +32,12 @@ export default defineConfig(({ command }) => {
     ],
     build: {
       lib: {
-        entry: resolve(__dirname, 'src/index.ts'),
+        entry: {
+          index: resolve(__dirname, 'src/index.ts'),
+          tokens: resolve(__dirname, 'src/tokens.ts'),
+        },
         name: 'PaperUI',
-        fileName: (format) => `index.${format === 'es' ? 'mjs' : 'cjs'}`,
+        fileName: (format, entryName) => `${entryName}.${format === 'es' ? 'mjs' : 'cjs'}`,
         formats: ['es', 'cjs'],
       },
       rollupOptions: {
@@ -51,8 +54,10 @@ export default defineConfig(({ command }) => {
           // The library is almost entirely interactive (hooks, state, event
           // handlers), so the whole bundle is marked as a Client Component.
           // This lets Next.js App Router consumers import it from Server
-          // Components without per-import "use client" directives.
-          banner: "'use client';",
+          // Components without per-import "use client" directives. The
+          // tokens entry carries no React code and is intended for native
+          // consumers, so it skips the directive.
+          banner: (chunk) => (chunk.name === 'tokens' ? '' : "'use client';"),
           globals: {
             react: 'React',
             'react-dom': 'ReactDOM',
