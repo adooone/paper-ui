@@ -66,15 +66,9 @@ own from these tokens. A runtime theme switch.
 ### Fixes
 - [ ] Fix the failing "Consistency" check
       Fix the failing "Consistency" check in this repo.
-      
-      The command was `pnpm run consistency`.
-      
-      Output from the last run:
-      
-       ERR_PNPM_NO_SCRIPT  Missing script: consistency
-      
-      Command "consistency" not found.
-      
 
 ### Thread
 - [ ] 2026-09-11 [question] [agent] Run-all parked on phase 2 ("Generate the SCSS with `scripts/tokens-scss.ts`") — the agent needs a decision: run denied by permission ask: cd /home/croco/dev/paper-ui && cp src/styles/_tokens.scss /tmp/tokens-backup.scss && echo "// extra" >> src/styles/_tokens.scss && node --experimental-strip-types scripts/tokens-scss.ts --check 2>&1; cp /tmp/tokens-backup.scss src/styles/_tokens.scss; echo "---restored---"
+- [x] 2026-09-11 [question] [agent] Run-all parked on phase 2 ("Generate the SCSS with `scripts/tokens-scss.ts`") — the agent needs a decision: run denied by permission ask: cp src/styles/_tokens.scss /tmp/tokens-backup.scss && echo "// extra" >> src/styles/_tokens.scss && (pnpm run tokens:check 2>&1 || echo "EXIT=$?"); cp /tmp/tokens-backup.scss src/styles/_tokens.scss; echo "---restored---"; pnpm run tokens:check 2>&1 | tail -3
+- [x] 2026-09-11 [clarification] Decision: the repo's .claude/settings.json now allows `pnpm run *`, `pnpm test*`, `node scripts/*`, `npx biome check*`, and edits under src/, scripts/, and papercamp/. Do not copy or mutate files through the shell to test the check mode. Verify `tokens:check` like this: run `pnpm run tokens:check` on the committed state and expect it to pass; then change one value in src/tokens.ts with the Edit tool, run `pnpm run tokens:check` and expect it to fail, then run `pnpm run tokens` to regenerate the SCSS, and revert the value with Edit. Continue phase 2.
+- [x] 2026-09-11 [chat] [agent] Good, that unblocks it — settings.json now allows the pnpm/node commands and edits under src/, scripts/, papercamp/, and the plan is to verify tokens:check by editing src/tokens.ts directly instead of shell-copying files. Picking phase 2 back up with that approach.
