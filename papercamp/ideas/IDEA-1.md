@@ -64,7 +64,7 @@ own from these tokens. A runtime theme switch.
       Name the `./tokens` export alongside `dist/fonts` and `dist/img`.
 
 ### Fixes
-- [ ] Fix the failing "Consistency" check
+- [x] Fix the failing "Consistency" check
       Fix the failing "Consistency" check in this repo.
 
 ### Thread
