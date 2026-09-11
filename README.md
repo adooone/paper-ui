@@ -227,6 +227,36 @@ Available as Tailwind utilities:
 - `bg-kraft-texture` — Brown craft paper
 - `bg-marble-texture` — Cool stone grain
 
+## Native / Dependency-Free Consumer
+
+Paper UI ships three things a non-web client (such as the Paper Camp phone
+app) can consume without pulling React, framer-motion, or roughjs:
+
+| Path | Contents |
+|------|----------|
+| `@dendelion/paper-ui/tokens` | The full token objects (`colors`, `paper`, `ink`, `canvas`, `fontFamily`, `fontSize`, `fontWeight`, `lineHeight`, `letterSpacing`, `radii`, `shadows`, `space`) and the `withAlpha` helper — as `as const` objects with no imports. |
+| `@dendelion/paper-ui/dist/fonts/` | The self-hosted display font (`Luminari-Regular.woff`). |
+| `@dendelion/paper-ui/dist/img/` | Image assets bundled with the package (e.g. `logo.svg`). |
+
+```ts
+// From React Native, an Electron renderer, or any non-React host:
+import {
+  colors,
+  paper,
+  ink,
+  canvas,
+  fontFamily,
+  space,
+  radii,
+  withAlpha,
+} from '@dendelion/paper-ui/tokens';
+```
+
+The `./tokens` entry has no React dependency, so it works in any JS
+runtime that resolves npm packages. Web consumers can keep importing
+`colors`, `space`, and `withAlpha` from the package root — they are
+re-exported there for backward compatibility.
+
 ## Development
 
 ```bash

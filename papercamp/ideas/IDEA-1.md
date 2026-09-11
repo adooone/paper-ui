@@ -2,7 +2,7 @@
 id: IDEA-1
 title: Tokens as a dependency-free export
 type: feat
-status: in-progress
+status: review
 created: 2026-09-10
 updated: 2026-09-11
 tags:
@@ -60,7 +60,7 @@ own from these tokens. A runtime theme switch.
 - [x] Derive `tailwind.ts` from the token objects
 - [x] Add the `./tokens` build entry and package export
       A second Vite library entry emitting `dist/tokens.{mjs,cjs,d.ts}`, with the root export still re-exporting `colors`, `space`, and `withAlpha`.
-- [ ] Document the native consumer surface in the README
+- [x] Document the native consumer surface in the README
       Name the `./tokens` export alongside `dist/fonts` and `dist/img`.
 
 ### Fixes
