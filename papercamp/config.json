@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "projectName": "paper-ui",
+  "initializedAt": "2026-09-10T07:52:57.157Z",
+  "nextId": {
+    "idea": 2
+  },
+  "desk": {
+    "services": [
+      {
+        "name": "Dev",
+        "cmd": "pnpm run dev",
+        "port": 3020,
+        "healthcheck": "http://localhost:3020"
+      }
+    ],
+    "checks": [
+      {
+        "name": "Types",
+        "cmd": "pnpm run check-types"
+      },
+      {
+        "name": "Lint",
+        "cmd": "pnpm run lint",
+        "fixCmd": "pnpm run lint:fix"
+      },
+      {
+        "name": "Build",
+        "cmd": "pnpm run build"
+      },
+      {
+        "name": "Tests",
+        "cmd": "pnpm run test"
+      },
+      {
+        "name": "Package",
+        "cmd": "pnpm run check-package"
+      }
+    ],
+    "ci": {
+      "repo": "adooone/paper-ui",
+      "branch": "main",
+      "releasePlease": true
+    }
+  }
+}
