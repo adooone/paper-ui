@@ -1,5 +1,30 @@
 # Changelog
 
+## [0.19.0](https://github.com/adooone/paper-ui/compare/v0.18.0...v0.19.0) (2026-09-11)
+
+
+### Features
+
+* **plans:** Add the `./tokens` build entry and package export ([09edfd0](https://github.com/adooone/paper-ui/commit/09edfd05fa7341ef4a2b6ca476e88390ac86385d))
+* **plans:** Derive `tailwind.ts` from the token objects ([e4bec1a](https://github.com/adooone/paper-ui/commit/e4bec1a48af09a7b5323c30453d1147f8c2b8634))
+* **plans:** Document the native consumer surface in the README ([1e7e7e4](https://github.com/adooone/paper-ui/commit/1e7e7e41e52319e08223fd5e6ce2d034f93526cd))
+* **plans:** Generate the SCSS with `scripts/tokens-scss.ts` ([29ff4d1](https://github.com/adooone/paper-ui/commit/29ff4d133279097d51095a07b6fbf2d1ac5ee516))
+* **plans:** Make `src/tokens.ts` hold every token value ([9f40367](https://github.com/adooone/paper-ui/commit/9f4036779f71076913d0a75d4c2ef20cde248039))
+* **plans:** mark IDEA-1 review ([7bc4d1b](https://github.com/adooone/paper-ui/commit/7bc4d1baa2f234ac52ce89e4b45764433bb03abb))
+
+
+### Bug Fixes
+
+* **plans:** Mark the Consistency check fix done ([77cbcf5](https://github.com/adooone/paper-ui/commit/77cbcf5196e1c00fd741a3d6c627c8f5efffd421))
+
+
+### Documentation
+
+* **ideas:** Tokens as a dependency-free export — plan ([00773b7](https://github.com/adooone/paper-ui/commit/00773b7f664a41591ce89d8b7e41d4a8f043fb9c))
+* **ideas:** Tokens as a dependency-free export — plan ([50239a1](https://github.com/adooone/paper-ui/commit/50239a175a0d36830934de9dd340346d4b178e26))
+* **ideas:** Tokens as a dependency-free export — plan ([b9c7c46](https://github.com/adooone/paper-ui/commit/b9c7c46dad65fae6d017c0f2d22c9adf5c4d8138))
+* **ideas:** Tokens as a dependency-free export — plan ([62da3fb](https://github.com/adooone/paper-ui/commit/62da3fb0a8216d702534c85d005da9120070ab45))
+
 ## [0.18.0](https://github.com/adooone/paper-ui/compare/v0.17.0...v0.18.0) (2026-09-03)
 
 
