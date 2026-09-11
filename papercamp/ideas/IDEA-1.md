@@ -57,7 +57,7 @@ own from these tokens. A runtime theme switch.
       Absorb the ramps and font families from `tailwind.ts` and the colors, type scale, spacing, radii, and shadows from the SCSS as plain `as const` objects with no imports.
 - [x] Generate the SCSS with `scripts/tokens-scss.ts`
       Emit `src/styles/_tokens.scss` with today's variable names, wire up `pnpm tokens` and `--check`, and add the check to `ci`.
-- [ ] Derive `tailwind.ts` from the token objects
+- [x] Derive `tailwind.ts` from the token objects
 - [ ] Add the `./tokens` build entry and package export
       A second Vite library entry emitting `dist/tokens.{mjs,cjs,d.ts}`, with the root export still re-exporting `colors`, `space`, and `withAlpha`.
 - [ ] Document the native consumer surface in the README

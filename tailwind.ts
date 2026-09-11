@@ -1,57 +1,22 @@
-// Color values here must stay in sync with src/styles/_tokens.scss — that file is the canonical source.
 /** @type {import('tailwindcss').Config} */
+import { canvas, fontFamily, ink, paper } from './src/tokens';
+
 export const paperPreset = {
   theme: {
     extend: {
       fontFamily: {
-        display: ['Luminari', 'Cormorant Garamond', 'Georgia', 'serif'],
-        'display-alt': ['Cinzel Decorative', 'Cormorant Garamond', 'Georgia', 'serif'],
-        'display-fantasy': ['Almendra Display', 'Cormorant Garamond', 'Georgia', 'serif'],
-        'display-luminari': ['Luminari', 'Cormorant Garamond', 'Georgia', 'serif'],
-        serif: ['Cormorant Garamond', 'Georgia', 'serif'],
-        handwritten: ['Caveat', 'cursive'],
-        mono: ['JetBrains Mono', 'monospace'],
+        display: [...fontFamily.display],
+        'display-alt': [...fontFamily['display-alt']],
+        'display-fantasy': [...fontFamily['display-fantasy']],
+        'display-luminari': [...fontFamily['display-luminari']],
+        serif: [...fontFamily.serif],
+        handwritten: [...fontFamily.handwritten],
+        mono: [...fontFamily.mono],
       },
       colors: {
-        paper: {
-          50: '#FDFCF8',
-          100: '#FAF8F0',
-          200: '#F5F1E6',
-          300: '#EDE7D6',
-          400: '#E0D6BF',
-          500: '#D0C3A5',
-          600: '#B8A98A',
-          700: '#9A8B6E',
-          800: '#7D7058',
-          900: '#5E5343',
-          950: '#3D352B',
-        },
-        ink: {
-          50: '#F5F4F2',
-          100: '#E5E3DF',
-          200: '#CBC8C1',
-          300: '#A8A399',
-          400: '#858077',
-          500: '#68635C',
-          600: '#504C46',
-          700: '#3D3A35',
-          800: '#2B2926',
-          900: '#1A1917',
-          950: '#0D0C0C',
-        },
-        canvas: {
-          50: '#FBF9F4',
-          100: '#F7F3EA',
-          200: '#F0EAD8',
-          300: '#E5DBC4',
-          400: '#D6C9A8',
-          500: '#C4B48A',
-          600: '#A8986E',
-          700: '#8C7D56',
-          800: '#736744',
-          900: '#574E36',
-          950: '#383224',
-        },
+        paper: { ...paper },
+        ink: { ...ink },
+        canvas: { ...canvas },
         watercolor: {
           blue: { DEFAULT: '#7C9CC0', light: '#AFC6E0', dark: '#51719B' },
           green: { DEFAULT: '#8FB996', light: '#B5D4BA', dark: '#5E8A66' },
