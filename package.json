@@ -14,6 +14,11 @@
       "import": "./dist/index.mjs",
       "require": "./dist/index.cjs"
     },
+    "./tokens": {
+      "types": "./dist/tokens.d.ts",
+      "import": "./dist/tokens.mjs",
+      "require": "./dist/tokens.cjs"
+    },
     "./tailwind": {
       "types": "./tailwind.ts",
       "import": "./tailwind.ts",
@@ -44,11 +49,13 @@
     "dev": "vite",
     "test": "echo 'No tests yet'",
     "check-types": "tsc --noEmit",
+    "tokens": "node --experimental-strip-types scripts/tokens-scss.ts",
+    "tokens:check": "node --experimental-strip-types scripts/tokens-scss.ts --check",
     "lint": "biome check ./src && stylelint \"src/**/*.scss\"",
     "lint:fix": "biome check ./src --write && stylelint \"src/**/*.scss\"",
     "lint:styles": "stylelint \"src/**/*.scss\"",
     "check-package": "publint",
-    "ci": "pnpm run check-types && pnpm run lint && pnpm run build && pnpm run test"
+    "ci": "pnpm run check-types && pnpm run tokens:check && pnpm run lint && pnpm run build && pnpm run test"
   },
   "repository": {
     "type": "git",

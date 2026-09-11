@@ -2,7 +2,7 @@
 id: IDEA-1
 title: Tokens as a dependency-free export
 type: feat
-status: in-progress
+status: review
 created: 2026-09-10
 updated: 2026-09-11
 tags:
@@ -64,17 +64,8 @@ own from these tokens. A runtime theme switch.
       Name the `./tokens` export alongside `dist/fonts` and `dist/img`.
 
 ### Fixes
-- [ ] Fix the failing "Consistency" check
+- [x] Fix the failing "Consistency" check
       Fix the failing "Consistency" check in this repo.
-      
-      The command was `pnpm run consistency`.
-      
-      Output from the last run:
-      
-       ERR_PNPM_NO_SCRIPT  Missing script: consistency
-      
-      Command "consistency" not found.
-      
 
 ### Thread
 - [ ] 2026-09-11 [question] [agent] Run-all parked on phase 2 ("Generate the SCSS with `scripts/tokens-scss.ts`") — the agent needs a decision: run denied by permission ask: cd /home/croco/dev/paper-ui && cp src/styles/_tokens.scss /tmp/tokens-backup.scss && echo "// extra" >> src/styles/_tokens.scss && node --experimental-strip-types scripts/tokens-scss.ts --check 2>&1; cp /tmp/tokens-backup.scss src/styles/_tokens.scss; echo "---restored---"
