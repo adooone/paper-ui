@@ -83,3 +83,4 @@ own from these tokens. A runtime theme switch.
 - [x] 2026-09-11 [chat] [agent] Good, that unblocks it — settings.json now allows the pnpm/node commands and edits under src/, scripts/, papercamp/, and the plan is to verify tokens:check by editing src/tokens.ts directly instead of shell-copying files. Picking phase 2 back up with that approach.
 - [x] 2026-09-11 [log] [agent] Settings.json update unblocked phase 2; plan is to verify tokens:check via direct src/tokens.ts edits, not shell-copied files.
 - [ ] 2026-09-11 [question] [agent] Run-all parked on fix 1 ("Fix the failing "Consistency" check") — the agent needs a decision: ` followed by your question, then stop without finishing the fix.
+- [ ] 2026-09-11 [question] [agent] Run-all parked on fix 1 ("Fix the failing "Consistency" check") — the agent needs a decision: read outside workspace: /home/croco/.volta/tools/image/packages/@dendelion/paper-camp/lib/node_modules/@dendelion/paper-camp/dist/cli/index.js
