@@ -1,11 +1,19 @@
 import type { ReactNode } from 'react';
 import { cn } from '../../utils/style-helpers';
+import { DividerSketch } from './divider-sketch';
 import styles from './divider.module.scss';
 
 export interface DividerProps {
   orientation?: 'horizontal' | 'vertical';
   label?: ReactNode;
   surface?: 'paper' | 'chalkboard';
+  /**
+   * Draw the rule as one hand-drawn rough.js stroke instead of a CSS line, so a
+   * divider and a `SketchBorder` card edge look drawn by the same pencil hand.
+   * A rule is one pencil line — generated as a single pass (rough.js's doubling
+   * disabled) with the `surface` preset's geometry.
+   */
+  sketch?: boolean;
   className?: string;
 }
 
@@ -13,6 +21,7 @@ export function Divider({
   orientation = 'horizontal',
   label,
   surface = 'paper',
+  sketch = false,
   className,
 }: DividerProps) {
   const chalk = surface === 'chalkboard' && styles.chalkboard;
@@ -26,6 +35,10 @@ export function Divider({
         aria-orientation="vertical"
       />
     );
+  }
+
+  if (sketch && label == null) {
+    return <DividerSketch className={cn(chalk, className)} />;
   }
 
   return (

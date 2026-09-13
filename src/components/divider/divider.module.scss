@@ -44,6 +44,29 @@
   );
 }
 
+.sketch {
+  display: block;
+  width: 100%;
+  height: 2px;
+  position: relative;
+  overflow: visible;
+  --sketch-stroke: #{$color-sketch-stroke};
+}
+
+.sketchSvg {
+  display: block;
+  width: 100%;
+  height: 2px;
+  overflow: visible;
+}
+
+.sketchStroke {
+  fill: none;
+  stroke: var(--sketch-stroke);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
 .chalkboard {
   .line {
     background: linear-gradient(
@@ -57,6 +80,10 @@
 
   .label {
     color: $color-chalkboard-muted;
+  }
+
+  .sketch {
+    --sketch-stroke: #{rgba($chalkboard-border-base, 0.32)};
   }
 
   &.vertical {
