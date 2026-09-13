@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.20.0](https://github.com/adooone/paper-ui/compare/v0.19.0...v0.20.0) (2026-09-13)
+
+
+### Features
+
+* **plans:** Cover the vertical rule and the labelled rule ([4a69c25](https://github.com/adooone/paper-ui/commit/4a69c254b224aae0a57f246e2b36902296ff5fa9))
+* **plans:** Draw the horizontal rule as one sketch stroke ([a078374](https://github.com/adooone/paper-ui/commit/a07837431964745eac14ba10c57efd0b38cade18))
+* **plans:** Show `sketch` in the showcase ([639b65b](https://github.com/adooone/paper-ui/commit/639b65bef199fd5e945adc7f3154b29066844888))
+
+
+### Documentation
+
+* **ideas:** A hand-drawn Divider — plan ([ae7d896](https://github.com/adooone/paper-ui/commit/ae7d896454bd1437d33b941042f5db3afd6428e8))
+* **papercamp:** Draft IDEA-2 for a hand-drawn Divider ([cf54002](https://github.com/adooone/paper-ui/commit/cf54002e148dec4aa13a215fa415bac4ed058356))
+
 ## [0.19.0](https://github.com/adooone/paper-ui/compare/v0.18.0...v0.19.0) (2026-09-11)
 
 
