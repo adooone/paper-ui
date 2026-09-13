@@ -46,7 +46,7 @@ A sketch variant of any other component. Changing `SketchBorder`.
 ### Phases
 - [x] Draw the horizontal rule as one sketch stroke
       Add `sketch?: boolean` to `Divider`, seed the wobble from `useId`, measure the host width with a `ResizeObserver`, and generate a single-pass `roughGenerator` stroke with settings matched to the `sketchOutline` presets, coloured by `surface`.
-- [ ] Cover the vertical rule and the labelled rule
+- [x] Cover the vertical rule and the labelled rule
       The vertical orientation draws the same stroke down its length; a `label` splits it into two runs, one either side.
 - [ ] Show `sketch` in the showcase
       A sketched example in the Divider section plus the new prop row in its prop table.

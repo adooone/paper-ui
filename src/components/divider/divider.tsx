@@ -27,6 +27,9 @@ export function Divider({
   const chalk = surface === 'chalkboard' && styles.chalkboard;
 
   if (orientation === 'vertical') {
+    if (sketch) {
+      return <DividerSketch orientation="vertical" className={cn(chalk, className)} />;
+    }
     return (
       // biome-ignore lint/a11y/useFocusableInteractive: a static decorative separator, not an adjustable splitter, so it is intentionally not focusable.
       <span
@@ -37,8 +40,8 @@ export function Divider({
     );
   }
 
-  if (sketch && label == null) {
-    return <DividerSketch className={cn(chalk, className)} />;
+  if (sketch) {
+    return <DividerSketch label={label} className={cn(chalk, className)} />;
   }
 
   return (
