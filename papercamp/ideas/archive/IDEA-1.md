@@ -2,9 +2,9 @@
 id: IDEA-1
 title: Tokens as a dependency-free export
 type: feat
-status: review
+status: done
 created: 2026-09-10
-updated: 2026-09-11
+updated: 2026-09-13
 tags:
   - tokens
   - build
