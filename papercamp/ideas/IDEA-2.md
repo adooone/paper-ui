@@ -2,7 +2,7 @@
 id: IDEA-2
 title: A hand-drawn Divider
 type: feat
-status: idea
+status: review
 created: 2026-09-13
 tags:
   - components
@@ -48,5 +48,5 @@ A sketch variant of any other component. Changing `SketchBorder`.
       Add `sketch?: boolean` to `Divider`, seed the wobble from `useId`, measure the host width with a `ResizeObserver`, and generate a single-pass `roughGenerator` stroke with settings matched to the `sketchOutline` presets, coloured by `surface`.
 - [x] Cover the vertical rule and the labelled rule
       The vertical orientation draws the same stroke down its length; a `label` splits it into two runs, one either side.
-- [ ] Show `sketch` in the showcase
+- [x] Show `sketch` in the showcase
       A sketched example in the Divider section plus the new prop row in its prop table.

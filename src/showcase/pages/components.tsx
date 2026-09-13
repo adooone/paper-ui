@@ -1190,7 +1190,8 @@ function SaveButton() {
 
 <Divider />
 <Divider label="or" />
-<Divider orientation="vertical" />`,
+<Divider orientation="vertical" />
+<Divider sketch label="or" />`,
     props: [
       {
         name: 'orientation',
@@ -1208,6 +1209,12 @@ function SaveButton() {
         type: "'paper' | 'chalkboard'",
         default: "'paper'",
         description: 'Surface style',
+      },
+      {
+        name: 'sketch',
+        type: 'boolean',
+        default: 'false',
+        description: 'Draw the rule as one hand-drawn stroke instead of a CSS line',
       },
     ],
   },
@@ -2298,7 +2305,7 @@ export const ComponentsPage: FC<{
           <ComponentSection
             id="divider"
             title="Divider"
-            description="Separator drawn as an ink stroke that fades at the ends, with an optional handwritten label."
+            description="Separator drawn as a single pencil stroke that fades at the ends, with an optional handwritten label. Set `sketch` for a hand-drawn rule that sits beside hand-drawn card edges."
             category="layout"
             chalkboard={chalkboardTheme}
             onViewDetails={() => handleViewDetails('divider')}
@@ -2309,6 +2316,19 @@ export const ComponentsPage: FC<{
               <div className="flex items-center justify-center gap-4 h-8">
                 <span style={{ color: chalkboardTheme ? '#a8c4a0' : colorInkSecondary }}>Left</span>
                 <Divider
+                  orientation="vertical"
+                  surface={chalkboardTheme ? 'chalkboard' : 'paper'}
+                />
+                <span style={{ color: chalkboardTheme ? '#a8c4a0' : colorInkSecondary }}>
+                  Right
+                </span>
+              </div>
+              <Divider sketch surface={chalkboardTheme ? 'chalkboard' : 'paper'} />
+              <Divider sketch label="or" surface={chalkboardTheme ? 'chalkboard' : 'paper'} />
+              <div className="flex items-center justify-center gap-4 h-12">
+                <span style={{ color: chalkboardTheme ? '#a8c4a0' : colorInkSecondary }}>Left</span>
+                <Divider
+                  sketch
                   orientation="vertical"
                   surface={chalkboardTheme ? 'chalkboard' : 'paper'}
                 />
