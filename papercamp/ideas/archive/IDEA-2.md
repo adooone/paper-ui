@@ -2,8 +2,9 @@
 id: IDEA-2
 title: A hand-drawn Divider
 type: feat
-status: review
+status: done
 created: 2026-09-13
+updated: 2026-09-14
 tags:
   - components
 subject: Components

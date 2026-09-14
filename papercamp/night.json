@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-09-13T20:34:07.935Z",
+  "generatedAt": "2026-09-14T11:29:22.448Z",
   "chunks": [
     {
       "path": "src/components",
-      "score": 51,
+      "score": 53,
       "signals": {
-        "churnCommits": 1,
-        "lines": 4539,
+        "churnCommits": 3,
+        "lines": 4726,
         "coveragePct": null,
         "openFindings": 0,
         "daysSinceReviewed": null
@@ -16,10 +16,10 @@
     },
     {
       "path": "src/showcase",
-      "score": 50,
+      "score": 51,
       "signals": {
-        "churnCommits": 0,
-        "lines": 6124,
+        "churnCommits": 1,
+        "lines": 6144,
         "coveragePct": null,
         "openFindings": 0,
         "daysSinceReviewed": null

@@ -1,7 +1,7 @@
 {
   "name": "@dendelion/paper-ui",
   "version": "0.20.0",
-  "description": "Natural-material React component library — paper, ink, canvas, and watercolor",
+  "description": "Natural-material React component library \u2014 paper, ink, canvas, and watercolor",
   "type": "module",
   "sideEffects": [
     "**/*.css",
@@ -39,6 +39,7 @@
     "tailwind.ts",
     "tailwind.config.js",
     "postcss.config.js",
+    "src/tokens.ts",
     "src/components",
     "src/styles",
     "src/globals.scss",
