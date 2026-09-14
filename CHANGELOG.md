@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.20.1](https://github.com/adooone/paper-ui/compare/v0.20.0...v0.20.1) (2026-09-14)
+
+
+### Bug Fixes
+
+* **build:** Ship src/tokens.ts so the Tailwind preset resolves ([2bef0a1](https://github.com/adooone/paper-ui/commit/2bef0a1d49a67d2fd37ae3496fdf14a756bde440))
+
 ## [0.20.0](https://github.com/adooone/paper-ui/compare/v0.19.0...v0.20.0) (2026-09-13)
 
 
