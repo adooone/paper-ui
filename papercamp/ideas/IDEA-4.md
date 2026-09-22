@@ -67,5 +67,5 @@ Rows, sidebars and settings, which are [[IDEA-5]]. Charts, [[IDEA-6]].
       The link variant drops the chrome and inherits font and colour; every `IconButton` size keeps a 44px tap area on touch.
 - [x] Make `Stamp`, `Card` and `ListItem` pressable
       `onClick` turns each surface into one hit target — a `<button>` for `Stamp` (plus `pressed` and `icon`), `role="button"` with keyboard activation for the two surfaces — and nested buttons keep working.
-- [ ] Draw the 17 icons, then export and show the new surface
+- [x] Draw the 17 icons, then export and show the new surface
       Add them to `src/utils/icons.tsx` beside the six existing ones, give `LightbulbIcon` a `size`, and list every new component and prop in `src/index.ts` and the showcase.

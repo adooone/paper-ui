@@ -33,6 +33,32 @@ import { Tabs } from '../../components/tabs';
 import { Text } from '../../components/text';
 import { Textarea } from '../../components/textarea';
 import { Tooltip } from '../../components/tooltip';
+import {
+  BellIcon,
+  ChatIcon,
+  CheckAllIcon,
+  CheckIcon,
+  ChevronRightIcon,
+  CloseIcon,
+  CopyIcon,
+  FolderIcon,
+  GitBranchIcon,
+  GithubIcon,
+  LightbulbIcon,
+  MergeIcon,
+  MoreIcon,
+  NoteIcon,
+  PlusIcon,
+  PullIcon,
+  PushIcon,
+  RefreshIcon,
+  RunIcon,
+  ShuffleIcon,
+  SidebarToggleIcon,
+  StopIcon,
+  UndoIcon,
+  WandIcon,
+} from '../../utils/icons';
 import { ComponentSection } from '../components/component-section';
 import { ComponentSidebar, componentIds } from '../components/component-sidebar';
 import { PaginationDemo } from '../components/pagination-demo';
@@ -1520,6 +1546,49 @@ function SaveButton() {
       },
     ],
   },
+  {
+    id: 'icons',
+    title: 'Icons',
+    codeExample: `import {
+  WandIcon,
+  PushIcon,
+  PullIcon,
+  MergeIcon,
+  RefreshIcon,
+  MoreIcon,
+  ShuffleIcon,
+  RunIcon,
+  StopIcon,
+  BellIcon,
+  ChatIcon,
+  GitBranchIcon,
+  GithubIcon,
+  NoteIcon,
+  CheckAllIcon,
+  SidebarToggleIcon,
+  UndoIcon,
+  CloseIcon,
+  LightbulbIcon,
+  CheckIcon,
+  CopyIcon,
+  PlusIcon,
+  FolderIcon,
+  ChevronRightIcon,
+} from '@dendelion/paper-ui';
+
+<IconButton icon={<WandIcon />} label="Magic" />
+<Stamp icon={<RefreshIcon />}>Syncing</Stamp>
+<Button icon={<RunIcon />}>Run</Button>`,
+    props: [
+      {
+        name: 'size',
+        type: 'number',
+        default: '16',
+        description:
+          'Pixel size of the rendered SVG. Inherited by LightbulbIcon so consumers can size it to match the rest of the set.',
+      },
+    ],
+  },
 ];
 
 const detailMap = new Map(sectionDetails.map((d) => [d.id, d]));
@@ -1998,6 +2067,60 @@ export const ComponentsPage: FC<{
               <ListItem surface={chalkboardTheme ? 'chalkboard' : 'paper'}>
                 <span className="flex-1">Non-interactive item</span>
               </ListItem>
+            </div>
+          </ComponentSection>
+
+          <ComponentSection
+            id="icons"
+            title="Icons"
+            description="Stroke-based icon set rendered at 16px in currentColor with a 2px stroke. Every icon accepts a `size` prop (defaults to 16) so they scale with the surface they sit in."
+            category="basic"
+            chalkboard={chalkboardTheme}
+            onViewDetails={() => handleViewDetails('icons')}
+          >
+            <div
+              className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4 w-full max-w-2xl"
+              style={{ color: chalkboardTheme ? '#d4e8cb' : undefined }}
+            >
+              {[
+                { label: 'Wand', Icon: WandIcon },
+                { label: 'Push', Icon: PushIcon },
+                { label: 'Pull', Icon: PullIcon },
+                { label: 'Merge', Icon: MergeIcon },
+                { label: 'Refresh', Icon: RefreshIcon },
+                { label: 'More', Icon: MoreIcon },
+                { label: 'Shuffle', Icon: ShuffleIcon },
+                { label: 'Run', Icon: RunIcon },
+                { label: 'Stop', Icon: StopIcon },
+                { label: 'Bell', Icon: BellIcon },
+                { label: 'Chat', Icon: ChatIcon },
+                { label: 'GitBranch', Icon: GitBranchIcon },
+                { label: 'Github', Icon: GithubIcon },
+                { label: 'Note', Icon: NoteIcon },
+                { label: 'CheckAll', Icon: CheckAllIcon },
+                { label: 'SidebarToggle', Icon: SidebarToggleIcon },
+                { label: 'Undo', Icon: UndoIcon },
+                { label: 'Close', Icon: CloseIcon },
+                { label: 'Lightbulb', Icon: LightbulbIcon },
+                { label: 'Check', Icon: CheckIcon },
+                { label: 'Copy', Icon: CopyIcon },
+                { label: 'Plus', Icon: PlusIcon },
+                { label: 'Folder', Icon: FolderIcon },
+                { label: 'ChevronRight', Icon: ChevronRightIcon },
+              ].map(({ label, Icon }) => (
+                <div key={label} className="flex flex-col items-center gap-2">
+                  <Icon />
+                  <span
+                    style={{
+                      fontFamily: "'Luminari', serif",
+                      fontSize: '0.75rem',
+                      color: chalkboardTheme ? '#a8c4a0' : colorInkTertiary,
+                    }}
+                  >
+                    {label}
+                  </span>
+                </div>
+              ))}
             </div>
           </ComponentSection>
 
@@ -3206,16 +3329,6 @@ function DownloadIcon() {
       <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
       <polyline points="7 10 12 15 17 10" />
       <line x1="12" y1="15" x2="12" y2="3" />
-    </svg>
-  );
-}
-
-function MoreIcon() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" stroke="none">
-      <circle cx="12" cy="5" r="1.6" />
-      <circle cx="12" cy="12" r="1.6" />
-      <circle cx="12" cy="19" r="1.6" />
     </svg>
   );
 }

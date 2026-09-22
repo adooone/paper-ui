@@ -36,6 +36,7 @@ const componentGroups: ComponentGroup[] = [
       { id: 'stamp', title: 'Stamp' },
       { id: 'avatar', title: 'Avatar' },
       { id: 'list-item', title: 'ListItem' },
+      { id: 'icons', title: 'Icons' },
     ],
   },
   {

@@ -148,13 +148,30 @@ export { Menu } from './components/menu';
 export type { MenuProps, MenuItem, MenuSeparator, MenuEntry } from './components/menu';
 
 export {
-  CloseIcon,
-  LightbulbIcon,
+  BellIcon,
+  ChatIcon,
+  CheckAllIcon,
   CheckIcon,
-  CopyIcon,
-  PlusIcon,
-  FolderIcon,
   ChevronRightIcon,
+  CloseIcon,
+  CopyIcon,
+  FolderIcon,
+  GitBranchIcon,
+  GithubIcon,
+  LightbulbIcon,
+  MergeIcon,
+  MoreIcon,
+  NoteIcon,
+  PlusIcon,
+  PullIcon,
+  PushIcon,
+  RefreshIcon,
+  RunIcon,
+  ShuffleIcon,
+  SidebarToggleIcon,
+  StopIcon,
+  UndoIcon,
+  WandIcon,
 } from './utils/icons';
 
 export { roughGenerator } from './utils/rough';
