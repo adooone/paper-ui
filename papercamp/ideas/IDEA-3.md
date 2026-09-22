@@ -2,7 +2,7 @@
 id: IDEA-3
 title: Own what paper-camp overrides
 type: feat
-status: idea
+status: in-progress
 created: 2026-09-22
 tags:
   - tokens
@@ -67,3 +67,6 @@ markup.
       The weight applies to `button`, `a`, `[role=button]`, `[role=tab]` and `[role=menuitem]` inside the layout; `none` clears the header speckle paper-camp currently strips by hashed class name.
 - [ ] Export the missing utilities and show the new props
       `roughGenerator`, `useStableSeed` and `ChevronRightIcon` from `src/index.ts`, plus showcase examples and prop rows for the Stamp variants and the Layout prop.
+
+### Thread
+- [ ] 2026-09-22 [question] [agent] Run-all parked on phase 3 ("Default the body to sans and name the button palette") — the agent needs a decision: glob denied by permission ask
