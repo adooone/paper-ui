@@ -26,6 +26,21 @@ export type { IconButtonProps } from './components/icon-button';
 export { Stamp } from './components/stamp';
 export type { StampProps, StampVariant } from './components/stamp';
 
+export { Text } from './components/text';
+export type { TextProps, TextTone, TextFace, TextSize, TextWeight } from './components/text';
+
+export { Label } from './components/label';
+export type { LabelProps } from './components/label';
+
+export { SectionHeading } from './components/section-heading';
+export type { SectionHeadingProps } from './components/section-heading';
+
+export { MetaLine } from './components/meta-line';
+export type { MetaLineProps } from './components/meta-line';
+
+export { PageTitle } from './components/page-title';
+export type { PageTitleProps } from './components/page-title';
+
 export { CodeBlock } from './components/code-block';
 export type { CodeBlockProps } from './components/code-block';
 

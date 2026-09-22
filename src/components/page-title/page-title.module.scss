@@ -1,0 +1,12 @@
+@use '../../styles/tokens' as *;
+
+.pageTitle {
+  display: block;
+  font-family: $font-family-display;
+  font-size: $font-size-3xl;
+  font-weight: $font-weight-bold;
+  line-height: $line-height-tight;
+  color: $color-text-primary;
+  margin: 0;
+  letter-spacing: $letter-spacing-tight;
+}

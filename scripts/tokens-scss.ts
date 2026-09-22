@@ -160,10 +160,14 @@ $color-overlay-light: ${colors.overlayLight};
 $color-overlay-light-border: ${colors.overlayLightBorder};
 
 $font-family-serif: ${fontStack(fontFamily.serif)};
+$font-family-sans: ${fontStack(fontFamily.sans)};
+$font-family-display: ${fontStack(fontFamily.display)};
 $font-family-handwritten: ${fontStack(fontFamily.handwritten)};
 $font-family-mono: ${fontStack(fontFamily.mono)};
 
 // Type scale — base = 1rem = 16px
+$font-size-3xs: ${fontSize['3xs']}; // 10px
+$font-size-2xs: ${fontSize['2xs']}; // 11px
 $font-size-xs: ${fontSize.xs}; // 12px
 $font-size-sm: ${fontSize.sm}; // 14px
 $font-size-base: ${fontSize.base}; // 16px — body default

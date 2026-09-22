@@ -1,0 +1,101 @@
+@use '../../styles/tokens' as *;
+
+.text {
+  font-family: $font-family-serif;
+  color: $color-text-primary;
+  line-height: $line-height-normal;
+  margin: 0;
+}
+
+.face-serif {
+  font-family: $font-family-serif;
+}
+
+.face-sans {
+  font-family: $font-family-sans;
+}
+
+.face-handwritten {
+  font-family: $font-family-handwritten;
+}
+
+.face-mono {
+  font-family: $font-family-mono;
+}
+
+.face-display {
+  font-family: $font-family-display;
+}
+
+.size-3xs {
+  font-size: $font-size-3xs;
+}
+
+.size-2xs {
+  font-size: $font-size-2xs;
+}
+
+.size-xs {
+  font-size: $font-size-xs;
+}
+
+.size-sm {
+  font-size: $font-size-sm;
+}
+
+.size-base {
+  font-size: $font-size-base;
+}
+
+.size-md {
+  font-size: $font-size-md;
+}
+
+.size-lg {
+  font-size: $font-size-lg;
+}
+
+.weight-normal {
+  font-weight: $font-weight-normal;
+}
+
+.weight-medium {
+  font-weight: $font-weight-medium;
+}
+
+.weight-semibold {
+  font-weight: $font-weight-semibold;
+}
+
+.weight-bold {
+  font-weight: $font-weight-bold;
+}
+
+.tone-primary {
+  color: $color-text-primary;
+}
+
+.tone-secondary {
+  color: $color-text-secondary;
+  opacity: 0.7;
+}
+
+.tone-muted {
+  color: $color-text-secondary;
+  opacity: 0.55;
+}
+
+.tone-faint {
+  color: $color-text-secondary;
+  opacity: 0.45;
+}
+
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.noWrap {
+  white-space: nowrap;
+}

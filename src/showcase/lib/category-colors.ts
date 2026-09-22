@@ -1,4 +1,5 @@
 export const categoryColors: Record<string, { bg: string; text: string }> = {
+  typography: { bg: 'rgba(212, 163, 115, 0.22)', text: '#A67B4F' },
   basic: { bg: 'rgba(143, 185, 150, 0.2)', text: '#5E8A66' },
   form: { bg: 'rgba(181, 212, 186, 0.2)', text: '#5E8A66' },
   layout: { bg: 'rgba(228, 201, 168, 0.2)', text: '#A67B4F' },

@@ -19,6 +19,16 @@ interface ComponentGroup {
 
 const componentGroups: ComponentGroup[] = [
   {
+    category: 'Typography',
+    items: [
+      { id: 'text', title: 'Text' },
+      { id: 'label', title: 'Label' },
+      { id: 'section-heading', title: 'SectionHeading' },
+      { id: 'meta-line', title: 'MetaLine' },
+      { id: 'page-title', title: 'PageTitle' },
+    ],
+  },
+  {
     category: 'Basic',
     items: [
       { id: 'button', title: 'Button' },

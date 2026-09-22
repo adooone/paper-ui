@@ -16,7 +16,7 @@ interface ComponentSectionProps {
   id: string;
   title: string;
   description: string;
-  category: 'basic' | 'form' | 'layout' | 'navigation' | 'feedback' | 'overlay';
+  category: 'typography' | 'basic' | 'form' | 'layout' | 'navigation' | 'feedback' | 'overlay';
   children: ReactNode;
   chalkboard?: boolean;
   codeExample?: string;
@@ -25,6 +25,7 @@ interface ComponentSectionProps {
 }
 
 const categoryLabels: Record<string, string> = {
+  typography: 'Typography',
   basic: 'Basic',
   form: 'Form',
   layout: 'Layout',
