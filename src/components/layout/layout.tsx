@@ -19,6 +19,8 @@ export interface NavigationItem {
 
 export type LayoutBackground = 'plain' | { image: string } | Texture;
 
+export type HeaderBackground = 'none' | Texture;
+
 export interface LayoutProps {
   children: ReactNode;
   showHeader?: boolean;
@@ -31,6 +33,8 @@ export interface LayoutProps {
   headerActions?: ReactNode;
   /** Header height. A number is treated as px; a string is used verbatim. Defaults to 48px. */
   headerHeight?: number | string;
+  /** Header background. A texture (name or config) replaces the default speckle; `"none"` clears it. */
+  headerBackground?: HeaderBackground;
   /** Header texture (name or config). Overrides the default speckle background. */
   headerTexture?: Texture;
   navigationItems?: NavigationItem[];
@@ -72,6 +76,7 @@ export function Layout({
   subtitle,
   headerActions,
   headerHeight,
+  headerBackground,
   headerTexture,
   navigationItems = [],
   activeItemId,
@@ -91,11 +96,19 @@ export function Layout({
 
   const bgStyles = getBackgroundStyles(background);
   const hasSidebar = showSidebar && navigationItems.length > 0;
+  const headerBackgroundStyle: React.CSSProperties | undefined =
+    headerBackground === 'none'
+      ? { backgroundImage: 'none' }
+      : headerBackground !== undefined
+        ? getTextureStyles(headerBackground)
+        : headerTexture !== undefined
+          ? getTextureStyles(headerTexture)
+          : undefined;
   const headerStyle: React.CSSProperties | undefined =
-    headerHeight !== undefined || headerTexture !== undefined
+    headerBackgroundStyle !== undefined || headerHeight !== undefined
       ? {
           // Texture first so an explicit height isn't clobbered by the texture spread.
-          ...(headerTexture !== undefined ? getTextureStyles(headerTexture) : {}),
+          ...(headerBackgroundStyle ?? {}),
           ...(headerHeight !== undefined
             ? { height: typeof headerHeight === 'number' ? `${headerHeight}px` : headerHeight }
             : {}),

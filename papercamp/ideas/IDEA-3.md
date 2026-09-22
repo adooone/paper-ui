@@ -62,7 +62,7 @@ markup.
       Add the missing purple ramp to `src/tokens.ts`, emit the two objects through `scripts/tokens-scss.ts` so `_tokens.scss` stays the same source, and export them from the `./tokens` entry.
 - [x] Widen `StampVariant` and add `surface="chalkboard"`
       Map each new variant to a fill and text colour from the runtime tokens, keeping `fillColor`/`textColor` as the override.
-- [ ] Give `Layout` weight 600 and `headerBackground="none"`
+- [x] Give `Layout` weight 600 and `headerBackground="none"`
       The weight applies to `button`, `a`, `[role=button]`, `[role=tab]` and `[role=menuitem]` inside the layout; `none` clears the header speckle paper-camp currently strips by hashed class name.
 - [ ] Export the missing utilities and show the new props
       `roughGenerator`, `useStableSeed` and `ChevronRightIcon` from `src/index.ts`, plus showcase examples and prop rows for the Stamp variants and the Layout prop.

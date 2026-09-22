@@ -7,6 +7,14 @@
   height: 100vh;
   width: 100%;
   overflow: hidden;
+
+  button,
+  a,
+  [role="button"],
+  [role="tab"],
+  [role="menuitem"] {
+    font-weight: $font-weight-semibold;
+  }
 }
 
 .header {
