@@ -70,3 +70,4 @@ markup.
 
 ### Thread
 - [ ] 2026-09-22 [question] [agent] Run-all parked on phase 3 ("Default the body to sans and name the button palette") — the agent needs a decision: glob denied by permission ask
+- [ ] 2026-09-22 [question] [agent] Run-all parked on phase 3 ("Default the body to sans and name the button palette") — the agent needs a decision: grep denied by permission ask
