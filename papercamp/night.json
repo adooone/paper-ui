@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-14T12:37:13.348Z",
+  "generatedAt": "2026-09-22T15:00:26.677Z",
   "chunks": [
     {
       "path": "src/components",
-      "score": 53,
+      "score": 52,
       "signals": {
-        "churnCommits": 3,
+        "churnCommits": 2,
         "lines": 4726,
         "coveragePct": null,
         "openFindings": 0,
@@ -42,9 +42,9 @@
     },
     {
       "path": "src/styles",
-      "score": 33,
+      "score": 32,
       "signals": {
-        "churnCommits": 2,
+        "churnCommits": 1,
         "lines": 86,
         "coveragePct": null,
         "openFindings": 0,
