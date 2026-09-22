@@ -141,8 +141,8 @@
 }
 
 .tiny {
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
 
   .icon {
     width: 16px;
@@ -177,6 +177,16 @@
   .icon {
     width: 28px;
     height: 28px;
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .tiny,
+  .small,
+  .medium,
+  .large {
+    min-width: 44px;
+    min-height: 44px;
   }
 }
 

@@ -59,13 +59,13 @@ const componentList: Array<{
     props: [
       {
         name: 'variant',
-        type: "'primary' | 'secondary' | 'ghost' | 'danger'",
+        type: "'primary' | 'secondary' | 'ghost' | 'danger' | 'link'",
         default: "'primary'",
         description: 'Visual style variant',
       },
       {
         name: 'size',
-        type: "'small' | 'medium' | 'large'",
+        type: "'tiny' | 'small' | 'medium' | 'large'",
         default: "'medium'",
         description: 'Button size',
       },
@@ -113,7 +113,7 @@ const componentList: Array<{
       },
       {
         name: 'size',
-        type: "'small' | 'medium' | 'large'",
+        type: "'tiny' | 'small' | 'medium' | 'large'",
         default: "'medium'",
         description: 'Button size',
       },

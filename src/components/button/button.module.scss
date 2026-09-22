@@ -161,6 +161,28 @@
   fill: $color-danger-active;
 }
 
+.link {
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+  line-height: inherit;
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+  background: transparent;
+  padding: 0;
+
+  &:hover:not(:disabled) {
+    text-decoration: underline;
+    opacity: 0.75;
+  }
+
+  &:active:not(:disabled) {
+    opacity: 0.6;
+  }
+}
+
 .chalkboard {
   color: $color-chalkboard-chalk;
 

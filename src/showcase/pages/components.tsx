@@ -47,7 +47,7 @@ import {
 
 const variantProp: PropDef = {
   name: 'variant',
-  type: "'primary' | 'secondary' | 'ghost' | 'danger'",
+  type: "'primary' | 'secondary' | 'ghost' | 'danger' | 'link'",
   default: "'primary'",
   description: 'Visual style variant',
 };
@@ -88,7 +88,8 @@ const sectionDetails: SectionDetail[] = [
 <Button variant="danger" size="large">
   Danger
 </Button>
-<Button variant="ghost">Ghost</Button>`,
+<Button variant="ghost">Ghost</Button>
+<Button variant="link">Link</Button>`,
     props: [
       variantProp,
       sizeProp,
@@ -129,7 +130,8 @@ const sectionDetails: SectionDetail[] = [
 
 <IconButton icon={<HeartIcon />} label="Like" variant="default" />
 <IconButton icon={<HeartIcon />} label="Like" variant="ghost" />
-<IconButton icon={<TrashIcon />} label="Delete" variant="danger" />`,
+<IconButton icon={<TrashIcon />} label="Delete" variant="danger" />
+<IconButton icon={<HeartIcon />} label="Like" size="tiny" />`,
     props: [
       {
         name: 'icon',
@@ -143,7 +145,12 @@ const sectionDetails: SectionDetail[] = [
         default: "'default'",
         description: 'Visual style variant',
       },
-      sizeProp,
+      {
+        name: 'size',
+        type: "'tiny' | 'small' | 'medium' | 'large'",
+        default: "'medium'",
+        description: 'Component size',
+      },
       {
         name: 'label',
         type: 'string',
@@ -1602,6 +1609,9 @@ export const ComponentsPage: FC<{
                   <Button variant="primary" disabled wobble={buttonWobble}>
                     Disabled
                   </Button>
+                  <Button variant="link" wobble={buttonWobble}>
+                    Link
+                  </Button>
                 </>
               )}
             </div>
@@ -1651,6 +1661,7 @@ export const ComponentsPage: FC<{
                     variant="danger"
                     wobble={buttonWobble}
                   />
+                  <IconButton icon={<HeartIcon />} label="Like" size="tiny" wobble={buttonWobble} />
                 </>
               )}
             </div>

@@ -5,7 +5,7 @@ import { cn } from '../../utils/style-helpers';
 import styles from './button.module.scss';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'ghost' | 'danger';
+  variant?: 'primary' | 'secondary' | 'ghost' | 'danger' | 'link';
   surface?: 'paper' | 'chalkboard';
   size?: 'tiny' | 'small' | 'medium' | 'large';
   icon?: ReactNode;
@@ -31,7 +31,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
   },
   ref,
 ) {
-  const paths = useBlobPaths(wobble);
+  const isLink = variant === 'link';
+  const paths = useBlobPaths(isLink ? 0 : wobble);
 
   return (
     <button
@@ -41,22 +42,24 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
         styles.button,
         styles[variant],
         styles[size],
-        surface === 'chalkboard' && styles.chalkboard,
+        !isLink && surface === 'chalkboard' && styles.chalkboard,
         isActive && styles.isActive,
         fullWidth && styles.fullWidth,
         className,
       )}
       {...props}
     >
-      <svg
-        className={styles.blobBg}
-        viewBox="-10 -10 120 120"
-        preserveAspectRatio="none"
-        aria-hidden="true"
-      >
-        <path d={paths.blob} className={styles.blobFill} />
-        <path d={paths.ring} className={styles.blobRing} />
-      </svg>
+      {!isLink && (
+        <svg
+          className={styles.blobBg}
+          viewBox="-10 -10 120 120"
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
+          <path d={paths.blob} className={styles.blobFill} />
+          <path d={paths.ring} className={styles.blobRing} />
+        </svg>
+      )}
       {icon && <span className={styles.iconLeft}>{icon}</span>}
       <span className={styles.label}>{children}</span>
       {iconRight && <span className={styles.iconRight}>{iconRight}</span>}
