@@ -24,6 +24,9 @@ export const colors = {
   accentSlate: '#8A9BA8',
   accentSlateLight: '#B0BEC8',
   accentSlateDark: '#5E7080',
+  accentPurple: '#9B8AB8',
+  accentPurpleLight: '#C2B5D8',
+  accentPurpleDark: '#6E5F8E',
 
   canvasBase: '#F0EAD8',
   canvas300: '#E5DBC4',
@@ -105,6 +108,36 @@ export const colors = {
   sketchStrokeActive: 'rgba(61, 53, 43, 0.7)',
   sketchStrokeMuted: 'rgba(61, 53, 43, 0.15)',
 } as const;
+
+export const color = {
+  textPrimary: colors.textPrimary,
+  textSecondary: colors.textSecondary,
+
+  accentAmber: colors.accentAmber,
+  accentAmberDark: colors.accentAmberDark,
+  accentGreen: colors.accentGreen,
+  accentGreenDark: colors.accentGreenDark,
+  accentRose: colors.accentRose,
+  accentRoseDark: colors.accentRoseDark,
+  accentSlate: colors.accentSlate,
+  accentSlateDark: colors.accentSlateDark,
+  accentBlue: colors.accentBlue,
+  accentBlueDark: colors.accentBlueDark,
+  accentPurple: colors.accentPurple,
+  accentPurpleDark: colors.accentPurpleDark,
+
+  chalkPass: colors.chalkboardAccent,
+  chalkFail: colors.chalkboardRose,
+  chalkRunning: colors.chalkboardChalk,
+
+  textureShade: colors.bgElevated,
+} as const;
+
+export const surface = {
+  page: { texture: 'paper', shade: true },
+  card: { texture: 'parchment', shade: true },
+  nestedCard: { texture: 'canvas', shade: true },
+} as const satisfies Record<string, { texture: string; shade?: boolean }>;
 
 export const paper = {
   50: '#FDFCF8',

@@ -2,6 +2,7 @@ import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
+  color,
   colors,
   fontFamily,
   fontSize,
@@ -11,10 +12,14 @@ import {
   radii,
   shadows,
   space,
+  surface,
 } from '../src/tokens.ts';
 
 const here = dirname(fileURLToPath(import.meta.url));
-const target = resolve(here, '../src/styles/_tokens.scss');
+const stylesDir = resolve(here, '../src/styles');
+const target = resolve(stylesDir, '_tokens.scss');
+const colorTarget = resolve(stylesDir, '_color.scss');
+const surfaceTarget = resolve(stylesDir, '_surface.scss');
 
 function hexToRgb(hex: string): string {
   const value = hex.replace('#', '');
@@ -62,6 +67,9 @@ $color-accent-rose-dark: ${colors.accentRoseDark};
 $color-accent-slate: ${colors.accentSlate};
 $color-accent-slate-light: ${colors.accentSlateLight};
 $color-accent-slate-dark: ${colors.accentSlateDark};
+$color-accent-purple: ${colors.accentPurple};
+$color-accent-purple-light: ${colors.accentPurpleLight};
+$color-accent-purple-dark: ${colors.accentPurpleDark};
 
 // Base for every translucent chalkboard border/ring below.
 $chalkboard-border-base: ${chalkboardBaseRgb};
@@ -253,20 +261,58 @@ $z-tooltip: 700;
 $z-toast: 800;
 `;
 
+const colorOut = `// Runtime color mirrors — emitted from the \`color\` object in src/tokens.ts
+// so SCSS consumers can reference the same semantic values as the runtime.
+
+${Object.entries(color)
+  .map(([key, value]) => `$color-${kebab(key)}: ${value};`)
+  .join('\n')}
+`;
+
+const surfaceEntries = Object.entries(surface).map(([key, value]) => {
+  const fields = Object.entries(value)
+    .map(([k, v]) => `  ${kebab(k)}: ${typeof v === 'string' ? `'${v}'` : v},`)
+    .join('\n');
+  return `$surface-${kebab(key)}: (\n${fields}\n);`;
+});
+const surfaceOut = `// Named app surfaces — emitted from the \`surface\` object in src/tokens.ts
+// so SCSS consumers can read the same page/card/nestedCard configs as the runtime.
+
+${surfaceEntries.join('\n\n')}
+`;
+
+function kebab(s: string): string {
+  return s.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();
+}
+
 const check = process.argv.includes('--check');
 
 if (check) {
-  if (!existsSync(target)) {
-    console.error(`error: ${target} does not exist — run \`pnpm tokens\` first`);
-    process.exit(1);
+  const files: Array<[string, string, string]> = [
+    [target, out, 'tokens'],
+    [colorTarget, colorOut, 'color'],
+    [surfaceTarget, surfaceOut, 'surface'],
+  ];
+  let failed = false;
+  for (const [path, expected, name] of files) {
+    if (!existsSync(path)) {
+      console.error(`error: ${path} does not exist — run \`pnpm tokens\` first`);
+      failed = true;
+      continue;
+    }
+    const current = readFileSync(path, 'utf8');
+    if (current !== expected) {
+      console.error(`error: ${path} is out of date — run \`pnpm tokens\` to regenerate`);
+      failed = true;
+    }
   }
-  const current = readFileSync(target, 'utf8');
-  if (current !== out) {
-    console.error(`error: ${target} is out of date — run \`pnpm tokens\` to regenerate`);
-    process.exit(1);
-  }
+  if (failed) process.exit(1);
   console.log('tokens: in sync');
 } else {
   writeFileSync(target, out);
   console.log(`tokens: wrote ${target}`);
+  writeFileSync(colorTarget, colorOut);
+  console.log(`tokens: wrote ${colorTarget}`);
+  writeFileSync(surfaceTarget, surfaceOut);
+  console.log(`tokens: wrote ${surfaceTarget}`);
 }

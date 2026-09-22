@@ -57,7 +57,7 @@ New components; those are [[IDEA-4]] onward. Any change to a component's
 markup.
 
 ### Phases
-- [ ] Generate the runtime `color` and `surface` objects
+- [x] Generate the runtime `color` and `surface` objects
       Add the missing purple ramp to `src/tokens.ts`, emit the two objects through `scripts/tokens-scss.ts` so `_tokens.scss` stays the same source, and export them from the `./tokens` entry.
 - [ ] Widen `StampVariant` and add `surface="chalkboard"`
       Map each new variant to a fill and text colour from the runtime tokens, keeping `fillColor`/`textColor` as the override.

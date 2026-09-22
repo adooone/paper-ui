@@ -1,0 +1,21 @@
+// Runtime color mirrors — emitted from the `color` object in src/tokens.ts
+// so SCSS consumers can reference the same semantic values as the runtime.
+
+$color-text-primary: #1A1917;
+$color-text-secondary: #68635C;
+$color-accent-amber: #D4A373;
+$color-accent-amber-dark: #A67B4F;
+$color-accent-green: #8FB996;
+$color-accent-green-dark: #5E8A66;
+$color-accent-rose: #C98B8B;
+$color-accent-rose-dark: #9E5E5E;
+$color-accent-slate: #8A9BA8;
+$color-accent-slate-dark: #5E7080;
+$color-accent-blue: #7C9CC0;
+$color-accent-blue-dark: #51719B;
+$color-accent-purple: #9B8AB8;
+$color-accent-purple-dark: #6E5F8E;
+$color-chalk-pass: #a8c49a;
+$color-chalk-fail: #e8a0a0;
+$color-chalk-running: #d4e8cb;
+$color-texture-shade: #F5F1E6;

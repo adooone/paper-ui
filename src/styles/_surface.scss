@@ -1,0 +1,17 @@
+// Named app surfaces — emitted from the `surface` object in src/tokens.ts
+// so SCSS consumers can read the same page/card/nestedCard configs as the runtime.
+
+$surface-page: (
+  texture: 'paper',
+  shade: true,
+);
+
+$surface-card: (
+  texture: 'parchment',
+  shade: true,
+);
+
+$surface-nested-card: (
+  texture: 'canvas',
+  shade: true,
+);
