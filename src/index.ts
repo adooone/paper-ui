@@ -1,7 +1,12 @@
 import './globals.scss';
 
 export { Layout } from './components/layout';
-export type { LayoutProps, NavigationItem, LayoutBackground } from './components/layout';
+export type {
+  LayoutProps,
+  NavigationItem,
+  LayoutBackground,
+  HeaderBackground,
+} from './components/layout';
 
 export { Island } from './components/island';
 export type { IslandProps } from './components/island';
@@ -115,7 +120,18 @@ export type { PaginationProps } from './components/pagination';
 export { Menu } from './components/menu';
 export type { MenuProps, MenuItem, MenuSeparator, MenuEntry } from './components/menu';
 
-export { CloseIcon, LightbulbIcon, CheckIcon, CopyIcon, PlusIcon, FolderIcon } from './utils/icons';
+export {
+  CloseIcon,
+  LightbulbIcon,
+  CheckIcon,
+  CopyIcon,
+  PlusIcon,
+  FolderIcon,
+  ChevronRightIcon,
+} from './utils/icons';
+
+export { roughGenerator } from './utils/rough';
+export { useStableSeed } from './hooks/use-stable-seed';
 
 export {
   getTextureStyles,

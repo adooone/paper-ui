@@ -185,7 +185,7 @@ const sectionDetails: SectionDetail[] = [
       },
       {
         name: 'variant',
-        type: "'neutral' | 'info' | 'success' | 'warning' | 'error'",
+        type: "'neutral' | 'info' | 'success' | 'warning' | 'error' | 'review' | 'dropped' | 'idea' | 'muted' | 'faint'",
         description:
           'Semantic color shortcut for fillColor/textColor, with a matching ink ring. Lower wobble toward 0 for a status-tag look that repeats consistently.',
       },
@@ -415,6 +415,8 @@ const sectionDetails: SectionDetail[] = [
 <Layout
   title="Paper Camp"
   subtitle="Dashboard"
+  headerBackground="none"
+  headerHeight={56}
   navigationItems={[
     { id: 'dash', label: 'Dashboard', path: '/' },
     { id: 'plans', label: 'Plans', path: '/plans' },
@@ -485,6 +487,23 @@ const sectionDetails: SectionDetail[] = [
         name: 'headerActions',
         type: 'ReactNode',
         description: 'Header action elements',
+      },
+      {
+        name: 'headerHeight',
+        type: 'number | string',
+        description: 'Header height in px (number) or any CSS length (string); defaults to 48px',
+      },
+      {
+        name: 'headerBackground',
+        type: "HeaderBackground ('none' | Texture)",
+        description:
+          'Header background texture (name or config); "none" clears the default speckle',
+      },
+      {
+        name: 'headerTexture',
+        type: 'Texture',
+        description:
+          'Header texture (name or config); shorthand that overrides the default speckle',
       },
       {
         name: 'logo',
@@ -1719,6 +1738,47 @@ export const ComponentsPage: FC<{
                 >
                   Failed
                 </Stamp>
+                <Stamp
+                  variant="review"
+                  dot
+                  wobble={0}
+                  size="small"
+                  surface={chalkboardTheme ? 'chalkboard' : 'paper'}
+                >
+                  Review
+                </Stamp>
+                <Stamp
+                  variant="dropped"
+                  wobble={0}
+                  size="small"
+                  surface={chalkboardTheme ? 'chalkboard' : 'paper'}
+                >
+                  Dropped
+                </Stamp>
+                <Stamp
+                  variant="idea"
+                  wobble={0}
+                  size="small"
+                  surface={chalkboardTheme ? 'chalkboard' : 'paper'}
+                >
+                  Idea
+                </Stamp>
+                <Stamp
+                  variant="muted"
+                  wobble={0}
+                  size="small"
+                  surface={chalkboardTheme ? 'chalkboard' : 'paper'}
+                >
+                  Done
+                </Stamp>
+                <Stamp
+                  variant="faint"
+                  wobble={0}
+                  size="small"
+                  surface={chalkboardTheme ? 'chalkboard' : 'paper'}
+                >
+                  Faint
+                </Stamp>
               </div>
             </div>
           </ComponentSection>
@@ -2131,6 +2191,8 @@ export const ComponentsPage: FC<{
               <Layout
                 title="Paper Studio"
                 subtitle="Dashboard"
+                headerBackground="none"
+                headerHeight={56}
                 navigationItems={[
                   { id: 'dash', label: 'Dashboard', path: '/' },
                   { id: 'plans', label: 'Plans', path: '/plans' },

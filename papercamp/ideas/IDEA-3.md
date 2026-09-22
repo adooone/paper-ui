@@ -2,7 +2,7 @@
 id: IDEA-3
 title: Own what paper-camp overrides
 type: feat
-status: in-progress
+status: review
 created: 2026-09-22
 updated: 2026-09-22
 tags:
@@ -64,7 +64,7 @@ markup.
       Map each new variant to a fill and text colour from the runtime tokens, keeping `fillColor`/`textColor` as the override.
 - [x] Give `Layout` weight 600 and `headerBackground="none"`
       The weight applies to `button`, `a`, `[role=button]`, `[role=tab]` and `[role=menuitem]` inside the layout; `none` clears the header speckle paper-camp currently strips by hashed class name.
-- [ ] Export the missing utilities and show the new props
+- [x] Export the missing utilities and show the new props
       `roughGenerator`, `useStableSeed` and `ChevronRightIcon` from `src/index.ts`, plus showcase examples and prop rows for the Stamp variants and the Layout prop.
 
 ### Thread
