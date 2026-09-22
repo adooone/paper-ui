@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import type { MouseEvent, ReactNode } from 'react';
 import { useBlobPaths } from '../../hooks/use-blob-paths';
 import { color, colors, withAlpha } from '../../tokens';
 import { cn } from '../../utils/style-helpers';
@@ -21,10 +21,24 @@ export interface StampProps {
   size?: 'small' | 'medium' | 'large';
   variant?: StampVariant;
   dot?: boolean;
+  /** Leading icon (e.g. a Git/Run/Stop glyph). Rendered before the label, after any dot. */
+  icon?: ReactNode;
   fillColor?: string;
   textColor?: string;
   wobble?: number;
   surface?: 'paper' | 'chalkboard';
+  /**
+   * Render as a `<button>` and fire this handler on click. The stamp's look is
+   * kept; a hover lift and focus ring are added.
+   */
+  onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
+  /**
+   * Pressed-state visual for the chip-toggle case. Only has effect when
+   * `onClick` is also set (without a click handler, "pressed" is meaningless).
+   */
+  pressed?: boolean;
+  /** Tooltip / a11y label when `icon` is the only content. */
+  ariaLabel?: string;
   className?: string;
 }
 
@@ -105,10 +119,14 @@ export function Stamp({
   size = 'medium',
   variant,
   dot = false,
+  icon,
   fillColor,
   textColor,
   wobble = 0.3,
   surface = 'paper',
+  onClick,
+  pressed = false,
+  ariaLabel,
   className,
 }: StampProps) {
   const paths = useBlobPaths(wobble);
@@ -128,11 +146,20 @@ export function Stamp({
   const resolvedText =
     textColor ?? (variant && !isChalkboard ? variantColors[variant].text : undefined);
 
-  return (
-    <span
-      className={cn(styles.stamp, styles[size], isChalkboard && styles.chalkboard, className)}
-      style={resolvedText ? { color: resolvedText } : undefined}
-    >
+  const isPressable = !!onClick;
+  const isPressed = isPressable && pressed;
+
+  const sharedClassName = cn(
+    styles.stamp,
+    styles[size],
+    isChalkboard && styles.chalkboard,
+    isPressable && styles.pressable,
+    isPressed && styles.pressed,
+    className,
+  );
+
+  const inner = (
+    <>
       <svg
         className={styles.blobBg}
         viewBox="-10 -10 120 120"
@@ -145,7 +172,29 @@ export function Stamp({
         )}
       </svg>
       {dot && <span className={styles.dot} aria-hidden="true" />}
+      {icon && <span className={styles.icon}>{icon}</span>}
       <span className={styles.label}>{children}</span>
+    </>
+  );
+
+  if (isPressable) {
+    return (
+      <button
+        type="button"
+        aria-pressed={pressed}
+        aria-label={ariaLabel}
+        className={sharedClassName}
+        style={resolvedText ? { color: resolvedText } : undefined}
+        onClick={onClick}
+      >
+        {inner}
+      </button>
+    );
+  }
+
+  return (
+    <span className={sharedClassName} style={resolvedText ? { color: resolvedText } : undefined}>
+      {inner}
     </span>
   );
 }

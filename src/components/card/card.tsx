@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import type { KeyboardEvent, MouseEvent, ReactNode } from 'react';
 import { createAccentClassMap } from '../../utils/accent-class-map';
 import { cn } from '../../utils/style-helpers';
 import { type SurfaceFillKey, type TextureProp, getSurfaceStyles } from '../../utils/textures';
@@ -19,6 +19,15 @@ export interface CardProps {
   accentColor?: 'blue' | 'green' | 'amber' | 'rose' | 'slate';
   /** Draw the hand-drawn wobble outline. Off by default — a clean, flat-edged card. */
   sketch?: boolean;
+  /**
+   * Render the surface as one hit target. The card keeps its look but gains
+   * `role="button"`, Enter/Space activation and a focus ring; children may
+   * still contain their own buttons (those stay inside the card and don't
+   * bubble activation to the card click).
+   */
+  onClick?: (event: MouseEvent<HTMLDivElement>) => void;
+  /** Tooltip / a11y label for the card when used as a single hit target. */
+  ariaLabel?: string;
   className?: string;
 }
 
@@ -35,6 +44,8 @@ export function Card({
   accent = false,
   accentColor = 'blue',
   sketch = false,
+  onClick,
+  ariaLabel,
   className,
 }: CardProps) {
   const surfaceStyle =
@@ -48,8 +59,23 @@ export function Card({
           ...(shade ? { shade } : {}),
         });
 
+  const isPressable = !!onClick;
+
+  const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+    if (!onClick) return;
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      onClick(event as unknown as MouseEvent<HTMLDivElement>);
+    }
+  };
+
   return (
     <div
+      role={isPressable ? 'button' : undefined}
+      tabIndex={isPressable ? 0 : undefined}
+      aria-label={isPressable ? ariaLabel : undefined}
+      onClick={onClick}
+      onKeyDown={isPressable ? handleKeyDown : undefined}
       className={cn(
         styles.borderLayer,
         styles[variant],
@@ -58,6 +84,7 @@ export function Card({
         accent && styles.withAccent,
         accent && accentClassMap[accentColor],
         !sketch && styles.flat,
+        isPressable && styles.pressable,
         className,
       )}
     >

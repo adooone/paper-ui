@@ -14,10 +14,6 @@
   border-radius: $radius-sm;
   text-align: left;
   outline: none;
-
-  &:focus-visible {
-    @include focus-ring;
-  }
 }
 
 .static {
@@ -26,6 +22,15 @@
 
 .clickable {
   cursor: pointer;
+
+  &:focus-visible {
+    @include focus-ring;
+  }
+}
+
+.disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
 }
 
 .blobBg {
@@ -135,7 +140,7 @@
     stroke: $chalkboard-ring-stroke-active;
   }
 
-  &:focus-visible {
+  &.clickable:focus-visible {
     @include focus-ring($color: $color-chalkboard-chalk);
   }
 }

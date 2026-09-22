@@ -65,7 +65,7 @@ Rows, sidebars and settings, which are [[IDEA-5]]. Charts, [[IDEA-6]].
       `FactsGrid`, `InlineCode`, `CommandLine` (with `CopyButton`) and `EmptyState`, each built from `Text` rather than raw class strings.
 - [x] Give `Button` a `link` variant and `IconButton` a `tiny` size
       The link variant drops the chrome and inherits font and colour; every `IconButton` size keeps a 44px tap area on touch.
-- [ ] Make `Stamp`, `Card` and `ListItem` pressable
+- [x] Make `Stamp`, `Card` and `ListItem` pressable
       `onClick` turns each surface into one hit target — a `<button>` for `Stamp` (plus `pressed` and `icon`), `role="button"` with keyboard activation for the two surfaces — and nested buttons keep working.
 - [ ] Draw the 17 icons, then export and show the new surface
       Add them to `src/utils/icons.tsx` beside the six existing ones, give `LightbulbIcon` a `size`, and list every new component and prop in `src/index.ts` and the showcase.

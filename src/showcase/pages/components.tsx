@@ -181,6 +181,18 @@ const sectionDetails: SectionDetail[] = [
 // quieter, repeatable label instead of a one-off decorative mark.
 <Stamp variant="success" dot wobble={0} size="small">
   Active
+</Stamp>
+
+// Pressable: pass onClick for a one-hit target with a hover lift, or
+// pair it with pressed for a chip-toggle.
+<Stamp
+  variant="success"
+  wobble={0}
+  size="small"
+  pressed={selected === 'live'}
+  onClick={() => setSelected(selected === 'live' ? null : 'live')}
+>
+  Live
 </Stamp>`,
     props: [
       {
@@ -208,6 +220,11 @@ const sectionDetails: SectionDetail[] = [
         description: 'Show a leading status dot',
       },
       {
+        name: 'icon',
+        type: 'ReactNode',
+        description: 'Leading icon rendered before the label, after any dot.',
+      },
+      {
         name: 'fillColor',
         type: 'string',
         description: 'SVG blob fill color, overrides variant',
@@ -228,6 +245,25 @@ const sectionDetails: SectionDetail[] = [
         type: "'paper' | 'chalkboard'",
         default: "'paper'",
         description: 'Surface style',
+      },
+      {
+        name: 'onClick',
+        type: '(event: MouseEvent<HTMLButtonElement>) => void',
+        description:
+          'Render the stamp as a button with a hover lift and focus ring. Omit to keep it as a static span.',
+      },
+      {
+        name: 'pressed',
+        type: 'boolean',
+        default: 'false',
+        description:
+          'Pressed-state visual for the chip-toggle case. Only takes effect when `onClick` is also set.',
+      },
+      {
+        name: 'ariaLabel',
+        type: 'string',
+        description:
+          'A11y label for the pressable stamp (when the icon or short text alone is not enough).',
       },
     ],
   },
@@ -574,7 +610,14 @@ const sectionDetails: SectionDetail[] = [
   <p>Same grain, a shade darker — lifts off a kraft panel.</p>
 </Card>
 
-<Card fill="rose">Any palette colour as a soft surface fill.</Card>`,
+<Card fill="rose">Any palette colour as a soft surface fill.</Card>
+
+// Pressable: pass onClick to turn the card into one hit target.
+// Children may still contain their own buttons.
+<Card onClick={() => open(item.id)} ariaLabel={\`Open \${item.title}\`}>
+  <h3>{item.title}</h3>
+  <IconButton icon={<MoreIcon />} label="More" />
+</Card>`,
     props: [
       {
         name: 'variant',
@@ -617,6 +660,18 @@ const sectionDetails: SectionDetail[] = [
         type: "'blue' | 'green' | 'amber' | 'rose' | 'slate'",
         default: "'blue'",
         description: 'Accent blob color',
+      },
+      {
+        name: 'onClick',
+        type: '(event: MouseEvent<HTMLDivElement>) => void',
+        description:
+          'Render the card as one hit target with `role="button"`, Enter/Space activation and a focus ring. Nested buttons remain valid.',
+      },
+      {
+        name: 'ariaLabel',
+        type: 'string',
+        description:
+          'A11y label for the pressable card when its content alone is not descriptive enough.',
       },
     ],
   },
@@ -856,6 +911,12 @@ function SaveButton() {
 </ListItem>
 <ListItem active icon={<Dot />} action={<Stamp>3</Stamp>}>
   Notifications
+</ListItem>
+
+// The row is one hit target when onClick is set (role="button" with
+// Enter/Space activation); nested buttons in the action slot remain valid.
+<ListItem onClick={openRow} action={<IconButton icon={<MoreIcon />} label="More" />}>
+  Open row
 </ListItem>`,
     props: [
       {
@@ -872,13 +933,27 @@ function SaveButton() {
       {
         name: 'action',
         type: 'ReactNode',
-        description: 'Right-side action element',
+        description:
+          'Right-side action element. May contain buttons even when the row itself is clickable.',
       },
       sizeProp,
       {
         name: 'onClick',
-        type: '() => void',
-        description: 'Makes the item clickable with hover/active states',
+        type: '(event: MouseEvent<HTMLDivElement>) => void',
+        description:
+          'Render the row as one hit target with `role="button"`, Enter/Space activation and a focus ring.',
+      },
+      {
+        name: 'disabled',
+        type: 'boolean',
+        default: 'false',
+        description: 'Disable click and dim the row.',
+      },
+      {
+        name: 'ariaLabel',
+        type: 'string',
+        description:
+          'A11y label for the pressable row when its content alone is not descriptive enough.',
       },
       {
         name: 'wobble',

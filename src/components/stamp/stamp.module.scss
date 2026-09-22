@@ -1,4 +1,5 @@
 @use '../../styles/tokens' as *;
+@use '../../styles/mixins' as *;
 
 .stamp {
   position: relative;
@@ -9,6 +10,44 @@
   font-family: $font-family-handwritten;
   font-weight: 500;
   line-height: 1.2;
+}
+
+.pressable {
+  border: none;
+  background: transparent;
+  padding-block: inherit;
+  padding-inline: inherit;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  // Lift on hover so the stamp reads as pressable; the blob fill is unchanged
+  // because the variant already paints the wash.
+  transition: transform 200ms ease, filter 200ms ease;
+
+  &:hover:not(:disabled) {
+    transform: translateY(-1px);
+    filter: brightness(0.97);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+    filter: brightness(0.92);
+  }
+
+  &:focus-visible {
+    @include focus-ring;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.pressed {
+  // Chip-toggle visual: a deeper wash + darken to lock the "selected" state
+  // without losing the hand-drawn silhouette.
+  filter: brightness(0.92);
 }
 
 .small {
@@ -51,6 +90,15 @@
   height: 6px;
   border-radius: 50%;
   background: currentColor;
+  flex-shrink: 0;
+}
+
+.icon {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
 }
 
