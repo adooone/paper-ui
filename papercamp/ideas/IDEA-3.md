@@ -4,6 +4,7 @@ title: Own what paper-camp overrides
 type: feat
 status: in-progress
 created: 2026-09-22
+updated: 2026-09-22
 tags:
   - tokens
   - stamp
@@ -39,13 +40,13 @@ colour from the token set, plus `surface="chalkboard"` that swaps to the
 chalk pass/fail/running set. `fillColor`/`textColor` stay for the rare
 one-off.
 
-**The defaults are paper-camp's.** Body text defaults to the sans stack,
-with `--paper-font-default` still honoured for anyone who wants serif.
-Every `button`, `a`, `[role=button]`, `[role=tab]` and `[role=menuitem]`
-inside a `Layout` is weight 600. The button palette lives in
-`_tokens.scss` under the names paper-camp already uses. `Layout` gains
-`headerBackground="none"`; `headerHeight` already exists and paper-camp
-adopts it.
+**The defaults are paper-camp's.** Every `button`, `a`, `[role=button]`,
+`[role=tab]` and `[role=menuitem]` inside a `Layout` is weight 600, and
+`Layout` gains `headerBackground="none"`; `headerHeight` already exists
+and paper-camp adopts it. The body font and the button washes need no
+change: paper-camp's `--paper-font-default` is this library's own serif
+and its `--pui-btn-*` values are `$color-*-wash` to the digit, so those
+overrides simply go on the app side.
 
 **What exists is exported.** `roughGenerator` from `utils/rough.ts`,
 `useStableSeed` from `hooks/use-stable-seed.ts`, and `ChevronRightIcon`
@@ -61,13 +62,14 @@ markup.
       Add the missing purple ramp to `src/tokens.ts`, emit the two objects through `scripts/tokens-scss.ts` so `_tokens.scss` stays the same source, and export them from the `./tokens` entry.
 - [x] Widen `StampVariant` and add `surface="chalkboard"`
       Map each new variant to a fill and text colour from the runtime tokens, keeping `fillColor`/`textColor` as the override.
-- [ ] Default the body to sans and name the button palette
-      Flip the `--paper-font-default` fallback in `globals.scss` and move paper-camp's `--pui-btn-*` values into `_tokens.scss`.
 - [ ] Give `Layout` weight 600 and `headerBackground="none"`
       The weight applies to `button`, `a`, `[role=button]`, `[role=tab]` and `[role=menuitem]` inside the layout; `none` clears the header speckle paper-camp currently strips by hashed class name.
 - [ ] Export the missing utilities and show the new props
       `roughGenerator`, `useStableSeed` and `ChevronRightIcon` from `src/index.ts`, plus showcase examples and prop rows for the Stamp variants and the Layout prop.
 
 ### Thread
-- [ ] 2026-09-22 [question] [agent] Run-all parked on phase 3 ("Default the body to sans and name the button palette") — the agent needs a decision: glob denied by permission ask
-- [ ] 2026-09-22 [question] [agent] Run-all parked on phase 3 ("Default the body to sans and name the button palette") — the agent needs a decision: grep denied by permission ask
+- [x] 2026-09-22 [question] [agent] Run-all parked on phase 3 ("Default the body to sans and name the button palette") — the agent needs a decision: glob denied by permission ask
+- [x] 2026-09-22 [question] [agent] Run-all parked on phase 3 ("Default the body to sans and name the button palette") — the agent needs a decision: grep denied by permission ask
+- [x] 2026-09-22 [question] [agent] Run-all parked on phase 3 ("Default the body to sans and name the button palette") — the agent needs a decision: read outside workspace: /home/croco/dev/paper-camp/src/app/styles/utilities.css
+- [x] 2026-09-22 [chat] Decision: the phase you parked on is removed. It rested on a wrong premise: paper-camp's --paper-font-default is this library's own serif and its --pui-btn-* values equal the $color-*-wash tokens to the digit, so there is nothing to move and nothing to read across repos. The idea body is corrected. Continue with the remaining phases: Layout weight 600 plus headerBackground="none", then the exports and showcase. Never read outside this repository; everything a phase needs is in the idea text.
+- [x] 2026-09-22 [chat] [agent] Got it — continuing on phase 3: Layout weight 600 on interactive elements plus headerBackground="none".
