@@ -61,7 +61,7 @@ Rows, sidebars and settings, which are [[IDEA-5]]. Charts, [[IDEA-6]].
 ### Phases
 - [x] Add the `Text` family
       `Text` carries `tone`, `face`, `size`, `weight` and `truncate`; `Label`, `SectionHeading`, `MetaLine` and `PageTitle` are presets over it, with `PageTitle` an `h1` that holds its own type against preflight.
-- [ ] Add the composed text blocks
+- [x] Add the composed text blocks
       `FactsGrid`, `InlineCode`, `CommandLine` (with `CopyButton`) and `EmptyState`, each built from `Text` rather than raw class strings.
 - [ ] Give `Button` a `link` variant and `IconButton` a `tiny` size
       The link variant drops the chrome and inherits font and colour; every `IconButton` size keeps a 44px tap area on touch.

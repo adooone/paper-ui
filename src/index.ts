@@ -47,6 +47,18 @@ export type { CodeBlockProps } from './components/code-block';
 export { CopyButton } from './components/copy-button';
 export type { CopyButtonProps } from './components/copy-button';
 
+export { FactsGrid } from './components/facts-grid';
+export type { FactsGridProps, FactItem } from './components/facts-grid';
+
+export { InlineCode } from './components/inline-code';
+export type { InlineCodeProps } from './components/inline-code';
+
+export { CommandLine } from './components/command-line';
+export type { CommandLineProps } from './components/command-line';
+
+export { EmptyState } from './components/empty-state';
+export type { EmptyStateProps } from './components/empty-state';
+
 export { PropTable } from './components/prop-table';
 export type { PropTableProps, PropDef } from './components/prop-table';
 

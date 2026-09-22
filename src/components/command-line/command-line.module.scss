@@ -1,0 +1,38 @@
+@use '../../styles/tokens' as *;
+
+.commandLine {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  padding: $space-3 $space-4;
+  border-radius: $radius-md;
+  border: 1px solid $color-border-default;
+  background-color: $color-bg-input;
+  font-family: $font-family-mono;
+  font-size: $font-size-sm;
+  color: $color-text-primary;
+  overflow-x: auto;
+}
+
+.prompt {
+  flex-shrink: 0;
+  color: $color-accent-green-dark;
+  user-select: none;
+}
+
+.command {
+  flex: 1;
+  min-width: 0;
+  white-space: pre;
+}
+
+.chalkboard {
+  background-color: $color-chalkboard-bg;
+  border-color: $color-chalkboard-border;
+  color: $color-chalkboard-chalk;
+  font-family: 'Courier Prime', monospace;
+
+  .prompt {
+    color: $color-chalkboard-accent;
+  }
+}

@@ -1,0 +1,14 @@
+@use '../../styles/tokens' as *;
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+  gap: $space-4 $space-6;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  gap: $space-1;
+  min-width: 0;
+}
