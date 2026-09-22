@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-09-22T15:00:26.677Z",
+  "generatedAt": "2026-09-22T20:09:50.568Z",
   "chunks": [
     {
       "path": "src/components",
-      "score": 52,
+      "score": 55,
       "signals": {
-        "churnCommits": 2,
-        "lines": 4726,
+        "churnCommits": 5,
+        "lines": 4790,
         "coveragePct": null,
         "openFindings": 0,
         "daysSinceReviewed": null
@@ -16,10 +16,10 @@
     },
     {
       "path": "src/showcase",
-      "score": 51,
+      "score": 52,
       "signals": {
-        "churnCommits": 1,
-        "lines": 6144,
+        "churnCommits": 2,
+        "lines": 6206,
         "coveragePct": null,
         "openFindings": 0,
         "daysSinceReviewed": null
@@ -42,9 +42,9 @@
     },
     {
       "path": "src/styles",
-      "score": 32,
+      "score": 33,
       "signals": {
-        "churnCommits": 1,
+        "churnCommits": 2,
         "lines": 86,
         "coveragePct": null,
         "openFindings": 0,
