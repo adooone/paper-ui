@@ -1,6 +1,9 @@
 {
   "permissions": {
     "allow": [
+      "Grep",
+      "Glob",
+      "Read",
       "Edit(src/**)",
       "Write(src/**)",
       "Edit(scripts/**)",

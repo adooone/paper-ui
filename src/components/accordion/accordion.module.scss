@@ -76,6 +76,8 @@
   transition: transform $transition-fast;
 }
 
-.expanded .icon svg {
+// Direct children only: a descendant selector also rotates the chevron of any
+// collapsed accordion nested inside an expanded one.
+.expanded > .header > .icon svg {
   transform: rotate(90deg);
 }
