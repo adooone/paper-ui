@@ -1,0 +1,29 @@
+@use '../../styles/tokens' as *;
+
+.settingGroup {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+  width: 100%;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 0 $space-4;
+}
+
+.description {
+  margin: 0;
+  font-family: var(--paper-font-default, $font-family-serif);
+  font-size: $font-size-xs;
+  color: $color-text-secondary;
+  line-height: $line-height-snug;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  padding: 0 $space-4;
+}

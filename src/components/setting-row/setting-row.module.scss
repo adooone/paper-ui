@@ -1,0 +1,72 @@
+@use '../../styles/tokens' as *;
+@use '../../styles/mixins' as *;
+
+.settingRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 260px;
+  align-items: center;
+  gap: $space-4;
+  width: 100%;
+  min-height: 48px;
+  padding: $space-3 0;
+  box-sizing: border-box;
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  font-family: var(--paper-font-default, $font-family-serif);
+}
+
+.labelWithHint {
+  justify-content: center;
+}
+
+.labelText {
+  font-size: $font-size-base;
+  font-weight: $font-weight-medium;
+  color: $color-text-primary;
+  line-height: $line-height-snug;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hint {
+  font-size: $font-size-xs;
+  color: $color-text-secondary;
+  line-height: $line-height-snug;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.control {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-width: 0;
+}
+
+@media (max-width: 640px) {
+  .settingRow {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      'label'
+        'control';
+    min-height: 64px;
+    padding: $space-3 $space-4;
+    gap: $space-2;
+  }
+
+  .label {
+    grid-area: label;
+  }
+
+  .control {
+    grid-area: control;
+    justify-content: flex-start;
+  }
+}

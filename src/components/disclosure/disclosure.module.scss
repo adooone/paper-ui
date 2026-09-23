@@ -1,0 +1,42 @@
+@use '../../styles/tokens' as *;
+@use '../../styles/mixins' as *;
+
+.disclosure {
+  display: inline-flex;
+  align-items: center;
+  gap: $space-1;
+  padding: 0;
+  background: transparent;
+  border: none;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: $color-text-secondary;
+  cursor: pointer;
+  transition: color $transition-fast;
+
+  &:hover {
+    color: $color-text-primary;
+  }
+
+  &:focus-visible {
+    @include focus-ring;
+    border-radius: $radius-sm;
+  }
+}
+
+.label {
+  text-align: left;
+}
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: transform $transition-fast;
+}
+
+.expanded .icon {
+  transform: rotate(90deg);
+}

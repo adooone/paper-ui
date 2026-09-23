@@ -68,7 +68,7 @@ The data any row shows. Drag-to-reorder.
       Per-row inline style from the row datum, plus the under-640px reflow to blocks in `table.module.scss`.
 - [x] Build the sidebar kit
       `SidebarCard`, `SidebarLabel`, `SidebarField` and `SidebarItem` exactly as the body specifies — every measurement is there; read nothing outside this repository.
-- [ ] Build `SettingRow`, `SettingGroup` and `Disclosure`
+- [x] Build `SettingRow`, `SettingGroup` and `Disclosure`
       The two-column settings row with its phone tap area, its titled section, and the bare `aria-expanded` toggle that leaves `Accordion` alone.
 - [ ] Export the new components and show them
       Add every new component and its props to `src/index.ts`, then a showcase page section with prop rows for each.
