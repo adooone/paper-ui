@@ -80,3 +80,4 @@ The data any row shows. Drag-to-reorder.
 - [x] 2026-09-23 [question] [agent] Run-all parked on phase 3 ("Build the sidebar kit") — the agent needs a decision: grep denied by permission ask
 - [x] 2026-09-23 [chat] Decision: do not look at paper-camp. The sidebar kit paragraph in the idea now carries every measurement and prop: SidebarCard layers flex column with min-height 0; SidebarLabel and SidebarItem are 32px cells, align-items flex-end, padding-bottom 4px, line-height 1, xs text; SidebarItem takes icon, count, note, busy, tone and disabled as described there. Build from that text and continue phase 3.
 - [x] 2026-09-23 [chat] [agent] Noted — phases 1 and 2 are done, phase 3 (sidebar kit) is next in line.
+- [ ] 2026-09-23 [question] [agent] Run-all parked on phase 5 ("Export the new components and show them") — the agent needs a decision: grep denied by permission ask

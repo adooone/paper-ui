@@ -42,5 +42,39 @@
       "branch": "main",
       "releasePlease": true
     }
+  },
+  "defaultAgents": {
+    "phase": {
+      "agent": "claude-code",
+      "model": "sonnet",
+      "effort": "medium"
+    },
+    "planDraft": {
+      "agent": "claude-code"
+    },
+    "ideaExtend": {
+      "agent": "claude-code"
+    },
+    "commitSuggest": {
+      "agent": "claude-code"
+    },
+    "feedback": {
+      "agent": "claude-code",
+      "model": "sonnet",
+      "effort": "medium"
+    },
+    "codeReview": {
+      "agent": "claude-code",
+      "model": "opus",
+      "effort": "high"
+    },
+    "deskDiscovery": {
+      "agent": "claude-code"
+    },
+    "nightShift": {
+      "agent": "claude-code",
+      "model": "sonnet",
+      "effort": "medium"
+    }
   }
 }
