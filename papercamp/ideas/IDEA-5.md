@@ -73,6 +73,7 @@ The data any row shows. Drag-to-reorder.
 - [x] Export the new components and show them
       Add every new component and its props to `src/index.ts`, then a showcase page section with prop rows for each.
       run: 2m8s · 74 in · 7.8k out · sonnet-5 · sess:54cd2641-49bc-45c0-9fa2-07bb8727c034
+- [x] [manual] Export and showcase new row, sidebar and setting components
 
 ### Thread
 - [x] 2026-09-22 [question] [agent] Run-all parked on phase 1 ("Build `Row` and `RowSkeleton`") — the agent needs a decision: read outside workspace: /home/ccroco/dev/paper-ui/paperplan/CODE_STYLE.md
