@@ -1,5 +1,46 @@
 # Changelog
 
+## [0.21.0](https://github.com/adooone/paper-ui/compare/v0.20.1...v0.21.0) (2026-09-23)
+
+
+### Features
+
+* **plans:** Add `rowStyle` and `phoneLayout` to `Table` ([963137a](https://github.com/adooone/paper-ui/commit/963137a5239a7e75f8a6aa72f408bbd3a01a31a4))
+* **plans:** Add the `Text` family ([75a8057](https://github.com/adooone/paper-ui/commit/75a8057a4b883158de434e1853a5530ce1e1ef2b))
+* **plans:** Add the composed text blocks ([4343b86](https://github.com/adooone/paper-ui/commit/4343b8644d5efca3c766d84dccb59820b714984f))
+* **plans:** Build `Row` and `RowSkeleton` ([d15797c](https://github.com/adooone/paper-ui/commit/d15797c04ea6c2a9e29b33fb40619e483936655b))
+* **plans:** Build `SettingRow`, `SettingGroup` and `Disclosure` ([32e37c2](https://github.com/adooone/paper-ui/commit/32e37c2552999a243038c05f7edb01a3dc0dee76))
+* **plans:** Build the sidebar kit ([8d2622d](https://github.com/adooone/paper-ui/commit/8d2622dbbb4aa33093e37b1de45f7cfcd42f014b))
+* **plans:** Draw the 17 icons, then export and show the new surface ([8f3db4f](https://github.com/adooone/paper-ui/commit/8f3db4fd33207a5313f070f279833b1fdfc1c2f6))
+* **plans:** Export the missing utilities and show the new props ([5fd3fcd](https://github.com/adooone/paper-ui/commit/5fd3fcd43445e92139e0e1f298c4f97481988db4))
+* **plans:** Export the new components and show them ([f511f09](https://github.com/adooone/paper-ui/commit/f511f09450cb5417b2ef0345317fedcefba4939f))
+* **plans:** Generate the runtime `color` and `surface` objects ([0ef982a](https://github.com/adooone/paper-ui/commit/0ef982a4216db6ede5750f1a37dc16636b5047d5))
+* **plans:** Give `Button` a `link` variant and `IconButton` a `tiny` size ([cb25b0b](https://github.com/adooone/paper-ui/commit/cb25b0bd477e3e9d0719f388ee5ecee2813a2fac))
+* **plans:** Give `Layout` weight 600 and `headerBackground="none"` ([a72654b](https://github.com/adooone/paper-ui/commit/a72654b8f9686140338292ddc951de575f7db32b))
+* **plans:** Make `Stamp`, `Card` and `ListItem` pressable ([e243e87](https://github.com/adooone/paper-ui/commit/e243e87a27592a0e23b6fd6200fdefd4b13c0380))
+* **plans:** mark IDEA-4 review ([6e293a1](https://github.com/adooone/paper-ui/commit/6e293a1541dfe6dff1494e264442275059407f87))
+* **plans:** Widen `StampVariant` and add `surface="chalkboard"` ([e6f4853](https://github.com/adooone/paper-ui/commit/e6f4853d00346db61a73c090a5ced08c7f95a986))
+* **showcase:** Export and showcase new row, sidebar and setting components ([56e12d5](https://github.com/adooone/paper-ui/commit/56e12d5b5beabc850057bea438c98f91a661a461))
+* **showcase:** Export and showcase Row, sidebar and setting components ([e52d43a](https://github.com/adooone/paper-ui/commit/e52d43a75723581feae7f3e9ed9c1df6e2b34b20))
+
+
+### Bug Fixes
+
+* **accordion:** Rotate only the chevron of the expanded accordion itself ([8b6f2b4](https://github.com/adooone/paper-ui/commit/8b6f2b46cb5851d9c747396e86bf4c60a10c493f))
+
+
+### Documentation
+
+* **ideas:** Own what paper-camp overrides — plan ([15d47f0](https://github.com/adooone/paper-ui/commit/15d47f0c70669f955010792bffa60f5cc08b9fbf))
+* **ideas:** Own what paper-camp overrides — plan ([3ae8789](https://github.com/adooone/paper-ui/commit/3ae8789a454f301efbb056691d8e4016b7ee4621))
+* **ideas:** Own what paper-camp overrides — plan ([97d03c3](https://github.com/adooone/paper-ui/commit/97d03c3560663a3a4c540913c0403707e575f872))
+* **ideas:** Own what paper-camp overrides — plan ([c842102](https://github.com/adooone/paper-ui/commit/c842102b81a34b24513da0b4c28d82f8332bef9c))
+* **ideas:** Rows, sidebars and settings — plan ([6549f84](https://github.com/adooone/paper-ui/commit/6549f8495ca8601dd95c07fd2e190a37bd13e9c4))
+* **ideas:** Rows, sidebars and settings — plan ([82dcd4f](https://github.com/adooone/paper-ui/commit/82dcd4f9dedd741f61e8cbec08e1ef0a0a039895))
+* **ideas:** Rows, sidebars and settings — plan ([61c99a3](https://github.com/adooone/paper-ui/commit/61c99a3565d1bb91f63f819b844700c00532dfb6))
+* **ideas:** Rows, sidebars and settings — plan ([70663ef](https://github.com/adooone/paper-ui/commit/70663efb436d13d2c2ea327d90197809698048be))
+* **ideas:** Text, links, clickable stamps, icons — plan ([6f5efed](https://github.com/adooone/paper-ui/commit/6f5efeddb7446deeb00c4a80a2d59523479e50bb))
+
 ## [0.20.1](https://github.com/adooone/paper-ui/compare/v0.20.0...v0.20.1) (2026-09-14)
 
 
