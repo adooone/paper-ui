@@ -1,0 +1,98 @@
+@use '../../styles/tokens' as *;
+@use '../../styles/mixins' as *;
+
+.sidebarItem {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.row {
+  display: flex;
+  align-items: flex-end;
+  gap: $space-2;
+  width: 100%;
+  min-height: 32px;
+  padding: 0 $space-2 4px;
+  line-height: 1;
+  font-size: $font-size-xs;
+  color: $color-text-primary;
+  background: transparent;
+  border: none;
+  text-align: left;
+  font-family: var(--paper-font-default, $font-family-serif);
+  border-radius: $radius-sm;
+  outline: none;
+  cursor: pointer;
+  transition: background-color $transition-fast;
+
+  &:hover {
+    background-color: $ghost-hover-fill;
+  }
+
+  &:focus-visible {
+    @include focus-ring;
+  }
+}
+
+.static {
+  cursor: default;
+
+  &:hover {
+    background-color: transparent;
+  }
+}
+
+.disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.busy {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: $color-text-secondary;
+}
+
+.label {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.count {
+  flex-shrink: 0;
+  margin-left: auto;
+  align-self: flex-end;
+  font-size: $font-size-2xs;
+  color: $color-text-tertiary;
+  font-family: $font-family-serif;
+}
+
+.note {
+  font-family: $font-family-mono;
+  font-size: $font-size-2xs;
+  color: $color-text-tertiary;
+  line-height: $line-height-tight;
+  padding: 0 $space-2 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.danger {
+  color: $color-accent-rose-dark;
+
+  .icon {
+    color: $color-accent-rose-dark;
+  }
+}

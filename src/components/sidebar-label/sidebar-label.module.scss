@@ -1,0 +1,13 @@
+@use '../../styles/tokens' as *;
+
+.sidebarLabel {
+  display: flex;
+  align-items: flex-end;
+  min-height: 32px;
+  padding-bottom: 4px;
+  line-height: 1;
+  font-family: $font-family-handwritten;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+  opacity: 0.45;
+}

@@ -1,0 +1,7 @@
+@use '../../styles/tokens' as *;
+
+.sidebarField {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
