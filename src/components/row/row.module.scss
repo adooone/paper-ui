@@ -1,0 +1,132 @@
+@use '../../styles/tokens' as *;
+@use '../../styles/mixins' as *;
+
+.row {
+  position: relative;
+  display: grid;
+  grid-template-columns: var(--row-columns);
+  align-items: center;
+  gap: $space-3;
+  width: 100%;
+  min-height: 32px;
+  padding: 0 $space-4;
+  box-sizing: border-box;
+  font-family: var(--paper-font-default, $font-family-serif);
+  font-size: $font-size-base;
+  line-height: $line-height-grid;
+  color: $color-text-primary;
+}
+
+.surfaceNone {
+  background: transparent;
+}
+
+.surfaceCard {
+  background-color: $color-bg-base;
+  @include organic-radius($radius-sm, 2px);
+}
+
+.surfaceNestedCard {
+  background-color: $color-bg-elevated;
+  @include organic-radius($radius-sm, 2px);
+}
+
+.static {
+  cursor: default;
+}
+
+.clickable {
+  cursor: pointer;
+  transition: background-color $transition-fast;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.03);
+  }
+
+  &:active {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:focus-visible {
+    @include focus-ring;
+  }
+}
+
+.highlighted {
+  outline: 2px solid $color-accent-amber;
+  outline-offset: -2px;
+  border-radius: $radius-sm;
+}
+
+.id {
+  font-family: $font-family-mono;
+  font-size: $font-size-xs;
+  color: $color-text-secondary;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+.title {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: $font-weight-medium;
+}
+
+.meta {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.trailing {
+  display: flex;
+  align-items: center;
+  gap: $space-2;
+  flex-shrink: 0;
+  margin-left: auto;
+  justify-self: end;
+}
+
+@media (max-width: 640px) {
+  .row {
+    grid-template-columns: 1fr !important;
+    grid-template-areas:
+      'title'
+      'id'
+      'meta'
+      'trailing';
+    row-gap: $space-1;
+    padding: $space-2 $space-4;
+  }
+
+  .id {
+    grid-area: id;
+  }
+
+  .title {
+    grid-area: title;
+    white-space: normal;
+  }
+
+  .meta {
+    grid-area: meta;
+    white-space: normal;
+  }
+
+  .trailing {
+    grid-area: trailing;
+    margin-left: 0;
+    justify-self: start;
+  }
+}
+
+.skeleton {
+  pointer-events: none;
+}

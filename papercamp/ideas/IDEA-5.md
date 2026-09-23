@@ -55,7 +55,7 @@ section.
 The data any row shows. Drag-to-reorder.
 
 ### Phases
-- [ ] Build `Row` and `RowSkeleton`
+- [x] Build `Row` and `RowSkeleton`
       New `src/components/row/`, with the `columns` template, the three `surface` values, `onClick`, `highlighted` and the phone stack, and a skeleton that reuses the same template.
 - [ ] Add `rowStyle` and `phoneLayout` to `Table`
       Per-row inline style from the row datum, plus the under-640px reflow to blocks in `table.module.scss`.
