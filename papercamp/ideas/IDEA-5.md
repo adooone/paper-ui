@@ -2,8 +2,9 @@
 id: IDEA-5
 title: Rows, sidebars and settings
 type: feat
-status: idea
+status: in-progress
 created: 2026-09-22
+updated: 2026-09-23
 tags:
   - row
   - list-item
@@ -64,3 +65,8 @@ The data any row shows. Drag-to-reorder.
       The two-column settings row with its phone tap area, its titled section, and the bare `aria-expanded` toggle that leaves `Accordion` alone.
 - [ ] Export the new components and show them
       Add every new component and its props to `src/index.ts`, then a showcase page section with prop rows for each.
+
+### Thread
+- [x] 2026-09-22 [question] [agent] Run-all parked on phase 1 ("Build `Row` and `RowSkeleton`") — the agent needs a decision: read outside workspace: /home/ccroco/dev/paper-ui/paperplan/CODE_STYLE.md
+- [x] 2026-09-23 [chat] Decision: nothing to decide, the path was mistyped. The file is paperplan/CODE_STYLE.md inside this repository (absolute: /home/croco/dev/paper-ui/paperplan/CODE_STYLE.md, one c in croco). Read it by its relative path and continue phase 1.
+- [x] 2026-09-23 [chat] [agent] Got it — that was just a typo in the path (extra c, wrong /home root), nothing to decide. Continuing phase 1: Row and RowSkeleton.
