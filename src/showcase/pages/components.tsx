@@ -7,6 +7,7 @@ import { Breadcrumb } from '../../components/breadcrumb';
 import { Button } from '../../components/button';
 import { Card } from '../../components/card';
 import { Checkbox } from '../../components/checkbox';
+import { Disclosure } from '../../components/disclosure';
 import { Divider } from '../../components/divider';
 import { IconButton } from '../../components/icon-button';
 import { Input } from '../../components/input';
@@ -22,8 +23,15 @@ import { PageTitle } from '../../components/page-title';
 import { Progress } from '../../components/progress';
 import type { PropDef } from '../../components/prop-table';
 import { Radio, RadioGroup } from '../../components/radio';
+import { Row, RowSkeleton } from '../../components/row';
 import { SectionHeading } from '../../components/section-heading';
 import { Select } from '../../components/select';
+import { SettingGroup } from '../../components/setting-group';
+import { SettingRow } from '../../components/setting-row';
+import { SidebarCard } from '../../components/sidebar-card';
+import { SidebarField } from '../../components/sidebar-field';
+import { SidebarItem } from '../../components/sidebar-item';
+import { SidebarLabel } from '../../components/sidebar-label';
 import { Skeleton } from '../../components/skeleton';
 import { Spinner } from '../../components/spinner';
 import { Stamp } from '../../components/stamp';
@@ -768,6 +776,313 @@ const sectionDetails: SectionDetail[] = [
         name: 'rowClassName',
         type: '(row: T, index: number) => string | undefined',
         description: 'Per-row class name override',
+      },
+    ],
+  },
+  {
+    id: 'row',
+    title: 'Row',
+    codeExample: `import { Row, MetaLine, Stamp } from '@dendelion/paper-ui';
+
+<Row
+  id="#42"
+  title="Watercolor Study"
+  meta={<MetaLine>updated 2 hours ago</MetaLine>}
+  trailing={<Stamp variant="success">Done</Stamp>}
+  columns={{ id: '5ch', title: '1fr', meta: 'auto', trailing: 'auto' }}
+  onClick={() => open(item.id)}
+  ariaLabel="Open Watercolor Study"
+/>
+
+// Card surface with a deep-link highlight
+<Row
+  surface="card"
+  highlighted
+  title="Linked row"
+  trailing={<Stamp variant="warning">Review</Stamp>}
+/>
+
+// Skeleton while loading
+<RowSkeleton surface="none" />`,
+    props: [
+      {
+        name: 'id',
+        type: 'ReactNode',
+        description: "Mono identifier at the row's left edge (a record id)",
+      },
+      {
+        name: 'title',
+        type: 'ReactNode',
+        description: 'Main label — truncates with an ellipsis when the cell narrows',
+      },
+      {
+        name: 'meta',
+        type: 'ReactNode',
+        description: 'A MetaLine describing the row beneath its title',
+      },
+      {
+        name: 'trailing',
+        type: 'ReactNode',
+        description: 'Stamps and actions, right-aligned',
+      },
+      {
+        name: 'columns',
+        type: 'RowColumns',
+        description:
+          'Grid-template-columns widths for the four slots, in order id title meta trailing',
+      },
+      {
+        name: 'surface',
+        type: "'none' | 'card' | 'nestedCard'",
+        default: "'none'",
+        description:
+          'Row surface — none is ruled, card and nestedCard give the row its own paper surface',
+      },
+      {
+        name: 'onClick',
+        type: '(event: MouseEvent<HTMLDivElement>) => void',
+        description:
+          'Make the whole row one hit target with role="button" and Enter/Space activation',
+      },
+      {
+        name: 'ariaLabel',
+        type: 'string',
+        description: 'A11y label for the pressable row',
+      },
+      {
+        name: 'highlighted',
+        type: 'boolean',
+        default: 'false',
+        description: 'Draw the amber outline used to mark a deep-linked row',
+      },
+    ],
+  },
+  {
+    id: 'row-skeleton',
+    title: 'RowSkeleton',
+    codeExample: `import { RowSkeleton } from '@dendelion/paper-ui';
+
+<RowSkeleton />
+<RowSkeleton surface="card" slots={['title', 'trailing']} />`,
+    props: [
+      {
+        name: 'columns',
+        type: 'RowColumns',
+        description: 'Mirrors Row.columns so the skeleton lines up with real rows',
+      },
+      {
+        name: 'surface',
+        type: "'none' | 'card' | 'nestedCard'",
+        default: "'none'",
+        description: 'Mirrors Row.surface — none is ruled (default for ruled lists)',
+      },
+      {
+        name: 'slots',
+        type: "Array<'id' | 'title' | 'meta' | 'trailing'>",
+        default: 'all four',
+        description: 'Which slots to show skeleton bars in',
+      },
+    ],
+  },
+  {
+    id: 'sidebar-card',
+    title: 'SidebarCard',
+    codeExample: `import { SidebarCard, SidebarItem } from '@dendelion/paper-ui';
+
+<SidebarCard>
+  <SidebarItem icon={<FolderIcon />}>Plans</SidebarItem>
+  <SidebarItem icon={<NoteIcon />} count={3}>Findings</SidebarItem>
+</SidebarCard>`,
+    props: [
+      {
+        name: 'children',
+        type: 'ReactNode',
+        required: true,
+        description: 'Sidebar content — usually SidebarLabel, SidebarField or SidebarItem',
+      },
+    ],
+  },
+  {
+    id: 'sidebar-label',
+    title: 'SidebarLabel',
+    codeExample: `import { SidebarLabel } from '@dendelion/paper-ui';
+
+<SidebarLabel>Status</SidebarLabel>
+<SidebarLabel as="h3">Recent</SidebarLabel>`,
+    props: [
+      {
+        name: 'children',
+        type: 'ReactNode',
+        description: 'Label text',
+      },
+      {
+        name: 'as',
+        type: 'ElementType',
+        default: "'span'",
+        description: 'Tag to render — span by default, h3 for section headings',
+      },
+    ],
+  },
+  {
+    id: 'sidebar-field',
+    title: 'SidebarField',
+    codeExample: `import { SidebarField, Input } from '@dendelion/paper-ui';
+
+<SidebarField label="Search">
+  <Input placeholder="Find a plan..." />
+</SidebarField>`,
+    props: [
+      {
+        name: 'label',
+        type: 'ReactNode',
+        required: true,
+        description: 'Field label rendered above the control',
+      },
+      {
+        name: 'children',
+        type: 'ReactNode',
+        required: true,
+        description: 'The control the field wraps (Input, Select, etc.)',
+      },
+    ],
+  },
+  {
+    id: 'sidebar-item',
+    title: 'SidebarItem',
+    codeExample: `import { SidebarItem } from '@dendelion/paper-ui';
+
+<SidebarItem icon={<FolderIcon />}>Plans</SidebarItem>
+<SidebarItem icon={<BellIcon />} count={3} onClick={() => go('notifications')}>
+  Notifications
+</SidebarItem>
+<SidebarItem note="last update 2h ago" tone="danger" disabled>
+  Archived
+</SidebarItem>
+<SidebarItem busy="Syncing…">Plans</SidebarItem>`,
+    props: [
+      {
+        name: 'children',
+        type: 'ReactNode',
+        description: "Label rendered in the row's main cell. Replaced by busy when set.",
+      },
+      {
+        name: 'icon',
+        type: 'ReactNode',
+        description: 'Leading icon',
+      },
+      {
+        name: 'count',
+        type: 'ReactNode',
+        description: 'Right-aligned secondary number (2xs, tertiary)',
+      },
+      {
+        name: 'note',
+        type: 'ReactNode',
+        description: 'A mono 2xs line rendered under the row',
+      },
+      {
+        name: 'busy',
+        type: 'string',
+        description: 'When set, replaces the label and disables the row',
+      },
+      {
+        name: 'tone',
+        type: "'default' | 'danger'",
+        default: "'default'",
+        description: 'Danger tints icon and label rose',
+      },
+      {
+        name: 'disabled',
+        type: 'boolean',
+        default: 'false',
+        description: 'Dim the row to opacity 0.5',
+      },
+      {
+        name: 'onClick',
+        type: '(event: MouseEvent<HTMLDivElement>) => void',
+        description: 'Make the whole row one hit target',
+      },
+      {
+        name: 'ariaLabel',
+        type: 'string',
+        description: 'A11y label for the pressable row',
+      },
+    ],
+  },
+  {
+    id: 'setting-row',
+    title: 'SettingRow',
+    codeExample: `import { SettingRow, Input, Switch } from '@dendelion/paper-ui';
+
+<SettingRow
+  label="Display name"
+  hint="How others see you"
+  control={<Input placeholder="Ada Lovelace" />}
+  htmlFor="display-name"
+/>
+<SettingRow
+  label="Notifications"
+  hint="Receive updates by email"
+  control={<Switch checked={on} onChange={(e) => setOn(e.target.checked)} />}
+/>`,
+    props: [
+      {
+        name: 'label',
+        type: 'ReactNode',
+        required: true,
+        description: 'Label rendered on the left side of the row',
+      },
+      {
+        name: 'hint',
+        type: 'ReactNode',
+        description: 'Optional secondary text under the label',
+      },
+      {
+        name: 'control',
+        type: 'ReactNode',
+        required: true,
+        description: 'The control rendered in the right column (Input, Select, Switch, etc.)',
+      },
+      {
+        name: 'htmlFor',
+        type: 'string',
+        description:
+          'Forwards an id to the control so the label cell becomes a label/htmlFor association',
+      },
+    ],
+  },
+  {
+    id: 'setting-group',
+    title: 'SettingGroup',
+    codeExample: `import { SettingGroup, SettingRow, Switch } from '@dendelion/paper-ui';
+
+<SettingGroup title="Privacy" description="Control what others see.">
+  <SettingRow label="Public profile" control={<Switch defaultChecked />} />
+  <SettingRow label="Search by email" control={<Switch />} />
+</SettingGroup>`,
+    props: [
+      {
+        name: 'title',
+        type: 'ReactNode',
+        required: true,
+        description: 'Section title rendered above the rows',
+      },
+      {
+        name: 'description',
+        type: 'ReactNode',
+        description: 'Optional descriptive text under the title',
+      },
+      {
+        name: 'children',
+        type: 'ReactNode',
+        required: true,
+        description: "SettingRows and other controls rendered as the section's body",
+      },
+      {
+        name: 'titleAs',
+        type: 'ElementType',
+        default: "'h3'",
+        description: 'Heading level for the title',
       },
     ],
   },
@@ -1586,6 +1901,50 @@ function SaveButton() {
         default: '16',
         description:
           'Pixel size of the rendered SVG. Inherited by LightbulbIcon so consumers can size it to match the rest of the set.',
+      },
+    ],
+  },
+  {
+    id: 'disclosure',
+    title: 'Disclosure',
+    codeExample: `import { Disclosure } from '@dendelion/paper-ui';
+
+const [open, setOpen] = useState(false);
+<Disclosure
+  expanded={open}
+  onToggle={() => setOpen(!open)}
+  collapsedLabel="Show more"
+  expandedLabel="Show less"
+>
+  Show more
+</Disclosure>`,
+    props: [
+      {
+        name: 'children',
+        type: 'ReactNode',
+        required: true,
+        description: 'Default label, used when neither collapsedLabel nor expandedLabel is set',
+      },
+      {
+        name: 'expanded',
+        type: 'boolean',
+        default: 'false',
+        description: 'Whether the disclosure is expanded',
+      },
+      {
+        name: 'onToggle',
+        type: '() => void',
+        description: 'Toggle handler — sets aria-expanded on the button',
+      },
+      {
+        name: 'collapsedLabel',
+        type: 'ReactNode',
+        description: 'Label shown when collapsed. Defaults to children.',
+      },
+      {
+        name: 'expandedLabel',
+        type: 'ReactNode',
+        description: 'Label shown when expanded. Defaults to children.',
       },
     ],
   },

@@ -59,6 +59,8 @@ const componentGroups: ComponentGroup[] = [
       { id: 'divider', title: 'Divider' },
       { id: 'accordion', title: 'Accordion' },
       { id: 'table', title: 'Table' },
+      { id: 'row', title: 'Row' },
+      { id: 'row-skeleton', title: 'RowSkeleton' },
     ],
   },
   {
@@ -68,6 +70,22 @@ const componentGroups: ComponentGroup[] = [
       { id: 'tabs', title: 'Tabs' },
       { id: 'breadcrumb', title: 'Breadcrumb' },
       { id: 'pagination', title: 'Pagination' },
+    ],
+  },
+  {
+    category: 'Sidebar',
+    items: [
+      { id: 'sidebar-card', title: 'SidebarCard' },
+      { id: 'sidebar-label', title: 'SidebarLabel' },
+      { id: 'sidebar-field', title: 'SidebarField' },
+      { id: 'sidebar-item', title: 'SidebarItem' },
+    ],
+  },
+  {
+    category: 'Settings',
+    items: [
+      { id: 'setting-row', title: 'SettingRow' },
+      { id: 'setting-group', title: 'SettingGroup' },
     ],
   },
   {
@@ -86,6 +104,7 @@ const componentGroups: ComponentGroup[] = [
       { id: 'modal', title: 'Modal' },
       { id: 'tooltip', title: 'Tooltip' },
       { id: 'menu', title: 'Menu' },
+      { id: 'disclosure', title: 'Disclosure' },
     ],
   },
 ];

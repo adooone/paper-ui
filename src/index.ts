@@ -94,6 +94,30 @@ export type {
   TableSurface,
 } from './components/table';
 
+export { Row, RowSkeleton } from './components/row';
+export type { RowProps, RowColumns, RowSurface, RowSkeletonProps } from './components/row';
+
+export { Disclosure } from './components/disclosure';
+export type { DisclosureProps } from './components/disclosure';
+
+export { SidebarCard } from './components/sidebar-card';
+export type { SidebarCardProps } from './components/sidebar-card';
+
+export { SidebarLabel } from './components/sidebar-label';
+export type { SidebarLabelProps } from './components/sidebar-label';
+
+export { SidebarField } from './components/sidebar-field';
+export type { SidebarFieldProps } from './components/sidebar-field';
+
+export { SidebarItem } from './components/sidebar-item';
+export type { SidebarItemProps, SidebarItemTone } from './components/sidebar-item';
+
+export { SettingRow } from './components/setting-row';
+export type { SettingRowProps } from './components/setting-row';
+
+export { SettingGroup } from './components/setting-group';
+export type { SettingGroupProps } from './components/setting-group';
+
 export { Textarea } from './components/textarea';
 export type { TextareaProps } from './components/textarea';
 

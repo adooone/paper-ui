@@ -16,7 +16,16 @@ interface ComponentSectionProps {
   id: string;
   title: string;
   description: string;
-  category: 'typography' | 'basic' | 'form' | 'layout' | 'navigation' | 'feedback' | 'overlay';
+  category:
+    | 'typography'
+    | 'basic'
+    | 'form'
+    | 'layout'
+    | 'navigation'
+    | 'feedback'
+    | 'overlay'
+    | 'sidebar'
+    | 'settings';
   children: ReactNode;
   chalkboard?: boolean;
   codeExample?: string;
@@ -32,6 +41,8 @@ const categoryLabels: Record<string, string> = {
   navigation: 'Navigation',
   feedback: 'Feedback',
   overlay: 'Overlay',
+  sidebar: 'Sidebar',
+  settings: 'Settings',
 };
 
 const chalkboardCardStyle: React.CSSProperties = {
