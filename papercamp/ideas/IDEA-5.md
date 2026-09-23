@@ -57,7 +57,7 @@ The data any row shows. Drag-to-reorder.
 ### Phases
 - [x] Build `Row` and `RowSkeleton`
       New `src/components/row/`, with the `columns` template, the three `surface` values, `onClick`, `highlighted` and the phone stack, and a skeleton that reuses the same template.
-- [ ] Add `rowStyle` and `phoneLayout` to `Table`
+- [x] Add `rowStyle` and `phoneLayout` to `Table`
       Per-row inline style from the row datum, plus the under-640px reflow to blocks in `table.module.scss`.
 - [ ] Build the sidebar kit
       `SidebarCard`, `SidebarLabel`, `SidebarField` and `SidebarItem` as their own components, with the `min-height: 0` chain that lets an inner list scroll.

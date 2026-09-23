@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import type { CSSProperties, ReactNode } from 'react';
 import { Fragment, useState } from 'react';
 import { createAccentClassMap } from '../../utils/accent-class-map';
 import { ChevronRightIcon } from '../../utils/icons';
@@ -80,9 +80,16 @@ export interface TableProps<T = unknown> {
   /** Give a row a paper texture (e.g. `kraft`) so a group of rows reads as distinct
    *  without a separate table. Return undefined for the default row surface. */
   rowTexture?: (row: T, index: number) => PaperTextureKey | undefined;
+  /** Per-row inline style merged on top of any texture style. Use for a one-off fill
+   *  (e.g. the running-phase band on a specific row) without forcing a global texture. */
+  rowStyle?: (row: T, index: number) => CSSProperties;
   /** Always-visible full-width band under a row (per-row stats, provenance), set on
    *  the darker texture shade in the mono data voice. Return null for rows without one. */
   rowFooter?: (row: T, index: number, surface: TableSurface) => ReactNode;
+  /** Under 640px the table reflows from a grid of rows into stacked blocks — one
+   *  block per row, with each cell's column header above its value. `'stacked'`
+   *  opts in; the default keeps the grid (and lets a narrow page scroll horizontally). */
+  phoneLayout?: 'stacked';
   className?: string;
 }
 
@@ -100,9 +107,11 @@ export function Table<T = unknown>({
   rowKey,
   rowClassName,
   rowTexture,
+  rowStyle,
   rowFooter,
   hideHeader = false,
   density = 'comfortable',
+  phoneLayout,
   panelFooter,
   className,
 }: TableProps<T>) {
@@ -212,6 +221,7 @@ export function Table<T = unknown>({
                 styles.table,
                 surface === 'chalkboard' && styles.chalkboard,
                 density === 'compact' && styles.compact,
+                phoneLayout === 'stacked' && styles.phoneStacked,
               )}
             >
               <colgroup>
@@ -249,6 +259,11 @@ export function Table<T = unknown>({
                   const canExpand = !!expansionContent;
                   const isExpanded = canExpand && expandedRows.has(key);
                   const rowTex = rowTexture?.(row, rowIndex);
+                  const rowInlineStyle = rowStyle?.(row, rowIndex);
+                  const trStyle: CSSProperties | undefined =
+                    rowTex || rowInlineStyle
+                      ? { ...(rowTex ? getTextureStyles(rowTex) : null), ...rowInlineStyle }
+                      : undefined;
                   return (
                     <Fragment key={key}>
                       {/* biome-ignore lint/a11y/useKeyWithClickEvents: row click is a pointer-only convenience; keyboard users toggle expansion via the dedicated expand button in the first cell. */}
@@ -258,7 +273,7 @@ export function Table<T = unknown>({
                           canExpand && styles.expandable,
                           rowClassName?.(row, rowIndex),
                         )}
-                        style={rowTex ? getTextureStyles(rowTex) : undefined}
+                        style={trStyle}
                         onClick={() => canExpand && toggleRow(key)}
                       >
                         {hasExpandColumn && (
@@ -283,6 +298,9 @@ export function Table<T = unknown>({
                           <td
                             key={col.key}
                             className={styles.td}
+                            data-cell-label={
+                              typeof col.header === 'string' ? col.header : undefined
+                            }
                             style={col.align ? { textAlign: col.align } : undefined}
                           >
                             {col.cell(row, rowIndex, surface)}
@@ -290,10 +308,7 @@ export function Table<T = unknown>({
                         ))}
                       </tr>
                       {footerContent && (
-                        <tr
-                          className={styles.footerRow}
-                          style={rowTex ? getTextureStyles(rowTex) : undefined}
-                        >
+                        <tr className={styles.footerRow} style={trStyle}>
                           <td colSpan={totalColumns} className={styles.footerCell}>
                             {footerContent}
                           </td>
