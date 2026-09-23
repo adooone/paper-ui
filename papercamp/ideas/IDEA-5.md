@@ -2,7 +2,7 @@
 id: IDEA-5
 title: Rows, sidebars and settings
 type: feat
-status: in-progress
+status: review
 created: 2026-09-22
 updated: 2026-09-23
 tags:
@@ -70,8 +70,9 @@ The data any row shows. Drag-to-reorder.
       `SidebarCard`, `SidebarLabel`, `SidebarField` and `SidebarItem` exactly as the body specifies — every measurement is there; read nothing outside this repository.
 - [x] Build `SettingRow`, `SettingGroup` and `Disclosure`
       The two-column settings row with its phone tap area, its titled section, and the bare `aria-expanded` toggle that leaves `Accordion` alone.
-- [ ] Export the new components and show them
+- [x] Export the new components and show them
       Add every new component and its props to `src/index.ts`, then a showcase page section with prop rows for each.
+      run: 2m8s · 74 in · 7.8k out · sonnet-5 · sess:54cd2641-49bc-45c0-9fa2-07bb8727c034
 
 ### Thread
 - [x] 2026-09-22 [question] [agent] Run-all parked on phase 1 ("Build `Row` and `RowSkeleton`") — the agent needs a decision: read outside workspace: /home/ccroco/dev/paper-ui/paperplan/CODE_STYLE.md
@@ -80,4 +81,6 @@ The data any row shows. Drag-to-reorder.
 - [x] 2026-09-23 [question] [agent] Run-all parked on phase 3 ("Build the sidebar kit") — the agent needs a decision: grep denied by permission ask
 - [x] 2026-09-23 [chat] Decision: do not look at paper-camp. The sidebar kit paragraph in the idea now carries every measurement and prop: SidebarCard layers flex column with min-height 0; SidebarLabel and SidebarItem are 32px cells, align-items flex-end, padding-bottom 4px, line-height 1, xs text; SidebarItem takes icon, count, note, busy, tone and disabled as described there. Build from that text and continue phase 3.
 - [x] 2026-09-23 [chat] [agent] Noted — phases 1 and 2 are done, phase 3 (sidebar kit) is next in line.
-- [ ] 2026-09-23 [question] [agent] Run-all parked on phase 5 ("Export the new components and show them") — the agent needs a decision: grep denied by permission ask
+- [x] 2026-09-23 [question] [agent] Run-all parked on phase 5 ("Export the new components and show them") — the agent needs a decision: grep denied by permission ask
+- [x] 2026-09-23 [chat] Decision: not a decision, a permission wall. This project has been switched to the claude-code agent with a full read allowlist, so shell searches and git show now work. Recover the missing Menu section of the showcase from git (git show HEAD:<path>), restore it, finish phase 5, and run the checks.
+- [x] 2026-09-23 [chat] [agent] That's on the checklist — phase 5 (export + showcase) is the last item and it's still unchecked, so it's already queued. Nothing to add here.
