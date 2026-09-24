@@ -1976,6 +1976,7 @@ export const ComponentsPage: FC<{
   const [radioValue, setRadioValue] = useState('paper');
   const [switchOn, setSwitchOn] = useState(true);
   const [accordionOpen, setAccordionOpen] = useState(true);
+  const [stampPressed, setStampPressed] = useState(false);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -2297,6 +2298,26 @@ export const ComponentsPage: FC<{
                   surface={chalkboardTheme ? 'chalkboard' : 'paper'}
                 >
                   Faint
+                </Stamp>
+              </div>
+              <div className="flex flex-wrap items-center gap-3">
+                <Stamp
+                  variant="success"
+                  wobble={0}
+                  size="small"
+                  pressed={stampPressed}
+                  onClick={() => setStampPressed((value) => !value)}
+                  surface={chalkboardTheme ? 'chalkboard' : 'paper'}
+                >
+                  Pressable
+                </Stamp>
+                <Stamp
+                  variant="success"
+                  wobble={0}
+                  size="small"
+                  surface={chalkboardTheme ? 'chalkboard' : 'paper'}
+                >
+                  Static
                 </Stamp>
               </div>
             </div>

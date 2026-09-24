@@ -72,5 +72,18 @@ Rows, sidebars and settings, which are [[IDEA-5]]. Charts, [[IDEA-6]].
       Add them to `src/utils/icons.tsx` beside the six existing ones, give `LightbulbIcon` a `size`, and list every new component and prop in `src/index.ts` and the showcase.
 
 ### Fixes
-- [ ] A pressable `Stamp` keeps the handwritten face
+- [x] A pressable `Stamp` keeps the handwritten face
       `.pressable` sets `font: inherit` to strip the button's UA font, and the shorthand also resets `font-family`, so every clickable stamp — the check stamps on the deliver row, the status-bar stamps, the filter chips — falls back to the page serif while static stamps stay handwritten. Replace the shorthand with the individual resets (`font-size`, `line-height`, `letter-spacing: inherit`) and leave `font-family` and `font-weight` to `.stamp`; the showcase shows a pressed and a static stamp side by side so a regression is visible.
+      run: 43s · 32 in · 2.9k out · sonnet-5 · sess:8d0eb324-9f11-438f-93b1-f2523fb7dcc9
+- [ ] `Button variant="link"` wins over its size class
+      `.link` is emitted after the size classes, or `styles[size]` is skipped when `isLink`, so a link is `padding: 0; font: inherit` with no min-height; today the default `medium` class turns every text link into a 24px button with 12px/24px padding at 1.5rem. Hover goes to opacity 1 from 0.7, as the app's links did.
+- [ ] Text components carry the sizes and colours they replaced
+      `SectionHeading` is display serif, 1rem, 600, inherited colour at opacity .65. `Label` is handwritten .875rem, 600, inherited at .45. `MetaLine` is handwritten 1rem, inherited at .45, nowrap, with `size` for the 2xs and xs uses. `FactsGrid` labels are `Label`, values handwritten 1.125rem 600 nowrap, the grid `repeat(auto-fit, minmax(96px, 1fr))` with `gap 8px 16px` and an `align="end"` option. None of them set `$color-text-secondary`; they inherit ink and dim with opacity, as the app did.
+- [ ] `PageTitle`, `EmptyState`, `InlineCode` and `CommandLine` are the app's
+      `PageTitle`: display serif 2.25rem, 600, line-height 1.1, letter-spacing 0, `margin-bottom: 1.5rem` by default. `EmptyState`: gap 12px, padding 24px 0, message handwritten 1.125rem inherited at .60, illustration at full opacity, an `action` slot under the message at the same gap. `InlineCode`: radius 3px, `rgba(0,0,0,.06)` fill, no border, padding .1em .35em, size inherited, wraps. `CommandLine`: a bare flex row — `code` as `InlineCode` in mono .875rem that wraps, `CopyButton` default — with the boxed field, prompt glyph and horizontal scroll behind a `boxed` prop that defaults off.
+- [ ] Icons are the app's glyphs
+      Every moved icon keeps its old path data, default size and stroke: strokeWidth 1.5 for Wand, Push, Pull, Merge, Refresh, Bell, Chat and GitBranch; size 12 for Run, Stop and Chevron; Github as the solid 16-viewBox mark; More as three horizontal dots; SidebarToggle as the 18px hamburger; Shuffle and CheckAll (1.5) as they were; Lightbulb and Note at size 14 with their `<title>`, and an `opacity` prop the app sets to .55 where it did.
+- [ ] `Disclosure` leads with the chevron and takes a surface
+      Chevron first, gap 8px, colour inherited, `surface="chalkboard"` for the dark panel, `underline` option for the show-more case, `min-width: 0` on the label so it can truncate, and no stretch when it sits in a flex column.
+- [ ] Pressable `Stamp` and `Card` keep the app's feel
+      Pressable stamps hover to `brightness(1.15)` and press to `.95`, as the raw buttons did, and take `disabled` so a disabled stamp leaves the tab order; `pressed` darkens nothing. `Card onClick` does not lift or shadow on hover. `IconButton size="tiny"` is 20px with a 20px icon.

@@ -18,7 +18,9 @@
   padding-block: inherit;
   padding-inline: inherit;
   cursor: pointer;
-  font: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
   color: inherit;
   // Lift on hover so the stamp reads as pressable; the blob fill is unchanged
   // because the variant already paints the wash.

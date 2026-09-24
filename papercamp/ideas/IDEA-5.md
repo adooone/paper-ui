@@ -82,6 +82,14 @@ The data any row shows. Drag-to-reorder.
       `surface="card"` paints a flat `$color-bg-base` with an organic radius and `nestedCard` a flat `$color-bg-elevated`, so every list that moved from `Card size="small" texture={surface.card}` lost its parchment grain, its shade and its sketch border and now reads as a white slab. The two surfaces render through the same layers `Card` uses — the texture layer with `surface.card` (parchment, shaded) or `surface.nestedCard` (canvas, shaded) and the sketch border — at the row's padding, so a `Row surface="card"` is pixel-for-pixel the small card it replaced. Shown in the showcase beside a `Card` for comparison.
 - [ ] `SidebarItem` centres its row
       The row keeps the 32px cell but aligns its icon, label, count and action to the vertical centre with symmetric padding, instead of `align-items: flex-end` and a 4px bottom pad; bottom alignment was the ruled label cell's convention and looks off-centre the moment a hover fill paints the whole row, as it does on every command. `SidebarLabel` alone keeps the bottom-aligned ruled cell. The `note` line under a row is unchanged.
+- [ ] `Row` measures like the card row it replaced
+      Gap 10px, padding .375rem .875rem, no min-height, no weight on the title, no colour on the id cell (inherits ink), phone stack at 480px with padding .75rem, plus a `hideBelow` per column (`lg` for the app's Updated column). `highlighted` is `outline: 2px solid rgba(200,154,90,.5)` at offset -2 on a 10px radius, on the whole row. `Row` gains `active` — the green wash blob and pencil ring `ListItem` draws — for the git file list. `RowSkeleton` takes per-row `widths` and stamp placeholders, and `boxless` has no gap.
+- [ ] `SidebarItem` hovers like `ListItem`, and `busy` dims to .5
+      The hover is the wobbly blob plus pencil ring `ListItem` paints, not a rounded rectangle, at the same 14px text and 12px note; `busy` dims to opacity .5.
+- [ ] `SettingRow` and `SettingGroup` are the app's
+      Row: `padding .375rem .875rem`, radius 10px, grid `minmax(0,1fr) 260px`, gap 12px, label weight 400 truncating with `nowrap`, hint 1rem inherited at .45, phone at 480px with .75rem padding and no min-height. Group: header row with an `action` slot, label handwritten .875rem 600 at .55, outer gap 4px, no horizontal header padding.
+- [ ] `Table phoneLayout="stacked"` reflows as the app did
+      Breakpoint 480px, header hidden, cells `padding .125rem 1rem` with no min-height, no per-cell uppercase label, and `overflow-x: visible` on the scroll wrapper.
 
 ### Thread
 - [x] 2026-09-22 [question] [agent] Run-all parked on phase 1 ("Build `Row` and `RowSkeleton`") — the agent needs a decision: read outside workspace: /home/ccroco/dev/paper-ui/paperplan/CODE_STYLE.md

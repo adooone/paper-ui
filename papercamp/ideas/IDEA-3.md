@@ -68,6 +68,16 @@ markup.
       `roughGenerator`, `useStableSeed` and `ChevronRightIcon` from `src/index.ts`, plus showcase examples and prop rows for the Stamp variants and the Layout prop.
 - [x] [manual] Rotate only the chevron of the expanded accordion itself
 
+### Fixes
+- [ ] Stamp variants match the fills paper-camp painted, and the ring stays opt-in
+      Every variant fill is alpha 0.25 as paper-camp's maps were, not 0.10–0.20, and the text colours are the ones the app used: `review` rgba(155,122,181,.25)/#7B5E9E, `muted` rgba(168,155,168,.25)/#6E5E6E, `dropped` rgba(201,139,139,.25)/#6E3A3A, `idea`/`neutral` rgba(138,155,168,.25)/#5E7080, `success` rgba(143,185,150,.25)/#5E8A66, `warning` rgba(212,163,115,.25)/#A67B4F. The pencil `blobRing` is drawn only when a new `ring` prop is set, never because `variant` is; paper-camp's stamps had no ring. `faint` is rgba(0,0,0,.06) with text inherited, as the app's neutral chips were.
+- [ ] Chalkboard colours are the app's plates, not washes
+      `color.chalkPass/chalkFail/chalkRunning` are the opaque fills paper-camp used, #2d5a3b, #5a2d2d and #5a4a2d, with text #b5d6b5, #d6a0a0 and #d6c4a0; the chalkboard accent stays its own token. `surface="chalkboard"` on `Stamp` paints those plates.
+- [ ] The 600 weight for clickables is global
+      The `button, a, [role=button], [role=tab], [role=menuitem] { font-weight: 600 }` rule moves from `layout.module.scss` to `globals.scss`, since an app's header, status bar, panels and every portal (`Menu`, `Modal`, `Select`, `Toast`, `Tooltip`) render outside `Layout`. `$color-primary-wash-active` becomes rgba(143,185,150,.30), the value paper-camp shipped.
+- [ ] The type scale is paper-camp's
+      `_tokens.scss` font sizes become the app's: 3xs .6875rem, 2xs .75, xs .875, sm 1, base 1.125, md 1.25, and the showcase re-checks every component at the new scale. Every typography swap in paper-camp shrank one step because the two scales disagreed under the same names.
+
 ### Thread
 - [x] 2026-09-22 [question] [agent] Run-all parked on phase 3 ("Default the body to sans and name the button palette") — the agent needs a decision: glob denied by permission ask
 - [x] 2026-09-22 [question] [agent] Run-all parked on phase 3 ("Default the body to sans and name the button palette") — the agent needs a decision: grep denied by permission ask
