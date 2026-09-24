@@ -203,12 +203,12 @@ export const fontFamily = {
 } as const;
 
 export const fontSize = {
-  '3xs': '0.6875rem',
-  '2xs': '0.75rem',
-  xs: '0.875rem',
-  sm: '1rem',
-  base: '1.125rem',
-  md: '1.25rem',
+  '3xs': '0.625rem',
+  '2xs': '0.6875rem',
+  xs: '0.75rem',
+  sm: '0.875rem',
+  base: '1rem',
+  md: '1.125rem',
   lg: '1.25rem',
   xl: '1.5rem',
   '2xl': '1.875rem',

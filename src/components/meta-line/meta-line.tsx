@@ -4,13 +4,13 @@ import type { TextProps } from '../text';
 
 export interface MetaLineProps {
   children?: TextProps['children'];
-  size?: '2xs' | 'xs' | 'sm';
+  size?: '2xs' | 'xs' | 'sm' | 'base';
   as?: ElementType;
   className?: string;
   style?: CSSProperties;
 }
 
-export function MetaLine({ children, size = 'sm', as, className, style }: MetaLineProps) {
+export function MetaLine({ children, size = 'base', as, className, style }: MetaLineProps) {
   return (
     <Text
       as={as}

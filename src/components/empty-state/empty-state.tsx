@@ -15,7 +15,7 @@ export function EmptyState({ message, illustration, action, className, style }: 
   return (
     <div className={cn(styles.emptyState, className)} style={style}>
       {illustration != null && <div className={styles.illustration}>{illustration}</div>}
-      <Text as="p" face="handwritten" size="base" style={{ opacity: 0.6 }}>
+      <Text as="p" face="handwritten" size="md" style={{ opacity: 0.6 }}>
         {message}
       </Text>
       {action}

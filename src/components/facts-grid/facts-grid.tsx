@@ -22,7 +22,7 @@ export function FactsGrid({ items, align = 'start', className, style }: FactsGri
       {items.map((item, index) => (
         <div key={index} className={styles.item}>
           <Label as="span">{item.label}</Label>
-          <Text as="span" face="handwritten" size="base" weight="semibold" noWrap>
+          <Text as="span" face="handwritten" size="md" weight="semibold" noWrap>
             {item.value}
           </Text>
         </div>

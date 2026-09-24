@@ -14,7 +14,7 @@ export function Label({ children, as, className, style }: LabelProps) {
     <Text
       as={as}
       face="handwritten"
-      size="xs"
+      size="sm"
       weight="semibold"
       tone="faint"
       className={className}
