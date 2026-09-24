@@ -1,3 +1,4 @@
+IDEA-8 — Text never applied its props
 IDEA-5 — Rows, sidebars and settings
 IDEA-3 — Own what paper-camp overrides
 IDEA-4 — Text, links, clickable stamps, icons
