@@ -2,7 +2,7 @@
 
 .text {
   font-family: $font-family-serif;
-  color: $color-text-primary;
+  color: inherit;
   line-height: $line-height-normal;
   margin: 0;
 }
@@ -72,7 +72,7 @@
 }
 
 .tone-primary {
-  color: $color-text-primary;
+  opacity: 1;
 }
 
 .tone-secondary {

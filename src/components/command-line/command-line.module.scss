@@ -2,11 +2,14 @@
 
 .commandLine {
   display: flex;
-  align-items: center;
-  gap: $space-3;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: $space-2;
 }
 
 .boxed {
+  align-items: center;
+  justify-content: flex-start;
   padding: $space-3 $space-4;
   border-radius: $radius-md;
   border: 1px solid $color-border-default;
@@ -30,6 +33,11 @@
   flex: 1;
   min-width: 0;
   font-size: $font-size-xs;
+  overflow-wrap: anywhere;
+}
+
+.copyButton {
+  flex-shrink: 0;
 }
 
 .chalkboard {

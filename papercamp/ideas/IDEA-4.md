@@ -94,5 +94,5 @@ Rows, sidebars and settings, which are [[IDEA-5]]. Charts, [[IDEA-6]].
 - [x] Pressable `Stamp` and `Card` keep the app's feel
       Pressable stamps hover to `brightness(1.15)` and press to `.95`, as the raw buttons did, and take `disabled` so a disabled stamp leaves the tab order; `pressed` darkens nothing. `Card onClick` does not lift or shadow on hover. `IconButton size="tiny"` is 20px with a 20px icon.
       run: 1m21s · 44 in · 6k out · sonnet-5 · sess:622af6ea-a307-46d2-8667-9dd972ad1cdf
-- [ ] Last drifts on links, stamps, icons, code and text
+- [x] Last drifts on links, stamps, icons, code and text
       `Button variant="link"` loses the new resting `opacity: .7`; it rests at full opacity as the app's links did. `.pressable` on `Stamp` drops `line-height: inherit` so the stamp keeps 1.2 inside a row. `CheckAllIcon` defaults to size 14. `IconButton size="tiny"` goes back to a 28px box with a 16px icon; the 20px stop button is the app's own override. `CommandLine` bare mode is `gap 8px`, `align-items: flex-start`, `justify-content: space-between`, `overflow-wrap: anywhere` on the code, and `flex-shrink: 0` on the copy button. `Text` and its presets set no colour at all — `color: inherit` — so a heading on a chalkboard card is chalk, as the app's opacity-only classes were.

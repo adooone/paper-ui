@@ -38,7 +38,7 @@ export function CommandLine({
         </Text>
       )}
       <InlineCode className={styles.command}>{command}</InlineCode>
-      <CopyButton text={command} surface={surface} />
+      <CopyButton text={command} surface={surface} className={styles.copyButton} />
     </div>
   );
 }
