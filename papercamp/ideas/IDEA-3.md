@@ -84,6 +84,7 @@ markup.
       run: 1m19s · 32 in · 4.8k out · sonnet-5 · sess:00262c5a-9c61-4c5e-ac55-6fa4f8288ddc
 - [x] Put the type scale back and resize the text components instead
       Shifting `$font-size-3xs…md` up one step was the wrong fix: every component that was already right at the old scale — `Button` small/tiny, `Stamp` small, `Card` small, `Input`, `Select`, `Textarea`, `Tooltip`, `Menu`, `Table` cells, `CopyButton`, `SidebarItem`, `SettingRow`, `SettingGroup` — grew a notch, and `fontSize` in `./tokens` changed under consumers. Restore `_tokens.scss` and `tokens.ts` to 3xs .625rem, 2xs .6875, xs .75, sm .875, base 1, md 1.125, and instead move the six components that were too small up one key: `Label` and `SidebarLabel` to `sm` (.875rem), `MetaLine` and `SectionHeading` to `base` (1rem), `FactsGrid` values and the `EmptyState` message to `md` (1.125rem). After it, `SidebarItem` rows are .875rem with .75rem notes, `SettingRow` labels inherit 1rem, and `SettingGroup` titles are .875rem.
+      run: 2m4s · 80 in · 8.6k out · sonnet-5 · sess:8b4f60a0-1a53-434a-b34e-372fae155a15
 
 ### Thread
 - [x] 2026-09-22 [question] [agent] Run-all parked on phase 3 ("Default the body to sans and name the button palette") — the agent needs a decision: glob denied by permission ask
