@@ -3,10 +3,7 @@
   "version": "0.22.1",
   "description": "Natural-material React component library — paper, ink, canvas, and watercolor",
   "type": "module",
-  "sideEffects": [
-    "**/*.css",
-    "**/*.scss"
-  ],
+  "sideEffects": ["**/*.css", "**/*.scss"],
   "packageManager": "pnpm@10.12.1",
   "main": "dist/index.cjs",
   "module": "dist/index.mjs",
@@ -110,8 +107,6 @@
     "vite-plugin-dts": "^4.5.4"
   },
   "pnpm": {
-    "onlyBuiltDependencies": [
-      "@biomejs/biome"
-    ]
+    "onlyBuiltDependencies": ["@biomejs/biome"]
   }
 }
