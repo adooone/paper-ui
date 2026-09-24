@@ -51,6 +51,13 @@ export const colors = {
   chalkboardBorderBase: '#C8D2C3',
   chalkboardToggleActive: '#3D5A42',
 
+  chalkboardPassFill: '#2d5a3b',
+  chalkboardFailFill: '#5a2d2d',
+  chalkboardRunningFill: '#5a4a2d',
+  chalkboardPassText: '#b5d6b5',
+  chalkboardFailText: '#d6a0a0',
+  chalkboardRunningText: '#d6c4a0',
+
   codeBg: '#2B2926',
 
   sketchInk: '#3D352B',
@@ -71,7 +78,7 @@ export const colors = {
 
   primaryWash: 'rgba(143, 185, 150, 0.25)',
   primaryWashHover: 'rgba(143, 185, 150, 0.3)',
-  primaryWashActive: 'rgba(143, 185, 150, 0.34)',
+  primaryWashActive: 'rgba(143, 185, 150, 0.3)',
   primaryHover: '#E8DEC8',
   primaryActive: '#DDD2B8',
   secondaryHover: '#F5F0E4',
@@ -126,9 +133,12 @@ export const color = {
   accentPurple: colors.accentPurple,
   accentPurpleDark: colors.accentPurpleDark,
 
-  chalkPass: colors.chalkboardAccent,
-  chalkFail: colors.chalkboardRose,
-  chalkRunning: colors.chalkboardChalk,
+  chalkPass: colors.chalkboardPassFill,
+  chalkFail: colors.chalkboardFailFill,
+  chalkRunning: colors.chalkboardRunningFill,
+  chalkPassText: colors.chalkboardPassText,
+  chalkFailText: colors.chalkboardFailText,
+  chalkRunningText: colors.chalkboardRunningText,
 
   textureShade: colors.bgElevated,
 } as const;
@@ -193,12 +203,12 @@ export const fontFamily = {
 } as const;
 
 export const fontSize = {
-  '3xs': '0.625rem',
-  '2xs': '0.6875rem',
-  xs: '0.75rem',
-  sm: '0.875rem',
-  base: '1rem',
-  md: '1.125rem',
+  '3xs': '0.6875rem',
+  '2xs': '0.75rem',
+  xs: '0.875rem',
+  sm: '1rem',
+  base: '1.125rem',
+  md: '1.25rem',
   lg: '1.25rem',
   xl: '1.5rem',
   '2xl': '1.875rem',

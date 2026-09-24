@@ -36,6 +36,14 @@ button {
   font-family: var(--paper-button-font, $font-family-serif);
 }
 
+button,
+a,
+[role="button"],
+[role="tab"],
+[role="menuitem"] {
+  font-weight: $font-weight-semibold;
+}
+
 input,
 select,
 textarea {

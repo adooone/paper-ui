@@ -166,12 +166,12 @@ $font-family-handwritten: ${fontStack(fontFamily.handwritten)};
 $font-family-mono: ${fontStack(fontFamily.mono)};
 
 // Type scale — base = 1rem = 16px
-$font-size-3xs: ${fontSize['3xs']}; // 10px
-$font-size-2xs: ${fontSize['2xs']}; // 11px
-$font-size-xs: ${fontSize.xs}; // 12px
-$font-size-sm: ${fontSize.sm}; // 14px
-$font-size-base: ${fontSize.base}; // 16px — body default
-$font-size-md: ${fontSize.md}; // 18px
+$font-size-3xs: ${fontSize['3xs']}; // 11px
+$font-size-2xs: ${fontSize['2xs']}; // 12px
+$font-size-xs: ${fontSize.xs}; // 14px
+$font-size-sm: ${fontSize.sm}; // 16px
+$font-size-base: ${fontSize.base}; // 18px — body default
+$font-size-md: ${fontSize.md}; // 20px
 $font-size-lg: ${fontSize.lg}; // 20px
 $font-size-xl: ${fontSize.xl}; // 24px
 $font-size-2xl: ${fontSize['2xl']}; // 30px
