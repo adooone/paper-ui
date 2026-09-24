@@ -98,6 +98,8 @@ The data any row shows. Drag-to-reorder.
 - [x] `Table phoneLayout="stacked"` reflows as the app did
       Breakpoint 480px, header hidden, cells `padding .125rem 1rem` with no min-height, no per-cell uppercase label, and `overflow-x: visible` on the scroll wrapper.
       run: 2m28s · 40 in · 5.9k out · sonnet-5 · sess:6b5cedc5-456a-459e-a80f-8df99ba009a5
+- [ ] `SettingGroup` body has no inset
+      `.body { padding: 0 1rem }` goes; the header lost its matching inset and the title now sits 16px left of its rows. Rows and title share the same left edge, as the app's group did.
 
 ### Thread
 - [x] 2026-09-22 [question] [agent] Run-all parked on phase 1 ("Build `Row` and `RowSkeleton`") — the agent needs a decision: read outside workspace: /home/ccroco/dev/paper-ui/paperplan/CODE_STYLE.md

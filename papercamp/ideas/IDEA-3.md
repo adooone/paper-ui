@@ -82,6 +82,8 @@ markup.
 - [x] The type scale is paper-camp's
       `_tokens.scss` font sizes become the app's: 3xs .6875rem, 2xs .75, xs .875, sm 1, base 1.125, md 1.25, and the showcase re-checks every component at the new scale. Every typography swap in paper-camp shrank one step because the two scales disagreed under the same names.
       run: 1m19s · 32 in · 4.8k out · sonnet-5 · sess:00262c5a-9c61-4c5e-ac55-6fa4f8288ddc
+- [ ] Put the type scale back and resize the text components instead
+      Shifting `$font-size-3xs…md` up one step was the wrong fix: every component that was already right at the old scale — `Button` small/tiny, `Stamp` small, `Card` small, `Input`, `Select`, `Textarea`, `Tooltip`, `Menu`, `Table` cells, `CopyButton`, `SidebarItem`, `SettingRow`, `SettingGroup` — grew a notch, and `fontSize` in `./tokens` changed under consumers. Restore `_tokens.scss` and `tokens.ts` to 3xs .625rem, 2xs .6875, xs .75, sm .875, base 1, md 1.125, and instead move the six components that were too small up one key: `Label` and `SidebarLabel` to `sm` (.875rem), `MetaLine` and `SectionHeading` to `base` (1rem), `FactsGrid` values and the `EmptyState` message to `md` (1.125rem). After it, `SidebarItem` rows are .875rem with .75rem notes, `SettingRow` labels inherit 1rem, and `SettingGroup` titles are .875rem.
 
 ### Thread
 - [x] 2026-09-22 [question] [agent] Run-all parked on phase 3 ("Default the body to sans and name the button palette") — the agent needs a decision: glob denied by permission ask
