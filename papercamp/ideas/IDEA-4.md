@@ -70,3 +70,7 @@ Rows, sidebars and settings, which are [[IDEA-5]]. Charts, [[IDEA-6]].
       `onClick` turns each surface into one hit target — a `<button>` for `Stamp` (plus `pressed` and `icon`), `role="button"` with keyboard activation for the two surfaces — and nested buttons keep working.
 - [x] Draw the 17 icons, then export and show the new surface
       Add them to `src/utils/icons.tsx` beside the six existing ones, give `LightbulbIcon` a `size`, and list every new component and prop in `src/index.ts` and the showcase.
+
+### Fixes
+- [ ] A pressable `Stamp` keeps the handwritten face
+      `.pressable` sets `font: inherit` to strip the button's UA font, and the shorthand also resets `font-family`, so every clickable stamp — the check stamps on the deliver row, the status-bar stamps, the filter chips — falls back to the page serif while static stamps stay handwritten. Replace the shorthand with the individual resets (`font-size`, `line-height`, `letter-spacing: inherit`) and leave `font-family` and `font-weight` to `.stamp`; the showcase shows a pressed and a static stamp side by side so a regression is visible.

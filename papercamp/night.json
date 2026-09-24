@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-09-22T20:09:50.568Z",
+  "generatedAt": "2026-09-24T08:32:04.606Z",
   "chunks": [
     {
       "path": "src/components",
-      "score": 55,
+      "score": 63,
       "signals": {
-        "churnCommits": 5,
-        "lines": 4790,
+        "churnCommits": 13,
+        "lines": 5681,
         "coveragePct": null,
         "openFindings": 0,
         "daysSinceReviewed": null
@@ -16,10 +16,10 @@
     },
     {
       "path": "src/showcase",
-      "score": 52,
+      "score": 57,
       "signals": {
-        "churnCommits": 2,
-        "lines": 6206,
+        "churnCommits": 7,
+        "lines": 6812,
         "coveragePct": null,
         "openFindings": 0,
         "daysSinceReviewed": null
@@ -29,10 +29,10 @@
     },
     {
       "path": "src/utils",
-      "score": 34,
+      "score": 38,
       "signals": {
-        "churnCommits": 1,
-        "lines": 513,
+        "churnCommits": 2,
+        "lines": 849,
         "coveragePct": null,
         "openFindings": 0,
         "daysSinceReviewed": null
@@ -42,9 +42,9 @@
     },
     {
       "path": "src/styles",
-      "score": 33,
+      "score": 34,
       "signals": {
-        "churnCommits": 2,
+        "churnCommits": 3,
         "lines": 86,
         "coveragePct": null,
         "openFindings": 0,

@@ -75,6 +75,14 @@ The data any row shows. Drag-to-reorder.
       run: 2m8s · 74 in · 7.8k out · sonnet-5 · sess:54cd2641-49bc-45c0-9fa2-07bb8727c034
 - [x] [manual] Export and showcase new row, sidebar and setting components
 
+### Fixes
+- [ ] Give `SidebarItem` `active` and `action`
+      Every sidebar filter and nav list needs the current entry marked and a trailing slot for a count or a `Stamp`; the spec omitted both, so paper-camp cannot adopt it. `active` renders `aria-current="page"` and the same fill highlight `ListItem` draws for its `active`; `action` is a trailing `ReactNode` slot in the 32px cell, right-aligned after `count`, whose own buttons stay clickable. Both are shown in the showcase beside the existing props.
+- [ ] `Row`'s card surfaces are `Card` surfaces
+      `surface="card"` paints a flat `$color-bg-base` with an organic radius and `nestedCard` a flat `$color-bg-elevated`, so every list that moved from `Card size="small" texture={surface.card}` lost its parchment grain, its shade and its sketch border and now reads as a white slab. The two surfaces render through the same layers `Card` uses — the texture layer with `surface.card` (parchment, shaded) or `surface.nestedCard` (canvas, shaded) and the sketch border — at the row's padding, so a `Row surface="card"` is pixel-for-pixel the small card it replaced. Shown in the showcase beside a `Card` for comparison.
+- [ ] `SidebarItem` centres its row
+      The row keeps the 32px cell but aligns its icon, label, count and action to the vertical centre with symmetric padding, instead of `align-items: flex-end` and a 4px bottom pad; bottom alignment was the ruled label cell's convention and looks off-centre the moment a hover fill paints the whole row, as it does on every command. `SidebarLabel` alone keeps the bottom-aligned ruled cell. The `note` line under a row is unchanged.
+
 ### Thread
 - [x] 2026-09-22 [question] [agent] Run-all parked on phase 1 ("Build `Row` and `RowSkeleton`") — the agent needs a decision: read outside workspace: /home/ccroco/dev/paper-ui/paperplan/CODE_STYLE.md
 - [x] 2026-09-23 [chat] Decision: nothing to decide, the path was mistyped. The file is paperplan/CODE_STYLE.md inside this repository (absolute: /home/croco/dev/paper-ui/paperplan/CODE_STYLE.md, one c in croco). Read it by its relative path and continue phase 1.
