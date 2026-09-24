@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.22.0](https://github.com/adooone/paper-ui/compare/v0.21.0...v0.22.0) (2026-09-24)
+
+
+### Features
+
+* **row:** Match app's Row, SidebarItem, SettingRow and Table styling ([58041a2](https://github.com/adooone/paper-ui/commit/58041a227f6f0d2a61986728b266dca1abc4efe0))
+
+
+### Bug Fixes
+
+* **stamp:** Preserve handwritten font on pressable stamps ([1488da1](https://github.com/adooone/paper-ui/commit/1488da1064d29ccb549bc7a13eb21694e419ddd5))
+
+
+### Documentation
+
+* **ideas:** Text, links, clickable stamps, icons — plan ([a8c3401](https://github.com/adooone/paper-ui/commit/a8c3401c1102b40941cf2ed47ecbd777a8936af5))
+
 ## [0.21.0](https://github.com/adooone/paper-ui/compare/v0.20.1...v0.21.0) (2026-09-23)
 
 
