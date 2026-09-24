@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.22.1](https://github.com/adooone/paper-ui/compare/v0.22.0...v0.22.1) (2026-09-24)
+
+
+### Bug Fixes
+
+* **stamp:** Own what paper-camp overrides for stamps, weight, type scale ([f4b6e68](https://github.com/adooone/paper-ui/commit/f4b6e68a3aef95ccfedef556c0090f00301f3f08))
+
+
+### Documentation
+
+* **ideas:** Own what paper-camp overrides — plan ([16316a9](https://github.com/adooone/paper-ui/commit/16316a917f5788adb04224997b63a63193d57e6e))
+
 ## [0.22.0](https://github.com/adooone/paper-ui/compare/v0.21.0...v0.22.0) (2026-09-24)
 
 
