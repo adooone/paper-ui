@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-24T18:11:21.901Z",
+  "generatedAt": "2026-09-24T19:11:02.515Z",
   "chunks": [
     {
       "path": "src/components",
-      "score": 69,
+      "score": 70,
       "signals": {
-        "churnCommits": 19,
+        "churnCommits": 20,
         "lines": 5938,
         "coveragePct": null,
         "openFindings": 0,
