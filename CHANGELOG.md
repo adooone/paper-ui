@@ -1,5 +1,23 @@
 # Changelog
 
+## [0.22.3](https://github.com/adooone/paper-ui/compare/v0.22.2...v0.22.3) (2026-09-24)
+
+
+### Bug Fixes
+
+* **setting-group:** align header with body's left edge ([169fd3e](https://github.com/adooone/paper-ui/commit/169fd3ee8d3b6312e9f4fb5219749abf2cae7016))
+* **text,command-line,icon-button:** last drifts on colour, layout, tap size ([e6b6844](https://github.com/adooone/paper-ui/commit/e6b6844b48a400e077fc49a5783f98c2745cf5f2))
+* **tokens:** put the type scale back, resize six components instead ([a96f55f](https://github.com/adooone/paper-ui/commit/a96f55f57ecc5b7639d105484591b54de8011e99))
+
+
+### Documentation
+
+* **ideas:** Log run metadata for last-drift fixes on IDEA-4 ([6ff0feb](https://github.com/adooone/paper-ui/commit/6ff0feb6f4fa25534393d349f092f8c64cde17ba))
+* **ideas:** log run metadata for SettingGroup inset fix ([7cccad9](https://github.com/adooone/paper-ui/commit/7cccad978ddceeaf6c84031bbbdfa8566a45ff67))
+* **ideas:** Rows, sidebars and settings — plan ([dc9ac81](https://github.com/adooone/paper-ui/commit/dc9ac81a1652731509711dc3740c59577030ded3))
+* **ideas:** Text, links, clickable stamps, icons — plan ([f96ccc8](https://github.com/adooone/paper-ui/commit/f96ccc8b5be3673e445e6c961c1e1470d3490d49))
+* **papercamp:** Log IDEA-8, Text props never applied in build ([1a6cb5f](https://github.com/adooone/paper-ui/commit/1a6cb5fca5dd3d65df0d33d2f3ce77757cf07407))
+
 ## [0.22.2](https://github.com/adooone/paper-ui/compare/v0.22.1...v0.22.2) (2026-09-24)
 
 
