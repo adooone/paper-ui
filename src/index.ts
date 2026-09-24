@@ -95,7 +95,16 @@ export type {
 } from './components/table';
 
 export { Row, RowSkeleton } from './components/row';
-export type { RowProps, RowColumns, RowSurface, RowSkeletonProps } from './components/row';
+export type {
+  RowProps,
+  RowColumns,
+  RowColumnConfig,
+  RowColumnValue,
+  RowBreakpoint,
+  RowSurface,
+  RowSkeletonProps,
+  RowSkeletonWidths,
+} from './components/row';
 
 export { Disclosure } from './components/disclosure';
 export type { DisclosureProps } from './components/disclosure';

@@ -6,10 +6,9 @@
   display: grid;
   grid-template-columns: var(--row-columns);
   align-items: center;
-  gap: $space-3;
+  gap: 10px;
   width: 100%;
-  min-height: 32px;
-  padding: 0 $space-4;
+  padding: 0.375rem 0.875rem;
   box-sizing: border-box;
   font-family: var(--paper-font-default, $font-family-serif);
   font-size: $font-size-base;
@@ -29,6 +28,21 @@
 .surfaceNestedCard {
   background-color: $color-bg-elevated;
   @include organic-radius($radius-sm, 2px);
+}
+
+.surfaceBorder {
+  position: relative;
+  overflow: hidden;
+  border-radius: $radius-md;
+  filter: $filter-shadow-sm;
+  --sketch-stroke: #{$color-sketch-stroke};
+}
+
+.textureCard,
+.textureNestedCard {
+  border-radius: $radius-md;
+  clip-path: var(--sketch-clip);
+  background-color: var(--row-surface-fill);
 }
 
 .static {
@@ -57,15 +71,22 @@
 }
 
 .highlighted {
-  outline: 2px solid $color-accent-amber;
+  outline: 2px solid rgba(200, 154, 90, 0.5);
   outline-offset: -2px;
-  border-radius: $radius-sm;
+  border-radius: 10px;
+}
+
+.id,
+.title,
+.meta,
+.trailing {
+  position: relative;
+  z-index: 1;
 }
 
 .id {
   font-family: $font-family-mono;
   font-size: $font-size-xs;
-  color: $color-text-secondary;
   white-space: nowrap;
   min-width: 0;
 }
@@ -75,7 +96,6 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-weight: $font-weight-medium;
 }
 
 .meta {
@@ -94,7 +114,61 @@
   justify-self: end;
 }
 
-@media (max-width: 640px) {
+.blobBg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.blobFill {
+  fill: transparent;
+  transition: fill 250ms ease;
+}
+
+.blobRing {
+  fill: none;
+  stroke: $ghost-border;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0;
+  transition: opacity 350ms ease 50ms;
+}
+
+.active .blobFill {
+  fill: $ghost-active-strong;
+}
+
+.active:hover .blobFill {
+  fill: $ghost-active-hover;
+}
+
+.active .blobRing {
+  opacity: 1;
+}
+
+@media (max-width: 480px) {
+  .hideBelowSm {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .hideBelowMd {
+    display: none;
+  }
+}
+
+@media (max-width: 1024px) {
+  .hideBelowLg {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
   .row {
     grid-template-columns: 1fr !important;
     grid-template-areas:
@@ -103,7 +177,7 @@
       'meta'
       'trailing';
     row-gap: $space-1;
-    padding: $space-2 $space-4;
+    padding: 0.75rem;
   }
 
   .id {
@@ -129,4 +203,13 @@
 
 .skeleton {
   pointer-events: none;
+}
+
+.boxless {
+  gap: 0;
+}
+
+.stampPlaceholder {
+  overflow: hidden;
+  border-radius: 999px;
 }

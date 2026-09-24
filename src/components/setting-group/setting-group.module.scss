@@ -3,15 +3,26 @@
 .settingGroup {
   display: flex;
   flex-direction: column;
-  gap: $space-2;
+  gap: 4px;
   width: 100%;
 }
 
 .header {
   display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-2;
+}
+
+.headerText {
+  display: flex;
   flex-direction: column;
   gap: 2px;
-  padding: 0 $space-4;
+  min-width: 0;
+}
+
+.action {
+  flex-shrink: 0;
 }
 
 .description {

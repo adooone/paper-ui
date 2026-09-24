@@ -8,14 +8,15 @@
 }
 
 .row {
+  position: relative;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   gap: $space-2;
   width: 100%;
   min-height: 32px;
-  padding: 0 $space-2 4px;
+  padding: 2px $space-2;
   line-height: 1;
-  font-size: $font-size-xs;
+  font-size: $font-size-sm;
   color: $color-text-primary;
   background: transparent;
   border: none;
@@ -23,23 +24,17 @@
   font-family: var(--paper-font-default, $font-family-serif);
   border-radius: $radius-sm;
   outline: none;
-  cursor: pointer;
-  transition: background-color $transition-fast;
-
-  &:hover {
-    background-color: $ghost-hover-fill;
-  }
-
-  &:focus-visible {
-    @include focus-ring;
-  }
 }
 
 .static {
   cursor: default;
+}
 
-  &:hover {
-    background-color: transparent;
+.clickable {
+  cursor: pointer;
+
+  &:focus-visible {
+    @include focus-ring;
   }
 }
 
@@ -50,10 +45,64 @@
 
 .busy {
   cursor: not-allowed;
-  opacity: 0.7;
+  opacity: 0.5;
+}
+
+.blobBg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.blobFill {
+  fill: transparent;
+  transition: fill 250ms ease;
+}
+
+.blobRing {
+  fill: none;
+  stroke: $ghost-border;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0;
+  transition: opacity 350ms ease 50ms;
+}
+
+.clickable:hover .blobFill {
+  fill: $ghost-hover-fill;
+}
+
+.clickable:hover .blobRing {
+  opacity: 1;
+}
+
+.clickable:active .blobFill {
+  fill: $ghost-active-fill;
+}
+
+.clickable:active .blobRing {
+  stroke: $button-ring-stroke-active;
+}
+
+.active .blobFill {
+  fill: $ghost-active-strong;
+}
+
+.active:hover .blobFill {
+  fill: $ghost-active-hover;
+}
+
+.active .blobRing {
+  opacity: 1;
 }
 
 .icon {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -62,6 +111,8 @@
 }
 
 .label {
+  position: relative;
+  z-index: 1;
   flex: 1;
   min-width: 0;
   overflow: hidden;
@@ -70,17 +121,27 @@
 }
 
 .count {
+  position: relative;
+  z-index: 1;
   flex-shrink: 0;
   margin-left: auto;
-  align-self: flex-end;
+  align-self: center;
   font-size: $font-size-2xs;
   color: $color-text-tertiary;
   font-family: $font-family-serif;
 }
 
+.action {
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+  margin-left: auto;
+  align-self: center;
+}
+
 .note {
   font-family: $font-family-mono;
-  font-size: $font-size-2xs;
+  font-size: $font-size-xs;
   color: $color-text-tertiary;
   line-height: $line-height-tight;
   padding: 0 $space-2 2px;

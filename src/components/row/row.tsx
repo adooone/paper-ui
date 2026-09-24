@@ -1,16 +1,65 @@
 import type { CSSProperties, KeyboardEvent, MouseEvent, ReactNode } from 'react';
+import { useRectBlobPaths } from '../../hooks/use-rect-blob-paths';
+import { surface as cardSurfaces } from '../../tokens';
 import { cn } from '../../utils/style-helpers';
+import { getSurfaceStyles } from '../../utils/textures';
+import { SketchBorder, sketchOutline } from '../sketch-border';
 import styles from './row.module.scss';
+
+/** `sm` hides below 480px, `md` below 768px, `lg` below 1024px. */
+export type RowBreakpoint = 'sm' | 'md' | 'lg';
+
+export interface RowColumnConfig {
+  /** Column width, as a grid-template-columns track. */
+  width?: string;
+  /** Hide this slot's column below the given breakpoint. */
+  hideBelow?: RowBreakpoint;
+}
+
+export type RowColumnValue = string | RowColumnConfig;
 
 export interface RowColumns {
   /** Width of the `id` slot (mono identifier). */
-  id?: string;
+  id?: RowColumnValue;
   /** Width of the `title` slot — the main, truncating label. */
-  title?: string;
+  title?: RowColumnValue;
   /** Width of the `meta` slot (a `MetaLine`). */
-  meta?: string;
+  meta?: RowColumnValue;
   /** Width of the `trailing` slot (stamps, actions). */
-  trailing?: string;
+  trailing?: RowColumnValue;
+}
+
+const DEFAULT_COLUMN_WIDTHS: Required<Record<keyof RowColumns, string>> = {
+  id: 'auto',
+  title: '1fr',
+  meta: 'auto',
+  trailing: 'auto',
+};
+
+const HIDE_BELOW_CLASS: Record<RowBreakpoint, string> = {
+  sm: styles.hideBelowSm,
+  md: styles.hideBelowMd,
+  lg: styles.hideBelowLg,
+};
+
+function resolveColumn(value: RowColumnValue | undefined, fallbackWidth: string) {
+  if (value == null)
+    return { width: fallbackWidth, hideBelow: undefined as RowBreakpoint | undefined };
+  if (typeof value === 'string') return { width: value, hideBelow: undefined };
+  return { width: value.width ?? fallbackWidth, hideBelow: value.hideBelow };
+}
+
+export function resolveRowColumns(columns?: RowColumns) {
+  return {
+    id: resolveColumn(columns?.id, DEFAULT_COLUMN_WIDTHS.id),
+    title: resolveColumn(columns?.title, DEFAULT_COLUMN_WIDTHS.title),
+    meta: resolveColumn(columns?.meta, DEFAULT_COLUMN_WIDTHS.meta),
+    trailing: resolveColumn(columns?.trailing, DEFAULT_COLUMN_WIDTHS.trailing),
+  };
+}
+
+export function rowHideBelowClass(breakpoint?: RowBreakpoint) {
+  return breakpoint ? HIDE_BELOW_CLASS[breakpoint] : undefined;
 }
 
 export type RowSurface = 'none' | 'card' | 'nestedCard';
@@ -26,9 +75,9 @@ export interface RowProps {
   trailing?: ReactNode;
   /**
    * Grid-template-columns widths for the four slots, in the order `id title meta trailing`.
-   * Any omitted slot is sized by its content. Pass `auto`, `minmax(...)`, fractional
-   * units (`1fr`) or fixed widths (`120px`). Under 640px the template collapses to a
-   * single column with `title` on top — see `.module.scss`.
+   * Pass a string (`auto`, `minmax(...)`, `1fr`, `120px`) or a `{ width, hideBelow }` config
+   * to hide that slot below a breakpoint. Any omitted slot is sized by its content. Under
+   * 480px the template collapses to a single column with `title` on top — see `.module.scss`.
    */
   columns?: RowColumns;
   /** Row surface. `none` is a ruled cell (the Divider between rows draws the line),
@@ -40,16 +89,11 @@ export interface RowProps {
   ariaLabel?: string;
   /** Draw the amber outline paper-camp uses to mark a deep-linked row. */
   highlighted?: boolean;
+  /** Draw the green wash blob and pencil ring `ListItem` draws for the current entry. */
+  active?: boolean;
   className?: string;
   style?: CSSProperties;
 }
-
-const DEFAULT_COLUMNS: Required<RowColumns> = {
-  id: 'auto',
-  title: '1fr',
-  meta: 'auto',
-  trailing: 'auto',
-};
 
 export function Row({
   id,
@@ -61,12 +105,14 @@ export function Row({
   onClick,
   ariaLabel,
   highlighted = false,
+  active = false,
   className,
   style,
 }: RowProps) {
-  const merged: Required<RowColumns> = { ...DEFAULT_COLUMNS, ...columns };
-  const template = `${merged.id} ${merged.title} ${merged.meta} ${merged.trailing}`;
+  const resolved = resolveRowColumns(columns);
+  const template = `${resolved.id.width} ${resolved.title.width} ${resolved.meta.width} ${resolved.trailing.width}`;
   const isClickable = !!onClick;
+  const paths = useRectBlobPaths(0.5);
 
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     if (!onClick) return;
@@ -76,34 +122,83 @@ export function Row({
     }
   };
 
-  const surfaceClass =
+  const textureConfig =
     surface === 'card'
-      ? styles.surfaceCard
+      ? cardSurfaces.card
       : surface === 'nestedCard'
-        ? styles.surfaceNestedCard
-        : styles.surfaceNone;
+        ? cardSurfaces.nestedCard
+        : null;
+  const textureClass =
+    surface === 'card'
+      ? styles.textureCard
+      : surface === 'nestedCard'
+        ? styles.textureNestedCard
+        : null;
 
-  return (
+  const { backgroundColor: textureFill, ...textureStyle } = textureConfig
+    ? getSurfaceStyles(textureConfig)
+    : ({} as CSSProperties);
+
+  const row = (
     <div
       role={isClickable ? 'button' : undefined}
       tabIndex={isClickable ? 0 : undefined}
       aria-label={isClickable ? ariaLabel : undefined}
       onClick={onClick}
       onKeyDown={isClickable ? handleKeyDown : undefined}
-      style={{ ...style, '--row-columns': template } as CSSProperties}
+      style={
+        {
+          ...style,
+          '--row-columns': template,
+          ...textureStyle,
+          ...(textureFill ? { '--row-surface-fill': textureFill } : null),
+        } as CSSProperties
+      }
       className={cn(
         styles.row,
-        surfaceClass,
+        textureClass ?? styles.surfaceNone,
         isClickable && styles.clickable,
-        !isClickable && styles.static,
+        !isClickable && !active && styles.static,
         highlighted && styles.highlighted,
+        active && styles.active,
         className,
       )}
+      aria-current={active ? 'page' : undefined}
     >
-      {id != null && <div className={styles.id}>{id}</div>}
-      {title != null && <div className={styles.title}>{title}</div>}
-      {meta != null && <div className={styles.meta}>{meta}</div>}
-      {trailing != null && <div className={styles.trailing}>{trailing}</div>}
+      {active && (
+        <svg
+          className={styles.blobBg}
+          viewBox="-10 -10 120 120"
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
+          <path d={paths.blob} className={styles.blobFill} />
+          <path d={paths.ring} className={styles.blobRing} />
+        </svg>
+      )}
+      {id != null && (
+        <div className={cn(styles.id, rowHideBelowClass(resolved.id.hideBelow))}>{id}</div>
+      )}
+      {title != null && (
+        <div className={cn(styles.title, rowHideBelowClass(resolved.title.hideBelow))}>{title}</div>
+      )}
+      {meta != null && (
+        <div className={cn(styles.meta, rowHideBelowClass(resolved.meta.hideBelow))}>{meta}</div>
+      )}
+      {trailing != null && (
+        <div className={cn(styles.trailing, rowHideBelowClass(resolved.trailing.hideBelow))}>
+          {trailing}
+        </div>
+      )}
+    </div>
+  );
+
+  if (!textureConfig) return row;
+
+  return (
+    <div className={styles.surfaceBorder}>
+      <SketchBorder clip straight {...sketchOutline.surface} />
+      {row}
     </div>
   );
 }

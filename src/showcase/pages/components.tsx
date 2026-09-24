@@ -794,13 +794,17 @@ const sectionDetails: SectionDetail[] = [
   ariaLabel="Open Watercolor Study"
 />
 
-// Card surface with a deep-link highlight
+// Card surface with a deep-link highlight — the same parchment, shade
+// and sketch border as the small Card it replaces, at the row's own padding.
 <Row
   surface="card"
   highlighted
   title="Linked row"
   trailing={<Stamp variant="warning">Review</Stamp>}
 />
+<Card size="small" texture="parchment" shade>
+  Same surface, Card's own padding
+</Card>
 
 // Skeleton while loading
 <RowSkeleton surface="none" />`,
@@ -829,7 +833,7 @@ const sectionDetails: SectionDetail[] = [
         name: 'columns',
         type: 'RowColumns',
         description:
-          'Grid-template-columns widths for the four slots, in order id title meta trailing',
+          'Grid-template-columns widths for the four slots, in order id title meta trailing; each slot can also take a { width, hideBelow } to hide it below a breakpoint',
       },
       {
         name: 'surface',
@@ -854,6 +858,13 @@ const sectionDetails: SectionDetail[] = [
         type: 'boolean',
         default: 'false',
         description: 'Draw the amber outline used to mark a deep-linked row',
+      },
+      {
+        name: 'active',
+        type: 'boolean',
+        default: 'false',
+        description:
+          'Draw the green wash blob and pencil ring ListItem draws for the current entry',
       },
     ],
   },
@@ -881,6 +892,23 @@ const sectionDetails: SectionDetail[] = [
         type: "Array<'id' | 'title' | 'meta' | 'trailing'>",
         default: 'all four',
         description: 'Which slots to show skeleton bars in',
+      },
+      {
+        name: 'widths',
+        type: 'RowSkeletonWidths',
+        description: "Per-slot skeleton bar widths, so a list of rows doesn't look uniform",
+      },
+      {
+        name: 'stamps',
+        type: 'number',
+        default: '0',
+        description: 'Number of pill-shaped stamp placeholders in trailing, instead of a text bar',
+      },
+      {
+        name: 'boxless',
+        type: 'boolean',
+        default: 'false',
+        description: 'No gap between slots, for dense ruled lists',
       },
     ],
   },
@@ -958,7 +986,10 @@ const sectionDetails: SectionDetail[] = [
 <SidebarItem note="last update 2h ago" tone="danger" disabled>
   Archived
 </SidebarItem>
-<SidebarItem busy="Syncing…">Plans</SidebarItem>`,
+<SidebarItem busy="Syncing…">Plans</SidebarItem>
+<SidebarItem active icon={<FolderIcon />} count={3} action={<Stamp>New</Stamp>}>
+  Plans
+</SidebarItem>`,
     props: [
       {
         name: 'children',
@@ -976,6 +1007,11 @@ const sectionDetails: SectionDetail[] = [
         description: 'Right-aligned secondary number (2xs, tertiary)',
       },
       {
+        name: 'action',
+        type: 'ReactNode',
+        description: 'Trailing slot after count, right-aligned; e.g. a Stamp',
+      },
+      {
         name: 'note',
         type: 'ReactNode',
         description: 'A mono 2xs line rendered under the row',
@@ -990,6 +1026,12 @@ const sectionDetails: SectionDetail[] = [
         type: "'default' | 'danger'",
         default: "'default'",
         description: 'Danger tints icon and label rose',
+      },
+      {
+        name: 'active',
+        type: 'boolean',
+        default: 'false',
+        description: 'Marks the current entry: aria-current="page" and the active fill',
       },
       {
         name: 'disabled',
@@ -1071,6 +1113,11 @@ const sectionDetails: SectionDetail[] = [
         name: 'description',
         type: 'ReactNode',
         description: 'Optional descriptive text under the title',
+      },
+      {
+        name: 'action',
+        type: 'ReactNode',
+        description: 'Trailing slot in the header, next to the title (e.g. a button)',
       },
       {
         name: 'children',

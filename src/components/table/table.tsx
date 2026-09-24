@@ -86,9 +86,9 @@ export interface TableProps<T = unknown> {
   /** Always-visible full-width band under a row (per-row stats, provenance), set on
    *  the darker texture shade in the mono data voice. Return null for rows without one. */
   rowFooter?: (row: T, index: number, surface: TableSurface) => ReactNode;
-  /** Under 640px the table reflows from a grid of rows into stacked blocks — one
-   *  block per row, with each cell's column header above its value. `'stacked'`
-   *  opts in; the default keeps the grid (and lets a narrow page scroll horizontally). */
+  /** Under 480px the table reflows from a grid of rows into stacked blocks — one
+   *  block per row. `'stacked'` opts in; the default keeps the grid (and lets a
+   *  narrow page scroll horizontally). */
   phoneLayout?: 'stacked';
   className?: string;
 }
@@ -298,9 +298,6 @@ export function Table<T = unknown>({
                           <td
                             key={col.key}
                             className={styles.td}
-                            data-cell-label={
-                              typeof col.header === 'string' ? col.header : undefined
-                            }
                             style={col.align ? { textAlign: col.align } : undefined}
                           >
                             {col.cell(row, rowIndex, surface)}

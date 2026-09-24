@@ -221,7 +221,7 @@ $pencil-divider: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 /* ─── Phone stacked layout ─── */
 
 .phoneStacked {
-  @media (max-width: 640px) {
+  @media (max-width: 480px) {
     .table,
     .thead,
     .tbody,
@@ -232,15 +232,7 @@ $pencil-divider: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
     }
 
     .thead {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      white-space: nowrap;
-      border: 0;
+      display: none;
     }
 
     .tr {
@@ -254,25 +246,7 @@ $pencil-divider: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
 
     .td {
       height: auto;
-      min-height: 32px;
-      padding: $space-2 $space-4;
-      display: grid;
-      grid-template-columns: minmax(80px, 35%) 1fr;
-      align-items: baseline;
-      gap: $space-3;
-    }
-
-    .td[data-cell-label]::before {
-      content: attr(data-cell-label);
-      font-size: $font-size-xs;
-      font-weight: $font-weight-bold;
-      letter-spacing: $letter-spacing-wide;
-      text-transform: uppercase;
-      color: $color-text-tertiary;
-    }
-
-    .td[data-cell-label]:empty::before {
-      content: attr(data-cell-label) '\00a0';
+      padding: 0.125rem 1rem;
     }
 
     .td::after {
@@ -289,6 +263,12 @@ $pencil-divider: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/sv
     .expandedRow .expandedCell {
       padding: $space-3 $space-4;
     }
+  }
+}
+
+@media (max-width: 480px) {
+  .tableScroll:has(.phoneStacked) {
+    overflow-x: visible;
   }
 }
 

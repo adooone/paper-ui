@@ -5,11 +5,11 @@
   display: grid;
   grid-template-columns: minmax(0, 1fr) 260px;
   align-items: center;
-  gap: $space-4;
+  gap: $space-3;
   width: 100%;
-  min-height: 48px;
-  padding: $space-3 0;
+  padding: 0.375rem 0.875rem;
   box-sizing: border-box;
+  border-radius: 10px;
 }
 
 .label {
@@ -26,17 +26,18 @@
 
 .labelText {
   font-size: $font-size-base;
-  font-weight: $font-weight-medium;
+  font-weight: $font-weight-normal;
   color: $color-text-primary;
   line-height: $line-height-snug;
   min-width: 0;
   overflow: hidden;
+  white-space: nowrap;
   text-overflow: ellipsis;
 }
 
 .hint {
-  font-size: $font-size-xs;
-  color: $color-text-secondary;
+  font-size: inherit;
+  opacity: 0.45;
   line-height: $line-height-snug;
   min-width: 0;
   overflow: hidden;
@@ -50,14 +51,13 @@
   min-width: 0;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 480px) {
   .settingRow {
     grid-template-columns: minmax(0, 1fr);
     grid-template-areas:
       'label'
         'control';
-    min-height: 64px;
-    padding: $space-3 $space-4;
+    padding: 0.75rem;
     gap: $space-2;
   }
 

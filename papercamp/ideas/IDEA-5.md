@@ -4,7 +4,7 @@ title: Rows, sidebars and settings
 type: feat
 status: review
 created: 2026-09-22
-updated: 2026-09-23
+updated: 2026-09-24
 tags:
   - row
   - list-item
@@ -74,22 +74,30 @@ The data any row shows. Drag-to-reorder.
       Add every new component and its props to `src/index.ts`, then a showcase page section with prop rows for each.
       run: 2m8s · 74 in · 7.8k out · sonnet-5 · sess:54cd2641-49bc-45c0-9fa2-07bb8727c034
 - [x] [manual] Export and showcase new row, sidebar and setting components
+- [x] [manual] Match app's Row, SidebarItem, SettingRow and Table styling
 
 ### Fixes
-- [ ] Give `SidebarItem` `active` and `action`
+- [x] Give `SidebarItem` `active` and `action`
       Every sidebar filter and nav list needs the current entry marked and a trailing slot for a count or a `Stamp`; the spec omitted both, so paper-camp cannot adopt it. `active` renders `aria-current="page"` and the same fill highlight `ListItem` draws for its `active`; `action` is a trailing `ReactNode` slot in the 32px cell, right-aligned after `count`, whose own buttons stay clickable. Both are shown in the showcase beside the existing props.
-- [ ] `Row`'s card surfaces are `Card` surfaces
+      run: 1m48s · 46 in · 6.5k out · sonnet-5 · sess:b6a01a10-b0ff-4c19-ab89-14fed762031a
+- [x] `Row`'s card surfaces are `Card` surfaces
       `surface="card"` paints a flat `$color-bg-base` with an organic radius and `nestedCard` a flat `$color-bg-elevated`, so every list that moved from `Card size="small" texture={surface.card}` lost its parchment grain, its shade and its sketch border and now reads as a white slab. The two surfaces render through the same layers `Card` uses — the texture layer with `surface.card` (parchment, shaded) or `surface.nestedCard` (canvas, shaded) and the sketch border — at the row's padding, so a `Row surface="card"` is pixel-for-pixel the small card it replaced. Shown in the showcase beside a `Card` for comparison.
-- [ ] `SidebarItem` centres its row
+      run: 5m51s · 92 in · 22.1k out · sonnet-5 · sess:b6a01a10-b0ff-4c19-ab89-14fed762031a
+- [x] `SidebarItem` centres its row
       The row keeps the 32px cell but aligns its icon, label, count and action to the vertical centre with symmetric padding, instead of `align-items: flex-end` and a 4px bottom pad; bottom alignment was the ruled label cell's convention and looks off-centre the moment a hover fill paints the whole row, as it does on every command. `SidebarLabel` alone keeps the bottom-aligned ruled cell. The `note` line under a row is unchanged.
-- [ ] `Row` measures like the card row it replaced
+      run: 27s · 16 in · 1.7k out · sonnet-5 · sess:be047753-f08d-4a77-b09f-cd298d9acc17
+- [x] `Row` measures like the card row it replaced
       Gap 10px, padding .375rem .875rem, no min-height, no weight on the title, no colour on the id cell (inherits ink), phone stack at 480px with padding .75rem, plus a `hideBelow` per column (`lg` for the app's Updated column). `highlighted` is `outline: 2px solid rgba(200,154,90,.5)` at offset -2 on a 10px radius, on the whole row. `Row` gains `active` — the green wash blob and pencil ring `ListItem` draws — for the git file list. `RowSkeleton` takes per-row `widths` and stamp placeholders, and `boxless` has no gap.
-- [ ] `SidebarItem` hovers like `ListItem`, and `busy` dims to .5
+      run: 5m4s · 100 in · 27.5k out · sonnet-5 · sess:be047753-f08d-4a77-b09f-cd298d9acc17
+- [x] `SidebarItem` hovers like `ListItem`, and `busy` dims to .5
       The hover is the wobbly blob plus pencil ring `ListItem` paints, not a rounded rectangle, at the same 14px text and 12px note; `busy` dims to opacity .5.
-- [ ] `SettingRow` and `SettingGroup` are the app's
+      run: 1m6s · 18 in · 6.7k out · sonnet-5 · sess:be047753-f08d-4a77-b09f-cd298d9acc17
+- [x] `SettingRow` and `SettingGroup` are the app's
       Row: `padding .375rem .875rem`, radius 10px, grid `minmax(0,1fr) 260px`, gap 12px, label weight 400 truncating with `nowrap`, hint 1rem inherited at .45, phone at 480px with .75rem padding and no min-height. Group: header row with an `action` slot, label handwritten .875rem 600 at .55, outer gap 4px, no horizontal header padding.
-- [ ] `Table phoneLayout="stacked"` reflows as the app did
+      run: 1m56s · 44 in · 9.3k out · sonnet-5 · sess:be047753-f08d-4a77-b09f-cd298d9acc17
+- [x] `Table phoneLayout="stacked"` reflows as the app did
       Breakpoint 480px, header hidden, cells `padding .125rem 1rem` with no min-height, no per-cell uppercase label, and `overflow-x: visible` on the scroll wrapper.
+      run: 2m28s · 40 in · 5.9k out · sonnet-5 · sess:6b5cedc5-456a-459e-a80f-8df99ba009a5
 
 ### Thread
 - [x] 2026-09-22 [question] [agent] Run-all parked on phase 1 ("Build `Row` and `RowSkeleton`") — the agent needs a decision: read outside workspace: /home/ccroco/dev/paper-ui/paperplan/CODE_STYLE.md
