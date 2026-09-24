@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.22.2](https://github.com/adooone/paper-ui/compare/v0.22.1...v0.22.2) (2026-09-24)
+
+
+### Bug Fixes
+
+* **button:** Own the app's exact interaction feel across components ([97bfc73](https://github.com/adooone/paper-ui/commit/97bfc737fede499d17055eaba709eb9c3aab30f4))
+
+
+### Documentation
+
+* **ideas:** Text, links, clickable stamps, icons — plan ([4ac03e1](https://github.com/adooone/paper-ui/commit/4ac03e14209f189312d159eb67ed4b80f2b7773e))
+
 ## [0.22.1](https://github.com/adooone/paper-ui/compare/v0.22.0...v0.22.1) (2026-09-24)
 
 
