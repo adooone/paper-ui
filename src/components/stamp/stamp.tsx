@@ -39,6 +39,8 @@ export interface StampProps {
    * `onClick` is also set (without a click handler, "pressed" is meaningless).
    */
   pressed?: boolean;
+  /** Disables the pressable stamp, taking it out of the tab order. */
+  disabled?: boolean;
   /** Tooltip / a11y label when `icon` is the only content. */
   ariaLabel?: string;
   className?: string;
@@ -175,6 +177,7 @@ export function Stamp({
   ring = false,
   onClick,
   pressed = false,
+  disabled = false,
   ariaLabel,
   className,
 }: StampProps) {
@@ -241,6 +244,7 @@ export function Stamp({
         className={sharedClassName}
         style={resolvedText ? { color: resolvedText } : undefined}
         onClick={onClick}
+        disabled={disabled}
       >
         {inner}
       </button>

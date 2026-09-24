@@ -41,7 +41,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
       className={cn(
         styles.button,
         styles[variant],
-        styles[size],
+        !isLink && styles[size],
         !isLink && surface === 'chalkboard' && styles.chalkboard,
         isActive && styles.isActive,
         fullWidth && styles.fullWidth,

@@ -284,14 +284,21 @@ const sectionDetails: SectionDetail[] = [
         name: 'onClick',
         type: '(event: MouseEvent<HTMLButtonElement>) => void',
         description:
-          'Render the stamp as a button with a hover lift and focus ring. Omit to keep it as a static span.',
+          'Render the stamp as a button that brightens on hover, dims on press, and gains a focus ring. Omit to keep it as a static span.',
       },
       {
         name: 'pressed',
         type: 'boolean',
         default: 'false',
         description:
-          'Pressed-state visual for the chip-toggle case. Only takes effect when `onClick` is also set.',
+          'Sets aria-pressed for the chip-toggle case. Only takes effect when `onClick` is also set; darkens nothing.',
+      },
+      {
+        name: 'disabled',
+        type: 'boolean',
+        default: 'false',
+        description:
+          'Disables the pressable stamp, taking it out of the tab order. Only takes effect when `onClick` is also set.',
       },
       {
         name: 'ariaLabel',
@@ -1992,6 +1999,18 @@ const [open, setOpen] = useState(false);
         name: 'expandedLabel',
         type: 'ReactNode',
         description: 'Label shown when expanded. Defaults to children.',
+      },
+      {
+        name: 'surface',
+        type: "'paper' | 'chalkboard'",
+        default: "'paper'",
+        description: 'Chalkboard tints the label for the dark panel.',
+      },
+      {
+        name: 'underline',
+        type: 'boolean',
+        default: 'false',
+        description: 'Underlines the label, for the show-more case.',
       },
     ],
   },

@@ -172,10 +172,11 @@
   text-underline-offset: 0.15em;
   background: transparent;
   padding: 0;
+  opacity: 0.7;
 
   &:hover:not(:disabled) {
     text-decoration: underline;
-    opacity: 0.75;
+    opacity: 1;
   }
 
   &:active:not(:disabled) {

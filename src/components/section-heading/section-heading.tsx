@@ -16,9 +16,8 @@ export function SectionHeading({ children, as, className, style }: SectionHeadin
       face="display"
       size="sm"
       weight="semibold"
-      tone="muted"
       className={className}
-      style={style}
+      style={{ opacity: 0.65, ...style }}
     >
       {children}
     </Text>

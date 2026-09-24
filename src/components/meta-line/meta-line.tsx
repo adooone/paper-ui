@@ -4,17 +4,18 @@ import type { TextProps } from '../text';
 
 export interface MetaLineProps {
   children?: TextProps['children'];
+  size?: '2xs' | 'xs' | 'sm';
   as?: ElementType;
   className?: string;
   style?: CSSProperties;
 }
 
-export function MetaLine({ children, as, className, style }: MetaLineProps) {
+export function MetaLine({ children, size = 'sm', as, className, style }: MetaLineProps) {
   return (
     <Text
       as={as}
       face="handwritten"
-      size="sm"
+      size={size}
       tone="faint"
       noWrap
       className={className}

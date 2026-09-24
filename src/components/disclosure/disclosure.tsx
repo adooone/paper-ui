@@ -12,6 +12,8 @@ export interface DisclosureProps {
   collapsedLabel?: ReactNode;
   /** Optional label shown when expanded. Defaults to `children`. */
   expandedLabel?: ReactNode;
+  surface?: 'paper' | 'chalkboard';
+  underline?: boolean;
   className?: string;
   style?: CSSProperties;
 }
@@ -22,6 +24,8 @@ export function Disclosure({
   onToggle,
   collapsedLabel,
   expandedLabel,
+  surface = 'paper',
+  underline = false,
   className,
   style,
 }: DisclosureProps) {
@@ -37,13 +41,19 @@ export function Disclosure({
       type="button"
       onClick={onToggle}
       aria-expanded={expanded}
-      className={cn(styles.disclosure, expanded && styles.expanded, className)}
+      className={cn(
+        styles.disclosure,
+        expanded && styles.expanded,
+        surface === 'chalkboard' && styles.chalkboard,
+        underline && styles.underline,
+        className,
+      )}
       style={style}
     >
-      <span className={styles.label}>{label}</span>
       <span className={styles.icon} aria-hidden="true">
         <ChevronRightIcon size={12} />
       </span>
+      <span className={styles.label}>{label}</span>
     </button>
   );
 }

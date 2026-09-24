@@ -2,8 +2,8 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
-  gap: $space-4 $space-6;
+  grid-template-columns: repeat(auto-fit, minmax(96px, 1fr));
+  gap: $space-2 $space-4;
 }
 
 .item {
@@ -11,4 +11,8 @@
   flex-direction: column;
   gap: $space-1;
   min-width: 0;
+}
+
+.alignEnd .item {
+  align-items: flex-end;
 }

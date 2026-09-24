@@ -106,17 +106,6 @@
 
 .pressable {
   cursor: pointer;
-  transition: transform 200ms ease, filter 200ms ease;
-
-  &:hover {
-    transform: translateY(-1px);
-    filter: $filter-shadow-md;
-  }
-
-  &:active {
-    transform: translateY(0);
-    filter: $filter-shadow-sm;
-  }
 
   &:focus {
     outline: none;

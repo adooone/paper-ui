@@ -2,6 +2,10 @@ interface IconProps {
   size?: number;
 }
 
+interface DimmableIconProps extends IconProps {
+  opacity?: number;
+}
+
 export function CloseIcon({ size = 16 }: IconProps) {
   return (
     <svg
@@ -21,7 +25,7 @@ export function CloseIcon({ size = 16 }: IconProps) {
   );
 }
 
-export function LightbulbIcon({ size = 16 }: IconProps) {
+export function LightbulbIcon({ size = 14, opacity }: DimmableIconProps) {
   return (
     <svg
       width={size}
@@ -32,11 +36,10 @@ export function LightbulbIcon({ size = 16 }: IconProps) {
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
-      aria-hidden="true"
+      style={{ opacity }}
     >
-      <path d="M9 18h6" />
-      <path d="M10 22h4" />
-      <path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14" />
+      <title>Idea</title>
+      <path d="M9 18h6M10 22h4M12 2a6 6 0 0 0-3.5 10.9c.53.4.9 1.03.9 1.72V15h5.2v-.38c0-.69.37-1.32.9-1.72A6 6 0 0 0 12 2Z" />
     </svg>
   );
 }
@@ -115,12 +118,12 @@ export function PlusIcon({ size = 16 }: IconProps) {
   );
 }
 
-export function ChevronRightIcon({ size = 16 }: IconProps) {
+export function ChevronRightIcon({ size = 12 }: IconProps) {
   return (
     <svg
       width={size}
       height={size}
-      viewBox="0 0 24 24"
+      viewBox="0 0 20 20"
       fill="none"
       stroke="currentColor"
       strokeWidth="2"
@@ -128,7 +131,7 @@ export function ChevronRightIcon({ size = 16 }: IconProps) {
       strokeLinejoin="round"
       aria-hidden="true"
     >
-      <polyline points="9 18 15 12 9 6" />
+      <path d="m7 4 6 6-6 6" />
     </svg>
   );
 }
@@ -141,20 +144,14 @@ export function WandIcon({ size = 16 }: IconProps) {
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth="2"
+      strokeWidth="1.5"
       strokeLinecap="round"
       strokeLinejoin="round"
       aria-hidden="true"
     >
-      <path d="M15 4V2" />
-      <path d="M15 16v-2" />
-      <path d="M8 9h2" />
-      <path d="M20 9h2" />
-      <path d="M17.8 11.8L19 13" />
-      <path d="M15 9h.01" />
-      <path d="M17.8 6.2L19 5" />
-      <path d="m3 21 9-9" />
-      <path d="M12.2 6.2L11 5" />
+      <path d="m12 3-1.6 4.85a2 2 0 0 1-1.27 1.27L4.27 10.7l4.86 1.6a2 2 0 0 1 1.27 1.27L12 18.4l1.6-4.86a2 2 0 0 1 1.27-1.27l4.86-1.6-4.86-1.6a2 2 0 0 1-1.27-1.27L12 3Z" />
+      <path d="M19 3v3" />
+      <path d="M20.5 4.5h-3" />
     </svg>
   );
 }
@@ -167,14 +164,13 @@ export function PushIcon({ size = 16 }: IconProps) {
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth="2"
+      strokeWidth="1.5"
       strokeLinecap="round"
       strokeLinejoin="round"
       aria-hidden="true"
     >
-      <line x1="5" y1="12" x2="19" y2="12" />
-      <polyline points="12 5 19 12 12 19" />
-      <circle cx="5" cy="12" r="2" />
+      <path d="M12 19V5" />
+      <path d="m5 12 7-7 7 7" />
     </svg>
   );
 }
@@ -187,14 +183,13 @@ export function PullIcon({ size = 16 }: IconProps) {
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth="2"
+      strokeWidth="1.5"
       strokeLinecap="round"
       strokeLinejoin="round"
       aria-hidden="true"
     >
-      <line x1="5" y1="12" x2="19" y2="12" />
-      <polyline points="12 19 5 12 12 5" />
-      <circle cx="19" cy="12" r="2" />
+      <path d="M12 5v14" />
+      <path d="m5 12 7 7 7-7" />
     </svg>
   );
 }
@@ -207,15 +202,15 @@ export function MergeIcon({ size = 16 }: IconProps) {
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth="2"
+      strokeWidth="1.5"
       strokeLinecap="round"
       strokeLinejoin="round"
       aria-hidden="true"
     >
-      <path d="M8 6v12" />
-      <path d="M16 6v8a4 4 0 0 1-4 4" />
-      <polyline points="8 3 5 6 8 9" />
-      <polyline points="12 19 9 22 6 19" />
+      <circle cx="18" cy="18" r="3" />
+      <circle cx="6" cy="6" r="3" />
+      <path d="M6 9v5c0 .667 3 1 6 1s6-.333 6-1V9" />
+      <path d="M12 17v2" />
     </svg>
   );
 }
@@ -228,32 +223,23 @@ export function RefreshIcon({ size = 16 }: IconProps) {
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth="2"
+      strokeWidth="1.5"
       strokeLinecap="round"
       strokeLinejoin="round"
       aria-hidden="true"
     >
-      <path d="M3 12a9 9 0 0 1 15-6.7L21 8" />
-      <polyline points="21 3 21 8 16 8" />
-      <path d="M21 12a9 9 0 0 1-15 6.7L3 16" />
-      <polyline points="3 21 3 16 8 16" />
+      <path d="M21 12a9 9 0 1 1-2.64-6.36" />
+      <polyline points="21 3 21 9 15 9" />
     </svg>
   );
 }
 
 export function MoreIcon({ size = 16 }: IconProps) {
   return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      stroke="none"
-      aria-hidden="true"
-    >
-      <circle cx="12" cy="5" r="1.6" />
-      <circle cx="12" cy="12" r="1.6" />
-      <circle cx="12" cy="19" r="1.6" />
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <circle cx="5" cy="12" r="2" />
+      <circle cx="12" cy="12" r="2" />
+      <circle cx="19" cy="12" r="2" />
     </svg>
   );
 }
@@ -266,46 +252,32 @@ export function ShuffleIcon({ size = 16 }: IconProps) {
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth="2"
+      strokeWidth="1.5"
       strokeLinecap="round"
       strokeLinejoin="round"
       aria-hidden="true"
     >
-      <polyline points="16 3 21 3 21 8" />
-      <line x1="4" y1="20" x2="21" y2="3" />
-      <polyline points="21 16 21 21 16 21" />
-      <line x1="15" y1="15" x2="21" y2="21" />
-      <line x1="4" y1="4" x2="9" y2="9" />
+      <path d="m18 4 3 3-3 3" />
+      <path d="M3 7h5.5a3 3 0 0 1 2.5 1.35L15 16.65A3 3 0 0 0 17.5 18H21" />
+      <path d="m18 20 3-3-3-3" />
+      <path d="M3 17h5.5a3 3 0 0 0 2.5-1.35" />
+      <path d="M13 8.35A3 3 0 0 1 15.5 7H21" />
     </svg>
   );
 }
 
-export function RunIcon({ size = 16 }: IconProps) {
+export function RunIcon({ size = 12 }: IconProps) {
   return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      stroke="none"
-      aria-hidden="true"
-    >
-      <polygon points="6 4 20 12 6 20 6 4" />
+    <svg width={size} height={size} viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+      <path d="M6 4l11 6-11 6z" />
     </svg>
   );
 }
 
-export function StopIcon({ size = 16 }: IconProps) {
+export function StopIcon({ size = 12 }: IconProps) {
   return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      stroke="none"
-      aria-hidden="true"
-    >
-      <rect x="6" y="6" width="12" height="12" rx="1" />
+    <svg width={size} height={size} viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+      <rect x="5" y="5" width="10" height="10" rx="1.5" />
     </svg>
   );
 }
@@ -318,13 +290,13 @@ export function BellIcon({ size = 16 }: IconProps) {
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth="2"
+      strokeWidth="1.5"
       strokeLinecap="round"
       strokeLinejoin="round"
       aria-hidden="true"
     >
-      <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
-      <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
+      <path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9" />
+      <path d="M13.73 21a2 2 0 0 1-3.46 0" />
     </svg>
   );
 }
@@ -337,7 +309,7 @@ export function ChatIcon({ size = 16 }: IconProps) {
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth="2"
+      strokeWidth="1.5"
       strokeLinecap="round"
       strokeLinejoin="round"
       aria-hidden="true"
@@ -355,12 +327,12 @@ export function GitBranchIcon({ size = 16 }: IconProps) {
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth="2"
+      strokeWidth="1.5"
       strokeLinecap="round"
       strokeLinejoin="round"
       aria-hidden="true"
     >
-      <line x1="6" y1="3" x2="6" y2="15" />
+      <path d="M6 3v12" />
       <circle cx="18" cy="6" r="3" />
       <circle cx="6" cy="18" r="3" />
       <path d="M18 9a9 9 0 0 1-9 9" />
@@ -368,25 +340,15 @@ export function GitBranchIcon({ size = 16 }: IconProps) {
   );
 }
 
-export function GithubIcon({ size = 16 }: IconProps) {
+export function GithubIcon({ size = 12 }: IconProps) {
   return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+    <svg width={size} height={size} viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+      <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z" />
     </svg>
   );
 }
 
-export function NoteIcon({ size = 16 }: IconProps) {
+export function NoteIcon({ size = 14, opacity }: DimmableIconProps) {
   return (
     <svg
       width={size}
@@ -397,12 +359,11 @@ export function NoteIcon({ size = 16 }: IconProps) {
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
-      aria-hidden="true"
+      style={{ opacity }}
     >
-      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-      <polyline points="14 2 14 8 20 8" />
-      <line x1="9" y1="13" x2="15" y2="13" />
-      <line x1="9" y1="17" x2="15" y2="17" />
+      <title>Note</title>
+      <path d="M15 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9Z" />
+      <path d="M15 3v6h6" />
     </svg>
   );
 }
@@ -415,33 +376,29 @@ export function CheckAllIcon({ size = 16 }: IconProps) {
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth="2"
+      strokeWidth="1.5"
       strokeLinecap="round"
       strokeLinejoin="round"
       aria-hidden="true"
     >
-      <polyline points="2 12 7 17 12 12" />
-      <polyline points="9 7 14 12 22 4" />
+      <path d="m3 12 4 4 7-8" />
+      <path d="m11 15 2 2 8-9" />
     </svg>
   );
 }
 
-export function SidebarToggleIcon({ size = 16 }: IconProps) {
+export function SidebarToggleIcon({ size = 18 }: IconProps) {
   return (
     <svg
       width={size}
       height={size}
-      viewBox="0 0 24 24"
+      viewBox="0 0 20 20"
       fill="none"
       stroke="currentColor"
       strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
       aria-hidden="true"
     >
-      <rect x="3" y="4" width="18" height="16" rx="2" />
-      <line x1="9" y1="4" x2="9" y2="20" />
-      <polyline points="13 9 16 12 13 15" />
+      <path d="M3 5h14M3 10h14M3 15h14" strokeLinecap="round" />
     </svg>
   );
 }

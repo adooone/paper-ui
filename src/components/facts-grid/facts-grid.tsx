@@ -11,17 +11,20 @@ export interface FactItem {
 
 export interface FactsGridProps {
   items: FactItem[];
+  align?: 'start' | 'end';
   className?: string;
   style?: CSSProperties;
 }
 
-export function FactsGrid({ items, className, style }: FactsGridProps) {
+export function FactsGrid({ items, align = 'start', className, style }: FactsGridProps) {
   return (
-    <div className={cn(styles.grid, className)} style={style}>
+    <div className={cn(styles.grid, align === 'end' && styles.alignEnd, className)} style={style}>
       {items.map((item, index) => (
         <div key={index} className={styles.item}>
           <Label as="span">{item.label}</Label>
-          <Text as="span">{item.value}</Text>
+          <Text as="span" face="handwritten" size="base" weight="semibold" noWrap>
+            {item.value}
+          </Text>
         </div>
       ))}
     </div>

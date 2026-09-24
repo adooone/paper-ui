@@ -5,8 +5,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: $space-4;
-  padding: $space-10 $space-6;
+  gap: $space-3;
+  padding: $space-6 0;
   text-align: center;
 }
 
@@ -14,5 +14,4 @@
   display: block;
   max-width: 160px;
   height: auto;
-  opacity: 0.85;
 }

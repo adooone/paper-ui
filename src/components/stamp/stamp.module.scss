@@ -27,13 +27,11 @@
   transition: transform 200ms ease, filter 200ms ease;
 
   &:hover:not(:disabled) {
-    transform: translateY(-1px);
-    filter: brightness(0.97);
+    filter: brightness(1.15);
   }
 
   &:active:not(:disabled) {
-    transform: translateY(0);
-    filter: brightness(0.92);
+    filter: brightness(0.95);
   }
 
   &:focus-visible {
@@ -44,12 +42,6 @@
     opacity: 0.5;
     cursor: not-allowed;
   }
-}
-
-.pressed {
-  // Chip-toggle visual: a deeper wash + darken to lock the "selected" state
-  // without losing the hand-drawn silhouette.
-  filter: brightness(0.92);
 }
 
 .small {
