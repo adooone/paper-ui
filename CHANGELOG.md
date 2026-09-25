@@ -1,5 +1,23 @@
 # Changelog
 
+## [0.22.4](https://github.com/adooone/paper-ui/compare/v0.22.3...v0.22.4) (2026-09-25)
+
+
+### Bug Fixes
+
+* **ideas:** apply feedback edit to IDEA-8 ([aa2461d](https://github.com/adooone/paper-ui/commit/aa2461d879b7fcedeb5ebf5ac16f506ded092d2a))
+* **plans:** Keep `Row` and `SidebarItem` still ([40b8d8c](https://github.com/adooone/paper-ui/commit/40b8d8c20f704efbacdb0da33e15b2b0ef06e982))
+* **plans:** Look up the keys the build emits in `Text` ([2785b00](https://github.com/adooone/paper-ui/commit/2785b00a51a997c646905dd2402a8ac50b8a63de))
+* **plans:** Show every face at every size in the showcase ([be3716f](https://github.com/adooone/paper-ui/commit/be3716f06d07a36e267d139117f10aeb08a4abac))
+* **plans:** Turn the stamp ring back on for the five original variants ([47d0ce8](https://github.com/adooone/paper-ui/commit/47d0ce8de7111778a9c4c57ee779e24bba1b48ab))
+* **plans:** Verify every face, size, weight and tone render the right class in the showcase (no test framework added) ([4ece45c](https://github.com/adooone/paper-ui/commit/4ece45c08e2083fbc085ee623b2169e2f11a6f82))
+
+
+### Documentation
+
+* **ideas:** Text never applied its props — plan ([6f2e63e](https://github.com/adooone/paper-ui/commit/6f2e63ef0497decd2e1e5224cf8f1e916ccb92b3))
+* **ideas:** Text never applied its props — plan ([c2056d1](https://github.com/adooone/paper-ui/commit/c2056d1bb6bf04fdcf9901ff382b38e77f09892e))
+
 ## [0.22.3](https://github.com/adooone/paper-ui/compare/v0.22.2...v0.22.3) (2026-09-24)
 
 
