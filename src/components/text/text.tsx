@@ -2,6 +2,15 @@ import type { CSSProperties, ElementType, ReactNode } from 'react';
 import { cn } from '../../utils/style-helpers';
 import styles from './text.module.scss';
 
+function key(prefix: string, value: string) {
+  const words = `${prefix}-${value}`.match(/[a-zA-Z]+|[0-9]+/g) ?? [];
+  return words
+    .map((word, index) =>
+      index === 0 ? word.toLowerCase() : word.charAt(0).toUpperCase() + word.slice(1).toLowerCase(),
+    )
+    .join('');
+}
+
 export type TextTone = 'primary' | 'secondary' | 'muted' | 'faint';
 export type TextFace = 'serif' | 'sans' | 'handwritten' | 'mono' | 'display';
 export type TextSize = '3xs' | '2xs' | 'xs' | 'sm' | 'base' | 'md' | 'lg';
@@ -38,10 +47,10 @@ export function Text({
     <Component
       className={cn(
         styles.text,
-        styles[`face-${face}`],
-        styles[`size-${size}`],
-        styles[`weight-${weight}`],
-        styles[`tone-${tone}`],
+        styles[key('face', face)],
+        styles[key('size', size)],
+        styles[key('weight', weight)],
+        styles[key('tone', tone)],
         truncate && styles.truncate,
         noWrap && styles.noWrap,
         className,

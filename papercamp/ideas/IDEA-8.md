@@ -55,8 +55,9 @@ Anything in `Text`'s design. The type scale, which IDEA-3's last fix
 already put back.
 
 ### Phases
-- [ ] Look up the keys the build emits in `Text`
+- [x] Look up the keys the build emits in `Text`
       Add the `key(prefix, value)` helper that camel-cases the value and use it for `face`, `size`, `weight` and `tone` in `text.tsx`.
+      run: 1m26s · 34 in · 4.9k out · sonnet-5 · sess:12a70f97-2314-4b37-9974-58832f1514b6
 - [ ] Test every `face`, `size`, `weight` and `tone` against the module map
       Assert the rendered class list contains `styles[...]` for each value, so a future `localsConvention` change fails the test.
 - [ ] Turn the stamp ring back on for the five original variants
