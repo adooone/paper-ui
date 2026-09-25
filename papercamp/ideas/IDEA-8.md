@@ -2,7 +2,7 @@
 id: IDEA-8
 title: Text never applied its props
 type: fix
-status: in-progress
+status: review
 created: 2026-09-24
 updated: 2026-09-25
 tags:
@@ -68,8 +68,9 @@ already put back.
 - [x] Keep `Row` and `SidebarItem` still
       Drop `Row`'s hover fill on every surface, render no cell or gap for a `columns` entry that omits `id` or `meta`, and let `SidebarItem`'s `note` wrap.
       run: 1m37s · 32 in · 7.7k out · sonnet-5 · sess:b49f7fc1-64ce-48b5-8588-4bab1d55e6c2
-- [ ] Show every face at every size in the showcase
+- [x] Show every face at every size in the showcase
       Extend the Text section so a dropped prop is visible on the page.
+      run: 2m21s · 76 in · 11.6k out · sonnet-5 · sess:b49f7fc1-64ce-48b5-8588-4bab1d55e6c2
 
 ### Thread
 - [ ] 2026-09-25 [question] [agent] Run-all parked on phase 2 ("Test every `face`, `size`, `weight` and `tone` against the module map") — the agent needs a decision: This repo has no test framework at all — `test` is a stub (`echo 'No tests yet'`), and there's no vitest/jest, no jsdom/happy-dom, and no `@testing-library/react` in devDependencies. Writing "a test that renders `Text`... and asserts the element's class list" requires introducing a test runner and renderer for the whole project, not just this component. Should I add Vitest + `@testing-library/react` (+ jsdom) as new devDependencies and wire up a `vitest.config.ts` / `test` script, or is there a different intended approach (e.g. testing without a DOM renderer)?

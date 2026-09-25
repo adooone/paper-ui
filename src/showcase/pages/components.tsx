@@ -39,6 +39,7 @@ import { Switch } from '../../components/switch';
 import { Table } from '../../components/table';
 import { Tabs } from '../../components/tabs';
 import { Text } from '../../components/text';
+import type { TextFace, TextSize, TextTone, TextWeight } from '../../components/text';
 import { Textarea } from '../../components/textarea';
 import { Tooltip } from '../../components/tooltip';
 import {
@@ -76,8 +77,14 @@ import {
   colorInkSecondary,
   colorInkTertiary,
   fontFamilyDisplay,
+  fontFamilyMono,
   fontFamilySerif,
 } from '../lib/styles';
+
+const TEXT_FACES: TextFace[] = ['serif', 'sans', 'handwritten', 'mono', 'display'];
+const TEXT_SIZES: TextSize[] = ['3xs', '2xs', 'xs', 'sm', 'base', 'md', 'lg'];
+const TEXT_WEIGHTS: TextWeight[] = ['normal', 'medium', 'semibold', 'bold'];
+const TEXT_TONES: TextTone[] = ['primary', 'secondary', 'muted', 'faint'];
 
 const variantProp: PropDef = {
   name: 'variant',
@@ -108,6 +115,58 @@ interface SectionDetail {
 }
 
 const sectionDetails: SectionDetail[] = [
+  {
+    id: 'text',
+    title: 'Text',
+    codeExample: `import { Text } from '@dendelion/paper-ui';
+
+<Text face="display" size="lg" weight="semibold">Display heading</Text>
+<Text face="handwritten" size="sm" tone="secondary">A handwritten note</Text>`,
+    props: [
+      {
+        name: 'face',
+        type: "'serif' | 'sans' | 'handwritten' | 'mono' | 'display'",
+        default: "'serif'",
+        description: 'Font family',
+      },
+      {
+        name: 'size',
+        type: "'3xs' | '2xs' | 'xs' | 'sm' | 'base' | 'md' | 'lg'",
+        default: "'base'",
+        description: 'Font size',
+      },
+      {
+        name: 'weight',
+        type: "'normal' | 'medium' | 'semibold' | 'bold'",
+        default: "'normal'",
+        description: 'Font weight',
+      },
+      {
+        name: 'tone',
+        type: "'primary' | 'secondary' | 'muted' | 'faint'",
+        default: "'primary'",
+        description: 'Opacity applied to the text color',
+      },
+      {
+        name: 'truncate',
+        type: 'boolean',
+        default: 'false',
+        description: 'Ellipsis-truncate to a single line',
+      },
+      {
+        name: 'noWrap',
+        type: 'boolean',
+        default: 'false',
+        description: 'Prevent wrapping without truncating',
+      },
+      {
+        name: 'as',
+        type: 'ElementType',
+        default: "'span'",
+        description: 'Rendered element',
+      },
+    ],
+  },
   {
     id: 'button',
     title: 'Button',
@@ -2144,6 +2203,65 @@ export const ComponentsPage: FC<{
 
         {/* pb-40 keeps the last section clear of the floating wobble/theme island */}
         <div className="flex-1 min-w-0 space-y-20 pb-40">
+          <ComponentSection
+            id="text"
+            title="Text"
+            description="Base typography primitive — combines face, size, weight and tone into a single class list. Every face at every size is shown below, so a build that drops a prop is visible here first."
+            category="typography"
+            chalkboard={chalkboardTheme}
+            onViewDetails={() => handleViewDetails('text')}
+          >
+            <div
+              className="w-full space-y-5"
+              style={{ color: chalkboardTheme ? '#F4EFE6' : colorInkPrimary }}
+            >
+              {TEXT_FACES.map((face) => (
+                <div key={face} className="flex flex-wrap items-baseline gap-x-6 gap-y-2">
+                  <span
+                    className="w-24 shrink-0"
+                    style={{ fontFamily: fontFamilyMono, fontSize: '0.7rem', opacity: 0.6 }}
+                  >
+                    {face}
+                  </span>
+                  {TEXT_SIZES.map((size) => (
+                    <Text key={size} face={face} size={size}>
+                      {size}
+                    </Text>
+                  ))}
+                </div>
+              ))}
+              <div
+                className="flex flex-wrap items-baseline gap-x-6 gap-y-2 pt-4 border-t"
+                style={{ borderColor: 'rgba(61, 53, 43, 0.12)' }}
+              >
+                <span
+                  className="w-24 shrink-0"
+                  style={{ fontFamily: fontFamilyMono, fontSize: '0.7rem', opacity: 0.6 }}
+                >
+                  weight
+                </span>
+                {TEXT_WEIGHTS.map((weight) => (
+                  <Text key={weight} size="md" weight={weight}>
+                    {weight}
+                  </Text>
+                ))}
+              </div>
+              <div className="flex flex-wrap items-baseline gap-x-6 gap-y-2">
+                <span
+                  className="w-24 shrink-0"
+                  style={{ fontFamily: fontFamilyMono, fontSize: '0.7rem', opacity: 0.6 }}
+                >
+                  tone
+                </span>
+                {TEXT_TONES.map((tone) => (
+                  <Text key={tone} size="md" tone={tone}>
+                    {tone}
+                  </Text>
+                ))}
+              </div>
+            </div>
+          </ComponentSection>
+
           <ComponentSection
             id="button"
             title="Button"
