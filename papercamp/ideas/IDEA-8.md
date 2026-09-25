@@ -59,8 +59,9 @@ already put back.
 - [x] Look up the keys the build emits in `Text`
       Add the `key(prefix, value)` helper that camel-cases the value and use it for `face`, `size`, `weight` and `tone` in `text.tsx`.
       run: 1m26s · 34 in · 4.9k out · sonnet-5 · sess:12a70f97-2314-4b37-9974-58832f1514b6
-- [ ] Verify every face, size, weight and tone render the right class in the showcase (no test framework added)
+- [x] Verify every face, size, weight and tone render the right class in the showcase (no test framework added)
       No test runner exists in this repo yet; skip introducing Vitest/RTL for this. Confirm the fix visually via the showcase instead of an automated test against the module map.
+      run: 1m57s · 64 in · 7.7k out · sonnet-5 · sess:b49f7fc1-64ce-48b5-8588-4bab1d55e6c2
 - [ ] Turn the stamp ring back on for the five original variants
       `neutral`, `info`, `success`, `warning` and `error` ring by default, the paper-camp status variants do not, and `ring` overrides both.
 - [ ] Keep `Row` and `SidebarItem` still
