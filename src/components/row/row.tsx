@@ -110,7 +110,14 @@ export function Row({
   style,
 }: RowProps) {
   const resolved = resolveRowColumns(columns);
-  const template = `${resolved.id.width} ${resolved.title.width} ${resolved.meta.width} ${resolved.trailing.width}`;
+  const template = [
+    id != null && resolved.id.width,
+    title != null && resolved.title.width,
+    meta != null && resolved.meta.width,
+    trailing != null && resolved.trailing.width,
+  ]
+    .filter((width): width is string => typeof width === 'string')
+    .join(' ');
   const isClickable = !!onClick;
   const paths = useRectBlobPaths(0.5);
 

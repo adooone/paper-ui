@@ -145,9 +145,6 @@
   color: $color-text-tertiary;
   line-height: $line-height-tight;
   padding: 0 $space-2 2px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .danger {

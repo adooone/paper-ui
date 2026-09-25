@@ -65,8 +65,9 @@ already put back.
 - [x] Turn the stamp ring back on for the five original variants
       `neutral`, `info`, `success`, `warning` and `error` ring by default, the paper-camp status variants do not, and `ring` overrides both.
       run: 45s · 28 in · 2.8k out · sonnet-5 · sess:b49f7fc1-64ce-48b5-8588-4bab1d55e6c2
-- [ ] Keep `Row` and `SidebarItem` still
+- [x] Keep `Row` and `SidebarItem` still
       Drop `Row`'s hover fill on every surface, render no cell or gap for a `columns` entry that omits `id` or `meta`, and let `SidebarItem`'s `note` wrap.
+      run: 1m37s · 32 in · 7.7k out · sonnet-5 · sess:b49f7fc1-64ce-48b5-8588-4bab1d55e6c2
 - [ ] Show every face at every size in the showcase
       Extend the Text section so a dropped prop is visible on the page.
 
