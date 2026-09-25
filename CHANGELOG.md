@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.22.5](https://github.com/adooone/paper-ui/compare/v0.22.4...v0.22.5) (2026-09-25)
+
+
+### Bug Fixes
+
+* **plans:** Give `FactsGrid` a `layout` prop ([ecb0acc](https://github.com/adooone/paper-ui/commit/ecb0acc659a09bc92bed0aed49ca20f77c869e56))
+* **plans:** Let a `Table` column take `width: 'auto'` ([a4f8c12](https://github.com/adooone/paper-ui/commit/a4f8c1214e996bad88bba472f4be47ee65dd08c1))
+* **plans:** Show an inline facts row and an auto column in the showcase ([ac55d4b](https://github.com/adooone/paper-ui/commit/ac55d4b7a4c0906e73b114dfacb80c314f8ecc58))
+
+
+### Documentation
+
+* **ideas:** Archive FactsGrid inline and Table auto columns ([05271d6](https://github.com/adooone/paper-ui/commit/05271d69a11fe0cb373aab36636c4229d10136d2))
+* **ideas:** FactsGrid inline and Table auto columns — plan ([3a184d6](https://github.com/adooone/paper-ui/commit/3a184d68ac314e7bcb14b82ecf29c288c15d866c))
+
 ## [0.22.4](https://github.com/adooone/paper-ui/compare/v0.22.3...v0.22.4) (2026-09-25)
 
 
