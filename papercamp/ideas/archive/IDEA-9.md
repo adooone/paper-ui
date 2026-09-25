@@ -2,8 +2,9 @@
 id: IDEA-9
 title: FactsGrid inline and Table auto columns
 type: fix
-status: review
+status: done
 created: 2026-09-25
+updated: 2026-09-25
 tags:
   - facts-grid
   - table
