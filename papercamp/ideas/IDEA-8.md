@@ -2,8 +2,9 @@
 id: IDEA-8
 title: Text never applied its props
 type: fix
-status: idea
+status: in-progress
 created: 2026-09-24
+updated: 2026-09-25
 tags:
   - text
   - stamp
@@ -58,11 +59,16 @@ already put back.
 - [x] Look up the keys the build emits in `Text`
       Add the `key(prefix, value)` helper that camel-cases the value and use it for `face`, `size`, `weight` and `tone` in `text.tsx`.
       run: 1m26s · 34 in · 4.9k out · sonnet-5 · sess:12a70f97-2314-4b37-9974-58832f1514b6
-- [ ] Test every `face`, `size`, `weight` and `tone` against the module map
-      Assert the rendered class list contains `styles[...]` for each value, so a future `localsConvention` change fails the test.
+- [ ] Verify every face, size, weight and tone render the right class in the showcase (no test framework added)
+      No test runner exists in this repo yet; skip introducing Vitest/RTL for this. Confirm the fix visually via the showcase instead of an automated test against the module map.
 - [ ] Turn the stamp ring back on for the five original variants
       `neutral`, `info`, `success`, `warning` and `error` ring by default, the paper-camp status variants do not, and `ring` overrides both.
 - [ ] Keep `Row` and `SidebarItem` still
       Drop `Row`'s hover fill on every surface, render no cell or gap for a `columns` entry that omits `id` or `meta`, and let `SidebarItem`'s `note` wrap.
 - [ ] Show every face at every size in the showcase
       Extend the Text section so a dropped prop is visible on the page.
+
+### Thread
+- [ ] 2026-09-25 [question] [agent] Run-all parked on phase 2 ("Test every `face`, `size`, `weight` and `tone` against the module map") — the agent needs a decision: This repo has no test framework at all — `test` is a stub (`echo 'No tests yet'`), and there's no vitest/jest, no jsdom/happy-dom, and no `@testing-library/react` in devDependencies. Writing "a test that renders `Text`... and asserts the element's class list" requires introducing a test runner and renderer for the whole project, not just this component. Should I add Vitest + `@testing-library/react` (+ jsdom) as new devDependencies and wire up a `vitest.config.ts` / `test` script, or is there a different intended approach (e.g. testing without a DOM renderer)?
+- [x] 2026-09-25 [chat] skip tests
+- [x] 2026-09-25 [chat] [agent] Got it — skipping the test-writing work. I'll mark phase 2 as just checking face/size/weight/tone visually via the showcase instead of adding a test framework.
