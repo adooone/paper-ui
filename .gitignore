@@ -41,3 +41,10 @@ ds-bundle/
 .design-sync/learnings/
 .design-sync/node_modules/
 papercamp/.pairing.json
+papercamp/.task-logs/
+papercamp/tasks.log
+papercamp/notifications.log
+papercamp/pr-reviews.json
+papercamp/pr-map.json
+papercamp/night.json
+papercamp/run-order.md
