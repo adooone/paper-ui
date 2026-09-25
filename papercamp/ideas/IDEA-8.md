@@ -53,3 +53,15 @@ command note under *Create branch* did, instead of truncating.
 
 Anything in `Text`'s design. The type scale, which IDEA-3's last fix
 already put back.
+
+### Phases
+- [ ] Look up the keys the build emits in `Text`
+      Add the `key(prefix, value)` helper that camel-cases the value and use it for `face`, `size`, `weight` and `tone` in `text.tsx`.
+- [ ] Test every `face`, `size`, `weight` and `tone` against the module map
+      Assert the rendered class list contains `styles[...]` for each value, so a future `localsConvention` change fails the test.
+- [ ] Turn the stamp ring back on for the five original variants
+      `neutral`, `info`, `success`, `warning` and `error` ring by default, the paper-camp status variants do not, and `ring` overrides both.
+- [ ] Keep `Row` and `SidebarItem` still
+      Drop `Row`'s hover fill on every surface, render no cell or gap for a `columns` entry that omits `id` or `meta`, and let `SidebarItem`'s `note` wrap.
+- [ ] Show every face at every size in the showcase
+      Extend the Text section so a dropped prop is visible on the page.
