@@ -62,8 +62,9 @@ already put back.
 - [x] Verify every face, size, weight and tone render the right class in the showcase (no test framework added)
       No test runner exists in this repo yet; skip introducing Vitest/RTL for this. Confirm the fix visually via the showcase instead of an automated test against the module map.
       run: 1m57s · 64 in · 7.7k out · sonnet-5 · sess:b49f7fc1-64ce-48b5-8588-4bab1d55e6c2
-- [ ] Turn the stamp ring back on for the five original variants
+- [x] Turn the stamp ring back on for the five original variants
       `neutral`, `info`, `success`, `warning` and `error` ring by default, the paper-camp status variants do not, and `ring` overrides both.
+      run: 45s · 28 in · 2.8k out · sonnet-5 · sess:b49f7fc1-64ce-48b5-8588-4bab1d55e6c2
 - [ ] Keep `Row` and `SidebarItem` still
       Drop `Row`'s hover fill on every surface, render no cell or gap for a `columns` entry that omits `id` or `meta`, and let `SidebarItem`'s `note` wrap.
 - [ ] Show every face at every size in the showcase

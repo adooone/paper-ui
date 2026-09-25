@@ -27,7 +27,11 @@ export interface StampProps {
   textColor?: string;
   wobble?: number;
   surface?: 'paper' | 'chalkboard';
-  /** Draws the pencil ring around the blob. Off by default. */
+  /**
+   * Draws the pencil ring around the blob. Defaults to on for the five
+   * original variants (`neutral`, `info`, `success`, `warning`, `error`)
+   * and off for the rest; set explicitly to override either default.
+   */
   ring?: boolean;
   /**
    * Render as a `<button>` and fire this handler on click. The stamp's look is
@@ -45,6 +49,14 @@ export interface StampProps {
   ariaLabel?: string;
   className?: string;
 }
+
+const RING_BY_DEFAULT: ReadonlySet<StampVariant> = new Set([
+  'neutral',
+  'info',
+  'success',
+  'warning',
+  'error',
+]);
 
 const FAINT_INK = 'rgba(0, 0, 0, 0.06)';
 const FAINT_INK_RING = 'rgba(0, 0, 0, 0.18)';
@@ -174,7 +186,7 @@ export function Stamp({
   textColor,
   wobble = 0.3,
   surface = 'paper',
-  ring = false,
+  ring,
   onClick,
   pressed = false,
   disabled = false,
@@ -183,8 +195,9 @@ export function Stamp({
 }: StampProps) {
   const paths = useBlobPaths(wobble);
   const isChalkboard = surface === 'chalkboard';
+  const resolvedRing = ring ?? (variant ? RING_BY_DEFAULT.has(variant) : false);
   const ringColor =
-    variant && ring
+    variant && resolvedRing
       ? isChalkboard
         ? chalkboardFill[variant].ring
         : variantColors[variant].ring
