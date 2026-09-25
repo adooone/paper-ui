@@ -19,7 +19,7 @@ export interface TableColumn<T = unknown> {
   key: string;
   header: ReactNode;
   cell: (row: T, index: number, surface: TableSurface) => ReactNode;
-  width?: number;
+  width?: number | 'auto';
   /** Horizontal alignment of the header and cells (default start). Use `end` for a
    *  last column (actions, numbers) so it hugs the right edge. Inline/inline-flex
    *  cell content is required for `end`/`center` to take effect. */
@@ -229,7 +229,9 @@ export function Table<T = unknown>({
                 {columns.map((col) => (
                   <col
                     key={col.key}
-                    style={col.width ? { width: `${col.width * 32}px` } : undefined}
+                    style={
+                      typeof col.width === 'number' ? { width: `${col.width * 32}px` } : undefined
+                    }
                   />
                 ))}
               </colgroup>
@@ -297,7 +299,7 @@ export function Table<T = unknown>({
                         {columns.map((col) => (
                           <td
                             key={col.key}
-                            className={styles.td}
+                            className={cn(styles.td, col.width === 'auto' && styles.tdNoWrap)}
                             style={col.align ? { textAlign: col.align } : undefined}
                           >
                             {col.cell(row, rowIndex, surface)}

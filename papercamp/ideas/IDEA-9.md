@@ -39,7 +39,8 @@ Any other Table sizing. FactsGrid's type, which IDEA-4 settled.
 - [x] Give `FactsGrid` a `layout` prop
       `layout="inline"` lays the items out as a `flex-wrap` row with `gap: 1rem` aligned to the end, `layout="grid"` stays the default, and `align="end"` still right-aligns text in both.
       run: 1m1s · 26 in · 2.1k out · sonnet-5 · sess:9d864b82-79ad-4b3f-9c08-fa7a9bb8cf7c
-- [ ] Let a `Table` column take `width: 'auto'`
+- [x] Let a `Table` column take `width: 'auto'`
       Widen the column `width` type to accept `'auto'` beside the 32px numbers, emit no `<col>` width for it, and set `white-space: nowrap` on its cells.
+      run: 1m14s · 26 in · 2.1k out · sonnet-5 · sess:9d864b82-79ad-4b3f-9c08-fa7a9bb8cf7c
 - [ ] Show an inline facts row and an auto column in the showcase
       Both shapes on the page beside the defaults, so a collapsed row or a stretched column is visible.
