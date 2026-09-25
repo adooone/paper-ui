@@ -26,6 +26,7 @@ const componentGroups: ComponentGroup[] = [
       { id: 'section-heading', title: 'SectionHeading' },
       { id: 'meta-line', title: 'MetaLine' },
       { id: 'page-title', title: 'PageTitle' },
+      { id: 'facts-grid', title: 'FactsGrid' },
     ],
   },
   {

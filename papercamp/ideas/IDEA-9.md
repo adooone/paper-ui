@@ -2,7 +2,7 @@
 id: IDEA-9
 title: FactsGrid inline and Table auto columns
 type: fix
-status: idea
+status: review
 created: 2026-09-25
 tags:
   - facts-grid
@@ -42,5 +42,6 @@ Any other Table sizing. FactsGrid's type, which IDEA-4 settled.
 - [x] Let a `Table` column take `width: 'auto'`
       Widen the column `width` type to accept `'auto'` beside the 32px numbers, emit no `<col>` width for it, and set `white-space: nowrap` on its cells.
       run: 1m14s · 26 in · 2.1k out · sonnet-5 · sess:9d864b82-79ad-4b3f-9c08-fa7a9bb8cf7c
-- [ ] Show an inline facts row and an auto column in the showcase
+- [x] Show an inline facts row and an auto column in the showcase
       Both shapes on the page beside the defaults, so a collapsed row or a stretched column is visible.
+      run: 4m12s · 80 in · 13.2k out · sonnet-5 · sess:9d864b82-79ad-4b3f-9c08-fa7a9bb8cf7c

@@ -9,6 +9,7 @@ import { Card } from '../../components/card';
 import { Checkbox } from '../../components/checkbox';
 import { Disclosure } from '../../components/disclosure';
 import { Divider } from '../../components/divider';
+import { FactsGrid } from '../../components/facts-grid';
 import { IconButton } from '../../components/icon-button';
 import { Input } from '../../components/input';
 import { Island } from '../../components/island';
@@ -164,6 +165,42 @@ const sectionDetails: SectionDetail[] = [
         type: 'ElementType',
         default: "'span'",
         description: 'Rendered element',
+      },
+    ],
+  },
+  {
+    id: 'facts-grid',
+    title: 'FactsGrid',
+    codeExample: `import { FactsGrid } from '@dendelion/paper-ui';
+
+<FactsGrid
+  layout="inline"
+  align="end"
+  items={[
+    { label: 'Date', value: 'Jun 2' },
+    { label: 'Passes', value: '3/3' },
+    { label: 'Cost', value: '$0.12' },
+  ]}
+/>`,
+    props: [
+      {
+        name: 'items',
+        type: '{ label: ReactNode; value: ReactNode }[]',
+        required: true,
+        description: 'Facts rendered as label-over-value pairs',
+      },
+      {
+        name: 'layout',
+        type: "'grid' | 'inline'",
+        default: "'grid'",
+        description:
+          "'grid' auto-fits columns; 'inline' is a flex-wrap row for placing facts beside other content",
+      },
+      {
+        name: 'align',
+        type: "'start' | 'end'",
+        default: "'start'",
+        description: 'Right-align each label and value when set to end',
       },
     ],
   },
@@ -809,7 +846,8 @@ const sectionDetails: SectionDetail[] = [
         name: 'columns',
         type: 'TableColumn<T>[]',
         required: true,
-        description: 'Column definitions (width in grid squares of 32px)',
+        description:
+          "Column definitions (width in grid squares of 32px, or 'auto' to size to content and nowrap)",
       },
       {
         name: 'data',
@@ -2263,6 +2301,67 @@ export const ComponentsPage: FC<{
           </ComponentSection>
 
           <ComponentSection
+            id="facts-grid"
+            title="FactsGrid"
+            description="Label-over-value facts. layout='grid' auto-fits into columns; layout='inline' is a flex-wrap row that keeps facts beside a title without collapsing to one column."
+            category="typography"
+            chalkboard={chalkboardTheme}
+            onViewDetails={() => handleViewDetails('facts-grid')}
+          >
+            <div className="flex flex-wrap gap-10 w-full max-w-2xl">
+              <div className="flex-1 min-w-[220px]">
+                <div
+                  className="mb-2"
+                  style={{ fontFamily: fontFamilyMono, fontSize: '0.7rem', opacity: 0.6 }}
+                >
+                  layout=&quot;grid&quot; (default) in a flex row — collapses to one column
+                </div>
+                <div
+                  className="flex items-center gap-4 p-3 rounded border"
+                  style={{ borderColor: 'rgba(61, 53, 43, 0.12)' }}
+                >
+                  <Text face="serif" size="md" weight="semibold">
+                    Chunk #12
+                  </Text>
+                  <FactsGrid
+                    align="end"
+                    items={[
+                      { label: 'Date', value: 'Jun 2' },
+                      { label: 'Passes', value: '3/3' },
+                      { label: 'Cost', value: '$0.12' },
+                    ]}
+                  />
+                </div>
+              </div>
+              <div className="flex-1 min-w-[220px]">
+                <div
+                  className="mb-2"
+                  style={{ fontFamily: fontFamilyMono, fontSize: '0.7rem', opacity: 0.6 }}
+                >
+                  layout=&quot;inline&quot; — stays a row beside the title
+                </div>
+                <div
+                  className="flex items-center gap-4 p-3 rounded border"
+                  style={{ borderColor: 'rgba(61, 53, 43, 0.12)' }}
+                >
+                  <Text face="serif" size="md" weight="semibold">
+                    Chunk #12
+                  </Text>
+                  <FactsGrid
+                    layout="inline"
+                    align="end"
+                    items={[
+                      { label: 'Date', value: 'Jun 2' },
+                      { label: 'Passes', value: '3/3' },
+                      { label: 'Cost', value: '$0.12' },
+                    ]}
+                  />
+                </div>
+              </div>
+            </div>
+          </ComponentSection>
+
+          <ComponentSection
             id="button"
             title="Button"
             description="Interactive button with paper texture, ink-bleed border radius, and watercolor wash on hover."
@@ -3319,6 +3418,51 @@ export const ComponentsPage: FC<{
                     date: string;
                   }>
                 }
+              />
+
+              <div
+                className="pt-2"
+                style={{ fontFamily: fontFamilyMono, fontSize: '0.7rem', opacity: 0.6 }}
+              >
+                width=&quot;auto&quot; actions column — hugs its content, message keeps the rest
+              </div>
+              <Table
+                surface={chalkboardTheme ? 'chalkboard' : 'paper'}
+                columns={[
+                  {
+                    key: 'message',
+                    header: 'Message',
+                    cell: (r) => r.message,
+                  },
+                  {
+                    key: 'actions',
+                    header: 'Actions',
+                    width: 'auto',
+                    align: 'end',
+                    cell: (r, _i, v) => (
+                      <>
+                        <IconButton
+                          icon={<FilterIcon />}
+                          label={`Retry ${r.message}`}
+                          variant="ghost"
+                          surface={v}
+                          size="small"
+                        />
+                        <IconButton
+                          icon={<DownloadIcon />}
+                          label={`Download ${r.message}`}
+                          variant="ghost"
+                          surface={v}
+                          size="small"
+                        />
+                      </>
+                    ),
+                  },
+                ]}
+                data={[
+                  { message: 'Finding: unclosed transaction leaves the row locked past commit' },
+                  { message: 'Passed' },
+                ]}
               />
             </div>
           </ComponentSection>
