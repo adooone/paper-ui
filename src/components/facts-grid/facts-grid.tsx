@@ -11,14 +11,28 @@ export interface FactItem {
 
 export interface FactsGridProps {
   items: FactItem[];
+  layout?: 'grid' | 'inline';
   align?: 'start' | 'end';
   className?: string;
   style?: CSSProperties;
 }
 
-export function FactsGrid({ items, align = 'start', className, style }: FactsGridProps) {
+export function FactsGrid({
+  items,
+  layout = 'grid',
+  align = 'start',
+  className,
+  style,
+}: FactsGridProps) {
   return (
-    <div className={cn(styles.grid, align === 'end' && styles.alignEnd, className)} style={style}>
+    <div
+      className={cn(
+        layout === 'inline' ? styles.inline : styles.grid,
+        align === 'end' && styles.alignEnd,
+        className,
+      )}
+      style={style}
+    >
       {items.map((item, index) => (
         <div key={index} className={styles.item}>
           <Label as="span">{item.label}</Label>

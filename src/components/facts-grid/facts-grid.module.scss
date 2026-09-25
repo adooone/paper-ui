@@ -6,6 +6,13 @@
   gap: $space-2 $space-4;
 }
 
+.inline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: $space-4;
+}
+
 .item {
   display: flex;
   flex-direction: column;
