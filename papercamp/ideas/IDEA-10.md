@@ -48,8 +48,9 @@ The skeleton's bar widths and placeholders, which IDEA-5 settled.
       run: 1m21s · 36 in · 7k out · sonnet-5 · sess:29e4ba2b-6bb4-4481-87a9-0a1757512aa7
 - [x] Rename `text.module.scss` to `typography.module.scss`
       run: 29s · 20 in · 1.3k out · sonnet-5 · sess:29e4ba2b-6bb4-4481-87a9-0a1757512aa7
-- [ ] Audit the remaining module names against Tailwind's group prefixes
+- [x] Audit the remaining module names against Tailwind's group prefixes
       Rename any module whose emitted classes a Tailwind group would claim, and its importers with it.
+      run: 2m36s · 40 in · 12.8k out · sonnet-5 · sess:29e4ba2b-6bb4-4481-87a9-0a1757512aa7
 - [ ] Cover `cn` with a class-survival test
       `cn` is a pure function, so this needs a runner wired into the existing Vite config, not a DOM renderer.
 - [ ] Show a `RowSkeleton` above a `Row` of the same surface in the showcase
