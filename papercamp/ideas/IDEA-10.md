@@ -43,8 +43,9 @@ other module names against Tailwind's group prefixes while there — `table`,
 The skeleton's bar widths and placeholders, which IDEA-5 settled.
 
 ### Phases
-- [ ] Render `RowSkeleton` through `Row`'s surface
+- [x] Render `RowSkeleton` through `Row`'s surface
       Reuse `Row`'s texture class, `SketchBorder` wrapper and shadow for `card` and `nestedCard`, and delete the flat `.surfaceCard` and `.surfaceNestedCard` rules.
+      run: 1m21s · 36 in · 7k out · sonnet-5 · sess:29e4ba2b-6bb4-4481-87a9-0a1757512aa7
 - [ ] Rename `text.module.scss` to `typography.module.scss`
 - [ ] Audit the remaining module names against Tailwind's group prefixes
       Rename any module whose emitted classes a Tailwind group would claim, and its importers with it.

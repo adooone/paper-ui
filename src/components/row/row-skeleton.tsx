@@ -1,7 +1,8 @@
 import type { CSSProperties } from 'react';
 import { cn } from '../../utils/style-helpers';
 import { Skeleton } from '../skeleton';
-import { resolveRowColumns, rowHideBelowClass } from './row';
+import { SketchBorder, sketchOutline } from '../sketch-border';
+import { resolveRowColumns, resolveRowSurface, rowHideBelowClass } from './row';
 import type { RowColumns, RowSurface } from './row';
 import styles from './row.module.scss';
 
@@ -56,21 +57,23 @@ export function RowSkeleton({
   const resolved = resolveRowColumns(columns);
   const template = `${resolved.id.width} ${resolved.title.width} ${resolved.meta.width} ${resolved.trailing.width}`;
   const mergedWidths: Required<RowSkeletonWidths> = { ...DEFAULT_WIDTHS, ...widths };
-  const surfaceClass =
-    surface === 'card'
-      ? styles.surfaceCard
-      : surface === 'nestedCard'
-        ? styles.surfaceNestedCard
-        : styles.surfaceNone;
+  const { textureConfig, textureClass, textureStyle, textureFill } = resolveRowSurface(surface);
 
-  return (
+  const row = (
     <div
       aria-hidden="true"
-      style={{ ...style, '--row-columns': template } as CSSProperties}
+      style={
+        {
+          ...style,
+          '--row-columns': template,
+          ...textureStyle,
+          ...(textureFill ? { '--row-surface-fill': textureFill } : null),
+        } as CSSProperties
+      }
       className={cn(
         styles.row,
         styles.skeleton,
-        surfaceClass,
+        textureClass ?? styles.surfaceNone,
         boxless && styles.boxless,
         className,
       )}
@@ -113,6 +116,15 @@ export function RowSkeleton({
           )}
         </div>
       )}
+    </div>
+  );
+
+  if (!textureConfig) return row;
+
+  return (
+    <div className={styles.surfaceBorder}>
+      <SketchBorder clip straight {...sketchOutline.surface} />
+      {row}
     </div>
   );
 }

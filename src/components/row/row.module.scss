@@ -20,16 +20,6 @@
   background: transparent;
 }
 
-.surfaceCard {
-  background-color: $color-bg-base;
-  @include organic-radius($radius-sm, 2px);
-}
-
-.surfaceNestedCard {
-  background-color: $color-bg-elevated;
-  @include organic-radius($radius-sm, 2px);
-}
-
 .surfaceBorder {
   position: relative;
   overflow: hidden;

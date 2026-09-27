@@ -64,6 +64,30 @@ export function rowHideBelowClass(breakpoint?: RowBreakpoint) {
 
 export type RowSurface = 'none' | 'card' | 'nestedCard';
 
+export function resolveRowSurface(surface: RowSurface): {
+  textureConfig: (typeof cardSurfaces)[keyof typeof cardSurfaces] | null;
+  textureClass: string | null;
+  textureStyle: CSSProperties;
+  textureFill: CSSProperties['backgroundColor'];
+} {
+  const textureConfig =
+    surface === 'card'
+      ? cardSurfaces.card
+      : surface === 'nestedCard'
+        ? cardSurfaces.nestedCard
+        : null;
+  const textureClass =
+    surface === 'card'
+      ? styles.textureCard
+      : surface === 'nestedCard'
+        ? styles.textureNestedCard
+        : null;
+  const { backgroundColor: textureFill, ...textureStyle } = textureConfig
+    ? getSurfaceStyles(textureConfig)
+    : ({} as CSSProperties);
+  return { textureConfig, textureClass, textureStyle, textureFill };
+}
+
 export interface RowProps {
   /** Mono identifier at the row's left edge (e.g. a record id). */
   id?: ReactNode;
@@ -129,22 +153,7 @@ export function Row({
     }
   };
 
-  const textureConfig =
-    surface === 'card'
-      ? cardSurfaces.card
-      : surface === 'nestedCard'
-        ? cardSurfaces.nestedCard
-        : null;
-  const textureClass =
-    surface === 'card'
-      ? styles.textureCard
-      : surface === 'nestedCard'
-        ? styles.textureNestedCard
-        : null;
-
-  const { backgroundColor: textureFill, ...textureStyle } = textureConfig
-    ? getSurfaceStyles(textureConfig)
-    : ({} as CSSProperties);
+  const { textureConfig, textureClass, textureStyle, textureFill } = resolveRowSurface(surface);
 
   const row = (
     <div
