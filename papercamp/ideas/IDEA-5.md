@@ -112,3 +112,4 @@ The data any row shows. Drag-to-reorder.
 - [x] 2026-09-23 [question] [agent] Run-all parked on phase 5 ("Export the new components and show them") — the agent needs a decision: grep denied by permission ask
 - [x] 2026-09-23 [chat] Decision: not a decision, a permission wall. This project has been switched to the claude-code agent with a full read allowlist, so shell searches and git show now work. Recover the missing Menu section of the showcase from git (git show HEAD:<path>), restore it, finish phase 5, and run the checks.
 - [x] 2026-09-23 [chat] [agent] That's on the checklist — phase 5 (export + showcase) is the last item and it's still unchecked, so it's already queued. Nothing to add here.
+- [x] 2026-09-27 [log] [agent] Run order: Depends on the Text, Stamp and Card/ListItem primitives from IDEA-4 (now fixed by IDEA-8) to build Row, sidebar kit and SettingRow on top of them

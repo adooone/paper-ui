@@ -228,3 +228,6 @@ export const SidebarShell = ({
       Children with a `priority`, a trailing `Menu` of `MenuEntry`s for the folded items, and a re-measure on resize.
 - [ ] Export both components and show them
       `src/index.ts` gains the components and their props; the showcase gets a section with prop rows for each.
+
+### Thread
+- [x] 2026-09-27 [log] [agent] Run order: Independent layout/menu work not blocked by the others, but smaller in scope than IDEA-6 and no idea depends on it, so it trails the primitive chain

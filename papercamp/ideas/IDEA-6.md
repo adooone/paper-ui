@@ -512,3 +512,6 @@ const RailSegment = ({ pushed, isFirst, isLast, seed }: RailSegmentProps) => {
       Hachured track, solid fill, drawn by the generator rather than CSS.
 - [ ] Export the charts and show them
       Add the four components to `src/index.ts` and give each a showcase example with prop rows, including the new `Progress` prop.
+
+### Thread
+- [x] 2026-09-27 [log] [agent] Run order: Depends on color tokens from IDEA-3 for every chart's colours and is the largest, most self-contained idea with no other idea building on it
