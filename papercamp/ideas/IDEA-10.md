@@ -1,6 +1,6 @@
 ---
 id: IDEA-10
-title: Text survives the class joiner, skeleton keeps its card
+title: Skeleton surface, Text module clash
 type: fix
 status: review
 created: 2026-09-27
