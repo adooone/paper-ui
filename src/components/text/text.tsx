@@ -1,6 +1,6 @@
 import type { CSSProperties, ElementType, ReactNode } from 'react';
 import { cn } from '../../utils/style-helpers';
-import styles from './text.module.scss';
+import styles from './typography.module.scss';
 
 function key(prefix: string, value: string) {
   const words = `${prefix}-${value}`.match(/[a-zA-Z]+|[0-9]+/g) ?? [];
