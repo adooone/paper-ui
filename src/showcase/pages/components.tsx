@@ -2734,6 +2734,26 @@ export const ComponentsPage: FC<{
           </ComponentSection>
 
           <ComponentSection
+            id="row"
+            title="Row"
+            description="Grid-based row for ruled lists and card surfaces. RowSkeleton shares Row's texture, SketchBorder and shadow, so a loading row and the row that replaces it are the same box."
+            category="basic"
+            chalkboard={chalkboardTheme}
+            onViewDetails={() => handleViewDetails('row')}
+          >
+            <div className="w-full max-w-md space-y-3">
+              <RowSkeleton surface="card" />
+              <Row
+                surface="card"
+                id="#42"
+                title="Watercolor Study"
+                meta={<MetaLine>updated 2 hours ago</MetaLine>}
+                trailing={<Stamp variant="success">Done</Stamp>}
+              />
+            </div>
+          </ComponentSection>
+
+          <ComponentSection
             id="icons"
             title="Icons"
             description="Stroke-based icon set rendered at 16px in currentColor with a 2px stroke. Every icon accepts a `size` prop (defaults to 16) so they scale with the surface they sit in."

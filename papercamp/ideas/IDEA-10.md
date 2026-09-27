@@ -2,7 +2,7 @@
 id: IDEA-10
 title: Text survives the class joiner, skeleton keeps its card
 type: fix
-status: idea
+status: review
 created: 2026-09-27
 tags:
   - row
@@ -54,4 +54,5 @@ The skeleton's bar widths and placeholders, which IDEA-5 settled.
 - [x] Cover `cn` with a class-survival test
       `cn` is a pure function, so this needs a runner wired into the existing Vite config, not a DOM renderer.
       run: 1m15s · 36 in · 4.2k out · sonnet-5 · sess:29e4ba2b-6bb4-4481-87a9-0a1757512aa7
-- [ ] Show a `RowSkeleton` above a `Row` of the same surface in the showcase
+- [x] Show a `RowSkeleton` above a `Row` of the same surface in the showcase
+      run: 1m45s · 56 in · 7.9k out · sonnet-5 · sess:29e4ba2b-6bb4-4481-87a9-0a1757512aa7
