@@ -2,8 +2,9 @@
 id: IDEA-10
 title: Skeleton surface, Text module clash
 type: fix
-status: review
+status: done
 created: 2026-09-27
+updated: 2026-09-28
 tags:
   - row
   - skeleton
