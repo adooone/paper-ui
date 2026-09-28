@@ -2,9 +2,9 @@
 id: IDEA-8
 title: Text never applied its props
 type: fix
-status: review
+status: done
 created: 2026-09-24
-updated: 2026-09-25
+updated: 2026-09-28
 tags:
   - text
   - stamp
