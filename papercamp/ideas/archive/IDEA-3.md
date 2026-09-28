@@ -2,9 +2,9 @@
 id: IDEA-3
 title: Own what paper-camp overrides
 type: feat
-status: review
+status: done
 created: 2026-09-22
-updated: 2026-09-24
+updated: 2026-09-28
 tags:
   - tokens
   - stamp
