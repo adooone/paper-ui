@@ -1,5 +1,27 @@
 # Changelog
 
+## [0.22.6](https://github.com/adooone/paper-ui/compare/v0.22.5...v0.22.6) (2026-09-28)
+
+
+### Bug Fixes
+
+* **docs:** Shorten IDEA-10 title to fit the 40-char limit ([4416900](https://github.com/adooone/paper-ui/commit/4416900bbbb4c9ef70639fc570deefcaad2080af))
+* **plans:** Audit the remaining module names against Tailwind's group prefixes ([8e82651](https://github.com/adooone/paper-ui/commit/8e826511f1d6cf64c16a515f637f9e1f4ca4fd05))
+* **plans:** Cover `cn` with a class-survival test ([0b36a8f](https://github.com/adooone/paper-ui/commit/0b36a8fcc132befecf51a4088784032d84fab3df))
+* **plans:** Rename `text.module.scss` to `typography.module.scss` ([242ef89](https://github.com/adooone/paper-ui/commit/242ef8990010455da7eee29715c815dc8045e052))
+* **plans:** Render `RowSkeleton` through `Row`'s surface ([f9e610d](https://github.com/adooone/paper-ui/commit/f9e610ded996cf6b5456ea43db3ea03411af23b5))
+* **plans:** Show a `RowSkeleton` above a `Row` of the same surface in the showcase ([649f362](https://github.com/adooone/paper-ui/commit/649f362f7a2b6a6a9478f0e8774282631f777b50))
+
+
+### Documentation
+
+* **ideas:** Text survives the class joiner, skeleton keeps its card — plan ([35f998e](https://github.com/adooone/paper-ui/commit/35f998e4fa4b4840eb346493d772160c23212575))
+* **papercamp:** Archive IDEA-10 as done ([c7a5e0f](https://github.com/adooone/paper-ui/commit/c7a5e0fb8ab8cc7c5e6401b38268b57b2cd83db1))
+* **papercamp:** Archive IDEA-3 as done ([90530ad](https://github.com/adooone/paper-ui/commit/90530adac73e1642f92f1554ff8e2ad5b0b03ddf))
+* **papercamp:** Archive IDEA-4 as done ([087a23e](https://github.com/adooone/paper-ui/commit/087a23eca6bc110ec1742be8e5ab724fb4916fb6))
+* **papercamp:** Archive IDEA-5 as done ([694ec33](https://github.com/adooone/paper-ui/commit/694ec3351e2b059a1e783a8dcc47a83a2c94ae7f))
+* **papercamp:** Archive IDEA-8 as done ([d52932e](https://github.com/adooone/paper-ui/commit/d52932e9572c2faa624a440f6a09fbbe89ca45c3))
+
 ## [0.22.5](https://github.com/adooone/paper-ui/compare/v0.22.4...v0.22.5) (2026-09-25)
 
 
