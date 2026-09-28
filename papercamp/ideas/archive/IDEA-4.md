@@ -2,9 +2,9 @@
 id: IDEA-4
 title: Text, links, clickable stamps, icons
 type: feat
-status: review
+status: done
 created: 2026-09-22
-updated: 2026-09-24
+updated: 2026-09-28
 tags:
   - typography
   - button
