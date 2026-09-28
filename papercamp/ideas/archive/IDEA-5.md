@@ -2,9 +2,9 @@
 id: IDEA-5
 title: Rows, sidebars and settings
 type: feat
-status: review
+status: done
 created: 2026-09-22
-updated: 2026-09-24
+updated: 2026-09-28
 tags:
   - row
   - list-item
