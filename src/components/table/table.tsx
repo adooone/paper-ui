@@ -133,6 +133,7 @@ export function Table<T = unknown>({
 
   const hasExpandColumn = !!(expandable && showExpandColumn);
   const totalColumns = hasExpandColumn ? columns.length + 1 : columns.length;
+  const hasAutoColumn = columns.some((col) => col.width === 'auto');
 
   return (
     <div
@@ -222,6 +223,7 @@ export function Table<T = unknown>({
                 surface === 'chalkboard' && styles.chalkboard,
                 density === 'compact' && styles.compact,
                 phoneLayout === 'stacked' && styles.phoneStacked,
+                hasAutoColumn && styles.autoLayout,
               )}
             >
               <colgroup>
@@ -230,7 +232,11 @@ export function Table<T = unknown>({
                   <col
                     key={col.key}
                     style={
-                      typeof col.width === 'number' ? { width: `${col.width * 32}px` } : undefined
+                      typeof col.width === 'number'
+                        ? { width: `${col.width * 32}px` }
+                        : col.width === 'auto'
+                          ? { width: '1%' }
+                          : undefined
                     }
                   />
                 ))}
