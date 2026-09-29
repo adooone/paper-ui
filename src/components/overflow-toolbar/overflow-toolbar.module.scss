@@ -1,0 +1,15 @@
+@use '../../styles/tokens' as *;
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.item {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}

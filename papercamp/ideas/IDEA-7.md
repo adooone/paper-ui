@@ -227,8 +227,9 @@ export const SidebarShell = ({
 - [x] Move `pickHidden` and its measuring hook over from paper-camp
       Bring the pure function, the hook and their tests in as library internals, named for widths and priorities rather than status bars.
       run: 2m9s · 22 in · 4.3k out · sonnet-5 · sess:0a54d779-5155-4c47-8ec2-e71255ae1e1c
-- [ ] Build `OverflowToolbar` on top of them
+- [x] Build `OverflowToolbar` on top of them
       Children with a `priority`, a trailing `Menu` of `MenuEntry`s for the folded items, and a re-measure on resize.
+      run: 2m34s · 62 in · 12.2k out · sonnet-5 · sess:acdcd1f0-a3b9-468b-a7fb-d37741c5cd26
 - [ ] Export both components and show them
       `src/index.ts` gains the components and their props; the showcase gets a section with prop rows for each.
 
