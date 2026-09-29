@@ -1,12 +1,12 @@
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
 import { useState } from 'react';
 import type { ReactNode } from 'react';
-import { useEscapeKey } from '../../hooks/use-escape-key';
 import { layoutConfig } from '../../layout';
 import { space } from '../../tokens';
-import { buttonSizeCompact, cn } from '../../utils/style-helpers';
+import { buttonSizeCompact } from '../../utils/style-helpers';
 import { type Texture, getTextureStyles } from '../../utils/textures';
 import { Button } from '../button';
+import { Drawer } from '../drawer';
 import { Page } from '../page';
 import styles from './layout.module.scss';
 
@@ -92,8 +92,6 @@ export function Layout({
   const [mobileOpen, setMobileOpen] = useState(false);
   const shouldReduceMotion = useReducedMotion();
 
-  useEscapeKey(mobileOpen, () => setMobileOpen(false));
-
   const bgStyles = getBackgroundStyles(background);
   const hasSidebar = showSidebar && navigationItems.length > 0;
   const headerBackgroundStyle: React.CSSProperties | undefined =
@@ -114,6 +112,37 @@ export function Layout({
             : {}),
         }
       : undefined;
+
+  const sidebarContent = hasSidebar && (
+    <div className={styles.sidebarInner}>
+      <div className={styles.logoArea}>
+        {logo || <span className={styles.logoText}>Paper UI</span>}
+      </div>
+
+      <nav className={styles.nav} aria-label="Main navigation">
+        {navigationItems.map((item) => {
+          const isActive = item.id === activeItemId;
+          return (
+            <Button
+              key={item.id}
+              variant="ghost"
+              size="small"
+              isActive={isActive}
+              onClick={() => {
+                onNavigate?.(item);
+                setMobileOpen(false);
+              }}
+              aria-current={isActive ? 'page' : undefined}
+              icon={item.icon}
+              style={buttonSizeCompact}
+            >
+              {item.label}
+            </Button>
+          );
+        })}
+      </nav>
+    </div>
+  );
 
   return (
     <div className={styles.layout} style={{ ...bgStyles, ...style }}>
@@ -151,47 +180,12 @@ export function Layout({
       )}
 
       <div className={styles.body}>
-        {mobileOpen && (
-          <button
-            type="button"
-            className={styles.mobileOverlay}
-            onClick={() => setMobileOpen(false)}
-            aria-label="Close navigation"
-            tabIndex={-1}
-          />
-        )}
+        {hasSidebar && <aside className={styles.sidebar}>{sidebarContent}</aside>}
 
         {hasSidebar && (
-          <aside className={cn(styles.sidebar, mobileOpen && styles.sidebarOpen)}>
-            <div className={styles.sidebarInner}>
-              <div className={styles.logoArea}>
-                {logo || <span className={styles.logoText}>Paper UI</span>}
-              </div>
-
-              <nav className={styles.nav} aria-label="Main navigation">
-                {navigationItems.map((item) => {
-                  const isActive = item.id === activeItemId;
-                  return (
-                    <Button
-                      key={item.id}
-                      variant="ghost"
-                      size="small"
-                      isActive={isActive}
-                      onClick={() => {
-                        onNavigate?.(item);
-                        setMobileOpen(false);
-                      }}
-                      aria-current={isActive ? 'page' : undefined}
-                      icon={item.icon}
-                      style={buttonSizeCompact}
-                    >
-                      {item.label}
-                    </Button>
-                  );
-                })}
-              </nav>
-            </div>
-          </aside>
+          <Drawer open={mobileOpen} onClose={() => setMobileOpen(false)} side="left" width={280}>
+            {sidebarContent}
+          </Drawer>
         )}
 
         <div className={styles.main}>

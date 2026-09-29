@@ -95,19 +95,6 @@
   overflow: hidden;
 }
 
-.mobileOverlay {
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  padding: 0;
-  border: none;
-  background: rgba(26, 25, 23, 0.4);
-  backdrop-filter: blur(4px);
-  cursor: default;
-  z-index: $z-overlay;
-}
-
 .sidebar {
   width: 240px;
   flex-shrink: 0;
@@ -119,25 +106,8 @@
   overflow-y: auto;
 
   @media (max-width: 767px) {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 280px;
-    height: 100vh;
-    padding: 32px;
-    background-color: $color-bg-base;
-    background-image: url($paper-texture-data-uri);
-    background-repeat: repeat;
-    background-size: 200px 200px;
-    box-shadow: $shadow-paper-lg;
-    transform: translateX(-100%);
-    transition: transform 300ms ease-out;
-    z-index: $z-fixed;
+    display: none;
   }
-}
-
-.sidebarOpen {
-  transform: translateX(0);
 }
 
 .sidebarInner {
