@@ -3439,51 +3439,110 @@ export const ComponentsPage: FC<{
                   }>
                 }
               />
+            </div>
 
-              <div
-                className="pt-2"
-                style={{ fontFamily: fontFamilyMono, fontSize: '0.7rem', opacity: 0.6 }}
-              >
-                width=&quot;auto&quot; actions column — hugs its content, message keeps the rest
+            <div className="w-full max-w-4xl grid grid-cols-1 sm:grid-cols-2 gap-5 pt-4">
+              <div className="space-y-2">
+                <div style={{ fontFamily: fontFamilyMono, fontSize: '0.7rem', opacity: 0.6 }}>
+                  width=&quot;auto&quot; actions column — hugs its content, message keeps the rest
+                </div>
+                <Table
+                  surface={chalkboardTheme ? 'chalkboard' : 'paper'}
+                  columns={[
+                    {
+                      key: 'message',
+                      header: 'Message',
+                      cell: (r) => r.message,
+                    },
+                    {
+                      key: 'actions',
+                      header: 'Actions',
+                      width: 'auto',
+                      align: 'end',
+                      cell: (r, _i, v) => (
+                        <>
+                          <IconButton
+                            icon={<FilterIcon />}
+                            label={`Retry ${r.message}`}
+                            variant="ghost"
+                            surface={v}
+                            size="small"
+                          />
+                          <IconButton
+                            icon={<DownloadIcon />}
+                            label={`Download ${r.message}`}
+                            variant="ghost"
+                            surface={v}
+                            size="small"
+                          />
+                          <IconButton
+                            icon={<CloseIcon />}
+                            label={`Dismiss ${r.message}`}
+                            variant="ghost"
+                            surface={v}
+                            size="small"
+                          />
+                        </>
+                      ),
+                    },
+                  ]}
+                  data={[
+                    { message: 'Finding: unclosed transaction leaves the row locked past commit' },
+                    { message: 'Passed' },
+                  ]}
+                />
               </div>
-              <Table
-                surface={chalkboardTheme ? 'chalkboard' : 'paper'}
-                columns={[
-                  {
-                    key: 'message',
-                    header: 'Message',
-                    cell: (r) => r.message,
-                  },
-                  {
-                    key: 'actions',
-                    header: 'Actions',
-                    width: 'auto',
-                    align: 'end',
-                    cell: (r, _i, v) => (
-                      <>
-                        <IconButton
-                          icon={<FilterIcon />}
-                          label={`Retry ${r.message}`}
-                          variant="ghost"
-                          surface={v}
-                          size="small"
-                        />
-                        <IconButton
-                          icon={<DownloadIcon />}
-                          label={`Download ${r.message}`}
-                          variant="ghost"
-                          surface={v}
-                          size="small"
-                        />
-                      </>
-                    ),
-                  },
-                ]}
-                data={[
-                  { message: 'Finding: unclosed transaction leaves the row locked past commit' },
-                  { message: 'Passed' },
-                ]}
-              />
+
+              <div className="space-y-2">
+                <div style={{ fontFamily: fontFamilyMono, fontSize: '0.7rem', opacity: 0.6 }}>
+                  same table, numbered actions column — fixed layout splits the row evenly
+                </div>
+                <Table
+                  surface={chalkboardTheme ? 'chalkboard' : 'paper'}
+                  columns={[
+                    {
+                      key: 'message',
+                      header: 'Message',
+                      cell: (r) => r.message,
+                    },
+                    {
+                      key: 'actions',
+                      header: 'Actions',
+                      width: 6,
+                      align: 'end',
+                      cell: (r, _i, v) => (
+                        <>
+                          <IconButton
+                            icon={<FilterIcon />}
+                            label={`Retry ${r.message}`}
+                            variant="ghost"
+                            surface={v}
+                            size="small"
+                          />
+                          <IconButton
+                            icon={<DownloadIcon />}
+                            label={`Download ${r.message}`}
+                            variant="ghost"
+                            surface={v}
+                            size="small"
+                          />
+                          <IconButton
+                            icon={<CloseIcon />}
+                            label={`Dismiss ${r.message}`}
+                            variant="ghost"
+                            surface={v}
+                            size="small"
+                          />
+                        </>
+                      ),
+                    },
+                  ]}
+                  data={[
+                    { message: 'Finding: unclosed transaction leaves the row locked past commit' },
+                    { message: 'Passed' },
+                  ]}
+                />
+              </div>
             </div>
           </ComponentSection>
 

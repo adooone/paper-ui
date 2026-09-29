@@ -42,6 +42,7 @@ Column resizing. The stacked phone layout, which already ignores widths.
 - [x] Switch the table to auto layout when any column is `auto`
       `table.tsx` flags an `auto` column, adds a class that sets `table-layout: auto`, emits `width: 1%` for that `<col>`, and keeps the numbered `<col>`s' pixel widths as their floor.
       run: 1m18s · 34 in · 2.9k out · sonnet-5 · sess:3078cb5a-c6d9-453a-91d3-683cdf49ab2c
-- [ ] Show a fit-content column in the showcase
+- [x] Show a fit-content column in the showcase
       One prose-plus-ghost-buttons table with `auto` beside the same table without it, in the existing `table` section.
+      run: 1m37s · 40 in · 5.5k out · sonnet-5 · sess:3078cb5a-c6d9-453a-91d3-683cdf49ab2c
 - [ ] [manual] Confirm the buttons stay on one line and the prose takes the rest
