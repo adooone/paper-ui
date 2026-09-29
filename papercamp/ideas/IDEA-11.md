@@ -46,4 +46,4 @@ Column resizing. The stacked phone layout, which already ignores widths.
 - [x] Show a fit-content column in the showcase
       One prose-plus-ghost-buttons table with `auto` beside the same table without it, in the existing `table` section.
       run: 1m37s · 40 in · 5.5k out · sonnet-5 · sess:3078cb5a-c6d9-453a-91d3-683cdf49ab2c
-- [ ] [manual] Confirm the buttons stay on one line and the prose takes the rest
+- [x] [manual] Confirm the buttons stay on one line and the prose takes the rest
