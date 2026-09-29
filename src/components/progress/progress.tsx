@@ -11,6 +11,8 @@ export interface ProgressProps {
   color?: string;
   height?: number;
   surface?: 'paper' | 'chalkboard';
+  /** Hachured track instead of a solid fill, drawn by the same generator. */
+  sketch?: boolean;
   className?: string;
 }
 
@@ -27,6 +29,7 @@ export function Progress({
   color,
   height = 6,
   surface = 'paper',
+  sketch = false,
   className,
 }: ProgressProps) {
   const pct = max > 0 ? Math.max(0, Math.min(100, Math.round((value / max) * 100))) : 0;
@@ -43,14 +46,15 @@ export function Progress({
       roughGenerator.toPaths(
         roughGenerator.rectangle(MARGIN, MARGIN, VIEW_W - MARGIN * 2, height - MARGIN * 2, {
           seed,
-          roughness: 2.2,
+          roughness: sketch ? 1.2 : 2.2,
           fill: trackColor,
-          fillStyle: 'solid',
+          fillStyle: sketch ? 'hachure' : 'solid',
+          hachureGap: sketch ? 2.5 : undefined,
           stroke: trackColor,
-          strokeWidth: 1.5,
+          strokeWidth: sketch ? 1 : 1.5,
         }),
       ),
-    [seed, trackColor, height],
+    [seed, trackColor, height, sketch],
   );
 
   const fillWidth = Math.max((pct / 100) * (VIEW_W - MARGIN * 2), 0);
@@ -60,7 +64,7 @@ export function Progress({
         ? roughGenerator.toPaths(
             roughGenerator.rectangle(MARGIN, MARGIN, fillWidth, height - MARGIN * 2, {
               seed: seed + 1,
-              roughness: 2,
+              roughness: sketch ? 1.2 : 2,
               fill: fillColor,
               fillStyle: 'solid',
               stroke: fillColor,
@@ -68,7 +72,7 @@ export function Progress({
             }),
           )
         : [],
-    [seed, fillColor, fillWidth, height],
+    [seed, fillColor, fillWidth, height, sketch],
   );
 
   return (

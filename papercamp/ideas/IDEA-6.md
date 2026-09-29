@@ -511,8 +511,9 @@ const RailSegment = ({ pushed, isFirst, isLast, seed }: RailSegmentProps) => {
 - [x] Add `CommitRail`
       A stroke plus a dot per row, dashed amber until `pushed`, with `isFirst`/`isLast` trimming the stroke.
       run: 56s · 12 in · 4.5k out · sonnet-5 · sess:fc183f82-0b86-43a1-a9e9-10f9c57a73fe
-- [ ] Give `Progress` a `sketch` prop
+- [x] Give `Progress` a `sketch` prop
       Hachured track, solid fill, drawn by the generator rather than CSS.
+      run: 58s · 14 in · 4.8k out · sonnet-5 · sess:fc183f82-0b86-43a1-a9e9-10f9c57a73fe
 - [ ] Export the charts and show them
       Add the four components to `src/index.ts` and give each a showcase example with prop rows, including the new `Progress` prop.
 
