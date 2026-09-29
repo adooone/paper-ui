@@ -2,7 +2,7 @@
 id: IDEA-7
 title: Drawer and overflow toolbar
 type: feat
-status: idea
+status: review
 created: 2026-09-22
 tags:
   - layout
@@ -230,8 +230,9 @@ export const SidebarShell = ({
 - [x] Build `OverflowToolbar` on top of them
       Children with a `priority`, a trailing `Menu` of `MenuEntry`s for the folded items, and a re-measure on resize.
       run: 2m34s · 62 in · 12.2k out · sonnet-5 · sess:acdcd1f0-a3b9-468b-a7fb-d37741c5cd26
-- [ ] Export both components and show them
+- [x] Export both components and show them
       `src/index.ts` gains the components and their props; the showcase gets a section with prop rows for each.
+      run: 3m3s · 94 in · 14.9k out · sonnet-5 · sess:acdcd1f0-a3b9-468b-a7fb-d37741c5cd26
 
 ### Thread
 - [x] 2026-09-27 [log] [agent] Run order: Independent layout/menu work not blocked by the others, but smaller in scope than IDEA-6 and no idea depends on it, so it trails the primitive chain

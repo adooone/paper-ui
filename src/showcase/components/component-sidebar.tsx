@@ -71,6 +71,7 @@ const componentGroups: ComponentGroup[] = [
       { id: 'tabs', title: 'Tabs' },
       { id: 'breadcrumb', title: 'Breadcrumb' },
       { id: 'pagination', title: 'Pagination' },
+      { id: 'overflow-toolbar', title: 'OverflowToolbar' },
     ],
   },
   {
@@ -103,6 +104,7 @@ const componentGroups: ComponentGroup[] = [
     category: 'Overlay',
     items: [
       { id: 'modal', title: 'Modal' },
+      { id: 'drawer', title: 'Drawer' },
       { id: 'tooltip', title: 'Tooltip' },
       { id: 'menu', title: 'Menu' },
       { id: 'disclosure', title: 'Disclosure' },

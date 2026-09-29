@@ -9,6 +9,7 @@ import { Card } from '../../components/card';
 import { Checkbox } from '../../components/checkbox';
 import { Disclosure } from '../../components/disclosure';
 import { Divider } from '../../components/divider';
+import { Drawer } from '../../components/drawer';
 import { FactsGrid } from '../../components/facts-grid';
 import { IconButton } from '../../components/icon-button';
 import { Input } from '../../components/input';
@@ -19,6 +20,7 @@ import { ListItem } from '../../components/list-item';
 import { Menu } from '../../components/menu';
 import { MetaLine } from '../../components/meta-line';
 import { Modal } from '../../components/modal';
+import { OverflowToolbar } from '../../components/overflow-toolbar';
 import { Page } from '../../components/page';
 import { PageTitle } from '../../components/page-title';
 import { Progress } from '../../components/progress';
@@ -2111,6 +2113,75 @@ const [open, setOpen] = useState(false);
       },
     ],
   },
+  {
+    id: 'drawer',
+    title: 'Drawer',
+    codeExample: `import { Drawer } from '@dendelion/paper-ui';
+
+<Drawer open={isOpen} onClose={() => setIsOpen(false)} side="left" width={280}>
+  <p>Panel content</p>
+</Drawer>`,
+    props: [
+      {
+        name: 'open',
+        type: 'boolean',
+        required: true,
+        description: 'Drawer visibility',
+      },
+      {
+        name: 'onClose',
+        type: '() => void',
+        required: true,
+        description: 'Called on Escape, a scrim click, or backdrop click',
+      },
+      {
+        name: 'children',
+        type: 'ReactNode',
+        required: true,
+        description: 'Drawer panel content',
+      },
+      {
+        name: 'side',
+        type: "'left' | 'right'",
+        default: "'left'",
+        description: 'Edge the panel slides in from',
+      },
+      {
+        name: 'width',
+        type: 'number | string',
+        default: '320',
+        description: 'Panel width',
+      },
+    ],
+  },
+  {
+    id: 'overflow-toolbar',
+    title: 'OverflowToolbar',
+    codeExample: `import { OverflowToolbar } from '@dendelion/paper-ui';
+
+<OverflowToolbar
+  items={[
+    { id: 'refresh', priority: 3, label: 'Refresh', content: <IconButton icon={<RefreshIcon />} label="Refresh" /> },
+    { id: 'push', priority: 2, label: 'Push', content: <IconButton icon={<PushIcon />} label="Push" /> },
+    { id: 'pull', priority: 1, label: 'Pull', content: <IconButton icon={<PullIcon />} label="Pull" /> },
+  ]}
+/>`,
+    props: [
+      {
+        name: 'items',
+        type: 'OverflowToolbarItem[]',
+        required: true,
+        description:
+          'MenuItem ({ id, label, icon?, onSelect?, disabled?, danger? }) plus { priority, content }. content renders while visible; the item itself becomes a MenuEntry once folded.',
+      },
+      {
+        name: 'surface',
+        type: "'paper' | 'chalkboard'",
+        default: "'paper'",
+        description: 'Surface style of the trailing menu',
+      },
+    ],
+  },
 ];
 
 const detailMap = new Map(sectionDetails.map((d) => [d.id, d]));
@@ -2134,6 +2205,7 @@ export const ComponentsPage: FC<{
   const [listItemActive, setListItemActive] = useState('plans');
   const [activeTab, setActiveTab] = useState('design');
   const [modalOpen, setModalOpen] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
   const [tableSearch, setTableSearch] = useState('');
   const [chalkboardTheme, setChalkboardTheme] = useState(false);
   const [radioValue, setRadioValue] = useState('paper');
@@ -3672,6 +3744,99 @@ export const ComponentsPage: FC<{
           </ComponentSection>
 
           <ComponentSection
+            id="overflow-toolbar"
+            title="OverflowToolbar"
+            description="Measures its width and folds the lowest-priority items into a trailing Menu until the rest fit, re-measuring on resize."
+            category="navigation"
+            chalkboard={chalkboardTheme}
+            onViewDetails={() => handleViewDetails('overflow-toolbar')}
+          >
+            <div className="flex flex-col items-center gap-3">
+              <p
+                style={{
+                  fontFamily: fontFamilySerif,
+                  color: colorInkSecondary,
+                  fontSize: '0.9rem',
+                }}
+              >
+                Narrowed to force a fold — Undo and Merge land in the menu first.
+              </p>
+              <div style={{ width: 180 }}>
+                <OverflowToolbar
+                  surface={chalkboardTheme ? 'chalkboard' : 'paper'}
+                  items={[
+                    {
+                      id: 'refresh',
+                      priority: 4,
+                      label: 'Refresh',
+                      content: (
+                        <IconButton
+                          icon={<RefreshIcon />}
+                          label="Refresh"
+                          size="small"
+                          surface={chalkboardTheme ? 'chalkboard' : 'paper'}
+                        />
+                      ),
+                    },
+                    {
+                      id: 'push',
+                      priority: 3,
+                      label: 'Push',
+                      content: (
+                        <IconButton
+                          icon={<PushIcon />}
+                          label="Push"
+                          size="small"
+                          surface={chalkboardTheme ? 'chalkboard' : 'paper'}
+                        />
+                      ),
+                    },
+                    {
+                      id: 'pull',
+                      priority: 2,
+                      label: 'Pull',
+                      content: (
+                        <IconButton
+                          icon={<PullIcon />}
+                          label="Pull"
+                          size="small"
+                          surface={chalkboardTheme ? 'chalkboard' : 'paper'}
+                        />
+                      ),
+                    },
+                    {
+                      id: 'merge',
+                      priority: 1,
+                      label: 'Merge',
+                      content: (
+                        <IconButton
+                          icon={<MergeIcon />}
+                          label="Merge"
+                          size="small"
+                          surface={chalkboardTheme ? 'chalkboard' : 'paper'}
+                        />
+                      ),
+                    },
+                    {
+                      id: 'undo',
+                      priority: 0,
+                      label: 'Undo',
+                      content: (
+                        <IconButton
+                          icon={<UndoIcon />}
+                          label="Undo"
+                          size="small"
+                          surface={chalkboardTheme ? 'chalkboard' : 'paper'}
+                        />
+                      ),
+                    },
+                  ]}
+                />
+              </div>
+            </div>
+          </ComponentSection>
+
+          <ComponentSection
             id="alert"
             title="Alert"
             description="Compact single-line message with an icon and a tinted accent border. Supports info, success, warning, and error tones — for a fuller notification with a title and description, use Toast."
@@ -3887,6 +4052,47 @@ export const ComponentsPage: FC<{
                 </Button>
               </div>
             </Modal>
+          </ComponentSection>
+
+          <ComponentSection
+            id="drawer"
+            title="Drawer"
+            description="Slide-in panel with a blurred scrim, a focus trap, and Escape-to-close. Layout uses it for the sidebar under the phone breakpoint."
+            category="overlay"
+            chalkboard={chalkboardTheme}
+            onViewDetails={() => handleViewDetails('drawer')}
+          >
+            <div className="flex flex-wrap items-center gap-5">
+              <Button
+                variant="primary"
+                surface={chalkboardTheme ? 'chalkboard' : 'paper'}
+                onClick={() => setDrawerOpen(true)}
+              >
+                Open Drawer
+              </Button>
+            </div>
+            <Drawer open={drawerOpen} onClose={() => setDrawerOpen(false)} side="left" width={280}>
+              <p
+                style={{
+                  fontFamily: fontFamilySerif,
+                  color: colorInkSecondary,
+                  fontSize: '1.05rem',
+                  lineHeight: 1.6,
+                }}
+              >
+                The Drawer slides in with a blurred scrim behind it. Escape or a click on the scrim
+                closes it.
+              </p>
+              <div className="mt-6 flex justify-end">
+                <Button
+                  variant="ghost"
+                  surface={chalkboardTheme ? 'chalkboard' : 'paper'}
+                  onClick={() => setDrawerOpen(false)}
+                >
+                  Close
+                </Button>
+              </div>
+            </Drawer>
           </ComponentSection>
 
           <ComponentSection

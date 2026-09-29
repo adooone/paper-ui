@@ -180,6 +180,12 @@ export type { PaginationProps } from './components/pagination';
 export { Menu } from './components/menu';
 export type { MenuProps, MenuItem, MenuSeparator, MenuEntry } from './components/menu';
 
+export { Drawer } from './components/drawer';
+export type { DrawerProps } from './components/drawer';
+
+export { OverflowToolbar } from './components/overflow-toolbar';
+export type { OverflowToolbarProps, OverflowToolbarItem } from './components/overflow-toolbar';
+
 export {
   BellIcon,
   ChatIcon,
