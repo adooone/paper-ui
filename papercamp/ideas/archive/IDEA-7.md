@@ -2,8 +2,9 @@
 id: IDEA-7
 title: Drawer and overflow toolbar
 type: feat
-status: review
+status: done
 created: 2026-09-22
+updated: 2026-09-29
 tags:
   - layout
   - drawer
