@@ -508,8 +508,9 @@ const RailSegment = ({ pushed, isFirst, isLast, seed }: RailSegmentProps) => {
 - [x] Add `BarChart` and `StackedBar`
       Both draw filled bars into a fixed viewBox stretched to width, so they share the drawing helper; `BarChart` hachures the failed portion.
       run: 37s · 10 in · 3.4k out · sonnet-5 · sess:fc183f82-0b86-43a1-a9e9-10f9c57a73fe
-- [ ] Add `CommitRail`
+- [x] Add `CommitRail`
       A stroke plus a dot per row, dashed amber until `pushed`, with `isFirst`/`isLast` trimming the stroke.
+      run: 56s · 12 in · 4.5k out · sonnet-5 · sess:fc183f82-0b86-43a1-a9e9-10f9c57a73fe
 - [ ] Give `Progress` a `sketch` prop
       Hachured track, solid fill, drawn by the generator rather than CSS.
 - [ ] Export the charts and show them
