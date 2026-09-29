@@ -218,8 +218,9 @@ export const SidebarShell = ({
 ```
 
 ### Phases
-- [ ] Build `Drawer`
+- [x] Build `Drawer`
       New `src/components/drawer/`, with `open`, `onClose`, `side` and `width`, the blurred `--pui-ink-900` scrim, the focus trap, `use-escape-key`, the body scroll lock and the parchment panel — reusing what `Modal` already does rather than a second copy.
+      run: 2m40s · 62 in · 15.8k out · sonnet-5 · sess:0a54d779-5155-4c47-8ec2-e71255ae1e1c
 - [ ] Render `Layout`'s sidebar in the `Drawer` under the phone breakpoint
       So an app gets the drawer by rendering a sidebar, with no new prop to opt in.
 - [ ] Move `pickHidden` and its measuring hook over from paper-camp

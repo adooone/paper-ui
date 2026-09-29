@@ -1,0 +1,73 @@
+@use '../../styles/tokens' as *;
+@use '../../styles/mixins' as *;
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: $z-modal-backdrop;
+}
+
+.backdrop {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  border: none;
+  cursor: default;
+  background-color: rgba($color-text-primary, 0.4);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  animation: fadeIn 200ms ease-out;
+}
+
+.panel {
+  position: fixed;
+  inset-block: 0;
+  display: flex;
+  flex-direction: column;
+  padding: $space-6;
+  background-color: $color-bg-elevated;
+  background-image: url($parchment-texture-data-uri);
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  box-shadow: $shadow-paper-lg;
+  overflow-y: auto;
+  z-index: $z-modal;
+}
+
+.left {
+  inset-inline-start: 0;
+  border-right: 1px solid $color-border-default;
+  animation: slideInLeft 250ms ease-out;
+}
+
+.right {
+  inset-inline-end: 0;
+  border-left: 1px solid $color-border-default;
+  animation: slideInRight 250ms ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInLeft {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .backdrop,
+  .left,
+  .right {
+    animation: none;
+  }
+}
