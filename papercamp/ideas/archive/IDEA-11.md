@@ -3,7 +3,7 @@ id: IDEA-11
 title: An auto column fits its content
 type: fix
 kind: fix
-status: review
+status: done
 idea: IDEA-9
 created: 2026-09-29
 updated: 2026-09-29
