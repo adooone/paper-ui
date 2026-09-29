@@ -2,11 +2,14 @@ import { useCallback, useEffect, useState } from 'react';
 import type { FC } from 'react';
 import { Accordion } from '../../components/accordion';
 import { Alert } from '../../components/alert';
+import { ArcGauge } from '../../components/arc-gauge';
 import { Avatar } from '../../components/avatar';
+import { BarChart } from '../../components/bar-chart';
 import { Breadcrumb } from '../../components/breadcrumb';
 import { Button } from '../../components/button';
 import { Card } from '../../components/card';
 import { Checkbox } from '../../components/checkbox';
+import { CommitRail } from '../../components/commit-rail';
 import { Disclosure } from '../../components/disclosure';
 import { Divider } from '../../components/divider';
 import { Drawer } from '../../components/drawer';
@@ -37,6 +40,7 @@ import { SidebarItem } from '../../components/sidebar-item';
 import { SidebarLabel } from '../../components/sidebar-label';
 import { Skeleton } from '../../components/skeleton';
 import { Spinner } from '../../components/spinner';
+import { StackedBar } from '../../components/stacked-bar';
 import { Stamp } from '../../components/stamp';
 import { Switch } from '../../components/switch';
 import { Table } from '../../components/table';
@@ -1512,7 +1516,8 @@ function SaveButton() {
     codeExample: `import { Progress } from '@dendelion/paper-ui';
 
 <Progress value={65} />
-<Progress value={42} color="#D4A373" height={8} />`,
+<Progress value={42} color="#D4A373" height={8} />
+<Progress value={80} sketch />`,
     props: [
       {
         name: 'value',
@@ -1542,6 +1547,12 @@ function SaveButton() {
         type: "'paper' | 'chalkboard'",
         default: "'paper'",
         description: 'Surface style',
+      },
+      {
+        name: 'sketch',
+        type: 'boolean',
+        default: 'false',
+        description: 'Hachured track instead of a solid fill',
       },
     ],
   },
@@ -1736,6 +1747,157 @@ function SaveButton() {
         type: "'paper' | 'chalkboard'",
         default: "'paper'",
         description: 'Surface style',
+      },
+    ],
+  },
+  {
+    id: 'arc-gauge',
+    title: 'ArcGauge',
+    codeExample: `import { ArcGauge } from '@dendelion/paper-ui';
+
+<ArcGauge value={72} max={100} label="Capacity" />
+<ArcGauge value={18} max={100} label="Errors" fillColor="#C98B8B" floor={0.2} />`,
+    props: [
+      {
+        name: 'value',
+        type: 'number',
+        required: true,
+        description: 'Current value',
+      },
+      {
+        name: 'max',
+        type: 'number',
+        required: true,
+        description: 'Maximum value',
+      },
+      {
+        name: 'label',
+        type: 'string',
+        required: true,
+        description: 'Caption drawn under the gauge',
+      },
+      {
+        name: 'floor',
+        type: 'number',
+        description:
+          'Fraction (0-1) of max to mark with a tick, e.g. a floor that must not be crossed',
+      },
+      {
+        name: 'fillColor',
+        type: 'string',
+        description: 'Value arc color (defaults to secondary text color)',
+      },
+      {
+        name: 'size',
+        type: 'number',
+        default: '96',
+        description: 'Gauge diameter in pixels',
+      },
+    ],
+  },
+  {
+    id: 'bar-chart',
+    title: 'BarChart',
+    codeExample: `import { BarChart } from '@dendelion/paper-ui';
+
+<BarChart
+  bars={[
+    { label: 'Mon', value: 12, hatchedValue: 2 },
+    { label: 'Tue', value: 18 },
+    { label: 'Wed', value: 9, hatchedValue: 4 },
+  ]}
+/>`,
+    props: [
+      {
+        name: 'bars',
+        type: '{ label, value, hatchedValue? }[]',
+        required: true,
+        description:
+          'Bars to draw; hatchedValue draws a hachured portion of value, e.g. failed runs within a total',
+      },
+      {
+        name: 'maxValue',
+        type: 'number',
+        description: 'Value the tallest bar maps to (defaults to the largest bar value)',
+      },
+      {
+        name: 'color',
+        type: 'string',
+        description: 'Solid fill color (defaults to secondary text color)',
+      },
+      {
+        name: 'hatchedColor',
+        type: 'string',
+        description: 'Hachured fill color (defaults to accent rose)',
+      },
+      {
+        name: 'height',
+        type: 'number',
+        default: '64',
+        description: 'Chart height in pixels',
+      },
+    ],
+  },
+  {
+    id: 'stacked-bar',
+    title: 'StackedBar',
+    codeExample: `import { StackedBar } from '@dendelion/paper-ui';
+
+<StackedBar
+  segments={[
+    { label: 'Passing', value: 42, color: '#8FB996' },
+    { label: 'Failing', value: 6, color: '#C98B8B' },
+    { label: 'Skipped', value: 3, color: '#A8A399' },
+  ]}
+/>`,
+    props: [
+      {
+        name: 'segments',
+        type: '{ label, value, color }[]',
+        required: true,
+        description: 'Segments drawn left to right, proportional to their value',
+      },
+      {
+        name: 'width',
+        type: 'number',
+        default: '240',
+        description: 'Bar width in pixels',
+      },
+      {
+        name: 'height',
+        type: 'number',
+        default: '20',
+        description: 'Bar height in pixels',
+      },
+    ],
+  },
+  {
+    id: 'commit-rail',
+    title: 'CommitRail',
+    codeExample: `import { CommitRail } from '@dendelion/paper-ui';
+
+<div className="flex h-12">
+  <CommitRail pushed isFirst={false} isLast={false} />
+</div>`,
+    props: [
+      {
+        name: 'pushed',
+        type: 'boolean',
+        required: true,
+        description:
+          'Solid stroke and a filled dot once pushed; dashed amber with a hollow dot until then',
+      },
+      {
+        name: 'isFirst',
+        type: 'boolean',
+        required: true,
+        description: 'Trims the stroke above the dot for the first row',
+      },
+      {
+        name: 'isLast',
+        type: 'boolean',
+        required: true,
+        description: 'Trims the stroke below the dot for the last row',
       },
     ],
   },
@@ -3951,6 +4113,24 @@ export const ComponentsPage: FC<{
                   surface={chalkboardTheme ? 'chalkboard' : 'paper'}
                 />
               </div>
+              <div className="space-y-2">
+                <div
+                  className="flex justify-between text-sm"
+                  style={{
+                    fontFamily: "'Luminari', serif",
+                    color: chalkboardTheme ? '#a8c4a0' : colorInkSecondary,
+                  }}
+                >
+                  <span>Sketch</span>
+                  <span>55%</span>
+                </div>
+                <Progress
+                  value={55}
+                  height={8}
+                  sketch
+                  surface={chalkboardTheme ? 'chalkboard' : 'paper'}
+                />
+              </div>
             </div>
           </ComponentSection>
 
@@ -3997,6 +4177,93 @@ export const ComponentsPage: FC<{
                   surface={chalkboardTheme ? 'chalkboard' : 'paper'}
                 />
               </div>
+            </div>
+          </ComponentSection>
+
+          <ComponentSection
+            id="arc-gauge"
+            title="ArcGauge"
+            description="A 280° rough track with the value arc drawn over it."
+            category="charts"
+            chalkboard={chalkboardTheme}
+            onViewDetails={() => handleViewDetails('arc-gauge')}
+          >
+            <div className="flex items-center gap-8">
+              <ArcGauge value={72} max={100} label="Capacity" />
+              <ArcGauge value={18} max={100} label="Errors" fillColor="#C98B8B" floor={0.2} />
+              <ArcGauge value={94} max={100} label="Uptime" fillColor="#8FB996" />
+            </div>
+          </ComponentSection>
+
+          <ComponentSection
+            id="bar-chart"
+            title="BarChart"
+            description="Solid bars with a hachured portion for a failed or excluded part of the value."
+            category="charts"
+            chalkboard={chalkboardTheme}
+            onViewDetails={() => handleViewDetails('bar-chart')}
+          >
+            <div className="w-full max-w-sm">
+              <BarChart
+                bars={[
+                  { label: 'Mon', value: 12, hatchedValue: 2 },
+                  { label: 'Tue', value: 18 },
+                  { label: 'Wed', value: 9, hatchedValue: 4 },
+                  { label: 'Thu', value: 15 },
+                  { label: 'Fri', value: 6, hatchedValue: 1 },
+                ]}
+              />
+            </div>
+          </ComponentSection>
+
+          <ComponentSection
+            id="stacked-bar"
+            title="StackedBar"
+            description="A single bar split into colored segments proportional to their value."
+            category="charts"
+            chalkboard={chalkboardTheme}
+            onViewDetails={() => handleViewDetails('stacked-bar')}
+          >
+            <StackedBar
+              segments={[
+                { label: 'Passing', value: 42, color: '#8FB996' },
+                { label: 'Failing', value: 6, color: '#C98B8B' },
+                { label: 'Skipped', value: 3, color: '#A8A399' },
+              ]}
+            />
+          </ComponentSection>
+
+          <ComponentSection
+            id="commit-rail"
+            title="CommitRail"
+            description="A stroke plus a dot per row, dashed amber until pushed."
+            category="charts"
+            chalkboard={chalkboardTheme}
+            onViewDetails={() => handleViewDetails('commit-rail')}
+          >
+            <div className="w-full max-w-xs">
+              {[
+                { label: 'Add ArcGauge', pushed: true },
+                { label: 'Add BarChart and StackedBar', pushed: true },
+                { label: 'Add CommitRail', pushed: false },
+              ].map((commit, i, commits) => (
+                <div key={commit.label} className="flex items-stretch gap-3 h-12">
+                  <CommitRail
+                    pushed={commit.pushed}
+                    isFirst={i === 0}
+                    isLast={i === commits.length - 1}
+                  />
+                  <span
+                    className="self-center text-sm"
+                    style={{
+                      fontFamily: "'Luminari', serif",
+                      color: chalkboardTheme ? '#a8c4a0' : colorInkSecondary,
+                    }}
+                  >
+                    {commit.label}
+                  </span>
+                </div>
+              ))}
             </div>
           </ComponentSection>
 

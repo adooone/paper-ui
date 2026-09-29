@@ -25,7 +25,8 @@ interface ComponentSectionProps {
     | 'feedback'
     | 'overlay'
     | 'sidebar'
-    | 'settings';
+    | 'settings'
+    | 'charts';
   children: ReactNode;
   chalkboard?: boolean;
   codeExample?: string;
@@ -43,6 +44,7 @@ const categoryLabels: Record<string, string> = {
   overlay: 'Overlay',
   sidebar: 'Sidebar',
   settings: 'Settings',
+  charts: 'Charts',
 };
 
 const chalkboardCardStyle: React.CSSProperties = {

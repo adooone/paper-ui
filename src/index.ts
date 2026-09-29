@@ -154,6 +154,18 @@ export type { SpinnerProps } from './components/spinner';
 export { Skeleton } from './components/skeleton';
 export type { SkeletonProps } from './components/skeleton';
 
+export { ArcGauge } from './components/arc-gauge';
+export type { ArcGaugeProps } from './components/arc-gauge';
+
+export { BarChart } from './components/bar-chart';
+export type { BarChartBar, BarChartProps } from './components/bar-chart';
+
+export { StackedBar } from './components/stacked-bar';
+export type { StackedBarProps, StackedBarSegment } from './components/stacked-bar';
+
+export { CommitRail } from './components/commit-rail';
+export type { CommitRailProps } from './components/commit-rail';
+
 export { Divider } from './components/divider';
 export type { DividerProps } from './components/divider';
 

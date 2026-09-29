@@ -2,7 +2,7 @@
 id: IDEA-6
 title: Sketch charts
 type: feat
-status: idea
+status: review
 created: 2026-09-22
 tags:
   - charts
@@ -514,8 +514,9 @@ const RailSegment = ({ pushed, isFirst, isLast, seed }: RailSegmentProps) => {
 - [x] Give `Progress` a `sketch` prop
       Hachured track, solid fill, drawn by the generator rather than CSS.
       run: 58s · 14 in · 4.8k out · sonnet-5 · sess:fc183f82-0b86-43a1-a9e9-10f9c57a73fe
-- [ ] Export the charts and show them
+- [x] Export the charts and show them
       Add the four components to `src/index.ts` and give each a showcase example with prop rows, including the new `Progress` prop.
+      run: 2m47s · 74 in · 15.4k out · sonnet-5 · sess:fc183f82-0b86-43a1-a9e9-10f9c57a73fe
 
 ### Thread
 - [x] 2026-09-27 [log] [agent] Run order: Depends on color tokens from IDEA-3 for every chart's colours and is the largest, most self-contained idea with no other idea building on it

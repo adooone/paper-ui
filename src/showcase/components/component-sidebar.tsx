@@ -101,6 +101,15 @@ const componentGroups: ComponentGroup[] = [
     ],
   },
   {
+    category: 'Charts',
+    items: [
+      { id: 'arc-gauge', title: 'ArcGauge' },
+      { id: 'bar-chart', title: 'BarChart' },
+      { id: 'stacked-bar', title: 'StackedBar' },
+      { id: 'commit-rail', title: 'CommitRail' },
+    ],
+  },
+  {
     category: 'Overlay',
     items: [
       { id: 'modal', title: 'Modal' },

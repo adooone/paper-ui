@@ -6,4 +6,5 @@ export const categoryColors: Record<string, { bg: string; text: string }> = {
   navigation: { bg: 'rgba(176, 190, 200, 0.2)', text: '#5E7080' },
   feedback: { bg: 'rgba(222, 181, 181, 0.2)', text: '#9E5E5E' },
   overlay: { bg: 'rgba(168, 155, 168, 0.2)', text: '#6E5E6E' },
+  charts: { bg: 'rgba(212, 163, 115, 0.2)', text: '#A67B4F' },
 };
