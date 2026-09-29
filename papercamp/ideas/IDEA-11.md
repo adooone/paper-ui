@@ -3,9 +3,10 @@ id: IDEA-11
 title: An auto column fits its content
 type: fix
 kind: fix
-status: idea
+status: review
 idea: IDEA-9
 created: 2026-09-29
+updated: 2026-09-29
 tags:
   - table
 subject: Components
