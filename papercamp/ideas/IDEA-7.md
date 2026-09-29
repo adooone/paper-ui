@@ -224,8 +224,9 @@ export const SidebarShell = ({
 - [x] Render `Layout`'s sidebar in the `Drawer` under the phone breakpoint
       So an app gets the drawer by rendering a sidebar, with no new prop to opt in.
       run: 1m55s · 40 in · 10.2k out · sonnet-5 · sess:0a54d779-5155-4c47-8ec2-e71255ae1e1c
-- [ ] Move `pickHidden` and its measuring hook over from paper-camp
+- [x] Move `pickHidden` and its measuring hook over from paper-camp
       Bring the pure function, the hook and their tests in as library internals, named for widths and priorities rather than status bars.
+      run: 2m9s · 22 in · 4.3k out · sonnet-5 · sess:0a54d779-5155-4c47-8ec2-e71255ae1e1c
 - [ ] Build `OverflowToolbar` on top of them
       Children with a `priority`, a trailing `Menu` of `MenuEntry`s for the folded items, and a re-measure on resize.
 - [ ] Export both components and show them
