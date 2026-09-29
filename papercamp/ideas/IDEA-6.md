@@ -502,8 +502,9 @@ const RailSegment = ({ pushed, isFirst, isLast, seed }: RailSegmentProps) => {
 ```
 
 ### Phases
-- [ ] Add `ArcGauge`
+- [x] Add `ArcGauge`
       A 280° rough track with the value arc over it, seeded by `useStableSeed`.
+      run: 1m7s · 28 in · 5.3k out · sonnet-5 · sess:fc183f82-0b86-43a1-a9e9-10f9c57a73fe
 - [ ] Add `BarChart` and `StackedBar`
       Both draw filled bars into a fixed viewBox stretched to width, so they share the drawing helper; `BarChart` hachures the failed portion.
 - [ ] Add `CommitRail`
