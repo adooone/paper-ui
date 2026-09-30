@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.23.2](https://github.com/adooone/paper-ui/compare/v0.23.1...v0.23.2) (2026-09-30)
+
+
+### Bug Fixes
+
+* **ci:** Update npm before publish for trusted publishing OIDC ([8b3abf0](https://github.com/adooone/paper-ui/commit/8b3abf00b024950acf8651e64bd65e44d92d9ae5))
+
 ## [0.23.1](https://github.com/adooone/paper-ui/compare/v0.23.0...v0.23.1) (2026-09-30)
 
 
