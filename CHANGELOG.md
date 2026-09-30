@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.23.1](https://github.com/adooone/paper-ui/compare/v0.23.0...v0.23.1) (2026-09-30)
+
+
+### Bug Fixes
+
+* **components:** correct arc-gauge sweep and cover pagination range logic ([6c81ab7](https://github.com/adooone/paper-ui/commit/6c81ab777d0839c372535340502f3bcbf4476fd5))
+
+
+### Documentation
+
+* **papercamp:** Log night findings on pagination tests and arc-gauge comment ([a7222c1](https://github.com/adooone/paper-ui/commit/a7222c1417b5de879aafb514b36d8a693744693c))
+
 ## [0.23.0](https://github.com/adooone/paper-ui/compare/v0.22.6...v0.23.0) (2026-09-30)
 
 
