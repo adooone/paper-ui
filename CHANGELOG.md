@@ -1,5 +1,36 @@
 # Changelog
 
+## [0.23.0](https://github.com/adooone/paper-ui/compare/v0.22.6...v0.23.0) (2026-09-30)
+
+
+### Features
+
+* **plans:** Add `ArcGauge` ([e117b06](https://github.com/adooone/paper-ui/commit/e117b06297b6ff1595cc1e490c142ea2feb4a4ef))
+* **plans:** Add `BarChart` and `StackedBar` ([dca1532](https://github.com/adooone/paper-ui/commit/dca1532ce52371005d5a3fb09a433beb1e84f5bc))
+* **plans:** Add `CommitRail` ([8ee5dfc](https://github.com/adooone/paper-ui/commit/8ee5dfcccac6420840e16150988ac42abd6e1bfb))
+* **plans:** Build `Drawer` ([2e442ec](https://github.com/adooone/paper-ui/commit/2e442eca5c38115947fc00595e08603e112223da))
+* **plans:** Build `OverflowToolbar` on top of them ([c9fcac2](https://github.com/adooone/paper-ui/commit/c9fcac24b1e566e4cf04645ca0c92a3d54c38566))
+* **plans:** Export both components and show them ([9c9d248](https://github.com/adooone/paper-ui/commit/9c9d248f8800515750a0f60aead4282be3d6ef7c))
+* **plans:** Export the charts and show them ([59ce75c](https://github.com/adooone/paper-ui/commit/59ce75cf659e1f52d9566da7e2572378376c3c77))
+* **plans:** Give `Progress` a `sketch` prop ([86c3511](https://github.com/adooone/paper-ui/commit/86c351117150a042bdee6d4ce3774e202e3924cf))
+* **plans:** Move `pickHidden` and its measuring hook over from paper-camp ([7e89a30](https://github.com/adooone/paper-ui/commit/7e89a304b9d7b9bf9b44b43261bc80c30ffa7551))
+* **plans:** Render `Layout`'s sidebar in the `Drawer` under the phone breakpoint ([bc21902](https://github.com/adooone/paper-ui/commit/bc21902870d02516c9ad93ed0aa8997a8ec6147e))
+
+
+### Bug Fixes
+
+* **plans:** mark IDEA-11 review ([98e100b](https://github.com/adooone/paper-ui/commit/98e100b9ac37748af906040564d318ceedecf497))
+* **plans:** Show a fit-content column in the showcase ([d876c95](https://github.com/adooone/paper-ui/commit/d876c955e0d66f2d32d6f7d897e64f4ebcb42ea5))
+* **plans:** Switch the table to auto layout when any column is `auto` ([8449321](https://github.com/adooone/paper-ui/commit/8449321bdeaee4c746c215693e736e55b209374d))
+
+
+### Documentation
+
+* **ideas:** An auto column fits its content — plan ([0776f90](https://github.com/adooone/paper-ui/commit/0776f909ed7c3f745a10308e1db9348cf6a7023b))
+* **ideas:** Confirm IDEA-11 manual check for auto column showcase ([de51476](https://github.com/adooone/paper-ui/commit/de514765d7c6888db2d3e4db1dd89bf5ad061833))
+* **ideas:** Drawer and overflow toolbar — plan ([be1c139](https://github.com/adooone/paper-ui/commit/be1c1392fff9fe49d3c93c2b0335905ccb2e41cf))
+* **ideas:** Sketch charts — plan ([2ba3a6a](https://github.com/adooone/paper-ui/commit/2ba3a6a5279e56c5979182e2f6b91b859f4c31af))
+
 ## [0.22.6](https://github.com/adooone/paper-ui/compare/v0.22.5...v0.22.6) (2026-09-28)
 
 
