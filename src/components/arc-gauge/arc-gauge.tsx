@@ -16,8 +16,8 @@ export interface ArcGaugeProps {
 
 // A 280° gauge (the 80° gap sits at the bottom) reads clearly at small sizes
 // without the ends of the arc touching.
-const START_DEG = -220;
-const END_DEG = 40;
+const START_DEG = -230;
+const END_DEG = 50;
 const SWEEP = END_DEG - START_DEG;
 const STROKE_WIDTH = 6;
 
