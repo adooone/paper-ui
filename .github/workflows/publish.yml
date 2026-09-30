@@ -4,8 +4,11 @@ on:
   release:
     types: [published]
 
+# Trusted publishing: npm trusts this repository's publish.yml through OIDC, so the
+# job mints its own short-lived credential and no npm token can expire on us again.
 permissions:
   contents: read
+  id-token: write
 
 jobs:
   publish:
@@ -24,7 +27,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: pnpm
           registry-url: https://registry.npmjs.org
 
@@ -35,6 +38,4 @@ jobs:
         run: pnpm run build
 
       - name: Publish to npm
-        run: npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish --access public --provenance
