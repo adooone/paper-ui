@@ -29,13 +29,17 @@ jobs:
         with:
           node-version: 22
           cache: pnpm
-          registry-url: https://registry.npmjs.org
 
       - name: Install dependencies
         run: pnpm install
 
       - name: Build
         run: pnpm run build
+
+      # Trusted publishing needs npm 11.5+; Node 22 bundles npm 10. No registry-url on
+      # setup-node either: its placeholder auth token would be sent instead of the OIDC exchange.
+      - name: Update npm
+        run: npm install -g npm@latest
 
       - name: Publish to npm
         run: npm publish --access public --provenance
