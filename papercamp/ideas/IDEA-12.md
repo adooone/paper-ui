@@ -62,8 +62,9 @@ Setup stamp, the roadmap row padding and the page-title margins are its
 IDEA-288.
 
 ### Phases
-- [ ] Drop `line-height: inherit` from the stamp's `.pressable`
+- [x] Drop `line-height: inherit` from the stamp's `.pressable`
       Add the rendered-height assertion so a pressed and a static stamp of the same size measure the same.
+      run: 3m10s · 80 in · 12.3k out · sonnet-5 · sess:73cd61f7-c850-4aa1-9d41-de496e64a7c8
 - [ ] Remove `font-weight` from the button's `.link`
 - [ ] Make `Text` emit a weight class only when `weight` is passed
       Check the presets and in-repo callers that relied on the `normal` default and pass it where it is wanted.
