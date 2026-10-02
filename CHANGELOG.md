@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.23.3](https://github.com/adooone/paper-ui/compare/v0.23.2...v0.23.3) (2026-10-02)
+
+
+### Bug Fixes
+
+* **plans:** Drop `line-height: inherit` from the stamp's `.pressable` ([ea0411d](https://github.com/adooone/paper-ui/commit/ea0411d95e9cabc394e0afeef878c6eb524c2da5))
+* **plans:** Give `SettingRow`'s `.label` `min-height: 2rem` with centred content ([04f610a](https://github.com/adooone/paper-ui/commit/04f610a91226ffd5e03d06b36a89afd0b2d54f3a))
+* **plans:** Make `Text` emit a weight class only when `weight` is passed ([e777c0a](https://github.com/adooone/paper-ui/commit/e777c0a6e686624d0a4abee5f89e05f66182030c))
+* **plans:** Remove `font-weight` from the button's `.link` ([95043a6](https://github.com/adooone/paper-ui/commit/95043a6701f8876d8594b221e199bfd97c3669fb))
+* **plans:** Zero the `SettingGroup` header padding ([057dd47](https://github.com/adooone/paper-ui/commit/057dd477dfcec1b6d959698bca3919eec2cf6f6b))
+
+
+### Documentation
+
+* **ideas:** Five rules the parity pass still found — plan ([8105585](https://github.com/adooone/paper-ui/commit/8105585cb702fc91265eaf7cd60b52637ca78baf))
+
 ## [0.23.2](https://github.com/adooone/paper-ui/compare/v0.23.1...v0.23.2) (2026-09-30)
 
 
