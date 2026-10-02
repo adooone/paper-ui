@@ -2,7 +2,7 @@
 id: IDEA-12
 title: Five rules the parity pass still found
 type: fix
-status: idea
+status: review
 created: 2026-10-02
 tags:
   - stamp
@@ -72,4 +72,5 @@ IDEA-288.
       run: 1m19s · 40 in · 4.7k out · sonnet-5 · sess:73cd61f7-c850-4aa1-9d41-de496e64a7c8
 - [x] Zero the `SettingGroup` header padding
       run: 28s · 14 in · 846 out · sonnet-5 · sess:73cd61f7-c850-4aa1-9d41-de496e64a7c8
-- [ ] Give `SettingRow`'s `.label` `min-height: 2rem` with centred content
+- [x] Give `SettingRow`'s `.label` `min-height: 2rem` with centred content
+      run: 36s · 18 in · 1.5k out · sonnet-5 · sess:73cd61f7-c850-4aa1-9d41-de496e64a7c8

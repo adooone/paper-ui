@@ -15,8 +15,10 @@
 .label {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 2px;
   min-width: 0;
+  min-height: 2rem;
   font-family: var(--paper-font-default, $font-family-serif);
 }
 
