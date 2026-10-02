@@ -70,5 +70,6 @@ IDEA-288.
 - [x] Make `Text` emit a weight class only when `weight` is passed
       Check the presets and in-repo callers that relied on the `normal` default and pass it where it is wanted.
       run: 1m19s · 40 in · 4.7k out · sonnet-5 · sess:73cd61f7-c850-4aa1-9d41-de496e64a7c8
-- [ ] Zero the `SettingGroup` header padding
+- [x] Zero the `SettingGroup` header padding
+      run: 28s · 14 in · 846 out · sonnet-5 · sess:73cd61f7-c850-4aa1-9d41-de496e64a7c8
 - [ ] Give `SettingRow`'s `.label` `min-height: 2rem` with centred content
