@@ -67,7 +67,8 @@ IDEA-288.
       run: 3m10s · 80 in · 12.3k out · sonnet-5 · sess:73cd61f7-c850-4aa1-9d41-de496e64a7c8
 - [x] Remove `font-weight` from the button's `.link`
       run: 30s · 16 in · 1k out · sonnet-5 · sess:73cd61f7-c850-4aa1-9d41-de496e64a7c8
-- [ ] Make `Text` emit a weight class only when `weight` is passed
+- [x] Make `Text` emit a weight class only when `weight` is passed
       Check the presets and in-repo callers that relied on the `normal` default and pass it where it is wanted.
+      run: 1m19s · 40 in · 4.7k out · sonnet-5 · sess:73cd61f7-c850-4aa1-9d41-de496e64a7c8
 - [ ] Zero the `SettingGroup` header padding
 - [ ] Give `SettingRow`'s `.label` `min-height: 2rem` with centred content
